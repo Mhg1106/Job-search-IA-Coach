@@ -6,47 +6,234 @@
     <title>Job-search AI & Coach</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
 </head>
-<body class="bg-gray-100 font-sans p-6">
-    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6">
-        <h1 class="text-3xl font-bold text-center mb-6">Job-search AI & Coach</h1>
-        
-        <div class="text-center mb-8">
-            <p class="text-lg mb-4">Bienvenue sur votre plateforme d'accompagnement à la recherche d'emploi.</p>
-            <p class="text-gray-600">Utilisez les liens ci-dessous pour accéder aux différentes sections :</p>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <a href="prompts_library.html" class="bg-blue-500 text-white p-4 rounded-lg text-center hover:bg-blue-600 transition duration-200">
-                <i class="fas fa-comment-alt text-3xl mb-2"></i>
-                <h2 class="text-xl font-bold">Prompts IA</h2>
-                <p class="text-sm">Accédez à tous les prompts optimisés</p>
-            </a>
-            
-            <a href="coachees.html" class="bg-purple-500 text-white p-4 rounded-lg text-center hover:bg-purple-600 transition duration-200">
-                <i class="fas fa-users text-3xl mb-2"></i>
-                <h2 class="text-xl font-bold">Mes coachés</h2>
-                <p class="text-sm">Suivez la progression de vos coachés</p>
-            </a>
-            
-            <a href="resources.html" class="bg-red-500 text-white p-4 rounded-lg text-center hover:bg-red-600 transition duration-200">
-                <i class="fas fa-book text-3xl mb-2"></i>
-                <h2 class="text-xl font-bold">Ressources</h2>
-                <p class="text-sm">Accédez à votre bibliothèque de ressources</p>
-            </a>
-            
-            <div class="bg-green-500 text-white p-4 rounded-lg text-center">
-                <i class="fas fa-chart-line text-3xl mb-2"></i>
-                <h2 class="text-xl font-bold">Tableau de bord</h2>
-                <p class="text-sm">En cours de développement</p>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal mt-12">
+    <header>
+        <nav aria-label="menu nav" class="bg-gray-800 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0">
+            <div class="flex flex-wrap items-center">
+                <div class="flex flex-shrink md:w-1/3 justify-center md:justify-start text-white">
+                    <a href="index.html" aria-label="Home">
+                        <span class="text-xl pl-2 font-bold">Job-search AI & Coach</span>
+                    </a>
+                </div>
+                <div class="flex w-full pt-2 content-center justify-between md:w-1/3 md:justify-end">
+                    <ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
+                        <li class="flex-1 md:flex-none md:mr-3">
+                            <a class="inline-block py-2 px-4 text-white no-underline" href="index.html">Accueil</a>
+                        </li>
+                        <li class="flex-1 md:flex-none md:mr-3">
+                            <a class="inline-block text-gray-400 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="#">Aide</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="flex flex-col md:flex-row">
+        <nav aria-label="alternative nav">
+            <div class="bg-gray-800 shadow-xl h-20 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48 content-center">
+                <div class="md:mt-12 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between">
+                    <ul class="list-reset flex flex-row md:flex-col pt-3 md:py-3 px-1 md:px-2 text-center md:text-left">
+                        <li class="mr-3 flex-1">
+                            <a href="index.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-blue-600">
+                                <i class="fas fa-chart-area pr-0 md:pr-3 text-blue-600"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-white md:text-white block md:inline-block">Tableau de bord</span>
+                            </a>
+                        </li>
+                        <li class="mr-3 flex-1">
+                            <a href="prompts_library.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-green-500">
+                                <i class="fas fa-comment-alt pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Prompts IA</span>
+                            </a>
+                        </li>
+                        <li class="mr-3 flex-1">
+                            <a href="coachees.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-purple-500">
+                                <i class="fas fa-users pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Mes coachés</span>
+                            </a>
+                        </li>
+                        <li class="mr-3 flex-1">
+                            <a href="resources.html" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-red-500">
+                                <i class="fas fa-book pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Ressources</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div id="main" class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
+            <div class="bg-gray-800 pt-3">
+                <div class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white">
+                    <h1 class="font-bold pl-2">Tableau de bord</h1>
+                </div>
+            </div>
+
+            <!-- Statistiques principales -->
+            <div class="flex flex-wrap">
+                <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+                    <div class="bg-gradient-to-b from-green-200 to-green-100 border-b-4 border-green-600 rounded-lg shadow-xl p-5">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-shrink pr-4">
+                                <div class="rounded-full p-5 bg-green-600"><i class="fas fa-users fa-2x fa-inverse"></i></div>
+                            </div>
+                            <div class="flex-1 text-right md:text-center">
+                                <h2 class="font-bold uppercase text-gray-600">Coachés actifs</h2>
+                                <p class="font-bold text-3xl">5</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+                    <div class="bg-gradient-to-b from-pink-200 to-pink-100 border-b-4 border-pink-500 rounded-lg shadow-xl p-5">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-shrink pr-4">
+                                <div class="rounded-full p-5 bg-pink-600"><i class="fas fa-file-alt fa-2x fa-inverse"></i></div>
+                            </div>
+                            <div class="flex-1 text-right md:text-center">
+                                <h2 class="font-bold uppercase text-gray-600">CV optimisés</h2>
+                                <p class="font-bold text-3xl">8</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 xl:w-1/3 p-6">
+                    <div class="bg-gradient-to-b from-yellow-200 to-yellow-100 border-b-4 border-yellow-600 rounded-lg shadow-xl p-5">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-shrink pr-4">
+                                <div class="rounded-full p-5 bg-yellow-600"><i class="fas fa-tasks fa-2x fa-inverse"></i></div>
+                            </div>
+                            <div class="flex-1 text-right md:text-center">
+                                <h2 class="font-bold uppercase text-gray-600">Sessions ce mois</h2>
+                                <p class="font-bold text-3xl">12</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sessions à venir et activités récentes -->
+            <div class="flex flex-wrap">
+                <!-- Sessions à venir -->
+                <div class="w-full md:w-1/2 p-6">
+                    <div class="bg-white rounded-lg shadow-xl p-5">
+                        <h3 class="font-bold text-lg mb-4 flex items-center">
+                            <i class="fas fa-calendar-alt mr-2 text-blue-600"></i>
+                            Sessions à venir
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center bg-gray-50 p-3 rounded-lg">
+                                <div class="bg-blue-100 rounded-lg p-3 text-center mr-4">
+                                    <p class="text-sm text-blue-800">28 Mai</p>
+                                    <p class="text-lg font-bold text-blue-800">14:00</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Préparation Entretien</h4>
+                                    <p class="text-sm text-gray-600">Marie Dupont</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center bg-gray-50 p-3 rounded-lg">
+                                <div class="bg-blue-100 rounded-lg p-3 text-center mr-4">
+                                    <p class="text-sm text-blue-800">30 Mai</p>
+                                    <p class="text-lg font-bold text-blue-800">10:00</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Analyse CV</h4>
+                                    <p class="text-sm text-gray-600">Thomas Martin</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center bg-gray-50 p-3 rounded-lg">
+                                <div class="bg-blue-100 rounded-lg p-3 text-center mr-4">
+                                    <p class="text-sm text-blue-800">02 Juin</p>
+                                    <p class="text-lg font-bold text-blue-800">09:00</p>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Diagnostic Initial</h4>
+                                    <p class="text-sm text-gray-600">Sophie Laurent</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Activités récentes -->
+                <div class="w-full md:w-1/2 p-6">
+                    <div class="bg-white rounded-lg shadow-xl p-5">
+                        <h3 class="font-bold text-lg mb-4 flex items-center">
+                            <i class="fas fa-history mr-2 text-blue-600"></i>
+                            Activités récentes
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="flex">
+                                <div class="flex-shrink-0 mr-3">
+                                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                                        <i class="fas fa-file-alt text-blue-500"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="font-medium">Analyse CV - Marie Dupont</p>
+                                    <p class="text-sm text-gray-600">Aujourd'hui, 10:30</p>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <div class="flex-shrink-0 mr-3">
+                                    <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center">
+                                        <i class="fas fa-comments text-purple-500"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="font-medium">Session Diagnostic - Thomas Martin</p>
+                                    <p class="text-sm text-gray-600">Hier, 14:45</p>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <div class="flex-shrink-0 mr-3">
+                                    <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
+                                        <i class="fas fa-building text-green-500"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="font-medium">Recherche Entreprise - Sophie Laurent</p>
+                                    <p class="text-sm text-gray-600">23/05/2025, 11:15</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accès rapides -->
+            <div class="p-6">
+                <div class="bg-white rounded-lg shadow-xl p-5">
+                    <h3 class="font-bold text-lg mb-4 flex items-center">
+                        <i class="fas fa-bolt mr-2 text-yellow-500"></i>
+                        Accès rapides
+                    </h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <a href="prompts_library.html" class="bg-blue-100 p-4 rounded-lg text-center hover:bg-blue-200 transition duration-200">
+                            <i class="fas fa-comment-alt text-2xl text-blue-600 mb-2"></i>
+                            <h4 class="font-medium">Prompts IA</h4>
+                        </a>
+                        <a href="coachees.html" class="bg-purple-100 p-4 rounded-lg text-center hover:bg-purple-200 transition duration-200">
+                            <i class="fas fa-users text-2xl text-purple-600 mb-2"></i>
+                            <h4 class="font-medium">Mes coachés</h4>
+                        </a>
+                        <a href="resources.html" class="bg-red-100 p-4 rounded-lg text-center hover:bg-red-200 transition duration-200">
+                            <i class="fas fa-book text-2xl text-red-600 mb-2"></i>
+                            <h4 class="font-medium">Ressources</h4>
+                        </a>
+                        <a href="prompts/prompt5.html" class="bg-green-100 p-4 rounded-lg text-center hover:bg-green-200 transition duration-200">
+                            <i class="fas fa-file-alt text-2xl text-green-600 mb-2"></i>
+                            <h4 class="font-medium">CV Evaluator</h4>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
-        
-        <div class="text-center text-gray-500 text-sm">
-            <p>© 2025 Job-search AI & Coach</p>
-        </div>
     </div>
+
+    <script>
+        // Script pour afficher un graphique (à implémenter dans la phase suivante)
+    </script>
 </body>
 </html>
 
-"Ajout de la page d'accueil minimaliste"
