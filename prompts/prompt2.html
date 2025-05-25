@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prompt 2 : Analyse du Marché - Job-search AI & Coach</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <div class="flex flex-col md:flex-row">
+        <!-- Barre latérale -->
+        <div class="bg-gray-800 shadow-xl h-16 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48 md:block">
+            <div class="md:mt-12 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between">
+                <ul class="list-reset flex flex-row md:flex-col py-0 md:py-3 px-1 md:px-2 text-center md:text-left">
+                    <li class="mr-3 flex-1">
+                        <a href="../index.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-blue-500">
+                            <i class="fas fa-arrow-left pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-200 block md:inline-block">Retour</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Contenu principal -->
+        <div id="main" class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
+            <div class="bg-gray-800 pt-3">
+                <div class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white">
+                    <h1 class="font-bold pl-2">Prompt 2 : Analyse du Marché</h1>
+                </div>
+            </div>
+
+            <div class="p-6">
+                <!-- Carte du prompt -->
+                <div class="bg-white rounded-lg shadow-xl p-5">
+                    <h2 class="font-bold text-xl mb-4">Description</h2>
+                    <p class="mb-6">Ce prompt permet d'étudier le marché de l'emploi pour le poste et la zone géographique ciblés par le coaché, afin de l'aider à mieux comprendre l'environnement dans lequel il postule.</p>
+                    
+                    <h2 class="font-bold text-xl mb-4">Contenu du prompt</h2>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6 font-mono whitespace-pre-wrap" id="promptContent">
+Tu es un Analyste Expert du Marché de l'Emploi avec une connaissance approfondie des tendances actuelles et futures. Ta mission est de produire une analyse détaillée du marché pour le poste de [TYPE DE POSTE] dans la région [ZONE GÉOGRAPHIQUE].
+
+Utilise les connaissances les plus récentes (jusqu'à 2025) pour fournir une analyse structurée selon les 5 sections suivantes :
+
+1. APERÇU GÉNÉRAL DU MARCHÉ (20%)
+- Volume approximatif d'offres pour ce type de poste dans la région spécifiée
+- Évolution de la demande sur les 12-24 derniers mois (en hausse, stable, en baisse)
+- Prévisions pour les 12-24 prochains mois
+
+2. COMPÉTENCES CLÉS RECHERCHÉES (25%)
+- Top 5-7 des compétences techniques les plus demandées pour ce poste
+- Top 3-5 des compétences transversales (soft skills) valorisées
+- Certifications ou formations spécifiques constituant un avantage concurrentiel
+
+3. PROFIL DES RECRUTEURS (20%)
+- Types d'entreprises qui recrutent majoritairement (taille, secteurs)
+- Canaux de recrutement privilégiés pour ce type de poste
+- Processus de recrutement typiques (étapes, durée moyenne)
+
+4. RÉMUNÉRATION ET CONDITIONS (15%)
+- Fourchette de salaire moyenne pour ce poste dans cette région
+- Avantages couramment proposés
+- Types de contrats les plus fréquents
+
+5. CONSEILS STRATÉGIQUES (20%)
+- 3-5 recommandations concrètes pour se démarquer sur ce marché
+- Éléments différenciateurs à mettre en avant dans les candidatures
+- Suggestions de niches ou spécialisations porteuses dans ce domaine
+
+Ton analyse doit être à la fois factuelle, précise et actionnelle. Utilise des données chiffrées quand c'est possible et indique clairement lorsqu'il s'agit de tendances générales ou d'estimations. L'objectif est de fournir au candidat une vision claire des opportunités et des exigences du marché pour orienter efficacement sa recherche d'emploi.
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                        <button onclick="copyPrompt()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                            <i class="fas fa-copy mr-2"></i> Copier le prompt
+                        </button>
+                        <button onclick="editPrompt()" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                            <i class="fas fa-edit mr-2"></i> Modifier le prompt
+                        </button>
+                    </div>
+                    
+                    <h2 class="font-bold text-xl mt-8 mb-4">Instructions d'utilisation</h2>
+                    <ol class="list-decimal pl-6 space-y-2">
+                        <li>Copiez ce prompt dans ChatGPT ou un autre modèle IA</li>
+                        <li>Remplacez [TYPE DE POSTE] par le poste recherché par le coaché</li>
+                        <li>Remplacez [ZONE GÉOGRAPHIQUE] par la région ciblée</li>
+                        <li>Partagez et analysez les résultats avec votre coaché</li>
+                        <li>Utilisez ces informations pour affiner sa stratégie de recherche</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyPrompt() {
+            const promptText = document.getElementById('promptContent').innerText;
+            navigator.clipboard.writeText(promptText).then(() => {
+                alert('Le prompt a été copié dans le presse-papiers !');
+            });
+        }
+        
+        function editPrompt() {
+            const promptContent = document.getElementById('promptContent');
+            const currentText = promptContent.innerText;
+            const newText = prompt('Modifiez le prompt :', currentText);
+            
+            if (newText && newText !== currentText) {
+                promptContent.innerText = newText;
+                alert('Le prompt a été modifié avec succès !');
+            }
+        }
+    </script>
+</body>
+</html>
+"Ajout fichier prompt2.html"
