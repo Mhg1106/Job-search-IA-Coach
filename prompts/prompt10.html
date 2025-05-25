@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prompt 10 : Bilan du coaching - Job-search AI & Coach</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <div class="flex flex-col md:flex-row">
+        <!-- Barre latérale -->
+        <div class="bg-gray-800 shadow-xl h-16 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48 md:block">
+            <div class="md:mt-12 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between">
+                <ul class="list-reset flex flex-row md:flex-col py-0 md:py-3 px-1 md:px-2 text-center md:text-left">
+                    <li class="mr-3 flex-1">
+                        <a href="../index.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-blue-500">
+                            <i class="fas fa-arrow-left pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-200 block md:inline-block">Retour</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Contenu principal -->
+        <div id="main" class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
+            <div class="bg-gray-800 pt-3">
+                <div class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white">
+                    <h1 class="font-bold pl-2">Prompt 10 : Bilan du coaching</h1>
+                </div>
+            </div>
+
+            <div class="p-6">
+                <!-- Carte du prompt -->
+                <div class="bg-white rounded-lg shadow-xl p-5">
+                    <h2 class="font-bold text-xl mb-4">Description</h2>
+                    <p class="mb-6">Ce prompt permet de réaliser un bilan complet du parcours de coaching, d'évaluer les résultats obtenus et d'identifier les axes de progrès futurs pour le coaché.</p>
+                    
+                    <h2 class="font-bold text-xl mb-4">Contenu du prompt</h2>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6 font-mono whitespace-pre-wrap" id="promptContent">
+Tu es un Expert en Évaluation et Bilan de Coaching Professionnel. Ta mission est d'aider un coach à réaliser un bilan structuré et approfondi de l'accompagnement d'un coaché en recherche d'emploi.
+
+Pour réaliser ce bilan, tu vas procéder en deux phases :
+
+PHASE 1 : QUESTIONNAIRE DE BILAN
+Génère 10 questions précises et ouvertes pour évaluer l'impact et l'efficacité du coaching. Ces questions doivent couvrir :
+- L'atteinte des objectifs initiaux (2 questions)
+- Les apprentissages et prises de conscience (2 questions)
+- L'efficacité des outils et méthodes utilisés (2 questions)
+- Les améliorations concrètes dans la démarche de recherche d'emploi (2 questions)
+- Les axes d'amélioration possibles pour le coaching (2 questions)
+
+PHASE 2 : ANALYSE DES RÉPONSES ET SYNTHÈSE
+Une fois que le coach aura soumis les réponses du coaché à ces questions, tu devras produire une synthèse structurée en 5 parties :
+
+1. SITUATION DE DÉPART ET ÉVOLUTION (20%)
+- Rappel du diagnostic initial et des objectifs fixés
+- Analyse des changements observés et du chemin parcouru
+- Évaluation du degré d'atteinte des objectifs initiaux
+
+2. ACQUIS ET PROGRESSIONS (25%)
+- Compétences développées ou renforcées pendant l'accompagnement
+- Outils appropriés et intégrés dans la pratique
+- Évolutions dans la posture et la confiance
+
+3. POINTS FORTS DE L'ACCOMPAGNEMENT (20%)
+- Méthodologies et approches ayant eu le plus d'impact positif
+- Moments clés ou déclencheurs pendant le parcours
+- Valeur ajoutée spécifique apportée par l'IA dans le processus
+
+4. AXES D'AMÉLIORATION (20%)
+- Points sur lesquels l'accompagnement aurait pu être plus efficace
+- Besoins non couverts ou insuffisamment traités
+- Suggestions constructives pour optimiser la démarche
+
+5. PERSPECTIVES ET RECOMMANDATIONS (15%)
+- Prochaines étapes recommandées pour le coaché
+- Ressources complémentaires à explorer
+- Conseils pour maintenir la dynamique positive
+
+Ta synthèse doit être à la fois analytique et constructive, en identifiant concrètement ce qui a fonctionné et ce qui pourrait être amélioré. Elle doit aider le coach à affiner sa méthodologie et fournir au coaché une vision claire de son parcours et de ses prochains défis. Utilise un ton professionnel mais chaleureux, et des formulations précises et nuancées.
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                        <button onclick="copyPrompt()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                            <i class="fas fa-copy mr-2"></i> Copier le prompt
+                        </button>
+                        <button onclick="editPrompt()" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                            <i class="fas fa-edit mr-2"></i> Modifier le prompt
+                        </button>
+                    </div>
+                    
+                    <h2 class="font-bold text-xl mt-8 mb-4">Instructions d'utilisation</h2>
+                    <ol class="list-decimal pl-6 space-y-2">
+                        <li>Copiez ce prompt dans ChatGPT ou un autre modèle IA pour obtenir les 10 questions de bilan</li>
+                        <li>Posez ces questions au coaché lors d'une session de fin d'accompagnement</li>
+                        <li>Notez ou enregistrez ses réponses</li>
+                        <li>Soumettez les réponses à l'IA en utilisant le même prompt pour obtenir la synthèse structurée</li>
+                        <li>Partagez et discutez cette synthèse avec le coaché pour clôturer l'accompagnement</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyPrompt() {
+            const promptText = document.getElementById('promptContent').innerText;
+            navigator.clipboard.writeText(promptText).then(() => {
+                alert('Le prompt a été copié dans le presse-papiers !');
+            });
+        }
+        
+        function editPrompt() {
+            const promptContent = document.getElementById('promptContent');
+            const currentText = promptContent.innerText;
+            const newText = prompt('Modifiez le prompt :', currentText);
+            
+            if (newText && newText !== currentText) {
+                promptContent.innerText = newText;
+                alert('Le prompt a été modifié avec succès !');
+            }
+        }
+    </script>
+</body>
+</html>
+"Ajout fichier prompt10.html"
