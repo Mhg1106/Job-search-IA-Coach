@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prompt 8 : Sélection des offres d'emploi à retenir - Job-search AI & Coach</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <div class="flex flex-col md:flex-row">
+        <!-- Barre latérale -->
+        <div class="bg-gray-800 shadow-xl h-16 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48 md:block">
+            <div class="md:mt-12 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between">
+                <ul class="list-reset flex flex-row md:flex-col py-0 md:py-3 px-1 md:px-2 text-center md:text-left">
+                    <li class="mr-3 flex-1">
+                        <a href="../index.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-blue-500">
+                            <i class="fas fa-arrow-left pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-200 block md:inline-block">Retour</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Contenu principal -->
+        <div id="main" class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
+            <div class="bg-gray-800 pt-3">
+                <div class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white">
+                    <h1 class="font-bold pl-2">Prompt 8 : Sélection des offres d'emploi à retenir</h1>
+                </div>
+            </div>
+
+            <div class="p-6">
+                <!-- Carte du prompt -->
+                <div class="bg-white rounded-lg shadow-xl p-5">
+                    <h2 class="font-bold text-xl mb-4">Description</h2>
+                    <p class="mb-6">Ce prompt permet d'analyser plusieurs offres d'emploi et de les classer par ordre de pertinence pour le coaché, afin d'optimiser sa stratégie de candidature et de se concentrer sur les opportunités les plus prometteuses.</p>
+                    
+                    <h2 class="font-bold text-xl mb-4">Contenu du prompt</h2>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6 font-mono whitespace-pre-wrap" id="promptContent">
+Tu es un Expert en Recrutement et Stratégie de Candidature. Ta mission est d'analyser la compatibilité entre un CV et plusieurs offres d'emploi pour identifier celles qui représentent les meilleures opportunités. Cette analyse aidera à prioriser les candidatures du coaché.
+
+CV du candidat :
+[COLLER LE TEXTE DU CV]
+
+Voici les offres d'emploi à évaluer :
+[COLLER LES TEXTES DES DIFFÉRENTES OFFRES D'EMPLOI, CLAIREMENT SÉPARÉES ET NUMÉROTÉES]
+
+Pour chaque offre d'emploi, fournis une analyse structurée en 4 sections :
+
+1. TAUX DE CORRESPONDANCE GLOBAL (note sur 100)
+- Score précis d'adéquation entre le CV et l'offre
+- 3 principaux facteurs qui déterminent ce score
+- Recommandation claire : Priorité Haute (80-100), Moyenne (60-79), ou Basse (<60)
+
+2. POINTS FORTS DE LA CANDIDATURE
+- 3-5 éléments du CV qui correspondent parfaitement aux exigences
+- 1-2 avantages compétitifs du candidat pour ce poste spécifique
+
+3. ÉCARTS À COMBLER
+- 2-3 compétences ou expériences requises mais absentes ou insuffisamment démontrées
+- Suggestions concrètes pour compenser ou expliquer ces écarts
+
+4. RECOMMANDATIONS STRATÉGIQUES
+- 2-3 modifications spécifiques à apporter au CV pour cette candidature
+- Points à mettre en avant lors d'un entretien éventuel
+
+Une fois toutes les offres analysées individuellement, fournis en conclusion :
+
+CLASSEMENT DES OFFRES PAR PERTINENCE
+- Liste des offres par ordre décroissant de taux de correspondance
+- Pour chaque offre : numéro, intitulé du poste, score, et commentaire synthétique (1 ligne)
+- Recommandation sur les 3 offres à prioriser avec justification en 1-2 phrases par offre
+
+Ton analyse doit être objective, précise et actionnable. Les recommandations doivent aider le candidat à concentrer ses efforts sur les opportunités les plus prometteuses et à adapter sa stratégie de candidature en fonction de chaque offre.
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                        <button onclick="copyPrompt()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                            <i class="fas fa-copy mr-2"></i> Copier le prompt
+                        </button>
+                        <button onclick="editPrompt()" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                            <i class="fas fa-edit mr-2"></i> Modifier le prompt
+                        </button>
+                    </div>
+                    
+                    <h2 class="font-bold text-xl mt-8 mb-4">Instructions d'utilisation</h2>
+                    <ol class="list-decimal pl-6 space-y-2">
+                        <li>Copiez ce prompt dans ChatGPT ou un autre modèle IA</li>
+                        <li>Collez le texte du CV du coaché à l'emplacement indiqué</li>
+                        <li>Collez les textes des différentes offres d'emploi, en les numérotant clairement</li>
+                        <li>Analysez les résultats avec votre coaché et définissez une stratégie de candidature priorisée</li>
+                        <li>Utilisez les recommandations spécifiques pour adapter le CV et la lettre de motivation à chaque offre</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyPrompt() {
+            const promptText = document.getElementById('promptContent').innerText;
+            navigator.clipboard.writeText(promptText).then(() => {
+                alert('Le prompt a été copié dans le presse-papiers !');
+            });
+        }
+        
+        function editPrompt() {
+            const promptContent = document.getElementById('promptContent');
+            const currentText = promptContent.innerText;
+            const newText = prompt('Modifiez le prompt :', currentText);
+            
+            if (newText && newText !== currentText) {
+                promptContent.innerText = newText;
+                alert('Le prompt a été modifié avec succès !');
+            }
+        }
+    </script>
+</body>
+</html>
+"ajout fichier prompt8.html"
