@@ -3,46 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Job-search AI & Coach</title>
-    <meta name="author" content="Coach Emploi">
-    <meta name="description" content="Application d'accompagnement à la recherche d'emploi intelligente">
-    <meta name="keywords" content="coaching,emploi,IA,CV,lettre de motivation,entretien">
-
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
-    <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
 </head>
-
-<body class="bg-gray-100 font-sans leading-normal tracking-normal mt-12">
-    <header>
-        <nav aria-label="menu nav" class="bg-gray-800 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0">
-            <div class="flex flex-wrap items-center">
-                <div class="flex flex-shrink md:w-1/3 justify-center md:justify-start text-white">
-                    <a href="index.html" aria-label="Home">
-                        <span class="text-xl pl-2 font-bold">Job-search AI & Coach</span>
-                    </a>
-                </div>
-                <div class="flex w-full pt-2 content-center justify-between md:w-1/3 md:justify-end">
-                    <ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
-                        <li class="flex-1 md:flex-none md:mr-3">
-                            <a class="inline-block py-2 px-4 text-white no-underline" href="index.html">Accueil</a>
-                        </li>
-                        <li class="flex-1 md:flex-none md:mr-3">
-                            <a class="inline-block text-gray-400 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="#">Aide</a>
-                        </li>
-                    </ul>
-                </div>
+<body class="bg-gray-100 font-sans p-6">
+    <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6">
+        <h1 class="text-3xl font-bold text-center mb-6">Job-search AI & Coach</h1>
+        
+        <div class="text-center mb-8">
+            <p class="text-lg mb-4">Bienvenue sur votre plateforme d'accompagnement à la recherche d'emploi.</p>
+            <p class="text-gray-600">Utilisez les liens ci-dessous pour accéder aux différentes sections :</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <a href="prompts_library.html" class="bg-blue-500 text-white p-4 rounded-lg text-center hover:bg-blue-600 transition duration-200">
+                <i class="fas fa-comment-alt text-3xl mb-2"></i>
+                <h2 class="text-xl font-bold">Prompts IA</h2>
+                <p class="text-sm">Accédez à tous les prompts optimisés</p>
+            </a>
+            
+            <a href="coachees.html" class="bg-purple-500 text-white p-4 rounded-lg text-center hover:bg-purple-600 transition duration-200">
+                <i class="fas fa-users text-3xl mb-2"></i>
+                <h2 class="text-xl font-bold">Mes coachés</h2>
+                <p class="text-sm">Suivez la progression de vos coachés</p>
+            </a>
+            
+            <a href="resources.html" class="bg-red-500 text-white p-4 rounded-lg text-center hover:bg-red-600 transition duration-200">
+                <i class="fas fa-book text-3xl mb-2"></i>
+                <h2 class="text-xl font-bold">Ressources</h2>
+                <p class="text-sm">Accédez à votre bibliothèque de ressources</p>
+            </a>
+            
+            <div class="bg-green-500 text-white p-4 rounded-lg text-center">
+                <i class="fas fa-chart-line text-3xl mb-2"></i>
+                <h2 class="text-xl font-bold">Tableau de bord</h2>
+                <p class="text-sm">En cours de développement</p>
             </div>
-        </nav>
-    </header>
+        </div>
+        
+        <div class="text-center text-gray-500 text-sm">
+            <p>© 2025 Job-search AI & Coach</p>
+        </div>
+    </div>
+</body>
+</html>
 
-    <div class="flex flex-col md:flex-row">
-        <nav aria-label="alternative nav">
-            <div class="bg-gray-800 shadow-xl h-20 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48 content-center">
-                <div class="md:mt-12 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between">
-                    <ul class="list-reset flex flex-row md:flex-col pt-3 md:py-3 px-1 md:px-2 text-center md:text-left">
-                        <li class="mr-3 flex-1">
-                            <a href="index.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2
-"Ajout modification de la page d'accueil"
+"Ajout de la page d'accueil minimaliste"
