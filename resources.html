@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ressources - Job-search AI & Coach</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <header>
+        <nav aria-label="menu nav" class="bg-gray-800 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0">
+            <div class="flex flex-wrap items-center">
+                <div class="flex flex-shrink md:w-1/3 justify-center md:justify-start text-white">
+                    <a href="index.html" aria-label="Home">
+                        <span class="text-xl pl-2 font-bold">Job-search AI & Coach</span>
+                    </a>
+                </div>
+                <div class="flex w-full pt-2 content-center justify-between md:w-1/3 md:justify-end">
+                    <ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
+                        <li class="flex-1 md:flex-none md:mr-3">
+                            <a class="inline-block text-gray-400 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="index.html">Accueil</a>
+                        </li>
+                        <li class="flex-1 md:flex-none md:mr-3">
+                            <a class="inline-block text-gray-400 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="#">Aide</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="flex flex-col md:flex-row">
+        <nav aria-label="alternative nav">
+            <div class="bg-gray-800 shadow-xl h-20 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48 content-center">
+                <div class="md:mt-12 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between">
+                    <ul class="list-reset flex flex-row md:flex-col pt-3 md:py-3 px-1 md:px-2 text-center md:text-left">
+                        <li class="mr-3 flex-1">
+                            <a href="index.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-blue-500">
+                                <i class="fas fa-chart-area pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Tableau de bord</span>
+                            </a>
+                        </li>
+                        <li class="mr-3 flex-1">
+                            <a href="index.html#prompts" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-green-500">
+                                <i class="fas fa-comment-alt pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Prompts IA</span>
+                            </a>
+                        </li>
+                        <li class="mr-3 flex-1">
+                            <a href="coachees.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-purple-500">
+                                <i class="fas fa-users pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Mes coachés</span>
+                            </a>
+                        </li>
+                        <li class="mr-3 flex-1">
+                            <a href="resources.html" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-red-600">
+                                <i class="fas fa-book pr-0 md:pr-3 text-red-600"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-white md:text-white block md:inline-block">Ressources</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <section>
+            <div id="main" class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
+                <div class="bg-gray-800 pt-3">
+                    <div class="rounded-tl-3xl bg-gradient-to-r from-red-900 to-gray-800 p-4 shadow text-2xl text-white">
+                        <h1 class="font-bold pl-2">Ressources</h1>
+                    </div>
+                </div>
+
+                <div class="p-6">
+                    <!-- En-tête de la section -->
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <h2 class="text-xl font-bold">Bibliothèque de ressources</h2>
+                            <p class="text-gray-600">Accédez à des modèles, guides et outils pour votre coaching</p>
+                        </div>
+                        <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                            <i class="fas fa-plus mr-2"></i> Ajouter une ressource
+                        </button>
+                    </div>
+
+                    <!-- Filtres de ressources -->
+                    <div class="mb-6">
+                        <div class="bg-white rounded-lg shadow-md p-4">
+                            <h3 class="font-bold mb-3">Filtrer par catégorie</h3>
+                            <div class="flex flex-wrap gap-2">
+                                <button class="px-3 py-1 bg-red-600 text-white rounded-full text-sm">Tous</button>
+                                <button class="px-3 py-1 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-full text-sm">CV</button>
+                                <button class="px-3 py-1 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-full text-sm">Lettres</button>
+                                <button class="px-3 py-1 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-full text-sm">Entretiens</button>
+                                <button class="px-3 py-1 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-full text-sm">LinkedIn</button>
+                                <button class="px-3 py-1 bg-gray-200 hover:bg-gray-300 text-gray-800 rounded-full text-sm">Guides</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Liste des ressources -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Ressource 1 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <div class="p-5">
+                                <div class="flex items-center mb-4">
+                                    <div class="bg-red-100 p-3 rounded-lg mr-4">
+                                        <i class="fas fa-file-alt text-2xl text-red-600"></i>
+                                    </div>
+                                    <h3 class="font-bold text-lg">Modèles de CV</h3>
+                                </div>
+                                <p class="text-gray-600 mb-4">Collection de modèles de CV optimisés pour différents secteurs et niveaux d'expérience.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs text-gray-500">13 fichiers • PDF, DOCX</span>
+                                    <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-3 rounded text-sm">
+                                        Télécharger
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ressource 2 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <div class="p-5">
+                                <div class="flex items-center mb-4">
+                                    <div class="bg-red-100 p-3 rounded-lg mr-4">
+                                        <i class="fas fa-envelope text-2xl text-red-600"></i>
+                                    </div>
+                                    <h3 class="font-bold text-lg">Templates de Lettres</h3>
+                                </div>
+                                <p class="text-gray-600 mb-4">Exemples de lettres de motivation par type de poste et secteur d'activité.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs text-gray-500">8 fichiers • DOCX</span>
+                                    <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-3 rounded text-sm">
+                                        Télécharger
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ressource 3 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <div class="p-5">
+                                <div class="flex items-center mb-4">
+                                    <div class="bg-red-100 p-3 rounded-lg mr-4">
+                                        <i class="fas fa-chart-line text-2xl text-red-600"></i>
+                                    </div>
+                                    <h3 class="font-bold text-lg">Tendances du marché</h3>
+                                </div>
+                                <p class="text-gray-600 mb-4">Rapport sur les tendances actuelles de l'emploi et les compétences les plus recherchées.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs text-gray-500">Mis à jour le 15/05/2025</span>
+                                    <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-3 rounded text-sm">
+                                        Consulter
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ressource 4 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <div class="p-5">
+                                <div class="flex items-center mb-4">
+                                    <div class="bg-red-100 p-3 rounded-lg mr-4">
+                                        <i class="fas fa-comments text-2xl text-red-600"></i>
+                                    </div>
+                                    <h3 class="font-bold text-lg">Guide d'entretien</h3>
+                                </div>
+                                <p class="text-gray-600 mb-4">Préparation aux questions les plus fréquentes en entretien avec réponses types.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs text-gray-500">45 pages • PDF</span>
+                                    <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-3 rounded text-sm">
+                                        Télécharger
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ressource 5 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <div class="p-5">
+                                <div class="flex items-center mb-4">
+                                    <div class="bg-red-100 p-3 rounded-lg mr-4">
+                                        <i class="fab fa-linkedin text-2xl text-red-600"></i>
+                                    </div>
+                                    <h3 class="font-bold text-lg">LinkedIn Optimizer</h3>
+                                </div>
+                                <p class="text-gray-600 mb-4">Guide pour optimiser le profil LinkedIn et utiliser efficacement le réseau professionnel.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs text-gray-500">Édition 2025</span>
+                                    <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-3 rounded text-sm">
+                                        Consulter
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ressource 6 -->
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                            <div class="p-5">
+                                <div class="flex items-center mb-4">
+                                    <div class="bg-red-100 p-3 rounded-lg mr-4">
+                                        <i class="fas fa-brain text-2xl text-red-600"></i>
+                                    </div>
+                                    <h3 class="font-bold text-lg">Tests d'aptitude</h3>
+                                </div>
+                                <p class="text-gray-600 mb-4">Préparation aux tests d'aptitude courants utilisés dans les processus de recrutement.</p>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs text-gray-500">15 exercices pratiques</span>
+                                    <button class="bg-red-600 hover:bg-red-700 text-white font-bold py-1 px-3 rounded text-sm">
+                                        Consulter
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Scripts pour les interactions futures
+        function filterResources(category) {
+            console.log("Filtrer par catégorie:", category);
+            // Logique de filtrage à implémenter
+        }
+    </script>
+</body>
+</html>
+"Ajout fichier resources.html"
