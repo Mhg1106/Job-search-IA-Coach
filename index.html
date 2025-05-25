@@ -5,290 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Job-search AI & Coach</title>
-    <meta name="author" content="name">
+    <meta name="author" content="Coach Emploi">
     <meta name="description" content="Application d'accompagnement à la recherche d'emploi intelligente">
     <meta name="keywords" content="coaching,emploi,IA,CV,lettre de motivation,entretien">
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
     <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js" integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
 </head>
 
-<body class="bg-gray-800 font-sans leading-normal tracking-normal mt-12">
+<body class="bg-gray-100 font-sans leading-normal tracking-normal mt-12">
     <header>
-        <!--Nav-->
         <nav aria-label="menu nav" class="bg-gray-800 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0">
             <div class="flex flex-wrap items-center">
                 <div class="flex flex-shrink md:w-1/3 justify-center md:justify-start text-white">
-                    <a href="#" aria-label="Home">
+                    <a href="index.html" aria-label="Home">
                         <span class="text-xl pl-2 font-bold">Job-search AI & Coach</span>
                     </a>
                 </div>
-
-                <div class="flex flex-1 md:w-1/3 justify-center md:justify-start text-white px-2">
-                    <span class="relative w-full">
-                        <input aria-label="search" type="search" id="search" placeholder="Search" class="w-full bg-gray-900 text-white transition border border-transparent focus:outline-none focus:border-gray-400 rounded py-3 px-2 pl-10 appearance-none leading-normal">
-                        <div class="absolute search-icon" style="top: 1rem; left: .8rem;">
-                            <svg class="fill-current pointer-events-none text-white w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                <path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"></path>
-                            </svg>
-                        </div>
-                    </span>
-                </div>
-
                 <div class="flex w-full pt-2 content-center justify-between md:w-1/3 md:justify-end">
                     <ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
-                      <li class="flex-1 md:flex-none md:mr-3">
-                        <a class="inline-block py-2 px-4 text-white no-underline" href="#">Accueil</a>
-                      </li>
-                      <li class="flex-1 md:flex-none md:mr-3">
-                        <a class="inline-block text-gray-400 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="#">Aide</a>
-                      </li>
+                        <li class="flex-1 md:flex-none md:mr-3">
+                            <a class="inline-block py-2 px-4 text-white no-underline" href="index.html">Accueil</a>
+                        </li>
+                        <li class="flex-1 md:flex-none md:mr-3">
+                            <a class="inline-block text-gray-400 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="#">Aide</a>
+                        </li>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
 
-    <main>
-        <div class="flex flex-col md:flex-row">
-            <nav aria-label="alternative nav">
-                <div class="bg-gray-800 shadow-xl h-20 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48 content-center">
-                    <div class="md:mt-12 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between">
-                        <ul class="list-reset flex flex-row md:flex-col pt-3 md:py-3 px-1 md:px-2 text-center md:text-left">
-                            <li class="mr-3 flex-1">
-                                <a href="#" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-blue-600">
-                                    <i class="fas fa-chart-area pr-0 md:pr-3 text-blue-600"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-white md:text-white block md:inline-block">Tableau de bord</span>
-                                </a>
-                            </li>
-                            <li class="mr-3 flex-1">
-                                <a href="prompts_library.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-green-500">
-                                    <i class="fas fa-comment-alt pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Prompts IA</span>
-                                </a>
-                            </li>
-                            <li class="mr-3 flex-1">
-                                <a href="coachees.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-purple-500">
-                                    <i class="fas fa-users pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Mes coachés</span>
-                                </a>
-                            </li>
-                            <li class="mr-3 flex-1">
-                                <a href="resources.html" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-red-500">
-                                    <i class="fas fa-book pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Ressources</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-            
-            <section>
-                <div id="main" class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
-                    <div class="bg-gray-800 pt-3">
-                        <div class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white">
-                            <h1 class="font-bold pl-2">Job-search AI & Coach</h1>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-wrap">
-                        <div class="w-full md:w-1/2 xl:w-1/3 p-6">
-                            <!--Metric Card-->
-                            <div class="bg-gradient-to-b from-green-200 to-green-100 border-b-4 border-green-600 rounded-lg shadow-xl p-5">
-                                <div class="flex flex-row items-center">
-                                    <div class="flex-shrink pr-4">
-                                        <div class="rounded-full p-5 bg-green-600"><i class="fas fa-users fa-2x fa-inverse"></i></div>
-                                    </div>
-                                    <div class="flex-1 text-right md:text-center">
-                                        <h2 class="font-bold uppercase text-gray-600">Coachés actifs</h2>
-                                        <p class="font-bold text-3xl">5</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/Metric Card-->
-                        </div>
-                        <div class="w-full md:w-1/2 xl:w-1/3 p-6">
-                            <!--Metric Card-->
-                            <div class="bg-gradient-to-b from-pink-200 to-pink-100 border-b-4 border-pink-500 rounded-lg shadow-xl p-5">
-                                <div class="flex flex-row items-center">
-                                    <div class="flex-shrink pr-4">
-                                        <div class="rounded-full p-5 bg-pink-600"><i class="fas fa-file-alt fa-2x fa-inverse"></i></div>
-                                    </div>
-                                    <div class="flex-1 text-right md:text-center">
-                                        <h2 class="font-bold uppercase text-gray-600">CV optimisés</h2>
-                                        <p class="font-bold text-3xl">8</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/Metric Card-->
-                        </div>
-                        <div class="w-full md:w-1/2 xl:w-1/3 p-6">
-                            <!--Metric Card-->
-                            <div class="bg-gradient-to-b from-yellow-200 to-yellow-100 border-b-4 border-yellow-600 rounded-lg shadow-xl p-5">
-                                <div class="flex flex-row items-center">
-                                    <div class="flex-shrink pr-4">
-                                        <div class="rounded-full p-5 bg-yellow-600"><i class="fas fa-tasks fa-2x fa-inverse"></i></div>
-                                    </div>
-                                    <div class="flex-1 text-right md:text-center">
-                                        <h2 class="font-bold uppercase text-gray-600">Sessions ce mois</h2>
-                                        <p class="font-bold text-3xl">12</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--/Metric Card-->
-                        </div>
-                    </div>
-
-                    <!-- Section Prompts IA -->
-                    <div class="flex flex-wrap mt-6" id="prompts">
-                        <div class="w-full p-6">
-                            <div class="bg-white rounded-lg shadow-xl p-5">
-                                <h2 class="font-bold text-xl mb-4">Prompts IA Optimisés</h2>
-                                <p class="mb-4">Accédez à vos prompts optimisés pour chaque étape du processus de coaching</p>
-                                
-                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-                                    <!-- Premier prompt -->
-                                    <div class="bg-gray-100 p-4 rounded shadow">
-                                        <div class="flex items-center">
-                                            <div class="rounded-full bg-blue-500 text-white w-8 h-8 flex items-center justify-center mr-3">1</div>
-                                            <h3 class="font-bold">Diagnostic de Départ</h3>
-                                        </div>
-                                        <p class="mt-2 mb-4">Analyse la situation actuelle du coaché et synthétise ses objectifs, forces et axes d'amélioration.</p>
-                                        <a href="prompts/prompt1.html" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                            Voir le prompt
-                                        </a>
-                                    </div>
-                                    
-                                    <!-- Deuxième prompt -->
-                                    <div class="bg-gray-100 p-4 rounded shadow">
-                                        <div class="flex items-center">
-                                            <div class="rounded-full bg-blue-500 text-white w-8 h-8 flex items-center justify-center mr-3">2</div>
-                                            <h3 class="font-bold">Analyse du Marché</h3>
-                                        </div>
-                                        <p class="mt-2 mb-4">Étudie le marché de l'emploi pour le poste et la zone géographique ciblés.</p>
-                                        <a href="prompts/prompt2.html" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                            Voir le prompt
-                                        </a>
-                                    </div>
-
-                                    <!-- Troisième prompt -->
-                                    <div class="bg-gray-100 p-4 rounded shadow">
-                                        <div class="flex items-center">
-                                            <div class="rounded-full bg-blue-500 text-white w-8 h-8 flex items-center justify-center mr-3">3</div>
-                                            <h3 class="font-bold">Plan d'action détaillé</h3>
-                                        </div>
-                                        <p class="mt-2 mb-4">Détaille toutes les actions à conduire pour maximiser les chances de réussite du coaché.</p>
-                                        <a href="prompts/prompt3.html" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                            Voir le prompt
-                                        </a>
-                                    </div>
-
-                                    <!-- Quatrième prompt -->
-                                    <div class="bg-gray-100 p-4 rounded shadow">
-                                        <div class="flex items-center">
-                                            <div class="rounded-full bg-blue-500 text-white w-8 h-8 flex items-center justify-center mr-3">4</div>
-                                            <h3 class="font-bold">Connaissance détaillée de l'entreprise cible</h3>
-                                        </div>
-                                        <p class="mt-2 mb-4">Analyse stratégique de l'entreprise pour anticiper les questions lors de l'entretien.</p>
-                                        <a href="prompts/prompt4.html" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                            Voir le prompt
-                                        </a>
-                                    </div>
-
-                                    <!-- Cinquième prompt -->
-                                    <div class="bg-gray-100 p-4 rounded shadow">
-                                        <div class="flex items-center">
-                                            <div class="rounded-full bg-blue-500 text-white w-8 h-8 flex items-center justify-center mr-3">5</div>
-                                            <h3 class="font-bold">CV Evaluator Pro</h3>
-                                        </div>
-                                        <p class="mt-2 mb-4">Évalue et améliore le CV du coaché en se basant sur le poste recherché et en vérifiant sa compatibilité ATS.</p>
-                                        <a href="prompts/prompt5.html" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                            Voir le prompt
-                                        </a>
-                                    </div>
-
-                                    <!-- Sixième prompt -->
-                                    <div class="bg-gray-100 p-4 rounded shadow">
-                                        <div class="flex items-center">
-                                            <div class="rounded-full bg-blue-500 text-white w-8 h-8 flex items-center justify-center mr-3">6</div>
-                                            <h3 class="font-bold">Matching CV / emploi</h3>
-                                        </div>
-                                        <p class="mt-2 mb-4">Évalue le matching entre le CV et l'offre d'emploi et propose des améliorations et des ajustements de mots clés.</p>
-                                        <a href="prompts/prompt6.html" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                            Voir le prompt
-                                        </a>
-                                    </div>
-                                    
-                                    <!-- Septième prompt -->
-                                    <div class="bg-gray-100 p-4 rounded shadow">
-                                        <div class="flex items-center">
-                                            <div class="rounded-full bg-blue-500 text-white w-8 h-8 flex items-center justify-center mr-3">7</div>
-                                            <h3 class="font-bold">Rédaction d'une lettre de motivation</h3>
-                                        </div>
-                                        <p class="mt-2 mb-4">Propose 3 versions d'une lettre de motivation originale, personnalisée et adaptée à l'offre d'emploi.</p>
-                                        <a href="prompts/prompt7.html" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                            Voir le prompt
-                                        </a>
-                                    </div>
-
-                                    <!-- Huitième prompt -->
-                                    <div class="bg-gray-100 p-4 rounded shadow">
-                                        <div class="flex items-center">
-                                            <div class="rounded-full bg-blue-500 text-white w-8 h-8 flex items-center justify-center mr-3">8</div>
-                                            <h3 class="font-bold">Sélection des offres d'emploi à retenir</h3>
-                                        </div>
-                                        <p class="mt-2 mb-4">Identification des offres les plus pertinentes afin de maximiser les chances du coaché de décrocher un entretien de recrutement.</p>
-                                        <a href="prompts/prompt8.html" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                            Voir le prompt
-                                        </a>
-                                    </div>
-
-                                    <!-- Neuvième prompt -->
-                                    <div class="bg-gray-100 p-4 rounded shadow">
-                                        <div class="flex items-center">
-                                            <div class="rounded-full bg-blue-500 text-white w-8 h-8 flex items-center justify-center mr-3">9</div>
-                                            <h3 class="font-bold">Coach expert en préparation d'entretien</h3>
-                                        </div>
-                                        <p class="mt-2 mb-4">Propose un plan en préparation d'entretien complet et adapté au profil du coaché.</p>
-                                        <a href="prompts/prompt9.html" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                            Voir le prompt
-                                        </a>
-                                    </div>
-
-                                    <!-- Dixième prompt -->
-                                    <div class="bg-gray-100 p-4 rounded shadow">
-                                        <div class="flex items-center">
-                                            <div class="rounded-full bg-blue-500 text-white w-8 h-8 flex items-center justify-center mr-3">10</div>
-                                            <h3 class="font-bold">Bilan du coaching</h3>
-                                        </div>
-                                        <p class="mt-2 mb-4">Synthèse du parcours du coaché et évaluation des résultats obtenus durant l'accompagnement.</p>
-                                        <a href="prompts/prompt10.html" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                                            Voir le prompt
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-    </main>
-
-    <script>
-        // Script pour la navigation fluide vers les anchors
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-    </script>
-</body>
-</html>
-"Ajout de la page d'accueil"
+    <div class="flex flex-col md:flex-row">
+        <nav aria-label="alternative nav">
+            <div class="bg-gray-800 shadow-xl h-20 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48 content-center">
+                <div class="md:mt-12 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between">
+                    <ul class="list-reset flex flex-row md:flex-col pt-3 md:py-3 px-1 md:px-2 text-center md:text-left">
+                        <li class="mr-3 flex-1">
+                            <a href="index.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2
+"Ajout modification de la page d'accueil"
