@@ -425,4 +425,123 @@
                             </select>
                         </div>
                         <div class="flex justify-end pt-2">
-                            <button type="button" id="cancelResource" class="px-4 py-2 bg-gray-300 text-black text-base font-medium rounded-md shadow-sm hover:bg-gray
+                        <button type="button" id="cancelResource" class="px-4 py-2 bg-gray-300 text-black text-base font-medium rounded-md shadow-sm hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 mr-2">
+                                Annuler
+                            </button>
+                            <button type="submit" class="px-4 py-2 bg-red-600 text-white text-base font-medium rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-300">
+                                Ajouter
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Gestion du modal
+        const modal = document.getElementById('resourceModal');
+        const addResourceBtn = document.getElementById('addResourceBtn');
+        const cancelResourceBtn = document.getElementById('cancelResource');
+        const resourceForm = document.getElementById('resourceForm');
+
+        addResourceBtn.addEventListener('click', () => {
+            modal.classList.remove('hidden');
+        });
+
+        cancelResourceBtn.addEventListener('click', () => {
+            modal.classList.add('hidden');
+        });
+
+        // Fermer le modal en cliquant à l'extérieur
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.add('hidden');
+            }
+        });
+
+        // Gestion du formulaire d'ajout de ressource
+        resourceForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Dans une application statique, nous simulons l'ajout
+            const title = document.getElementById('resourceTitle').value;
+            const description = document.getElementById('resourceDescription').value;
+            const action = document.getElementById('resourceAction').value;
+            const info = document.getElementById('resourceInfo').value;
+            const icon = document.getElementById('resourceIcon').value;
+            
+            // Obtenir les catégories sélectionnées
+            const selectedCategories = [];
+            document.querySelectorAll('input[name="category[]"]:checked').forEach(checkbox => {
+                selectedCategories.push(checkbox.value);
+            });
+            
+            alert(`Ressource "${title}" ajoutée avec succès !`);
+            modal.classList.add('hidden');
+            resourceForm.reset();
+        });
+        
+        // Filtrage par catégorie
+        const categoryButtons = document.querySelectorAll('.category-pill');
+        const resourceCards = document.querySelectorAll('.resource-card');
+        const searchInput = document.getElementById('searchInput');
+        const noResults = document.getElementById('noResults');
+        
+        function filterResources() {
+            const activeCategory = document.querySelector('.category-pill.active').dataset.category;
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            
+            let visibleCount = 0;
+            
+            resourceCards.forEach(card => {
+                const cardCategories = card.dataset.category.split(' ');
+                const cardTitle = card.querySelector('h3').textContent.toLowerCase();
+                const cardDescription = card.querySelector('p').textContent.toLowerCase();
+                
+                const matchesCategory = activeCategory === 'all' || cardCategories.includes(activeCategory);
+                const matchesSearch = searchTerm === '' || 
+                                    cardTitle.includes(searchTerm) || 
+                                    cardDescription.includes(searchTerm);
+                
+                if (matchesCategory && matchesSearch) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+            
+            if (visibleCount === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+            }
+        }
+        
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                filterResources();
+            });
+        });
+        
+        searchInput.addEventListener('input', filterResources);
+        
+        // Actions des boutons de ressources
+        document.querySelectorAll('.resource-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const resourceName = button.closest('.resource-card').querySelector('h3').textContent;
+                const action = button.dataset.action;
+                
+                if (action === 'download') {
+                    alert(`Téléchargement de "${resourceName}" - Cette fonctionnalité sera disponible dans une version future.`);
+                } else if (action === 'view') {
+                    alert(`Consultation de "${resourceName}" - Cette fonctionnalité sera disponible dans une version future.`);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
