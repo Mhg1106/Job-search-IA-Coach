@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prompt 7 : Rédaction d'une lettre de motivation - Job-search AI & Coach</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <div class="flex flex-col md:flex-row">
+        <!-- Barre latérale -->
+        <div class="bg-gray-800 shadow-xl h-16 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48 md:block">
+            <div class="md:mt-12 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between">
+                <ul class="list-reset flex flex-row md:flex-col py-0 md:py-3 px-1 md:px-2 text-center md:text-left">
+                    <li class="mr-3 flex-1">
+                        <a href="../index.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-blue-500">
+                            <i class="fas fa-arrow-left pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-200 block md:inline-block">Retour</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Contenu principal -->
+        <div id="main" class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
+            <div class="bg-gray-800 pt-3">
+                <div class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white">
+                    <h1 class="font-bold pl-2">Prompt 7 : Rédaction d'une lettre de motivation</h1>
+                </div>
+            </div>
+
+            <div class="p-6">
+                <!-- Carte du prompt -->
+                <div class="bg-white rounded-lg shadow-xl p-5">
+                    <h2 class="font-bold text-xl mb-4">Description</h2>
+                    <p class="mb-6">Ce prompt permet de générer trois versions distinctes de lettre de motivation personnalisées et percutantes, adaptées au profil du coaché, à l'offre d'emploi et à l'entreprise ciblée.</p>
+                    
+                    <h2 class="font-bold text-xl mb-4">Contenu du prompt</h2>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6 font-mono whitespace-pre-wrap" id="promptContent">
+Tu es un Expert en Communication Professionnelle spécialisé dans la rédaction de lettres de motivation percutantes. Ta mission est de créer 3 versions distinctes mais également efficaces d'une lettre de motivation pour le poste suivant :
+
+CV du candidat :
+[COLLER LE TEXTE DU CV]
+
+Offre d'emploi :
+[COLLER LE TEXTE DE L'OFFRE D'EMPLOI]
+
+Informations sur l'entreprise :
+[COLLER LE TEXTE DE L'ANALYSE DE L'ENTREPRISE DE L'ÉTAPE 5]
+
+Pour chacune des 3 versions, respecte la structure suivante :
+
+1. ACCROCHE INITIALE (20%)
+- Une ouverture originale et personnalisée qui capte l'attention
+- Un lien clair avec l'entreprise ou le poste spécifique
+- Une formulation qui démontre la compréhension des enjeux du poste
+
+2. CORPS DE LA LETTRE (60%)
+- Mise en avant de 2-3 expériences ou compétences directement pertinentes pour le poste
+- Exemples concrets et chiffrés illustrant ces compétences
+- Connexion explicite entre le parcours du candidat et les besoins de l'entreprise
+- Valorisation de la motivation spécifique pour cette entreprise (pas de formules génériques)
+
+3. CONCLUSION ET APPEL À L'ACTION (20%)
+- Synthèse de l'adéquation profil/poste
+- Proposition concrète (entretien, démonstration de compétences)
+- Formule de politesse professionnelle et signature
+
+Différenciation des 3 versions :
+- Version 1 : Approche classique et formelle, mettant l'accent sur le parcours et les compétences techniques
+- Version 2 : Approche orientée "résolution de problèmes", démontrant la compréhension des défis du poste
+- Version 3 : Approche focalisée sur la culture d'entreprise et l'alignement de valeurs
+
+Pour les 3 versions, respecte ces règles :
+- Longueur optimale : 350 mots maximum (environ 1 page)
+- Ton professionnel mais pas impersonnel
+- Contenu spécifique à cette candidature (pas de formules passe-partout)
+- Intégration naturelle des mots-clés de l'offre d'emploi
+- Présentation soignée et paragraphes courts pour une lecture facile
+
+Assure-toi que chaque version soit unique dans son approche tout en restant authentique et adaptée au profil du candidat.
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                        <button onclick="copyPrompt()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                            <i class="fas fa-copy mr-2"></i> Copier le prompt
+                        </button>
+                        <button onclick="editPrompt()" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                            <i class="fas fa-edit mr-2"></i> Modifier le prompt
+                        </button>
+                    </div>
+                    
+                    <h2 class="font-bold text-xl mt-8 mb-4">Instructions d'utilisation</h2>
+                    <ol class="list-decimal pl-6 space-y-2">
+                        <li>Copiez ce prompt dans ChatGPT ou un autre modèle IA</li>
+                        <li>Collez le texte du CV du coaché à l'emplacement indiqué</li>
+                        <li>Collez le texte de l'offre d'emploi à l'emplacement indiqué</li>
+                        <li>Collez les informations sur l'entreprise (issues du prompt 5) à l'emplacement indiqué</li>
+                        <li>Examinez les trois versions générées avec votre coaché et sélectionnez celle qui correspond le mieux à son style et aux exigences du poste</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyPrompt() {
+            const promptText = document.getElementById('promptContent').innerText;
+            navigator.clipboard.writeText(promptText).then(() => {
+                alert('Le prompt a été copié dans le presse-papiers !');
+            });
+        }
+        
+        function editPrompt() {
+            const promptContent = document.getElementById('promptContent');
+            const currentText = promptContent.innerText;
+            const newText = prompt('Modifiez le prompt :', currentText);
+            
+            if (newText && newText !== currentText) {
+                promptContent.innerText = newText;
+                alert('Le prompt a été modifié avec succès !');
+            }
+        }
+    </script>
+</body>
+</html>
+"ajout fichier pormpt7.html"
