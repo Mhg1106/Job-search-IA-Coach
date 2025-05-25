@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prompt 9 : Coach expert en préparation d'entretien - Job-search AI & Coach</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <div class="flex flex-col md:flex-row">
+        <!-- Barre latérale -->
+        <div class="bg-gray-800 shadow-xl h-16 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48 md:block">
+            <div class="md:mt-12 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between">
+                <ul class="list-reset flex flex-row md:flex-col py-0 md:py-3 px-1 md:px-2 text-center md:text-left">
+                    <li class="mr-3 flex-1">
+                        <a href="../index.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-blue-500">
+                            <i class="fas fa-arrow-left pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-200 block md:inline-block">Retour</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Contenu principal -->
+        <div id="main" class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
+            <div class="bg-gray-800 pt-3">
+                <div class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white">
+                    <h1 class="font-bold pl-2">Prompt 9 : Coach expert en préparation d'entretien</h1>
+                </div>
+            </div>
+
+            <div class="p-6">
+                <!-- Carte du prompt -->
+                <div class="bg-white rounded-lg shadow-xl p-5">
+                    <h2 class="font-bold text-xl mb-4">Description</h2>
+                    <p class="mb-6">Ce prompt permet de préparer le coaché à un entretien d'embauche en générant un guide complet avec des questions anticipées, des conseils de présentation et une stratégie personnalisée pour maximiser ses chances de succès.</p>
+                    
+                    <h2 class="font-bold text-xl mb-4">Contenu du prompt</h2>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6 font-mono whitespace-pre-wrap" id="promptContent">
+Tu es un Coach Expert en Préparation aux Entretiens d'Embauche avec une expérience de 15 ans dans le recrutement. Ta mission est de préparer un candidat à un entretien pour le poste suivant :
+
+CV du candidat :
+[COLLER LE TEXTE DU CV]
+
+Offre d'emploi :
+[COLLER LE TEXTE DE L'OFFRE D'EMPLOI]
+
+Informations sur l'entreprise :
+[COLLER LE TEXTE DE L'ANALYSE DE L'ENTREPRISE DE L'ÉTAPE 5]
+
+Élabore un guide de préparation à l'entretien structuré en 5 parties :
+
+1. QUESTIONS ANTICIPÉES (30%)
+Prépare exactement 15 questions que le recruteur pourrait poser, répar­ties en 4 catégories :
+- Questions sur le parcours et les expériences (4 questions)
+- Questions techniques liées au poste (4 questions)
+- Questions comportementales/situationnelles (4 questions)
+- Questions sur la motivation et le projet professionnel (3 questions)
+
+Pour chaque question :
+- Fournis une explication de l'intention du recruteur
+- Propose une structure de réponse (points clés à aborder)
+- Identifie les pièges éventuels à éviter
+
+2. POINTS FORTS À VALORISER (20%)
+- Identifie 3-5 éléments spécifiques du profil à mettre en avant proactivement
+- Suggère des formulations précises et des exemples concrets pour illustrer chaque point
+- Explique pourquoi ces éléments sont particulièrement pertinents pour ce poste/entreprise
+
+3. SUJETS DÉLICATS À PRÉPARER (15%)
+- Identifie 2-3 points potentiellement problématiques du parcours (trous, changements fréquents, etc.)
+- Propose des explications constructives et honnêtes pour ces éléments
+- Suggère comment rebondir positivement sur ces sujets
+
+4. QUESTIONS À POSER AU RECRUTEUR (15%)
+- Propose 5-7 questions pertinentes que le candidat pourrait poser
+- Explique pourquoi chaque question est stratégique
+- Indique le moment opportun pour poser chacune d'elles
+
+5. PRÉPARATION LOGISTIQUE ET MENTALE (20%)
+- Conseils sur la présentation physique/vestimentaire adaptée à l'entreprise
+- Recommandations pour la gestion du stress et la communication non-verbale
+- Check-list des éléments à préparer avant l'entretien
+- Conseils pour les 24h précédant l'entretien
+
+Ton guide doit être spécifique au profil du candidat et au poste visé, pas un ensemble de conseils génériques. Adopte un ton à la fois professionnel et encourageant. L'objectif est de permettre au candidat d'entrer dans l'entretien avec confiance, préparation et authenticité.
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                        <button onclick="copyPrompt()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                            <i class="fas fa-copy mr-2"></i> Copier le prompt
+                        </button>
+                        <button onclick="editPrompt()" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                            <i class="fas fa-edit mr-2"></i> Modifier le prompt
+                        </button>
+                    </div>
+                    
+                    <h2 class="font-bold text-xl mt-8 mb-4">Instructions d'utilisation</h2>
+                    <ol class="list-decimal pl-6 space-y-2">
+                        <li>Copiez ce prompt dans ChatGPT ou un autre modèle IA</li>
+                        <li>Collez le texte du CV du coaché à l'emplacement indiqué</li>
+                        <li>Collez le texte de l'offre d'emploi à l'emplacement indiqué</li>
+                        <li>Collez les informations sur l'entreprise (issues du prompt 5) à l'emplacement indiqué</li>
+                        <li>Travaillez le guide avec votre coaché et organisez des simulations d'entretien basées sur les questions anticipées</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyPrompt() {
+            const promptText = document.getElementById('promptContent').innerText;
+            navigator.clipboard.writeText(promptText).then(() => {
+                alert('Le prompt a été copié dans le presse-papiers !');
+            });
+        }
+        
+        function editPrompt() {
+            const promptContent = document.getElementById('promptContent');
+            const currentText = promptContent.innerText;
+            const newText = prompt('Modifiez le prompt :', currentText);
+            
+            if (newText && newText !== currentText) {
+                promptContent.innerText = newText;
+                alert('Le prompt a été modifié avec succès !');
+            }
+        }
+    </script>
+</body>
+</html>
+"Ajout fichier prompt9.html"
