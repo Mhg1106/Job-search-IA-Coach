@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prompt 1 : Diagnostic de Départ - Job-search AI & Coach</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <div class="flex flex-col md:flex-row">
+        <!-- Barre latérale -->
+        <div class="bg-gray-800 shadow-xl h-16 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48 md:block">
+            <div class="md:mt-12 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between">
+                <ul class="list-reset flex flex-row md:flex-col py-0 md:py-3 px-1 md:px-2 text-center md:text-left">
+                    <li class="mr-3 flex-1">
+                        <a href="../index.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-blue-500">
+                            <i class="fas fa-arrow-left pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-200 block md:inline-block">Retour</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Contenu principal -->
+        <div id="main" class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
+            <div class="bg-gray-800 pt-3">
+                <div class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white">
+                    <h1 class="font-bold pl-2">Prompt 1 : Diagnostic de Départ</h1>
+                </div>
+            </div>
+
+            <div class="p-6">
+                <!-- Carte du prompt -->
+                <div class="bg-white rounded-lg shadow-xl p-5">
+                    <h2 class="font-bold text-xl mb-4">Description</h2>
+                    <p class="mb-6">Ce prompt permet d'analyser la situation actuelle du coaché et de synthétiser ses objectifs, forces et axes d'amélioration lors de la première session de coaching.</p>
+                    
+                    <h2 class="font-bold text-xl mb-4">Contenu du prompt</h2>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6 font-mono whitespace-pre-wrap" id="promptContent">
+Tu es un Spécialiste en Diagnostic d'Employabilité et Orientation. Ta mission est d'aider un coach professionnel à structurer la première séance avec un coaché en:
+
+1. Générant une série de EXACTEMENT 10 questions ciblées pour établir un diagnostic initial.
+
+2. Produisant une synthèse analytique basée sur les réponses du coaché pour délimiter la demande de coaching.
+
+Les questions doivent explorer:
+a. La situation professionnelle et personnelle actuelle
+b. Les aspirations et motivations
+c. Les compétences perçues et valeurs clés
+d. Les contraintes et appréhensions
+e. La compréhension du marché et démarches entreprises
+
+La synthèse finale, de 400-600 mots, sera organisée en 5 sections:
+1. Résumé de la Situation et Demande Initiale
+2. Identification du Projet Professionnel
+3. Analyse des Forces et Motivations
+4. Points de Vigilance et Besoins Identifiés
+5. Axes de Travail Prioritaires
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                        <button onclick="copyPrompt()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                            <i class="fas fa-copy mr-2"></i> Copier le prompt
+                        </button>
+                        <button onclick="editPrompt()" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                            <i class="fas fa-edit mr-2"></i> Modifier le prompt
+                        </button>
+                    </div>
+                    
+                    <h2 class="font-bold text-xl mt-8 mb-4">Instructions d'utilisation</h2>
+                    <ol class="list-decimal pl-6 space-y-2">
+                        <li>Copiez ce prompt dans ChatGPT ou un autre modèle IA</li>
+                        <li>Lancez une session de diagnostic avec votre coaché</li>
+                        <li>Notez les réponses aux 10 questions générées</li>
+                        <li>Fournissez ces réponses à l'IA pour obtenir la synthèse</li>
+                        <li>Partagez et discutez cette synthèse avec votre coaché</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyPrompt() {
+            const promptText = document.getElementById('promptContent').innerText;
+            navigator.clipboard.writeText(promptText).then(() => {
+                alert('Le prompt a été copié dans le presse-papiers !');
+            });
+        }
+        
+        function editPrompt() {
+            const promptContent = document.getElementById('promptContent');
+            const currentText = promptContent.innerText;
+            const newText = prompt('Modifiez le prompt :', currentText);
+            
+            if (newText && newText !== currentText) {
+                promptContent.innerText = newText;
+                alert('Le prompt a été modifié avec succès !');
+            }
+        }
+    </script>
+</body>
+</html>
+"Ajout fichier prompt1.html"
