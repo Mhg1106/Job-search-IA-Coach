@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Prompt 4 : Connaissance détaillée de l'entreprise cible - Job-search AI & Coach</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <div class="flex flex-col md:flex-row">
+        <!-- Barre latérale -->
+        <div class="bg-gray-800 shadow-xl h-16 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48 md:block">
+            <div class="md:mt-12 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between">
+                <ul class="list-reset flex flex-row md:flex-col py-0 md:py-3 px-1 md:px-2 text-center md:text-left">
+                    <li class="mr-3 flex-1">
+                        <a href="../index.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-blue-500">
+                            <i class="fas fa-arrow-left pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-600 md:text-gray-200 block md:inline-block">Retour</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Contenu principal -->
+        <div id="main" class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
+            <div class="bg-gray-800 pt-3">
+                <div class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white">
+                    <h1 class="font-bold pl-2">Prompt 4 : Connaissance détaillée de l'entreprise cible</h1>
+                </div>
+            </div>
+
+            <div class="p-6">
+                <!-- Carte du prompt -->
+                <div class="bg-white rounded-lg shadow-xl p-5">
+                    <h2 class="font-bold text-xl mb-4">Description</h2>
+                    <p class="mb-6">Ce prompt permet de réaliser une analyse stratégique complète d'une entreprise pour aider le coaché à préparer son entretien et à démontrer sa connaissance approfondie de l'organisation.</p>
+                    
+                    <h2 class="font-bold text-xl mb-4">Contenu du prompt</h2>
+                    <div class="bg-gray-100 p-6 rounded-lg mb-6 font-mono whitespace-pre-wrap" id="promptContent">
+Tu es un Consultant Expert en Intelligence Économique spécialisé dans l'analyse d'entreprises pour les candidats à l'emploi. Ta mission est de fournir une analyse complète et structurée de l'entreprise [NOM DE L'ENTREPRISE] pour un candidat qui postule au poste de [INTITULÉ DU POSTE].
+
+CV du candidat :
+[COLLER LE TEXTE DU CV]
+
+Offre d'emploi :
+[COLLER LE TEXTE DE L'OFFRE D'EMPLOI]
+
+Fournis une analyse détaillée de l'entreprise structurée en 7 sections distinctes :
+
+1. FICHE D'IDENTITÉ DE L'ENTREPRISE (10%)
+- Données factuelles : date de création, taille, chiffre d'affaires, implantations
+- Structure : statut juridique, actionnariat, organisation
+- Leadership : principaux dirigeants et leur parcours
+
+2. MODÈLE ÉCONOMIQUE ET POSITIONNEMENT (15%)
+- Secteur d'activité précis et spécificités
+- Produits/services phares et segments de clientèle
+- Sources de revenus et stratégie de croissance
+
+3. PAYSAGE CONCURRENTIEL (15%)
+- 3-5 concurrents principaux (directs et indirects)
+- Avantages compétitifs de l'entreprise
+- Position dans le marché (leader, challenger, etc.)
+
+4. CULTURE D'ENTREPRISE ET VALEURS (15%)
+- Valeurs affichées et culture interne
+- Politique RSE et engagements
+- Environnement de travail et management
+
+5. ACTUALITÉS RÉCENTES (15%)
+- 2-3 développements significatifs des 12 derniers mois
+- Projets ou orientations stratégiques annoncés
+- Innovations ou changements notables
+
+6. ADÉQUATION PROFIL-ENTREPRISE (15%)
+- Points de convergence entre le profil du candidat et les besoins/valeurs de l'entreprise
+- Compétences du candidat particulièrement pertinentes pour cette organisation
+- Éléments du parcours à valoriser spécifiquement
+
+7. CONSEILS STRATÉGIQUES POUR L'ENTRETIEN (15%)
+- 3-5 sujets à aborder ou questions à poser qui démontreront ton intérêt et ta connaissance
+- Points spécifiques du CV à mettre en avant face à cette entreprise
+- Éléments de langage à privilégier en lien avec la culture d'entreprise
+
+Ta réponse doit être factuelle, précise et basée uniquement sur des informations publiques vérifiables. Utilise un ton professionnel et objectif. L'analyse doit permettre au candidat de démontrer une compréhension approfondie de l'entreprise lors de son entretien et d'adapter son discours en conséquence.
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                        <button onclick="copyPrompt()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                            <i class="fas fa-copy mr-2"></i> Copier le prompt
+                        </button>
+                        <button onclick="editPrompt()" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                            <i class="fas fa-edit mr-2"></i> Modifier le prompt
+                        </button>
+                    </div>
+                    
+                    <h2 class="font-bold text-xl mt-8 mb-4">Instructions d'utilisation</h2>
+                    <ol class="list-decimal pl-6 space-y-2">
+                        <li>Copiez ce prompt dans ChatGPT ou un autre modèle IA</li>
+                        <li>Remplacez [NOM DE L'ENTREPRISE] par le nom de l'entreprise ciblée</li>
+                        <li>Remplacez [INTITULÉ DU POSTE] par le poste visé par le coaché</li>
+                        <li>Collez le CV du coaché et l'offre d'emploi aux emplacements indiqués</li>
+                        <li>Utilisez l'analyse générée pour préparer votre coaché à son entretien</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function copyPrompt() {
+            const promptText = document.getElementById('promptContent').innerText;
+            navigator.clipboard.writeText(promptText).then(() => {
+                alert('Le prompt a été copié dans le presse-papiers !');
+            });
+        }
+        
+        function editPrompt() {
+            const promptContent = document.getElementById('promptContent');
+            const currentText = promptContent.innerText;
+            const newText = prompt('Modifiez le prompt :', currentText);
+            
+            if (newText && newText !== currentText) {
+                promptContent.innerText = newText;
+                alert('Le prompt a été modifié avec succès !');
+            }
+        }
+    </script>
+</body>
+</html>
+"Ajout fichier prompt4.html"
