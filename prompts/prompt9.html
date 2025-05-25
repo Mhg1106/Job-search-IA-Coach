@@ -87,14 +87,20 @@ Pour chaque question :
 Ton guide doit être spécifique au profil du candidat et au poste visé, pas un ensemble de conseils génériques. Adopte un ton à la fois professionnel et encourageant. L'objectif est de permettre au candidat d'entrer dans l'entretien avec confiance, préparation et authenticité.
                     </div>
                     
-                    <div class="flex space-x-4">
-                        <button onclick="copyPrompt()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center">
-                            <i class="fas fa-copy mr-2"></i> Copier le prompt
-                        </button>
-                        <button onclick="editPrompt()" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex items-center">
-                            <i class="fas fa-edit mr-2"></i> Modifier le prompt
-                        </button>
-                    </div>
+                   <div class="flex flex-wrap space-x-2 space-y-2 md:space-y-0">
+    <button onclick="copyPrompt()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded flex items-center">
+        <i class="fas fa-copy mr-2"></i> Copier le prompt
+    </button>
+    <a href="#" onclick="openInChatGPT(); return false;" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded flex items-center">
+        <i class="fas fa-robot mr-2"></i> Ouvrir dans ChatGPT
+    </a>
+    <a href="#" onclick="openInGemini(); return false;" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded flex items-center">
+        <i class="fas fa-gem mr-2"></i> Ouvrir dans Gemini
+    </a>
+    <button onclick="editPrompt()" class="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded flex items-center">
+        <i class="fas fa-edit mr-2"></i> Modifier le prompt
+    </button>
+</div>
                     
                     <h2 class="font-bold text-xl mt-8 mb-4">Instructions d'utilisation</h2>
                     <ol class="list-decimal pl-6 space-y-2">
@@ -110,24 +116,49 @@ Ton guide doit être spécifique au profil du candidat et au poste visé, pas un
     </div>
 
     <script>
-        function copyPrompt() {
-            const promptText = document.getElementById('promptContent').innerText;
-            navigator.clipboard.writeText(promptText).then(() => {
-                alert('Le prompt a été copié dans le presse-papiers !');
-            });
-        }
+    function copyPrompt() {
+        const promptText = document.getElementById('promptContent').innerText;
+        navigator.clipboard.writeText(promptText).then(() => {
+            alert('Le prompt a été copié dans le presse-papiers !');
+        });
+    }
+    
+    function editPrompt() {
+        const promptContent = document.getElementById('promptContent');
+        const currentText = promptContent.innerText;
+        const newText = prompt('Modifiez le prompt :', currentText);
         
-        function editPrompt() {
-            const promptContent = document.getElementById('promptContent');
-            const currentText = promptContent.innerText;
-            const newText = prompt('Modifiez le prompt :', currentText);
-            
-            if (newText && newText !== currentText) {
-                promptContent.innerText = newText;
-                alert('Le prompt a été modifié avec succès !');
-            }
+        if (newText && newText !== currentText) {
+            promptContent.innerText = newText;
+            alert('Le prompt a été modifié avec succès !');
         }
-    </script>
+    }
+    
+    function openInChatGPT() {
+        const promptText = encodeURIComponent(document.getElementById('promptContent').innerText);
+        // Ouvrir ChatGPT dans un nouvel onglet avec le prompt préchargé
+        window.open(`https://chat.openai.com/?prompt=${promptText}`, '_blank');
+    }
+    
+    function openInGemini() {
+        const promptText = encodeURIComponent(document.getElementById('promptContent').innerText);
+        // Ouvrir Gemini dans un nouvel onglet
+        window.open(`https://gemini.google.com/`, '_blank');
+        
+        // Comme Gemini n'a pas de paramètre de prompt dans l'URL, nous affichons des instructions
+        setTimeout(() => {
+            alert('Gemini est ouvert dans un nouvel onglet. Collez le prompt en utilisant Ctrl+V (ou Cmd+V sur Mac).');
+            // Copiez automatiquement le prompt dans le presse-papiers
+            const promptElement = document.getElementById('promptContent');
+            const range = document.createRange();
+            range.selectNode(promptElement);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
+        }, 1000);
+    }
+</script>
 </body>
 </html>
 "Ajout fichier prompt9.html"
