@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mes coachés - Job-search AI & Coach</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+    <header>
+        <nav aria-label="menu nav" class="bg-gray-800 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0">
+            <div class="flex flex-wrap items-center">
+                <div class="flex flex-shrink md:w-1/3 justify-center md:justify-start text-white">
+                    <a href="index.html" aria-label="Home">
+                        <span class="text-xl pl-2 font-bold">Job-search AI & Coach</span>
+                    </a>
+                </div>
+                <div class="flex w-full pt-2 content-center justify-between md:w-1/3 md:justify-end">
+                    <ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
+                        <li class="flex-1 md:flex-none md:mr-3">
+                            <a class="inline-block text-gray-400 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="index.html">Accueil</a>
+                        </li>
+                        <li class="flex-1 md:flex-none md:mr-3">
+                            <a class="inline-block text-gray-400 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="#">Aide</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="flex flex-col md:flex-row">
+        <nav aria-label="alternative nav">
+            <div class="bg-gray-800 shadow-xl h-20 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48 content-center">
+                <div class="md:mt-12 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between">
+                    <ul class="list-reset flex flex-row md:flex-col pt-3 md:py-3 px-1 md:px-2 text-center md:text-left">
+                        <li class="mr-3 flex-1">
+                            <a href="index.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-blue-500">
+                                <i class="fas fa-chart-area pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Tableau de bord</span>
+                            </a>
+                        </li>
+                        <li class="mr-3 flex-1">
+                            <a href="index.html#prompts" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-green-500">
+                                <i class="fas fa-comment-alt pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Prompts IA</span>
+                            </a>
+                        </li>
+                        <li class="mr-3 flex-1">
+                            <a href="coachees.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-purple-600">
+                                <i class="fas fa-users pr-0 md:pr-3 text-purple-600"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-white md:text-white block md:inline-block">Mes coachés</span>
+                            </a>
+                        </li>
+                        <li class="mr-3 flex-1">
+                            <a href="resources.html" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-red-500">
+                                <i class="fas fa-book pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Ressources</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <section>
+            <div id="main" class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
+                <div class="bg-gray-800 pt-3">
+                    <div class="rounded-tl-3xl bg-gradient-to-r from-purple-900 to-gray-800 p-4 shadow text-2xl text-white">
+                        <h1 class="font-bold pl-2">Mes coachés</h1>
+                    </div>
+                </div>
+
+                <div class="p-6">
+                    <!-- En-tête de la section -->
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <h2 class="text-xl font-bold">Suivi des coachés</h2>
+                            <p class="text-gray-600">Gérez et suivez la progression de vos coachés</p>
+                        </div>
+                        <button class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded flex items-center">
+                            <i class="fas fa-plus mr-2"></i> Ajouter un coaché
+                        </button>
+                    </div>
+
+                    <!-- Fiches des coachés -->
+                    <div class="space-y-6">
+                        <!-- Coaché 1 -->
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <div class="flex flex-col md:flex-row md:justify-between md:items-center">
+                                <div class="flex items-center mb-4 md:mb-0">
+                                    <div class="w-16 h-16 rounded-full bg-purple-600 flex items-center justify-center text-white text-2xl font-bold mr-4">
+                                        MD
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xl font-bold">Marie Dupont</h3>
+                                        <p class="text-gray-600">Développeuse Web • Étape 4/10</p>
+                                    </div>
+                                </div>
+                                <div class="flex space-x-3">
+                                    <button class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded">
+                                        Voir profil
+                                    </button>
+                                    <button class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+                                        Nouvelle session
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mt-6">
+                                <div class="flex items-center">
+                                    <div class="text-sm font-medium text-gray-500">Progression</div>
+                                    <div class="ml-auto text-sm font-medium text-gray-700">4/10</div>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+                                    <div class="bg-purple-600 h-2.5 rounded-full" style="width: 40%"></div>
+                                </div>
+                                <div class="mt-4 grid grid-cols-10 gap-1">
+                                    <div class="h-6 rounded bg-purple-600 flex items-center justify-center text-white text-xs">1</div>
+                                    <div class="h-6 rounded bg-purple-600 flex items-center justify-center text-white text-xs">2</div>
+                                    <div class="h-6 rounded bg-purple-600 flex items-center justify-center text-white text-xs">3</div>
+                                    <div class="h-6 rounded bg-purple-600 flex items-center justify-center text-white text-xs">4</div>
+                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">5</div>
+                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">6</div>
+                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">7</div>
+                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">8</div>
+                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">9</div>
+                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">10</div>
+                                </div>
+                            </div>
+                            <div class="mt-4 flex justify-between text-sm">
+                                <div>Dernière session: <span class="font-medium">20/05/2025</span></div>
+                                <div>Prochaine session: <span class="font-medium">28/05/2025</span></div>
+                            </div>
+                        </div>
+
+                        <!-- Coaché 2 -->
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <div class="flex flex-col md:flex-row md:justify-between md:items-center">
+                                <div class="flex items-center mb-4 md:mb-0">
+                                    <div class="w-16 h-16 rounded-full bg-blue-600 flex items-center justify-center text-white text-2xl font-bold mr-4">
+                                        TM
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xl font-bold">Thomas Martin</h3>
+                                        <p class="text-gray-600">Chef de projet • Étape 6/10</p>
+                                    </div>
+                                </div>
+                                <div class="flex space-x-3">
+                                    <button class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded">
+                                        Voir profil
+                                    </button>
+                                    <button class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+                                        Nouvelle session
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mt-6">
+                                <div class="flex items-center">
+                                    <div class="text-sm font-medium text-gray-500">Progression</div>
+                                    <div class="ml-auto text-sm font-medium text-gray-700">6/10</div>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+                                    <div class="bg-blue-600 h-2.5 rounded-full" style="width: 60%"></div>
+                                </div>
+                                <div class="mt-4 grid grid-cols-10 gap-1">
+                                    <div class="h-6 rounded bg-blue-600 flex items-center justify-center text-white text-xs">1</div>
+                                    <div class="h-6 rounded bg-blue-600 flex items-center justify-center text-white text-xs">2</div>
+                                    <div class="h-6 rounded bg-blue-600 flex items-center justify-center text-white text-xs">3</div>
+                                    <div class="h-6 rounded bg-blue-600 flex items-center justify-center text-white text-xs">4</div>
+                                    <div class="h-6 rounded bg-blue-600 flex items-center justify-center text-white text-xs">5</div>
+                                    <div class="h-6 rounded bg-blue-600 flex items-center justify-center text-white text-xs">6</div>
+                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">7</div>
+                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">8</div>
+                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">9</div>
+                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">10</div>
+                                </div>
+                            </div>
+                            <div class="mt-4 flex justify-between text-sm">
+                                <div>Dernière session: <span class="font-medium">18/05/2025</span></div>
+                                <div>Prochaine session: <span class="font-medium">25/05/2025</span></div>
+                            </div>
+                        </div>
+
+                        <!-- Coaché 3 -->
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <div class="flex flex-col md:flex-row md:justify-between md:items-center">
+                                <div class="flex items-center mb-4 md:mb-0">
+                                    <div class="w-16 h-16 rounded-full bg-green-600 flex items-center justify-center text-white text-2xl font-bold mr-4">
+                                        SL
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xl font-bold">Sophie Laurent</h3>
+                                        <p class="text-gray-600">Responsable Marketing • Étape 2/10</p>
+                                    </div>
+                                </div>
+                                <div class="flex space-x-3">
+                                    <button class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded">
+                                        Voir profil
+                                    </button>
+                                    <button class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+                                        Nouvelle session
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mt-6">
+                                <div class="flex items-center">
+                                    <div class="text-sm font-medium text-gray-500">Progression</div>
+                                    <div class="ml-auto text-sm font-medium text-gray-700">2/10</div>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+                                    <div class="bg-green-600 h-2.5 rounded-full" style="width: 20%"></div>
+                                </div>
+                                <div class="mt-4 grid grid-cols-10 gap-1">
+                                    <div class="h-6 rounded bg-green-600 flex items-center justify-center text-white text-xs">1</div>
+                                    <div class="h-6 rounded bg-green-600 flex items-center justify-center text-white text-xs">2</div>
+                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">3</div>
+                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">4</div>
+                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">5</div>
+                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">6</div>
+                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">7</div>
+                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">8</div>
+                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">9</div>
+                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">10</div>
+                                </div>
+                            </div>
+                            <div class="mt-4 flex justify-between text-sm">
+                                <div>Dernière session: <span class="font-medium">22/05/2025</span></div>
+                                <div>Prochaine session: <span class="font-medium">30/05/2025</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Scripts pour les interactions futures
+        function viewProfile(id) {
+            alert("Afficher le profil du coaché #" + id);
+        }
+        
+        function newSession(id) {
+            alert("Démarrer une nouvelle session avec le coaché #" + id);
+        }
+    </script>
+</body>
+</html>
+"Ajout fichier coachees.html"
