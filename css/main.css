@@ -6,23 +6,23 @@
 }
 
 .logo {
-  height: 30px; /* Taille réduite du logo */
+  height: 25px; /* Taille encore plus réduite */
   width: auto; /* Maintient les proportions */
   margin-right: 10px;
 }
 
 .logo-text {
   color: #2C3E50;
-  font-size: 1.2rem; /* Taille de texte réduite */
+  font-size: 1.1rem; /* Taille de texte réduite */
   font-weight: 600;
 }
 
 @media (max-width: 768px) {
   .logo {
-    height: 25px; /* Encore plus petit sur mobile */
+    height: 20px; /* Encore plus petit sur mobile */
   }
   
   .logo-text {
-    font-size: 1rem;
+    font-size: 0.9rem;
   }
 }
