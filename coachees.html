@@ -4,24 +4,53 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mes Coachés - Job-search IA & Coach</title>
-  <link rel="stylesheet" href="../css/main.css">
-  <link rel="stylesheet" href="../css/coachees.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/coachees.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 </head>
 <body>
   <!-- En-tête avec logo -->
   <header class="header">
-  <div class="logo-container">
-    <img src="../assets/images/jobsearch-logo.png" alt="Job-search IA & Coach Logo" class="logo">
-    <span class="logo-text">Job-search IA & Coach</span>
-  </div>
-  <!-- Le reste de votre en-tête existant -->
-</header>
+    <div class="logo-container">
+      <img src="assets/images/jobsearch-logo.png" alt="Job-search IA & Coach Logo" class="logo">
+      <span class="logo-text">Job-search IA & Coach</span>
+    </div>
+  </header>
   
-  <!-- Barre latérale de navigation -->
-  <aside class="sidebar">
-    <!-- Navigation existante -->
-  </aside>
+  <!-- Navigation -->
+  <nav aria-label="alternative nav">
+    <div class="bg-gray-800 shadow-xl h-20 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48 content-center">
+        <div class="md:mt-12 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between">
+            <ul class="list-reset flex flex-row md:flex-col pt-3 md:py-3 px-1 md:px-2 text-center md:text-left">
+                <li class="mr-3 flex-1">
+                    <a href="index.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-blue-500">
+                        <i class="fas fa-chart-area pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Tableau de bord</span>
+                    </a>
+                </li>
+                <li class="mr-3 flex-1">
+                    <a href="prompts_library.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-green-500">
+                        <i class="fas fa-comment-alt pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Prompts IA</span>
+                    </a>
+                </li>
+                <li class="mr-3 flex-1">
+                    <a href="coachees.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-purple-600">
+                        <i class="fas fa-users pr-0 md:pr-3 text-purple-600"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-white md:text-white block md:inline-block">Mes coachés</span>
+                    </a>
+                </li>
+                <li class="mr-3 flex-1">
+                    <a href="resources.html" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-red-500">
+                        <i class="fas fa-book pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Ressources</span>
+                    </a>
+                </li>
+                <li class="mr-3 flex-1">
+                    <a href="prompt-test.html" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-yellow-500">
+                        <i class="fas fa-vial pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Test des Prompts</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+  </nav>
   
   <main class="content">
     <h1>Mes Coachés</h1>
@@ -170,9 +199,6 @@
           </button>
         </div>
       </div>
-      
-      <!-- Modèle de carte pour facilement ajouter d'autres coachés -->
-      <!-- Vous pouvez dupliquer les cartes existantes et modifier les informations -->
     </div>
     
     <!-- Modal d'ajout d'un nouveau coaché (caché par défaut) -->
@@ -210,6 +236,6 @@
     </div>
   </main>
   
-  <script src="../js/coachees.js"></script>
+  <script src="js/coachees.js"></script>
 </body>
 </html>
