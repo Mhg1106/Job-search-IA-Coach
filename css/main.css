@@ -1,0 +1,28 @@
+/* Styles pour le logo */
+.logo-container {
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+}
+
+.logo {
+  height: 30px; /* Taille réduite du logo */
+  width: auto; /* Maintient les proportions */
+  margin-right: 10px;
+}
+
+.logo-text {
+  color: #2C3E50;
+  font-size: 1.2rem; /* Taille de texte réduite */
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .logo {
+    height: 25px; /* Encore plus petit sur mobile */
+  }
+  
+  .logo-text {
+    font-size: 1rem;
+  }
+}
