@@ -1,328 +1,211 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Mes coachés - Job-search AI & Coach</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
-    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mes Coachés - Job-search IA & Coach</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/coachees.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
 </head>
-<body class="bg-gray-100 font-sans leading-normal tracking-normal">
-    <header>
-        <nav aria-label="menu nav" class="bg-gray-800 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0">
-            <div class="flex flex-wrap items-center">
-                <div class="flex flex-shrink md:w-1/3 justify-center md:justify-start text-white">
-                    <a href="index.html" aria-label="Home">
-                        <span class="text-xl pl-2 font-bold">Job-search AI & Coach</span>
-                    </a>
-                </div>
-                <div class="flex w-full pt-2 content-center justify-between md:w-1/3 md:justify-end">
-                    <ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
-                        <li class="flex-1 md:flex-none md:mr-3">
-                            <a class="inline-block text-gray-400 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="index.html">Accueil</a>
-                        </li>
-                        <li class="flex-1 md:flex-none md:mr-3">
-                            <a class="inline-block text-gray-400 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="#">Aide</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <div class="flex flex-col md:flex-row">
-        <nav aria-label="alternative nav">
-            <div class="bg-gray-800 shadow-xl h-20 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48 content-center">
-                <div class="md:mt-12 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between">
-                    <ul class="list-reset flex flex-row md:flex-col pt-3 md:py-3 px-1 md:px-2 text-center md:text-left">
-                        <li class="mr-3 flex-1">
-                            <a href="index.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-blue-500">
-                                <i class="fas fa-chart-area pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Tableau de bord</span>
-                            </a>
-                        </li>
-                        <li class="mr-3 flex-1">
-                            <a href="prompts_library.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-green-500">
-                                <i class="fas fa-comment-alt pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Prompts IA</span>
-                            </a>
-                        </li>
-                        <li class="mr-3 flex-1">
-                            <a href="coachees.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-purple-600">
-                                <i class="fas fa-users pr-0 md:pr-3 text-purple-600"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-white md:text-white block md:inline-block">Mes coachés</span>
-                            </a>
-                        </li>
-                        <li class="mr-3 flex-1">
-                            <a href="resources.html" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-red-500">
-                                <i class="fas fa-book pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Ressources</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        <section>
-            <div id="main" class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
-                <div class="bg-gray-800 pt-3">
-                    <div class="rounded-tl-3xl bg-gradient-to-r from-purple-900 to-gray-800 p-4 shadow text-2xl text-white">
-                        <h1 class="font-bold pl-2">Mes coachés</h1>
-                    </div>
-                </div>
-
-                <div class="p-6">
-                    <!-- En-tête de la section -->
-                    <div class="flex justify-between items-center mb-6">
-                        <div>
-                            <h2 class="text-xl font-bold">Suivi des coachés</h2>
-                            <p class="text-gray-600">Gérez et suivez la progression de vos coachés</p>
-                        </div>
-                        <button class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded flex items-center">
-                            <i class="fas fa-plus mr-2"></i> Ajouter un coaché
-                        </button>
-                    </div>
-
-                    <!-- Fiches des coachés -->
-                    <div class="space-y-6">
-                        <!-- Coaché 1 -->
-                        <div class="bg-white rounded-lg shadow-md p-6">
-                            <div class="flex flex-col md:flex-row md:justify-between md:items-center">
-                                <div class="flex items-center mb-4 md:mb-0">
-                                    <div class="w-16 h-16 rounded-full bg-purple-600 flex items-center justify-center text-white text-2xl font-bold mr-4">
-                                        MD
-                                    </div>
-                                    <div>
-                                        <h3 class="text-xl font-bold">Marie Dupont</h3>
-                                        <p class="text-gray-600">Développeuse Web • Étape 4/10</p>
-                                    </div>
-                                </div>
-                                <div class="flex space-x-3">
-                                    <button class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded">
-                                        Voir profil
-                                    </button>
-                                    <button class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
-                                        Nouvelle session
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="mt-6">
-                                <div class="flex items-center">
-                                    <div class="text-sm font-medium text-gray-500">Progression</div>
-                                    <div class="ml-auto text-sm font-medium text-gray-700">4/10</div>
-                                </div>
-                                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
-                                    <div class="bg-purple-600 h-2.5 rounded-full" style="width: 40%"></div>
-                                </div>
-                                <div class="mt-4 grid grid-cols-10 gap-1">
-                                    <div class="h-6 rounded bg-purple-600 flex items-center justify-center text-white text-xs">1</div>
-                                    <div class="h-6 rounded bg-purple-600 flex items-center justify-center text-white text-xs">2</div>
-                                    <div class="h-6 rounded bg-purple-600 flex items-center justify-center text-white text-xs">3</div>
-                                    <div class="h-6 rounded bg-purple-600 flex items-center justify-center text-white text-xs">4</div>
-                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">5</div>
-                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">6</div>
-                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">7</div>
-                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">8</div>
-                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">9</div>
-                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">10</div>
-                                </div>
-                            </div>
-                            <div class="mt-4 flex justify-between text-sm">
-                                <div>Dernière session: <span class="font-medium">20/05/2025</span></div>
-                                <div>Prochaine session: <span class="font-medium">28/05/2025</span></div>
-                            </div>
-                        </div>
-
-                        <!-- Coaché 2 -->
-                        <div class="bg-white rounded-lg shadow-md p-6">
-                            <div class="flex flex-col md:flex-row md:justify-between md:items-center">
-                                <div class="flex items-center mb-4 md:mb-0">
-                                    <div class="w-16 h-16 rounded-full bg-blue-600 flex items-center justify-center text-white text-2xl font-bold mr-4">
-                                        TM
-                                    </div>
-                                    <div>
-                                        <h3 class="text-xl font-bold">Thomas Martin</h3>
-                                        <p class="text-gray-600">Chef de projet • Étape 6/10</p>
-                                    </div>
-                                </div>
-                                <div class="flex space-x-3">
-                                    <button class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded">
-                                        Voir profil
-                                    </button>
-                                    <button class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
-                                        Nouvelle session
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="mt-6">
-                                <div class="flex items-center">
-                                    <div class="text-sm font-medium text-gray-500">Progression</div>
-                                    <div class="ml-auto text-sm font-medium text-gray-700">6/10</div>
-                                </div>
-                                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
-                                    <div class="bg-blue-600 h-2.5 rounded-full" style="width: 60%"></div>
-                                </div>
-                                <div class="mt-4 grid grid-cols-10 gap-1">
-                                    <div class="h-6 rounded bg-blue-600 flex items-center justify-center text-white text-xs">1</div>
-                                    <div class="h-6 rounded bg-blue-600 flex items-center justify-center text-white text-xs">2</div>
-                                    <div class="h-6 rounded bg-blue-600 flex items-center justify-center text-white text-xs">3</div>
-                                    <div class="h-6 rounded bg-blue-600 flex items-center justify-center text-white text-xs">4</div>
-                                    <div class="h-6 rounded bg-blue-600 flex items-center justify-center text-white text-xs">5</div>
-                                    <div class="h-6 rounded bg-blue-600 flex items-center justify-center text-white text-xs">6</div>
-                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">7</div>
-                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">8</div>
-                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">9</div>
-                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">10</div>
-                                </div>
-                            </div>
-                            <div class="mt-4 flex justify-between text-sm">
-                                <div>Dernière session: <span class="font-medium">18/05/2025</span></div>
-                                <div>Prochaine session: <span class="font-medium">25/05/2025</span></div>
-                            </div>
-                        </div>
-
-                        <!-- Coaché 3 -->
-                        <div class="bg-white rounded-lg shadow-md p-6">
-                            <div class="flex flex-col md:flex-row md:justify-between md:items-center">
-                                <div class="flex items-center mb-4 md:mb-0">
-                                    <div class="w-16 h-16 rounded-full bg-green-600 flex items-center justify-center text-white text-2xl font-bold mr-4">
-                                        SL
-                                    </div>
-                                    <div>
-                                        <h3 class="text-xl font-bold">Sophie Laurent</h3>
-                                        <p class="text-gray-600">Responsable Marketing • Étape 2/10</p>
-                                    </div>
-                                </div>
-                                <div class="flex space-x-3">
-                                    <button class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded">
-                                        Voir profil
-                                    </button>
-                                    <button class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
-                                        Nouvelle session
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="mt-6">
-                                <div class="flex items-center">
-                                    <div class="text-sm font-medium text-gray-500">Progression</div>
-                                    <div class="ml-auto text-sm font-medium text-gray-700">2/10</div>
-                                </div>
-                                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
-                                    <div class="bg-green-600 h-2.5 rounded-full" style="width: 20%"></div>
-                                </div>
-                                <div class="mt-4 grid grid-cols-10 gap-1">
-                                    <div class="h-6 rounded bg-green-600 flex items-center justify-center text-white text-xs">1</div>
-                                    <div class="h-6 rounded bg-green-600 flex items-center justify-center text-white text-xs">2</div>
-                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">3</div>
-                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">4</div>
-                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">5</div>
-                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">6</div>
-                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">7</div>
-                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">8</div>
-                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">9</div>
-                                    <div class="h-6 rounded bg-gray-200 flex items-center justify-center text-gray-600 text-xs">10</div>
-                                </div>
-                            </div>
-                            <div class="mt-4 flex justify-between text-sm">
-                                <div>Dernière session: <span class="font-medium">22/05/2025</span></div>
-                                <div>Prochaine session: <span class="font-medium">30/05/2025</span></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+<body>
+  <!-- En-tête avec logo -->
+  <header>
+    <!-- Contenu de l'en-tête avec logo -->
+  </header>
+  
+  <!-- Barre latérale de navigation -->
+  <aside class="sidebar">
+    <!-- Navigation existante -->
+  </aside>
+  
+  <main class="content">
+    <h1>Mes Coachés</h1>
+    
+    <!-- Section de filtres -->
+    <div class="filters-container">
+      <div class="search-box">
+        <input type="text" placeholder="Rechercher un coaché..." id="coachee-search">
+        <i class="fas fa-search"></i>
+      </div>
+      <div class="filter-group">
+        <select id="status-filter" class="filter-select">
+          <option value="all">Tous les statuts</option>
+          <option value="active">Actif</option>
+          <option value="pending">En attente</option>
+          <option value="completed">Terminé</option>
+        </select>
+        <select id="stage-filter" class="filter-select">
+          <option value="all">Toutes les étapes</option>
+          <option value="1">Diagnostic Initial</option>
+          <option value="2">Analyse du Marché</option>
+          <option value="3">Plan d'Actions</option>
+          <option value="4">Analyse CV</option>
+          <option value="5">Recherche Entreprise</option>
+          <option value="6">Matching CV/Offre</option>
+          <option value="7">Lettre de Motivation</option>
+          <option value="8">Ciblage Offres</option>
+          <option value="9">Préparation Entretien</option>
+          <option value="10">Bilan Coaching</option>
+        </select>
+        <button id="add-coachee" class="btn-primary">
+          <i class="fas fa-plus"></i> Ajouter un coaché
+        </button>
+      </div>
     </div>
-
-   <script>
-    // Modal pour ajouter un coaché
-    let modal;
     
-    function setupModal() {
-        // Créer le modal s'il n'existe pas déjà
-        if (!document.getElementById('addCoacheeModal')) {
-            const modalHTML = `
-                <div id="addCoacheeModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden">
-                    <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
-                        <div class="mt-3 text-center">
-                            <h3 class="text-lg leading-6 font-medium text-gray-900">Ajouter un nouveau coaché</h3>
-                            <div class="mt-2 px-7 py-3">
-                                <form id="addCoacheeForm" class="space-y-4 text-left">
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700">Prénom et Nom</label>
-                                        <input type="text" id="coacheeName" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700">Poste recherché</label>
-                                        <input type="text" id="coacheePosition" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm font-medium text-gray-700">Email</label>
-                                        <input type="email" id="coacheeEmail" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
-                                    </div>
-                                    <div class="flex justify-end pt-2">
-                                        <button type="button" onclick="closeModal()" class="px-4 py-2 bg-gray-300 text-black text-base font-medium rounded-md shadow-sm hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-300 mr-2">
-                                            Annuler
-                                        </button>
-                                        <button type="submit" class="px-4 py-2 bg-purple-600 text-white text-base font-medium rounded-md shadow-sm hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-300">
-                                            Ajouter
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-            document.body.insertAdjacentHTML('beforeend', modalHTML);
-            
-            // Ajouter l'événement au formulaire
-            document.getElementById('addCoacheeForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const name = document.getElementById('coacheeName').value;
-                const position = document.getElementById('coacheePosition').value;
-                alert(`Un nouveau coaché a été ajouté : ${name}, ${position}`);
-                closeModal();
-            });
-        }
-        
-        modal = document.getElementById('addCoacheeModal');
-    }
+    <!-- Grille des coachés -->
+    <div class="coachees-grid">
+      <!-- Carte coaché 1 -->
+      <div class="coachee-card active">
+        <div class="coachee-header">
+          <div class="coachee-avatar" style="background-color: #3498DB;">MD</div>
+          <div class="coachee-status active">Actif</div>
+          <div class="coachee-actions">
+            <button class="btn-icon" title="Modifier"><i class="fas fa-edit"></i></button>
+            <button class="btn-icon" title="Plus d'options"><i class="fas fa-ellipsis-v"></i></button>
+          </div>
+        </div>
+        <div class="coachee-body">
+          <h3 class="coachee-name">Marie Dupont</h3>
+          <p class="coachee-position">Marketing Digital</p>
+          <div class="progress-container">
+            <div class="progress-bar" style="width: 90%;">
+              <span>9/10</span>
+            </div>
+          </div>
+          <p class="current-stage">
+            <i class="fas fa-tasks"></i>
+            <span>Préparation Entretien</span>
+          </p>
+          <p class="last-activity">
+            <i class="fas fa-clock"></i>
+            <span>Dernière activité : Aujourd'hui, 10:30</span>
+          </p>
+        </div>
+        <div class="coachee-footer">
+          <button class="btn-action">
+            <i class="fas fa-play"></i> Session
+          </button>
+          <button class="btn-action">
+            <i class="fas fa-folder-open"></i> Dossier
+          </button>
+        </div>
+      </div>
+      
+      <!-- Carte coaché 2 -->
+      <div class="coachee-card pending">
+        <div class="coachee-header">
+          <div class="coachee-avatar" style="background-color: #E67E22;">TM</div>
+          <div class="coachee-status pending">En attente</div>
+          <div class="coachee-actions">
+            <button class="btn-icon" title="Modifier"><i class="fas fa-edit"></i></button>
+            <button class="btn-icon" title="Plus d'options"><i class="fas fa-ellipsis-v"></i></button>
+          </div>
+        </div>
+        <div class="coachee-body">
+          <h3 class="coachee-name">Thomas Martin</h3>
+          <p class="coachee-position">Développeur Web</p>
+          <div class="progress-container">
+            <div class="progress-bar" style="width: 40%;">
+              <span>4/10</span>
+            </div>
+          </div>
+          <p class="current-stage">
+            <i class="fas fa-tasks"></i>
+            <span>Analyse CV</span>
+          </p>
+          <p class="last-activity">
+            <i class="fas fa-clock"></i>
+            <span>Dernière activité : Hier, 14:45</span>
+          </p>
+        </div>
+        <div class="coachee-footer">
+          <button class="btn-action">
+            <i class="fas fa-play"></i> Session
+          </button>
+          <button class="btn-action">
+            <i class="fas fa-folder-open"></i> Dossier
+          </button>
+        </div>
+      </div>
+      
+      <!-- Carte coaché 3 -->
+      <div class="coachee-card active">
+        <div class="coachee-header">
+          <div class="coachee-avatar" style="background-color: #9B59B6;">SL</div>
+          <div class="coachee-status active">Actif</div>
+          <div class="coachee-actions">
+            <button class="btn-icon" title="Modifier"><i class="fas fa-edit"></i></button>
+            <button class="btn-icon" title="Plus d'options"><i class="fas fa-ellipsis-v"></i></button>
+          </div>
+        </div>
+        <div class="coachee-body">
+          <h3 class="coachee-name">Sophie Laurent</h3>
+          <p class="coachee-position">Chef de Projet</p>
+          <div class="progress-container">
+            <div class="progress-bar" style="width: 10%;">
+              <span>1/10</span>
+            </div>
+          </div>
+          <p class="current-stage">
+            <i class="fas fa-tasks"></i>
+            <span>Diagnostic Initial</span>
+          </p>
+          <p class="last-activity">
+            <i class="fas fa-clock"></i>
+            <span>Dernière activité : 23/05/2025, 11:15</span>
+          </p>
+        </div>
+        <div class="coachee-footer">
+          <button class="btn-action">
+            <i class="fas fa-play"></i> Session
+          </button>
+          <button class="btn-action">
+            <i class="fas fa-folder-open"></i> Dossier
+          </button>
+        </div>
+      </div>
+      
+      <!-- Modèle de carte pour facilement ajouter d'autres coachés -->
+      <!-- Vous pouvez dupliquer les cartes existantes et modifier les informations -->
+    </div>
     
-    function openModal() {
-        setupModal();
-        modal.classList.remove('hidden');
-    }
-    
-    function closeModal() {
-        modal.classList.add('hidden');
-    }
-    
-    // Attacher l'événement au bouton d'ajout
-    document.addEventListener('DOMContentLoaded', function() {
-        setupModal();
-        
-        // Attacher le gestionnaire d'événements au bouton
-        const addButton = document.querySelector('.add-btn');
-        if (addButton) {
-            addButton.addEventListener('click', openModal);
-        }
-        
-        // Gérer les boutons "Voir profil" et "Nouvelle session"
-        const profileButtons = document.querySelectorAll('.secondary-btn');
-        profileButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const coacheeName = this.closest('.coachee-card').querySelector('h3').textContent;
-                alert(`Profil de ${coacheeName} - Cette fonctionnalité sera disponible dans une version future.`);
-            });
-        });
-        
-        const sessionButtons = document.querySelectorAll('.primary-btn');
-        sessionButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const coacheeName = this.closest('.coachee-card').querySelector('h3').textContent;
-                alert(`Nouvelle session avec ${coacheeName} - Cette fonctionnalité sera disponible dans une version future.`);
-            });
-        });
-    });
-</script>
+    <!-- Modal d'ajout d'un nouveau coaché (caché par défaut) -->
+    <div id="add-coachee-modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Ajouter un nouveau coaché</h2>
+        <form id="new-coachee-form">
+          <div class="form-group">
+            <label for="coachee-name">Nom complet</label>
+            <input type="text" id="coachee-name" required>
+          </div>
+          <div class="form-group">
+            <label for="coachee-position">Poste recherché</label>
+            <input type="text" id="coachee-position" required>
+          </div>
+          <div class="form-group">
+            <label for="coachee-email">Email</label>
+            <input type="email" id="coachee-email" required>
+          </div>
+          <div class="form-group">
+            <label for="coachee-phone">Téléphone</label>
+            <input type="tel" id="coachee-phone">
+          </div>
+          <div class="form-group">
+            <label for="coachee-notes">Notes</label>
+            <textarea id="coachee-notes" rows="4"></textarea>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn-secondary cancel-btn">Annuler</button>
+            <button type="submit" class="btn-primary">Ajouter</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+  
+  <script src="../js/coachees.js"></script>
 </body>
 </html>
-"Ajout fichier coachees.html"
