@@ -10,83 +10,239 @@
 </head>
 <body>
   <!-- En-tête avec logo -->
-  <header>
-    <!-- Contenu de l'en-tête avec logo -->
+  <header class="app-header">
+    <div class="logo-container">
+      <img src="../assets/images/jobsearch-logo.png" alt="Job-search IA & Coach Logo" class="logo">
+      <span class="logo-text">Job-search IA & Coach</span>
+    </div>
+    <!-- Navigation existante -->
   </header>
   
-  <!-- Barre latérale de navigation -->
-  <aside class="sidebar">
-    <!-- Navigation existante -->
-  </aside>
-  
-  <main class="content">
-    <h1>Mode Test des Prompts</h1>
+  <!-- Contenu principal -->
+  <div class="container">
+    <!-- Barre latérale de navigation -->
+    <aside class="sidebar">
+      <nav>
+        <ul>
+          <li><a href="../index.html"><i class="fas fa-tachometer-alt"></i> Tableau de bord</a></li>
+          <li><a href="prompts.html"><i class="fas fa-comment-alt"></i> Prompts IA</a></li>
+          <li><a href="coachees.html"><i class="fas fa-users"></i> Mes Coachés</a></li>
+          <li><a href="resources.html"><i class="fas fa-book"></i> Ressources</a></li>
+          <li><a href="prompt-test.html" class="active"><i class="fas fa-vial"></i> Test des Prompts</a></li>
+        </ul>
+      </nav>
+    </aside>
     
-    <p class="description">
-      Testez vos prompts IA avant de les utiliser avec vos coachés pour vous assurer qu'ils produisent les résultats escomptés.
-    </p>
-    
-    <div class="test-container">
-      <div class="test-panel">
-        <!-- Première étape : Sélection ou création de prompt -->
-        <div class="test-section">
-          <h2>Sélection du prompt</h2>
+    <main class="content">
+      <h1>Mode Test des Prompts</h1>
+      
+      <p class="description">
+        Testez vos prompts IA avant de les utiliser avec vos coachés pour vous assurer qu'ils produisent les résultats escomptés.
+      </p>
+      
+      <div class="test-container">
+        <div class="test-panel">
+          <!-- Première étape : Sélection ou création de prompt -->
+          <div class="test-section">
+            <h2>Sélection du prompt</h2>
+            
+            <div class="prompt-choice">
+              <div class="choice-option">
+                <h3>Choisir un prompt existant</h3>
+                <select id="prompt-select" class="full-width">
+                  <option value="">-- Sélectionnez un prompt --</option>
+                  <option value="1">1 - Diagnostic de Départ</option>
+                  <option value="2">2 - Analyse du Marché de l'Emploi</option>
+                  <option value="3">3 - Plan d'Actions Concret</option>
+                  <option value="4">4 - Analyse CV</option>
+                  <option value="5">5 - Recherches sur l'Entreprise</option>
+                  <option value="6">6 - Matching CV / Offre</option>
+                  <option value="7">7 - Lettre de Motivation</option>
+                  <option value="8">8 - Ciblage Offres</option>
+                  <option value="9">9 - Préparation Entretien</option>
+                  <option value="10">10 - Bilan du Coaching</option>
+                </select>
+              </div>
+              
+              <div class="separator">
+                <span>OU</span>
+              </div>
+              
+              <div class="choice-option">
+                <h3>Créer un nouveau prompt</h3>
+                <input type="text" id="prompt-title" class="full-width" placeholder="Titre du prompt">
+              </div>
+            </div>
+          </div>
           
-          <div class="prompt-choice">
-            <div class="choice-option">
-              <h3>Choisir un prompt existant</h3>
-              <select id="prompt-select" class="full-width">
-                <option value="">-- Sélectionnez un prompt --</option>
-                <option value="1">1 - Diagnostic de Départ</option>
-                <option value="2">2 - Analyse du Marché de l'Emploi</option>
-                <option value="3">3 - Plan d'Actions Concret</option>
-                <option value="4">4 - Analyse CV</option>
-                <option value="5">5 - Recherches sur l'Entreprise</option>
-                <option value="6">6 - Matching CV / Offre</option>
-                <option value="7">7 - Lettre de Motivation</option>
-                <option value="8">8 - Ciblage Offres</option>
-                <option value="9">9 - Préparation Entretien</option>
-                <option value="10">10 - Bilan du Coaching</option>
-              </select>
-            </div>
+          <!-- Deuxième étape : Variables de test -->
+          <div class="test-section">
+            <h2>Variables de test</h2>
+            <p class="hint">Remplissez les informations nécessaires qui seront insérées dans votre prompt.</p>
             
-            <div class="separator">
-              <span>OU</span>
+            <div class="variables-grid">
+              <div class="variable-input">
+                <label for="var-name">Nom du coaché</label>
+                <input type="text" id="var-name" placeholder="Ex: Marie Dupont" value="Marie Dupont">
+              </div>
+              
+              <div class="variable-input">
+                <label for="var-position">Poste recherché</label>
+                <input type="text" id="var-position" placeholder="Ex: Responsable Marketing Digital" value="Responsable Marketing Digital">
+              </div>
+              
+              <div class="variable-input">
+                <label for="var-sector">Secteur d'activité</label>
+                <input type="text" id="var-sector" placeholder="Ex: E-commerce" value="E-commerce">
+              </div>
+              
+              <div class="variable-input">
+                <label for="var-experience">Années d'expérience</label>
+                <input type="number" id="var-experience" placeholder="Ex: 5" value="5">
+              </div>
+              
+              <div class="variable-input">
+                <label for="var-skills">Compétences clés</label>
+                <input type="text" id="var-skills" placeholder="Ex: SEO, Marketing Digital, Analytics" value="SEO, Marketing Digital, Analytics">
+              </div>
+              
+              <div class="variable-input full-width">
+                <label for="var-custom">Variables personnalisées (format: clé=valeur, une par ligne)</label>
+                <textarea id="var-custom" placeholder="Ex: objectif=trouver un poste en 3 mois&#10;localisation=Paris et banlieue"></textarea>
+              </div>
             </div>
+          </div>
+          
+          <!-- Troisième étape : Éditeur de prompt -->
+          <div class="test-section">
+            <h2>Éditeur de prompt</h2>
             
-            <div class="choice-option">
-              <h3>Créer un nouveau prompt</h3>
-              <input type="text" id="prompt-title" class="full-width" placeholder="Titre du prompt">
+            <div class="editor-container">
+              <textarea id="prompt-editor" placeholder="Entrez votre prompt ici ou sélectionnez un prompt existant...">Je suis un coach spécialisé en emploi et carrière. Je réalise un diagnostic initial pour [Nom du coaché], qui recherche un poste de [type de poste] dans le secteur [secteur]. 
+
+Le/la candidat(e) possède [années d'expérience] ans d'expérience et des compétences en [compétences].
+
+Réalise une analyse complète de la situation professionnelle actuelle avec :
+1. Une synthèse de la situation
+2. Les forces identifiées
+3. Les freins potentiels  
+4. Les motivations principales
+5. Un plan d'action initial recommandé (court et moyen terme)
+6. Des actions spécifiques à mettre en place
+
+Adopte un ton constructif et encourageant. Structure ta réponse avec des titres et des listes pour faciliter la lecture.</textarea>
+              
+              <div class="editor-tools">
+                <button id="insert-variable" class="btn-tool" title="Insérer une variable">
+                  <i class="fas fa-code"></i> Insérer variable
+                </button>
+                <button id="format-prompt" class="btn-tool" title="Formater le texte">
+                  <i class="fas fa-paragraph"></i> Formater
+                </button>
+                <button id="save-prompt" class="btn-tool" title="Sauvegarder comme modèle">
+                  <i class="fas fa-save"></i> Sauvegarder
+                </button>
+              </div>
             </div>
+          </div>
+          
+          <div class="test-actions">
+            <button id="run-test" class="btn-primary">
+              <i class="fas fa-play"></i> Tester le prompt
+            </button>
+            <button id="reset-test" class="btn-secondary">
+              <i class="fas fa-redo"></i> Réinitialiser
+            </button>
           </div>
         </div>
         
-        <!-- Deuxième étape : Variables de test -->
-        <div class="test-section">
-          <h2>Variables de test</h2>
-          <p class="hint">Remplissez les informations nécessaires qui seront insérées dans votre prompt.</p>
+        <!-- Résultats du test -->
+        <div class="test-results">
+          <h2>Résultat du test</h2>
           
-          <div class="variables-grid">
-            <div class="variable-input">
-              <label for="var-name">Nom du coaché</label>
-              <input type="text" id="var-name" placeholder="Ex: Marie Dupont" value="Marie Dupont">
+          <div class="results-container">
+            <div id="test-loading" class="loading-indicator">
+              <i class="fas fa-spinner fa-spin"></i>
+              <span>Génération en cours...</span>
             </div>
             
-            <div class="variable-input">
-              <label for="var-position">Poste recherché</label>
-              <input type="text" id="var-position" placeholder="Ex: Responsable Marketing Digital" value="Responsable Marketing Digital">
+            <div id="test-output" class="output-container">
+              <div class="output-content">
+                <h1>Diagnostic Initial pour Marie Dupont</h1>
+                
+                <h2>Situation actuelle</h2>
+                <p>Marie Dupont est à la recherche d'un poste de Responsable Marketing Digital dans le secteur du e-commerce. Elle possède une expérience de 5 ans dans le marketing digital, principalement dans des entreprises de taille moyenne.</p>
+                
+                <h2>Forces identifiées</h2>
+                <ul>
+                  <li>Expertise technique en SEO/SEA et réseaux sociaux</li>
+                  <li>Expérience dans la création et l'analyse de campagnes marketing</li>
+                  <li>Bonne connaissance des outils d'analyse et de reporting</li>
+                  <li>Capacité à gérer des équipes et des projets</li>
+                  <li>Orientation résultats et ROI</li>
+                </ul>
+                
+                <h2>Freins potentiels</h2>
+                <ul>
+                  <li>Réseau professionnel limité dans le secteur e-commerce</li>
+                  <li>Méconnaissance de certains outils spécifiques au secteur</li>
+                  <li>Difficulté à valoriser ses réussites quantifiables</li>
+                  <li>Manque de confiance lors des entretiens avec les décideurs de haut niveau</li>
+                </ul>
+                
+                <h2>Motivations</h2>
+                <ul>
+                  <li>Souhait d'évoluer vers des responsabilités plus stratégiques</li>
+                  <li>Intérêt pour l'innovation technologique et les nouvelles tendances</li>
+                  <li>Recherche d'un environnement dynamique et en croissance</li>
+                  <li>Volonté d'avoir un impact mesurable sur la croissance de l'entreprise</li>
+                </ul>
+                
+                <h2>Plan d'action initial recommandé</h2>
+                
+                <h3>Court terme (1-2 semaines)</h3>
+                <ol>
+                  <li>Optimisation de son CV pour mettre en avant ses réalisations quantifiables</li>
+                  <li>Analyse approfondie du secteur e-commerce et des tendances marketing actuelles</li>
+                  <li>Identification des compétences techniques à renforcer (ex: Google Analytics 4, outils CRM spécifiques)</li>
+                </ol>
+                
+                <h3>Moyen terme (3-4 semaines)</h3>
+                <ol>
+                  <li>Développement d'un personal branding axé sur son expertise marketing digital</li>
+                  <li>Expansion de son réseau professionnel via LinkedIn et événements sectoriels</li>
+                  <li>Préparation d'un pitch personnel mettant en avant sa valeur ajoutée</li>
+                </ol>
+                
+                <h2>Actions spécifiques recommandées</h2>
+                <ul>
+                  <li>S'inscrire à une formation sur les dernières tendances du marketing e-commerce</li>
+                  <li>Contacter 3 professionnels du secteur par semaine pour des entretiens informatifs</li>
+                  <li>Créer un portfolio de ses campagnes marketing les plus réussies avec résultats chiffrés</li>
+                </ul>
+                
+                <p>Ce diagnostic servira de base pour élaborer un plan d'action détaillé lors de notre prochaine séance.</p>
+              </div>
+              
+              <div class="evaluation-container">
+                <h3>Comment évaluez-vous ce résultat ?</h3>
+                <div class="rating-container">
+                  <button class="rating-btn" data-rating="1"><i class="far fa-star"></i></button>
+                  <button class="rating-btn" data-rating="2"><i class="far fa-star"></i></button>
+                  <button class="rating-btn" data-rating="3"><i class="far fa-star"></i></button>
+                  <button class="rating-btn" data-rating="4"><i class="far fa-star"></i></button>
+                  <button class="rating-btn" data-rating="5"><i class="far fa-star"></i></button>
+                </div>
+                <textarea id="feedback-text" placeholder="Commentaires sur le résultat (facultatif)..."></textarea>
+                <button id="save-feedback" class="btn-primary">Enregistrer évaluation</button>
+              </div>
             </div>
-            
-            <div class="variable-input">
-              <label for="var-sector">Secteur d'activité</label>
-              <input type="text" id="var-sector" placeholder="Ex: E-commerce" value="E-commerce">
-            </div>
-            
-            <div class="variable-input">
-              <label for="var-experience">Années d'expérience</label>
-              <input type="number" id="var-experience" placeholder="Ex: 5" value="5">
-            </div>
-            
-            <div class="variable-input">
-              <label for="var-skills">Compétences clés</label>
-              <input
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <script src="../js/prompt-test.js"></script>
+</body>
+</html>
