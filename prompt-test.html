@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mode Test des Prompts - Job-search IA & Coach</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/prompt-test.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+</head>
+<body>
+  <!-- En-tête avec logo -->
+  <header>
+    <!-- Contenu de l'en-tête avec logo -->
+  </header>
+  
+  <!-- Barre latérale de navigation -->
+  <aside class="sidebar">
+    <!-- Navigation existante -->
+  </aside>
+  
+  <main class="content">
+    <h1>Mode Test des Prompts</h1>
+    
+    <p class="description">
+      Testez vos prompts IA avant de les utiliser avec vos coachés pour vous assurer qu'ils produisent les résultats escomptés.
+    </p>
+    
+    <div class="test-container">
+      <div class="test-panel">
+        <!-- Première étape : Sélection ou création de prompt -->
+        <div class="test-section">
+          <h2>Sélection du prompt</h2>
+          
+          <div class="prompt-choice">
+            <div class="choice-option">
+              <h3>Choisir un prompt existant</h3>
+              <select id="prompt-select" class="full-width">
+                <option value="">-- Sélectionnez un prompt --</option>
+                <option value="1">1 - Diagnostic de Départ</option>
+                <option value="2">2 - Analyse du Marché de l'Emploi</option>
+                <option value="3">3 - Plan d'Actions Concret</option>
+                <option value="4">4 - Analyse CV</option>
+                <option value="5">5 - Recherches sur l'Entreprise</option>
+                <option value="6">6 - Matching CV / Offre</option>
+                <option value="7">7 - Lettre de Motivation</option>
+                <option value="8">8 - Ciblage Offres</option>
+                <option value="9">9 - Préparation Entretien</option>
+                <option value="10">10 - Bilan du Coaching</option>
+              </select>
+            </div>
+            
+            <div class="separator">
+              <span>OU</span>
+            </div>
+            
+            <div class="choice-option">
+              <h3>Créer un nouveau prompt</h3>
+              <input type="text" id="prompt-title" class="full-width" placeholder="Titre du prompt">
+            </div>
+          </div>
+        </div>
+        
+        <!-- Deuxième étape : Variables de test -->
+        <div class="test-section">
+          <h2>Variables de test</h2>
+          <p class="hint">Remplissez les informations nécessaires qui seront insérées dans votre prompt.</p>
+          
+          <div class="variables-grid">
+            <div class="variable-input">
+              <label for="var-name">Nom du coaché</label>
+              <input type="text" id="var-name" placeholder="Ex: Marie Dupont" value="Marie Dupont">
+            </div>
+            
+            <div class="variable-input">
+              <label for="var-position">Poste recherché</label>
+              <input type="text" id="var-position" placeholder="Ex: Responsable Marketing Digital" value="Responsable Marketing Digital">
+            </div>
+            
+            <div class="variable-input">
+              <label for="var-sector">Secteur d'activité</label>
+              <input type="text" id="var-sector" placeholder="Ex: E-commerce" value="E-commerce">
+            </div>
+            
+            <div class="variable-input">
+              <label for="var-experience">Années d'expérience</label>
+              <input type="number" id="var-experience" placeholder="Ex: 5" value="5">
+            </div>
+            
+            <div class="variable-input">
+              <label for="var-skills">Compétences clés</label>
+              <input
