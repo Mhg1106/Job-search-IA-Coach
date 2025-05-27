@@ -1,0 +1,10 @@
+/* Supprimer l'espace en haut des pages */
+body {
+  margin-top: 0 !important;
+}
+
+/* Ajuster le positionnement du contenu principal */
+.main-content {
+  margin-top: 0 !important;
+  padding-top: 1rem;
+}
