@@ -19,10 +19,16 @@ body::before {
 .main-content {
   position: relative;
   z-index: 1;
+  padding-top: 48px; /* Même valeur que la hauteur de la bande noire */
 }
 
 /* S'assurer que les titres sont visibles et ne sont pas masqués par la bande */
 .rounded-tl-3xl {
   position: relative;
   z-index: 2;
+}
+
+/* Ajuster le positionnement de la barre latérale */
+.md\:fixed.md\:left-0.md\:top-0 {
+  top: 48px !important; /* Aligner avec le bas de la bande noire */
 }
