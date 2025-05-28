@@ -99,25 +99,34 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
   // Fonctions utilitaires
-  function getPromptById(id) {
-    // Pour cet exemple, nous utilisons une structure de données simplifiée
-    // Dans une application réelle, vous récupéreriez cela depuis localStorage
-    const prompts = [
-      {
-        id: "1",
-        title: "Diagnostic de Départ",
-        content: `Je suis un coach spécialisé en emploi et carrière. Je réalise un diagnostic initial pour [Nom du coaché], qui recherche un poste de [type de poste]...`
-      },
-      {
-        id: "2",
-        title: "Analyse du marché de l'emploi",
-        content: `Je suis un coach spécialisé en emploi et carrière. Je réalise une analyse du marché de l'emploi pour [Nom du coaché]...`
-      },
-      // Ajoutez les autres prompts ici
-    ];
+ function getPromptById(id) {
+    // Convertir l'ID en nombre pour correspondre à l'index (en partant de 1)
+    const promptIndex = parseInt(id);
     
-    return prompts.find(p => p.id === id);
-  }
+    // Sélectionner tous les conteneurs de prompts
+    const promptContainers = document.querySelectorAll('.bg-white.p-5.rounded-lg.shadow-md.border-l-4');
+    
+    if (promptContainers && promptContainers[promptIndex - 1]) {
+        // Récupérer le conteneur du prompt correspondant
+        const promptContainer = promptContainers[promptIndex - 1];
+        
+        // Extraire le titre du prompt
+        const title = promptContainer.querySelector('.text-xl.font-bold').textContent.trim();
+        
+        // Extraire le contenu du prompt (texte en italique)
+        const contentElement = promptContainer.querySelector('.text-xs.text-gray-500.mb-4.italic');
+        const content = contentElement ? contentElement.textContent.trim() : '';
+        
+        return {
+            id: id,
+            title: title,
+            content: content
+        };
+    }
+    
+    // Si le prompt n'est pas trouvé, retourner null
+    return null;
+}
   
   function getCoacheds() {
     // Pour cet exemple, nous utilisons des données statiques
