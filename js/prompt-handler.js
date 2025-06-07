@@ -305,8 +305,77 @@ Sois précis, direct et constructif. Évite les généralités et concentre-toi 
        '6': {
         id: "6",
         title: "Matching CV/emploi",
-        content: `Tu es un expert en optimisation de CV et en recrutement avec 15 ans d'expérience. Ta mission est d'analyser en profondeur le CV que je vais te partager pour un poste de [TYPE DE POSTE].`        
+        content: `Tu es un expert en recrutement spécialisé dans l'évaluation de candidatures. Je te transmets un CV et une offre d'emploi. Ta mission est d'analyser précisément le degré de correspondance entre les deux.
+
+CV du candidat:
+[COLLER LE TEXTE DU CV]
+
+Offre d'emploi:
+[COLLER LE TEXTE DE L'OFFRE]
+
+Réalise une analyse structurée en 4 parties:
+
+1. TAUX DE CORRESPONDANCE GLOBAL (note sur 100)
+- Évalue objectivement l'adéquation globale avec une note précise
+- Justifie cette note avec 2-3 facteurs déterminants
+- Identifie les points décisifs qui pourraient influencer positivement ou négativement la sélection
+
+2. POINTS FORTS DU PROFIL (30%)
+- Identifie les 3-5 éléments du CV qui répondent parfaitement aux exigences
+- Explique en quoi ces éléments sont pertinents et convaincants
+- Suggère comment les mettre davantage en valeur pour cette candidature spécifique
+
+3. ÉCARTS ET AXES D'AMÉLIORATION (30%)
+- Identifie les 3-5 principales exigences de l'offre insuffisamment couvertes
+- Suggère comment combler ces écarts (mise en avant d'expériences, reformulation, etc.)
+- Propose des alternatives pour compenser les manques éventuels
+
+4. RECOMMANDATIONS DE PERSONNALISATION (40%)
+- Propose des modifications concrètes pour maximiser l'impact du CV
+- Suggère 3-5 points clés à mettre en avant dans la lettre de motivation
+- Identifie les mots-clés essentiels à intégrer pour les filtres ATS
+- Recommande une stratégie d'approche adaptée à cette candidature spécifique
+
+Sois précis et actionnable dans tes recommandations. L'objectif est d'aider le candidat à augmenter significativement ses chances d'être sélectionné pour un entretien pour ce poste spécifique.`        
         },
+
+       '7': {
+        id: "7",
+        title: "Rédaction d'une lettre de motivation",
+        content: `Tu es un expert en recrutement spécialisé dans l'évaluation de candidatures. Je te transmets un CV et une offre d'emploi. Ta mission est d'analyser précisément le degré de correspondance entre les deux.
+
+CV du candidat:
+[COLLER LE TEXTE DU CV]
+
+Offre d'emploi:
+[COLLER LE TEXTE DE L'OFFRE]
+
+Réalise une analyse structurée en 4 parties:
+
+1. TAUX DE CORRESPONDANCE GLOBAL (note sur 100)
+- Évalue objectivement l'adéquation globale avec une note précise
+- Justifie cette note avec 2-3 facteurs déterminants
+- Identifie les points décisifs qui pourraient influencer positivement ou négativement la sélection
+
+2. POINTS FORTS DU PROFIL (30%)
+- Identifie les 3-5 éléments du CV qui répondent parfaitement aux exigences
+- Explique en quoi ces éléments sont pertinents et convaincants
+- Suggère comment les mettre davantage en valeur pour cette candidature spécifique
+
+3. ÉCARTS ET AXES D'AMÉLIORATION (30%)
+- Identifie les 3-5 principales exigences de l'offre insuffisamment couvertes
+- Suggère comment combler ces écarts (mise en avant d'expériences, reformulation, etc.)
+- Propose des alternatives pour compenser les manques éventuels
+
+4. RECOMMANDATIONS DE PERSONNALISATION (40%)
+- Propose des modifications concrètes pour maximiser l'impact du CV
+- Suggère 3-5 points clés à mettre en avant dans la lettre de motivation
+- Identifie les mots-clés essentiels à intégrer pour les filtres ATS
+- Recommande une stratégie d'approche adaptée à cette candidature spécifique
+
+Sois précis et actionnable dans tes recommandations. L'objectif est d'aider le candidat à augmenter significativement ses chances d'être sélectionné pour un entretien pour ce poste spécifique.`        
+        },
+      
       };
     
     // Renvoyer le prompt demandé
