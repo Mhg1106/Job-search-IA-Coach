@@ -853,7 +853,7 @@ Conclus par une note d'encouragement et une vision positive pour la suite de sa 
     }
 };
     
-// Gestionnaire pour les boutons "Ouvrir dans ChatGPT"
+// VERSION ALTERNATIVE - Plus de contrôle utilisateur
 const chatGptButtons = document.querySelectorAll('.open-in-chatgpt-btn');
 console.log('Boutons ChatGPT trouvés :', chatGptButtons.length);
 
@@ -861,28 +861,44 @@ chatGptButtons.forEach(function(button, index) {
     console.log('Ajout événement sur bouton', index + 1);
     button.addEventListener('click', function(e) {
         e.preventDefault();
-        console.log('Clic détecté sur bouton ChatGPT');
         
         const promptId = this.getAttribute('data-prompt-id');
-        console.log('ID du prompt :', promptId);
-        
         const promptData = promptsData[promptId];
+        
         if (promptData) {
-            console.log('Prompt trouvé :', promptData.title);
+            console.log('Prompt sélectionné :', promptData.title);
             
-            // Ouvrir ChatGPT
-            window.open('https://chat.openai.com/', '_blank');
+            // Demander confirmation avant de procéder
+            const confirmAction = confirm(
+                'Vous allez copier le prompt :\n"' + promptData.title + '"\n\n' +
+                'Cliquez OK pour copier et ouvrir ChatGPT, ou Annuler pour revenir.'
+            );
             
-            // Copier le contenu
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(promptData.content).then(function() {
-                    alert('✅ Le prompt "' + promptData.title + '" a été copié dans votre presse-papiers !\n\nCollez-le maintenant dans ChatGPT pour continuer.');
-                }).catch(function(err) {
-                    console.error('Erreur clipboard:', err);
-                    alert('❌ Impossible de copier automatiquement.\n\nVeuillez copier manuellement le contenu du prompt.');
-                });
-            } else {
-                alert('❌ Fonction de copie non disponible sur ce navigateur.\n\nVeuillez copier manuellement le contenu du prompt.');
+            if (confirmAction) {
+                console.log('Début copie pour :', promptData.title);
+                
+                // Copier le contenu
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(promptData.content).then(function() {
+                        console.log('Prompt copié avec succès :', promptData.title);
+                        
+                        // Ouvrir ChatGPT après copie réussie
+                        setTimeout(function() {
+                            window.open('https://chat.openai.com/', '_blank');
+                        }, 300);
+                        
+                        // Message final
+                        setTimeout(function() {
+                            alert('✅ Prompt "' + promptData.title + '" copié !\nVous pouvez maintenant le coller dans ChatGPT.');
+                        }, 600);
+                    }).catch(function(err) {
+                        console.error('Erreur clipboard:', err);
+                        alert('❌ Erreur lors de la copie. Essayez de recharger la page.');
+                    });
+                } else {
+                    // Fallback simple
+                    alert('❌ Fonction de copie non disponible.\nVeuillez copier manuellement le prompt.');
+                }
             }
         } else {
             console.error('Prompt non trouvé pour l\'ID :', promptId);
