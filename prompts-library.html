@@ -853,43 +853,43 @@ Conclus par une note d'encouragement et une vision positive pour la suite de sa 
     }
 };
     
-    // Gestionnaire pour les boutons "Ouvrir dans ChatGPT"
-    const chatGptButtons = document.querySelectorAll('.open-in-chatgpt-btn');
-    console.log('Boutons ChatGPT trouvés :', chatGptButtons.length);
-    
-    chatGptButtons.forEach(function(button, index) {
-        console.log('Ajout événement sur bouton', index + 1);
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            console.log('Clic détecté sur bouton ChatGPT');
+// Gestionnaire pour les boutons "Ouvrir dans ChatGPT"
+const chatGptButtons = document.querySelectorAll('.open-in-chatgpt-btn');
+console.log('Boutons ChatGPT trouvés :', chatGptButtons.length);
+
+chatGptButtons.forEach(function(button, index) {
+    console.log('Ajout événement sur bouton', index + 1);
+    button.addEventListener('click', function(e) {
+        e.preventDefault();
+        console.log('Clic détecté sur bouton ChatGPT');
+        
+        const promptId = this.getAttribute('data-prompt-id');
+        console.log('ID du prompt :', promptId);
+        
+        const promptData = promptsData[promptId];
+        if (promptData) {
+            console.log('Prompt trouvé :', promptData.title);
             
-            const promptId = this.getAttribute('data-prompt-id');
-            console.log('ID du prompt :', promptId);
+            // Ouvrir ChatGPT
+            window.open('https://chat.openai.com/', '_blank');
             
-            const promptData = promptsData[promptId];
-            if (promptData) {
-                console.log('Prompt trouvé :', promptData.title);
-                
-                // Ouvrir ChatGPT
-                window.open('https://chat.openai.com/', '_blank');
-                
-                // Copier le contenu
-                if (navigator.clipboard) {
-                    navigator.clipboard.writeText(promptData.content).then(function() {
-                        alert('✅ Le prompt "' + promptData.title + '" a été copié dans votre presse-papiers !\n\nCollez-le maintenant dans ChatGPT pour continuer.');
-                    }).catch(function(err) {
-                        console.error('Erreur clipboard:', err);
-                        alert('❌ Impossible de copier automatiquement.\n\nVeuillez copier manuellement le contenu du prompt.');
-                    });
-                } else {
-                    alert('❌ Fonction de copie non disponible sur ce navigateur.\n\nVeuillez copier manuellement le contenu du prompt.');
-                }
+            // Copier le contenu
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(promptData.content).then(function() {
+                    alert('✅ Le prompt "' + promptData.title + '" a été copié dans votre presse-papiers !\n\nCollez-le maintenant dans ChatGPT pour continuer.');
+                }).catch(function(err) {
+                    console.error('Erreur clipboard:', err);
+                    alert('❌ Impossible de copier automatiquement.\n\nVeuillez copier manuellement le contenu du prompt.');
+                });
             } else {
-                console.error('Prompt non trouvé pour l\'ID :', promptId);
-                alert('Erreur : Prompt non trouvé pour l\'ID ' + promptId);
+                alert('❌ Fonction de copie non disponible sur ce navigateur.\n\nVeuillez copier manuellement le contenu du prompt.');
             }
-        });
+        } else {
+            console.error('Prompt non trouvé pour l\'ID :', promptId);
+            alert('Erreur : Prompt non trouvé pour l\'ID ' + promptId);
+        }
     });
+});
     
     // Gestionnaire pour les boutons "Enregistrer réponse"
     const saveButtons = document.querySelectorAll('.save-response-btn');
