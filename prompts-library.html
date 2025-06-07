@@ -368,5 +368,169 @@
   
   <!-- Scripts -->
 <script src="js/prompt-handler-simple.js"></script>
+<!-- Commentez ces lignes pour éviter les conflits -->
+<!-- <script src="js/data-storage.js"></script> -->
+<!-- <script src="js/prompt-handler-simple.js"></script> -->
+
+<!-- Ajoutez le JavaScript intégré juste avant </body> -->
+<script>
+console.log('Script JavaScript intégré chargé');
+
+// Attendre que le DOM soit complètement chargé
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM chargé, initialisation des gestionnaires...');
+    
+    // Initialiser après un délai pour s'assurer que tout est prêt
+    setTimeout(function() {
+        initializeButtons();
+    }, 500);
+});
+
+function initializeButtons() {
+    console.log('Initialisation des boutons...');
+    
+    // Données des prompts (vous pourrez les compléter ensuite)
+    const promptsData = {
+        '1': {
+            title: "Diagnostic de Départ",
+            content: `Je suis un coach spécialisé en emploi et carrière. Je réalise un diagnostic initial pour [Nom du coaché], qui recherche un poste de [type de poste].
+
+Sur la base des réponses au questionnaire suivant, je souhaite que tu établisses une synthèse structurée de sa situation, identifiant ses forces, axes d'amélioration, et les points prioritaires à travailler.
+
+Voici les réponses au questionnaire diagnostic :
+1. Formation et parcours académique : [réponse]
+2. Expérience professionnelle : [réponse]
+3. Compétences techniques principales : [réponse]
+4. Compétences comportementales : [réponse]
+5. Domaines/secteurs d'activité ciblés : [réponse]
+6. Types de postes recherchés : [réponse]
+7. Zone géographique souhaitée : [réponse]
+8. Prétentions salariales : [réponse]
+9. Critères prioritaires dans la recherche : [réponse]
+10. Canaux de recherche déjà utilisés : [réponse]
+11. Résultats actuels : [réponse]
+12. Difficultés principales rencontrées : [réponse]
+13. Auto-évaluation de ses outils de recherche : [réponse]
+14. Objectif principal du coaching : [réponse]
+15. Temps hebdomadaire consacré à sa recherche : [réponse]
+
+Ta synthèse doit inclure :
+1. Un résumé du profil et de la situation actuelle
+2. Une analyse des forces et atouts
+3. Les axes d'amélioration prioritaires
+4. Une évaluation de la cohérence du projet professionnel
+5. Des recommandations pour les prochaines étapes du coaching
+6. Un plan d'action initial recommandé
+
+Présente ta réponse de manière professionnelle et encourageante.`
+        },
+        '2': {
+            title: "Analyse du Marché",
+            content: `En tant que coach en recherche d'emploi, j'ai besoin d'une analyse complète du marché pour le secteur [secteur] dans lequel mon coaché recherche un poste de [type de poste].
+
+Fournissez une analyse détaillée incluant :
+1. État actuel du marché de l'emploi dans ce secteur
+2. Compétences recherchées
+3. Entreprises à cibler
+4. Processus de recrutement typiques
+5. Rémunération
+6. Conseils stratégiques
+
+Basez votre analyse sur le marché français actuel.`
+        },
+        '3': {
+            title: "Plan d'action détaillé",
+            content: `Sur la base du diagnostic réalisé pour [Nom du coaché] qui recherche un poste de [type de poste], élabore un plan d'action concret et détaillé sur 8 semaines pour structurer sa recherche d'emploi et maximiser ses chances de succès.`
+        },
+        '4': {
+            title: "Analyse CV",
+            content: `Analyse le CV de [Nom du coaché] qui postule pour un poste de [type de poste]. Identifie les forces et faiblesses du CV et propose des améliorations concrètes.`
+        },
+        '5': {
+            title: "Recherche Entreprise",
+            content: `Réalise une synthèse complète sur l'entreprise [Nom de l'entreprise] pour mon coaché qui souhaite y postuler.`
+        },
+        '6': {
+            title: "Matching CV / Offre",
+            content: `Analyse le degré de matching entre le CV de [Nom du coaché] et l'offre d'emploi pour le poste de [intitulé du poste] chez [nom de l'entreprise].`
+        },
+        '7': {
+            title: "Lettre de Motivation",
+            content: `Rédige une lettre de motivation percutante pour [Nom du coaché] qui postule au poste de [intitulé du poste] chez [nom de l'entreprise].`
+        },
+        '8': {
+            title: "Ciblage Offres",
+            content: `Évalue le matching entre le profil de [Nom du coaché] et ces offres d'emploi. Classe-les par pertinence et suggère des adaptations.`
+        },
+        '9': {
+            title: "Préparation Entretien",
+            content: `Génère une série de questions d'entretien pour [Nom du coaché] qui postule au poste de [intitulé du poste] chez [nom de l'entreprise].`
+        },
+        '10': {
+            title: "Bilan du Coaching",
+            content: `Réalise un bilan complet du coaching réalisé avec [Nom du coaché]. Analyse la progression, les points forts, les axes d'amélioration.`
+        }
+    };
+    
+    // Gestionnaire pour les boutons "Ouvrir dans ChatGPT"
+    const chatGptButtons = document.querySelectorAll('.open-in-chatgpt-btn');
+    console.log('Boutons ChatGPT trouvés :', chatGptButtons.length);
+    
+    chatGptButtons.forEach(function(button, index) {
+        console.log('Ajout événement sur bouton', index + 1);
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Clic détecté sur bouton ChatGPT');
+            
+            const promptId = this.getAttribute('data-prompt-id');
+            console.log('ID du prompt :', promptId);
+            
+            const promptData = promptsData[promptId];
+            if (promptData) {
+                console.log('Prompt trouvé :', promptData.title);
+                
+                // Ouvrir ChatGPT
+                window.open('https://chat.openai.com/', '_blank');
+                
+                // Copier le contenu
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(promptData.content).then(function() {
+                        alert('✅ Le prompt "' + promptData.title + '" a été copié dans votre presse-papiers !\n\nCollez-le maintenant dans ChatGPT pour continuer.');
+                    }).catch(function(err) {
+                        console.error('Erreur clipboard:', err);
+                        alert('❌ Impossible de copier automatiquement.\n\nVeuillez copier manuellement le contenu du prompt.');
+                    });
+                } else {
+                    alert('❌ Fonction de copie non disponible sur ce navigateur.\n\nVeuillez copier manuellement le contenu du prompt.');
+                }
+            } else {
+                console.error('Prompt non trouvé pour l\'ID :', promptId);
+                alert('Erreur : Prompt non trouvé pour l\'ID ' + promptId);
+            }
+        });
+    });
+    
+    // Gestionnaire pour les boutons "Enregistrer réponse"
+    const saveButtons = document.querySelectorAll('.save-response-btn');
+    console.log('Boutons Save trouvés :', saveButtons.length);
+    
+    saveButtons.forEach(function(button, index) {
+        console.log('Ajout événement sur bouton save', index + 1);
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Clic détecté sur bouton Save');
+            
+            const promptId = this.getAttribute('data-prompt-id');
+            const promptData = promptsData[promptId];
+            
+            if (promptData) {
+                alert('Fonctionnalité "Enregistrer réponse" pour le prompt :\n"' + promptData.title + '"\n\nCette fonction sera disponible prochainement.');
+            }
+        });
+    });
+    
+    console.log('Initialisation terminée - ' + chatGptButtons.length + ' boutons ChatGPT et ' + saveButtons.length + ' boutons Save configurés');
+}
+</script>
 </body>
 </html>
