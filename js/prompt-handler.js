@@ -1,16 +1,23 @@
 // prompt-handler.js
 document.addEventListener('DOMContentLoaded', function() {
-  // Supprimer d'abord tous les événements existants pour éviter les doublons
-  document.querySelectorAll('.open-in-chatgpt-btn').forEach(button => {
-    button.replaceWith(button.cloneNode(true));
-  });
+  console.log('Prompt handler loaded');
   
-  document.querySelectorAll('.save-response-btn').forEach(button => {
-    button.replaceWith(button.cloneNode(true));
-  });
+  // Attendre un petit délai pour s'assurer que tous les éléments sont chargés
+  setTimeout(function() {
+    initializePromptHandlers();
+  }, 100);
+});
+
+function initializePromptHandlers() {
+  console.log('Initializing prompt handlers');
   
   // Récupérer le modal
   const responseModal = document.getElementById('responseModal');
+  
+  if (!responseModal) {
+    console.error('Modal not found');
+    return;
+  }
   
   // Gestionnaire pour ouvrir le modal
   function openModal() {
@@ -35,11 +42,21 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
   // Gestion du bouton "Ouvrir dans ChatGPT"
-  document.querySelectorAll('.open-in-chatgpt-btn').forEach(button => {
-    button.addEventListener('click', function() {
+  const chatGptButtons = document.querySelectorAll('.open-in-chatgpt-btn');
+  console.log('Found ChatGPT buttons:', chatGptButtons.length);
+  
+  chatGptButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
+      console.log('ChatGPT button clicked');
+      
       const promptId = this.getAttribute('data-prompt-id');
+      console.log('Prompt ID:', promptId);
+      
       const prompt = getPromptById(promptId);
       if (prompt) {
+        console.log('Prompt found:', prompt.title);
+        
         // Ouvrir ChatGPT dans un nouvel onglet
         const chatGptUrl = 'https://chat.openai.com/';
         window.open(chatGptUrl, '_blank');
@@ -51,24 +68,35 @@ document.addEventListener('DOMContentLoaded', function() {
           })
           .catch(err => {
             console.error('Erreur lors de la copie du prompt: ', err);
-            alert('Erreur lors de la copie du prompt. Veuillez le copier manuellement.');
+            // Fallback pour les navigateurs qui ne supportent pas clipboard API
+            fallbackCopyTextToClipboard(prompt.content);
           });
+      } else {
+        console.error('Prompt not found for ID:', promptId);
+        alert('Erreur : prompt non trouvé');
       }
     });
   });
   
   // Gestion du bouton "Enregistrer la réponse"
-  document.querySelectorAll('.save-response-btn').forEach(button => {
-    button.addEventListener('click', function() {
+  const saveResponseButtons = document.querySelectorAll('.save-response-btn');
+  console.log('Found save response buttons:', saveResponseButtons.length);
+  
+  saveResponseButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
+      console.log('Save response button clicked');
+      
       const promptId = this.getAttribute('data-prompt-id');
       const prompt = getPromptById(promptId);
+      
       if (prompt) {
         // Remplir les champs du modal
         document.getElementById('promptTitle').value = prompt.title;
         
         // Remplir le sélecteur de coachés
         const coachedSelect = document.getElementById('coachedSelect');
-        coachedSelect.innerHTML = '';
+        coachedSelect.innerHTML = '<option value="">Sélectionnez un coaché</option>';
         
         const coacheds = getCoacheds();
         coacheds.forEach(coached => {
@@ -77,6 +105,9 @@ document.addEventListener('DOMContentLoaded', function() {
           option.textContent = coached.name;
           coachedSelect.appendChild(option);
         });
+        
+        // Vider le champ de réponse
+        document.getElementById('responseContent').value = '';
         
         // Afficher le modal
         openModal();
@@ -88,33 +119,70 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
   // Gestion du bouton "Enregistrer" dans le modal
-  document.getElementById('saveResponseBtn').addEventListener('click', function() {
-    const promptId = this.getAttribute('data-prompt-id');
-    const responseContent = document.getElementById('responseContent').value;
-    const coachedId = document.getElementById('coachedSelect').value;
-    
-    if (responseContent.trim() === '') {
-      alert('Veuillez saisir une réponse avant d\'enregistrer.');
-      return;
-    }
-    
-    // Enregistrer la réponse
-    savePromptResponse(promptId, coachedId, responseContent);
-    
-    // Fermer le modal
-    closeModal();
-    
-    alert('Réponse enregistrée avec succès !');
-  });
+  const saveBtn = document.getElementById('saveResponseBtn');
+  if (saveBtn) {
+    saveBtn.addEventListener('click', function() {
+      const promptId = this.getAttribute('data-prompt-id');
+      const responseContent = document.getElementById('responseContent').value;
+      const coachedId = document.getElementById('coachedSelect').value;
+      
+      if (responseContent.trim() === '') {
+        alert('Veuillez saisir une réponse avant d\'enregistrer.');
+        return;
+      }
+      
+      if (!coachedId) {
+        alert('Veuillez sélectionner un coaché.');
+        return;
+      }
+      
+      // Enregistrer la réponse
+      savePromptResponse(promptId, coachedId, responseContent);
+      
+      // Fermer le modal
+      closeModal();
+      
+      alert('Réponse enregistrée avec succès !');
+    });
+  }
+}
+
+// Fonction fallback pour copier du texte dans le presse-papiers
+function fallbackCopyTextToClipboard(text) {
+  const textArea = document.createElement("textarea");
+  textArea.value = text;
   
-  // Fonction pour récupérer le contenu complet des prompts
-  function getPromptById(id) {
-    // Définir les contenus complets de chaque prompt
-    const prompts = {
-      '1': {
-        id: "1",
-        title: "Diagnostic de Départ",
-        content: `Je suis un coach spécialisé en emploi et carrière. Je réalise un diagnostic initial pour [Nom du coaché], qui recherche un poste de [type de poste].
+  // Éviter le scroll sur iOS
+  textArea.style.top = "0";
+  textArea.style.left = "0";
+  textArea.style.position = "fixed";
+  
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+  
+  try {
+    const successful = document.execCommand('copy');
+    if (successful) {
+      alert('Le prompt a été copié dans votre presse-papiers. Collez-le dans ChatGPT pour continuer.');
+    } else {
+      alert('Impossible de copier automatiquement. Veuillez copier manuellement le prompt.');
+    }
+  } catch (err) {
+    console.error('Fallback: Impossible de copier', err);
+    alert('Impossible de copier automatiquement. Veuillez copier manuellement le prompt.');
+  }
+  
+  document.body.removeChild(textArea);
+}
+
+// Fonction pour récupérer le contenu complet des prompts
+function getPromptById(id) {
+  const prompts = {
+    '1': {
+      id: "1",
+      title: "Diagnostic de Départ",
+      content: `Je suis un coach spécialisé en emploi et carrière. Je réalise un diagnostic initial pour [Nom du coaché], qui recherche un poste de [type de poste].
 
 Sur la base des réponses au questionnaire suivant, je souhaite que tu établisses une synthèse structurée de sa situation, identifiant ses forces, axes d'amélioration, et les points prioritaires à travailler.
 
@@ -144,11 +212,11 @@ Ta synthèse doit inclure :
 6. Un plan d'action initial recommandé
 
 Présente ta réponse de manière professionnelle et encourageante, sans jugement, en adoptant une approche coach qui associe bienveillance et lucidité.`
-      },
-      '2': {
-        id: "2",
-        title: "Analyse du Marché",
-        content: `En tant que coach en recherche d'emploi, j'ai besoin d'une analyse complète du marché pour le secteur [secteur] dans lequel mon coaché recherche un poste de [type de poste]. Je souhaite obtenir une synthèse actuelle et pertinente pour l'aider à comprendre l'environnement professionnel et optimiser sa recherche.
+    },
+    '2': {
+      id: "2",
+      title: "Analyse du Marché",
+      content: `En tant que coach en recherche d'emploi, j'ai besoin d'une analyse complète du marché pour le secteur [secteur] dans lequel mon coaché recherche un poste de [type de poste]. Je souhaite obtenir une synthèse actuelle et pertinente pour l'aider à comprendre l'environnement professionnel et optimiser sa recherche.
 
 Fournissez une analyse détaillée incluant :
 
@@ -185,11 +253,11 @@ Fournissez une analyse détaillée incluant :
    - Préparation spécifique pour les entretiens
 
 Basez votre analyse sur le marché français actuel, tout en mentionnant les particularités régionales si pertinent. Présentez les informations de manière structurée et actionnable pour un candidat.`
-      },
-      '3': {
-        id: "3",
-        title: "Plan d'action détaillé",
-        content: `Sur la base du diagnostic réalisé pour [Nom du coaché] qui recherche un poste de [type de poste], élabore un plan d'action concret et détaillé sur 8 semaines pour structurer sa recherche d'emploi et maximiser ses chances de succès.
+    },
+    '3': {
+      id: "3",
+      title: "Plan d'action détaillé",
+      content: `Sur la base du diagnostic réalisé pour [Nom du coaché] qui recherche un poste de [type de poste], élabore un plan d'action concret et détaillé sur 8 semaines pour structurer sa recherche d'emploi et maximiser ses chances de succès.
 
 Ce plan d'action doit :
 1. S'appuyer sur ses forces identifiées : [forces principales]
@@ -215,332 +283,410 @@ Le plan doit couvrir les dimensions essentielles d'une recherche efficace :
 - Stratégie de veille sur le marché
 
 Présente ce plan sous forme de calendrier structuré, avec des objectifs et tâches clairement définis pour chaque semaine. Utilise un ton motivant et directif. Veille à ce que le plan soit à la fois ambitieux et réaliste, adapté au profil et à la situation du coaché.`
-      },
-      // Ajoutez vos autres prompts ici
-      '4': {
-        id: "4",
-        title: "Connaissance détaillée de l'entreprise cible",
-        content: `Tu es un Consultant Expert en Intelligence Économique spécialisé dans l'analyse d'entreprises pour les candidats à l'emploi. Ta mission est de fournir une analyse complète et structurée de l'entreprise [NOM DE L'ENTREPRISE] pour un candidat qui postule au poste de [INTITULÉ DU POSTE].
+    },
+    '4': {
+      id: "4",
+      title: "Analyse CV",
+      content: `Analyse le CV de [Nom du coaché] qui postule pour un poste de [type de poste]. Identifie les forces et faiblesses du CV et propose des améliorations concrètes pour augmenter ses chances de succès.
 
-CV du candidat :
-[COLLER LE TEXTE DU CV]
+Effectue une analyse complète selon les critères suivants :
 
-Offre d'emploi :
-[COLLER LE TEXTE DE L'OFFRE D'EMPLOI]
+1. Structure et présentation :
+   - Lisibilité et mise en forme
+   - Organisation des informations
+   - Longueur et équilibre des sections
+   - Design et impact visuel
 
-Fournis une analyse détaillée de l'entreprise structurée en 7 sections distinctes :
+2. Contenu et pertinence :
+   - Adéquation avec le poste ciblé
+   - Valorisation des expériences
+   - Mise en avant des compétences clés
+   - Cohérence du parcours
 
-1. FICHE D'IDENTITÉ DE L'ENTREPRISE (10%)
-- Données factuelles : date de création, taille, chiffre d'affaires, implantations
-- Structure : statut juridique, actionnariat, organisation
-- Leadership : principaux dirigeants et leur parcours
+3. Optimisation ATS (Applicant Tracking System) :
+   - Mots-clés du secteur
+   - Formatage compatible
+   - Structure lisible par les robots
 
-2. MODÈLE ÉCONOMIQUE ET POSITIONNEMENT (15%)
-- Secteur d'activité précis et spécificités
-- Produits/services phares et segments de clientèle
-- Sources de revenus et stratégie de croissance
+4. Points forts à maintenir :
+   - Éléments différenciants
+   - Expériences valorisantes
+   - Compétences recherchées
 
-3. PAYSAGE CONCURRENTIEL (15%)
-- 3-5 concurrents principaux (directs et indirects)
-- Avantages compétitifs de l'entreprise
-- Position dans le marché (leader, challenger, etc.)
+5. Axes d'amélioration prioritaires :
+   - Sections à renforcer
+   - Informations manquantes
+   - Reformulations suggérées
 
-4. CULTURE D'ENTREPRISE ET VALEURS (15%)
-- Valeurs affichées et culture interne
-- Politique RSE et engagements
-- Environnement de travail et management
+6. Recommandations concrètes :
+   - Modifications spécifiques à apporter
+   - Nouvelles sections à ajouter
+   - Éléments à supprimer ou raccourcir
 
-5. ACTUALITÉS RÉCENTES (15%)
-- 2-3 développements significatifs des 12 derniers mois
-- Projets ou orientations stratégiques annoncés
-- Innovations ou changements notables
+Fournis une note globale sur 10 et un plan d'action pour optimiser ce CV dans les 48h.`
+    },
+    '5': {
+      id: "5",
+      title: "Recherche Entreprise",
+      content: `Réalise une synthèse complète sur l'entreprise [Nom de l'entreprise] pour mon coaché qui souhaite y postuler. Cette recherche doit lui permettre de personnaliser sa candidature et de se préparer efficacement aux entretiens.
 
-6. ADÉQUATION PROFIL-ENTREPRISE (15%)
-- Points de convergence entre le profil du candidat et les besoins/valeurs de l'entreprise
-- Compétences du candidat particulièrement pertinentes pour cette organisation
-- Éléments du parcours à valoriser spécifiquement
+Fournissez une analyse détaillée couvrant :
 
-7. CONSEILS STRATÉGIQUES POUR L'ENTRETIEN (15%)
-- 3-5 sujets à aborder ou questions à poser qui démontreront ton intérêt et ta connaissance
-- Points spécifiques du CV à mettre en avant face à cette entreprise
-- Éléments de langage à privilégier en lien avec la culture d'entreprise
+1. Présentation générale :
+   - Secteur d'activité et positionnement
+   - Taille et implantations
+   - Histoire et évolution récente
+   - Chiffres clés (CA, effectifs, croissance)
 
-Ta réponse doit être factuelle, précise et basée uniquement sur des informations publiques vérifiables. Utilise un ton professionnel et objectif. L'analyse doit permettre au candidat de démontrer une compréhension approfondie de l'entreprise lors de son entretien et d'adapter son discours en conséquence.`
-      },
-       '5': {
-        id: "5",
-        title: "Optimisation du CV",
-        content: `Tu es un expert en optimisation de CV et en recrutement avec 15 ans d'expérience. Ta mission est d'analyser en profondeur le CV que je vais te partager pour un poste de [TYPE DE POSTE].
+2. Business model et stratégie :
+   - Modèle économique
+   - Marchés et clients cibles
+   - Avantages concurrentiels
+   - Projets de développement
 
-Fournis une analyse détaillée et actionnable structurée comme suit:
+3. Culture d'entreprise :
+   - Valeurs et mission
+   - Style de management
+   - Ambiance et environnement de travail
+   - Politique RH et avantages sociaux
 
-1. IMPACT VISUEL ET STRUCTURE (20%)
-- Évalue la lisibilité, l'organisation et l'équilibre des sections
-- Identifie les améliorations possibles de mise en page
-- Suggère des optimisations pour la hiérarchisation des informations
+4. Actualités et enjeux :
+   - Actualités récentes (6 derniers mois)
+   - Défis et opportunités
+   - Projets en cours
+   - Évolutions du marché
 
-2. CONTENU ET FORMULATION (30%)
-- Évalue la pertinence des informations par rapport au poste visé
-- Analyse l'utilisation des verbes d'action et l'impact des réalisations
-- Identifie les informations manquantes ou superflues
-- Suggère des formulations plus percutantes pour les réalisations clés
+5. Opportunités pour le candidat :
+   - Pourquoi cette entreprise recrute
+   - Profils recherchés
+   - Évolutions possibles
+   - Compétences valorisées
 
-3. COMPATIBILITÉ ATS (25%)
-- Évalue si le CV passerait les filtres automatiques
-- Identifie les mots-clés manquants ou à renforcer
-- Propose des ajustements pour optimiser la détection par les ATS
+6. Conseils pour la candidature :
+   - Arguments à mettre en avant
+   - Motivations à exprimer
+   - Questions pertinentes à poser
+   - Pièges à éviter
 
-4. SUGGESTIONS D'AMÉLIORATION (25%)
-- Propose 5-7 modifications concrètes et prioritaires
-- Justifie chaque suggestion avec son impact potentiel
-- Fournit des exemples de reformulations pour les sections clés
+Termine par 3 raisons concrètes pour lesquelles [Nom du coaché] devrait rejoindre cette entreprise.`
+    },
+    '6': {
+      id: "6",
+      title: "Matching CV / Offre",
+      content: `Analyse le degré de matching entre le CV de [Nom du coaché] et l'offre d'emploi pour le poste de [intitulé du poste] chez [nom de l'entreprise].
 
-Voici le CV à analyser :
-[COLLER LE TEXTE DU CV]
+Voici l'offre d'emploi :
+[Coller ici le texte complet de l'offre]
 
-Sois précis, direct et constructif. Évite les généralités et concentre-toi sur des améliorations spécifiques et actionnables. Ton objectif est d'aider le candidat à transformer son CV en un outil de marketing personnel efficace qui se démarque et passe les filtres ATS.`
-       },
-       '6': {
-        id: "6",
-        title: "Matching CV/emploi",
-        content: `Tu es un expert en recrutement spécialisé dans l'évaluation de candidatures. Je te transmets un CV et une offre d'emploi. Ta mission est d'analyser précisément le degré de correspondance entre les deux.
+Voici le CV du candidat :
+[Coller ici le CV ou les éléments clés du CV]
 
-CV du candidat:
-[COLLER LE TEXTE DU CV]
+Effectue une analyse comparative détaillée :
 
-Offre d'emploi:
-[COLLER LE TEXTE DE L'OFFRE]
+1. Score de compatibilité global (sur 100) avec justification
 
-Réalise une analyse structurée en 4 parties:
+2. Analyse des compétences :
+   - Compétences requises vs compétences du candidat
+   - Niveau de maîtrise pour chaque compétence
+   - Compétences manquantes critiques
+   - Compétences supplémentaires valorisantes
 
-1. TAUX DE CORRESPONDANCE GLOBAL (note sur 100)
-- Évalue objectivement l'adéquation globale avec une note précise
-- Justifie cette note avec 2-3 facteurs déterminants
-- Identifie les points décisifs qui pourraient influencer positivement ou négativement la sélection
+3. Expérience professionnelle :
+   - Adéquation des expériences passées
+   - Niveau de séniorité requis vs acquis
+   - Secteurs d'activité en phase
+   - Responsabilités similaires
 
-2. POINTS FORTS DU PROFIL (30%)
-- Identifie les 3-5 éléments du CV qui répondent parfaitement aux exigences
-- Explique en quoi ces éléments sont pertinents et convaincants
-- Suggère comment les mettre davantage en valeur pour cette candidature spécifique
+4. Formation et certifications :
+   - Niveau d'études requis vs acquis
+   - Formations complémentaires nécessaires
+   - Certifications manquantes ou à valoriser
 
-3. ÉCARTS ET AXES D'AMÉLIORATION (30%)
-- Identifie les 3-5 principales exigences de l'offre insuffisamment couvertes
-- Suggère comment combler ces écarts (mise en avant d'expériences, reformulation, etc.)
-- Propose des alternatives pour compenser les manques éventuels
+5. Soft skills et savoir-être :
+   - Qualités humaines recherchées
+   - Fit culturel avec l'entreprise
+   - Style de management adapté
 
-4. RECOMMANDATIONS DE PERSONNALISATION (40%)
-- Propose des modifications concrètes pour maximiser l'impact du CV
-- Suggère 3-5 points clés à mettre en avant dans la lettre de motivation
-- Identifie les mots-clés essentiels à intégrer pour les filtres ATS
-- Recommande une stratégie d'approche adaptée à cette candidature spécifique
+6. Points forts du candidat pour ce poste :
+   - Éléments différenciants
+   - Expériences transférables
+   - Atouts concurrentiels
 
-Sois précis et actionnable dans tes recommandations. L'objectif est d'aider le candidat à augmenter significativement ses chances d'être sélectionné pour un entretien pour ce poste spécifique.`        
-        },
-       '7': {
-        id: "7",
-        title: "Rédaction d'une lettre de motivation",
-        content: `Tu es un Expert en Communication Professionnelle spécialisé dans la rédaction de lettres de motivation percutantes. Ta mission est de créer 3 versions distinctes mais également efficaces d'une lettre de motivation pour le poste suivant :
+7. Points d'amélioration :
+   - Lacunes à combler
+   - Formations à envisager
+   - Expériences à acquérir
 
-CV du candidat :
-[COLLER LE TEXTE DU CV]
+8. Recommandations pour optimiser la candidature :
+   - Adaptations du CV
+   - Arguments à développer en lettre de motivation
+   - Préparation spécifique pour l'entretien
 
-Offre d'emploi :
-[COLLER LE TEXTE DE L'OFFRE D'EMPLOI]
+Conclus par un avis motivé : candidature à encourager ou non, et stratégie recommandée.`
+    },
+    '7': {
+      id: "7",
+      title: "Lettre de Motivation",
+      content: `Rédige une lettre de motivation percutante pour [Nom du coaché] qui postule au poste de [intitulé du poste] chez [nom de l'entreprise].
 
-Informations sur l'entreprise :
-[COLLER LE TEXTE DE L'ANALYSE DE L'ENTREPRISE DE L'ÉTAPE 5]
+Informations sur le candidat :
+- Profil : [résumé du profil professionnel]
+- Expériences clés : [principales expériences]
+- Motivations : [pourquoi ce poste/cette entreprise]
+- Compétences principales : [compétences à valoriser]
 
-Pour chacune des 3 versions, respecte la structure suivante :
-
-1. ACCROCHE INITIALE (20%)
-- Une ouverture originale et personnalisée qui capte l'attention
-- Un lien clair avec l'entreprise ou le poste spécifique
-- Une formulation qui démontre la compréhension des enjeux du poste
-
-2. CORPS DE LA LETTRE (60%)
-- Mise en avant de 2-3 expériences ou compétences directement pertinentes pour le poste
-- Exemples concrets et chiffrés illustrant ces compétences
-- Connexion explicite entre le parcours du candidat et les besoins de l'entreprise
-- Valorisation de la motivation spécifique pour cette entreprise (pas de formules génériques)
-
-3. CONCLUSION ET APPEL À L'ACTION (20%)
-- Synthèse de l'adéquation profil/poste
-- Proposition concrète (entretien, démonstration de compétences)
-- Formule de politesse professionnelle et signature
-
-Différenciation des 3 versions :
-- Version 1 : Approche classique et formelle, mettant l'accent sur le parcours et les compétences techniques
-- Version 2 : Approche orientée "résolution de problèmes", démontrant la compréhension des défis du poste
-- Version 3 : Approche focalisée sur la culture d'entreprise et l'alignement de valeurs
-
-Pour les 3 versions, respecte ces règles :
-- Longueur optimale : 350 mots maximum (environ 1 page)
-- Ton professionnel mais pas impersonnel
-- Contenu spécifique à cette candidature (pas de formules passe-partout)
-- Intégration naturelle des mots-clés de l'offre d'emploi
-- Présentation soignée et paragraphes courts pour une lecture facile
-
-Assure-toi que chaque version soit unique dans son approche tout en restant authentique et adaptée au profil du candidat.`        
-        },
-       '8': {
-        id: "8",
-        title: "Sélection des offres d'emploi à retenir",
-        content: `Tu es un Expert en Recrutement et Stratégie de Candidature. Ta mission est d'analyser la compatibilité entre un CV et plusieurs offres d'emploi pour identifier celles qui représentent les meilleures opportunités. Cette analyse aidera à prioriser les candidatures du coaché.
-
-CV du candidat :
-[COLLER LE TEXTE DU CV]
-
-Voici les offres d'emploi à évaluer :
-[COLLER LES TEXTES DES DIFFÉRENTES OFFRES D'EMPLOI, CLAIREMENT SÉPARÉES ET NUMÉROTÉES]
-
-Pour chaque offre d'emploi, fournis une analyse structurée en 4 sections :
-
-1. TAUX DE CORRESPONDANCE GLOBAL (note sur 100)
-- Score précis d'adéquation entre le CV et l'offre
-- 3 principaux facteurs qui déterminent ce score
-- Recommandation claire : Priorité Haute (80-100), Moyenne (60-79), ou Basse (<60)
-
-2. POINTS FORTS DE LA CANDIDATURE
-- 3-5 éléments du CV qui correspondent parfaitement aux exigences
-- 1-2 avantages compétitifs du candidat pour ce poste spécifique
-
-3. ÉCARTS À COMBLER
-- 2-3 compétences ou expériences requises mais absentes ou insuffisamment démontrées
-- Suggestions concrètes pour compenser ou expliquer ces écarts
-
-4. RECOMMANDATIONS STRATÉGIQUES
-- 2-3 modifications spécifiques à apporter au CV pour cette candidature
-- Points à mettre en avant lors d'un entretien éventuel
-
-Une fois toutes les offres analysées individuellement, fournis en conclusion :
-
-CLASSEMENT DES OFFRES PAR PERTINENCE
-- Liste des offres par ordre décroissant de taux de correspondance
-- Pour chaque offre : numéro, intitulé du poste, score, et commentaire synthétique (1 ligne)
-- Recommandation sur les 3 offres à prioriser avec justification en 1-2 phrases par offre
-
-Ton analyse doit être objective, précise et actionnable. Les recommandations doivent aider le candidat à concentrer ses efforts sur les opportunités les plus prometteuses et à adapter sa stratégie de candidature en fonction de chaque offre.`        
-        },
-       '9': {
-        id: "9",
-        title: "Coach expert en préparation d'entretien",
-        content: `Tu es un Coach Expert en Préparation aux Entretiens d'Embauche avec une expérience de 15 ans dans le recrutement. Ta mission est de préparer un candidat à un entretien pour le poste suivant :
-
-CV du candidat :
-[COLLER LE TEXTE DU CV]
-
-Offre d'emploi :
-[COLLER LE TEXTE DE L'OFFRE D'EMPLOI]
+Informations sur le poste :
+[Description du poste et exigences]
 
 Informations sur l'entreprise :
-[COLLER LE TEXTE DE L'ANALYSE DE L'ENTREPRISE DE L'ÉTAPE 5]
+[Contexte, valeurs, actualités de l'entreprise]
 
-Élabore un guide de préparation à l'entretien structuré en 5 parties :
+Structure attendue :
 
-1. QUESTIONS ANTICIPÉES (30%)
-Prépare exactement 15 questions que le recruteur pourrait poser, répar­ties en 4 catégories :
-- Questions sur le parcours et les expériences (4 questions)
-- Questions techniques liées au poste (4 questions)
-- Questions comportementales/situationnelles (4 questions)
-- Questions sur la motivation et le projet professionnel (3 questions)
+1. En-tête professionnel avec coordonnées
 
-Pour chaque question :
-- Fournis une explication de l'intention du recruteur
-- Propose une structure de réponse (points clés à aborder)
-- Identifie les pièges éventuels à éviter
+2. Objet clair et accrocheur
 
-2. POINTS FORTS À VALORISER (20%)
-- Identifie 3-5 éléments spécifiques du profil à mettre en avant proactivement
-- Suggère des formulations précises et des exemples concrets pour illustrer chaque point
-- Explique pourquoi ces éléments sont particulièrement pertinents pour ce poste/entreprise
+3. Paragraphe d'accroche (pourquoi ce poste vous intéresse)
 
-3. SUJETS DÉLICATS À PRÉPARER (15%)
-- Identifie 2-3 points potentiellement problématiques du parcours (trous, changements fréquents, etc.)
-- Propose des explications constructives et honnêtes pour ces éléments
-- Suggère comment rebondir positivement sur ces sujets
+4. Paragraphe "ce que j'apporte" :
+   - Expériences pertinentes
+   - Compétences clés en lien avec le poste
+   - Réalisations concrètes et chiffrées
 
-4. QUESTIONS À POSER AU RECRUTEUR (15%)
-- Propose 5-7 questions pertinentes que le candidat pourrait poser
-- Explique pourquoi chaque question est stratégique
-- Indique le moment opportun pour poser chacune d'elles
+5. Paragraphe "pourquoi cette entreprise" :
+   - Connaissance de l'entreprise
+   - Adéquation avec ses valeurs
+   - Vision commune des enjeux
 
-5. PRÉPARATION LOGISTIQUE ET MENTALE (20%)
-- Conseils sur la présentation physique/vestimentaire adaptée à l'entreprise
-- Recommandations pour la gestion du stress et la communication non-verbale
-- Check-list des éléments à préparer avant l'entretien
-- Conseils pour les 24h précédant l'entretien
+6. Paragraphe de conclusion :
+   - Motivation pour un entretien
+   - Disponibilité
+   - Formule de politesse
 
-Ton guide doit être spécifique au profil du candidat et au poste visé, pas un ensemble de conseils génériques. Adopte un ton à la fois professionnel et encourageant. L'objectif est de permettre au candidat d'entrer dans l'entretien avec confiance, préparation et authenticité.`        
-        },
-       '10': {
-        id: "10",
-        title: "Bilan du coaching",
-        content: `Tu es un Expert en Évaluation et Bilan de Coaching Professionnel. Ta mission est d'aider un coach à réaliser un bilan structuré et approfondi de l'accompagnement d'un coaché en recherche d'emploi.
+Critères de qualité :
+- Personnalisée et non générique
+- Concise (1 page maximum)
+- Dynamique et positive
+- Sans fautes d'orthographe
+- Complémentaire au CV (ne pas répéter)
+- Axée sur la valeur ajoutée pour l'entreprise
 
-Pour réaliser ce bilan, tu vas procéder en deux phases :
+Génère 2 versions : une version classique et une version plus créative/moderne.`
+    },
+    '8': {
+      id: "8",
+      title: "Ciblage Offres",
+      content: `Évalue le matching entre le profil de [Nom du coaché] et ces offres d'emploi. Classe-les par pertinence et suggère des adaptations.
 
-PHASE 1 : QUESTIONNAIRE DE BILAN
-Génère 10 questions précises et ouvertes pour évaluer l'impact et l'efficacité du coaching. Ces questions doivent couvrir :
-- L'atteinte des objectifs initiaux (2 questions)
-- Les apprentissages et prises de conscience (2 questions)
-- L'efficacité des outils et méthodes utilisés (2 questions)
-- Les améliorations concrètes dans la démarche de recherche d'emploi (2 questions)
-- Les axes d'amélioration possibles pour le coaching (2 questions)
+Profil du candidat :
+- Formation : [formation]
+- Expérience : [expériences clés]
+- Compétences : [compétences principales]
+- Secteurs de prédilection : [secteurs]
+- Contraintes : [zone géographique, salaire, etc.]
 
-PHASE 2 : ANALYSE DES RÉPONSES ET SYNTHÈSE
-Une fois que le coach aura soumis les réponses du coaché à ces questions, tu devras produire une synthèse structurée en 5 parties :
+Offres à analyser :
 
-1. SITUATION DE DÉPART ET ÉVOLUTION (20%)
-- Rappel du diagnostic initial et des objectifs fixés
-- Analyse des changements observés et du chemin parcouru
-- Évaluation du degré d'atteinte des objectifs initiaux
+OFFRE 1 :
+[Titre du poste]
+[Entreprise]
+[Description et exigences]
 
-2. ACQUIS ET PROGRESSIONS (25%)
-- Compétences développées ou renforcées pendant l'accompagnement
-- Outils appropriés et intégrés dans la pratique
-- Évolutions dans la posture et la confiance
+OFFRE 2 :
+[Titre du poste]
+[Entreprise]
+[Description et exigences]
 
-3. POINTS FORTS DE L'ACCOMPAGNEMENT (20%)
-- Méthodologies et approches ayant eu le plus d'impact positif
-- Moments clés ou déclencheurs pendant le parcours
-- Valeur ajoutée spécifique apportée par l'IA dans le processus
+OFFRE 3 :
+[Titre du poste]
+[Entreprise]
+[Description et exigences]
 
-4. AXES D'AMÉLIORATION (20%)
-- Points sur lesquels l'accompagnement aurait pu être plus efficace
-- Besoins non couverts ou insuffisamment traités
-- Suggestions constructives pour optimiser la démarche
+Pour chaque offre, fournis :
 
-5. PERSPECTIVES ET RECOMMANDATIONS (15%)
-- Prochaines étapes recommandées pour le coaché
-- Ressources complémentaires à explorer
-- Conseils pour maintenir la dynamique positive
+1. Score de pertinence (sur 10) avec justification
 
-Ta synthèse doit être à la fois analytique et constructive, en identifiant concrètement ce qui a fonctionné et ce qui pourrait être amélioré. Elle doit aider le coach à affiner sa méthodologie et fournir au coaché une vision claire de son parcours et de ses prochains défis. Utilise un ton professionnel mais chaleureux, et des formulations précises et nuancées.`        
-        },      
-      };
-    
-    // Renvoyer le prompt demandé
-    return prompts[id] || null;
+2. Points de convergence :
+   - Compétences en adéquation
+   - Expériences transférables
+   - Fit culturel potentiel
+
+3. Points de divergence :
+   - Compétences manquantes
+   - Expérience insuffisante
+   - Autres écarts
+
+4. Niveau de priorité :
+   - Priorité 1 : candidature immédiate
+   - Priorité 2 : candidature après préparation
+   - Priorité 3 : candidature à long terme
+
+5. Adaptations nécessaires :
+   - Modifications du CV
+   - Angle de la lettre de motivation
+   - Préparation spécifique
+
+Conclus par :
+- Classement final des offres par ordre de priorité
+- Stratégie globale de candidature
+- Planning de candidatures sur 2 semaines
+- Formations/préparations recommandées pour améliorer le profil`
+    },
+    '9': {
+      id: "9",
+      title: "Préparation Entretien",
+      content: `Génère une série de questions d'entretien pour [Nom du coaché] qui postule au poste de [intitulé du poste] chez [nom de l'entreprise].
+
+Informations sur le candidat :
+- Profil : [résumé du profil]
+- Expériences clés : [expériences principales]
+- Points forts : [atouts]
+- Points de vigilance : [faiblesses potentielles]
+
+Informations sur le poste :
+- Missions principales : [missions]
+- Compétences requises : [compétences]
+- Enjeux du poste : [contexte et défis]
+
+Prépare les questions suivantes :
+
+1. QUESTIONS CLASSIQUES (10 questions) :
+   - Présentez-vous en quelques minutes
+   - Pourquoi ce poste vous intéresse-t-il ?
+   - Pourquoi notre entreprise ?
+   - Quelles sont vos principales qualités ?
+   - Quel est votre principal défaut ?
+   - Décrivez une réalisation dont vous êtes fier
+   - Comment gérez-vous le stress ?
+   - Où vous voyez-vous dans 5 ans ?
+   - Avez-vous des questions sur le poste/l'équipe ?
+   - Quelles sont vos prétentions salariales ?
+
+2. QUESTIONS TECHNIQUES (5 questions spécifiques au poste)
+
+3. QUESTIONS COMPORTEMENTALES (5 questions STAR) :
+   - Situation où vous avez dû gérer un conflit
+   - Moment où vous avez pris une initiative
+   - Échec professionnel et lessons apprises
+   - Travail en équipe difficile
+   - Adaptation à un changement
+
+4. QUESTIONS À POSER AU RECRUTEUR :
+   - 5 questions pertinentes sur le poste
+   - 3 questions sur l'équipe/l'entreprise
+   - 2 questions sur les perspectives d'évolution
+
+Pour chaque question, fournis :
+- La réponse recommandée (structure STAR si applicable)
+- Les points clés à mentionner
+- Les pièges à éviter
+- Des exemples concrets du parcours du candidat
+
+Ajoute des conseils pratiques pour l'entretien et la posture à adopter.`
+    },
+    '10': {
+      id: "10",
+      title: "Bilan du Coaching",
+      content: `Réalise un bilan complet du coaching réalisé avec [Nom du coaché]. Analyse la progression, les points forts, les axes d'amélioration et propose des recommandations pour la suite.
+
+Informations sur le parcours de coaching :
+- Durée : [X semaines/mois]
+- Objectif initial : [objectif fixé au départ]
+- Étapes réalisées : [liste des étapes du coaching]
+- Difficultés rencontrées : [obstacles principaux]
+- Résultats obtenus : [candidatures, entretiens, offres]
+
+Effectue une analyse détaillée :
+
+1. BILAN QUANTITATIF :
+   - Nombre de candidatures envoyées
+   - Taux de réponses positives
+   - Nombre d'entretiens obtenus
+   - Évolution du taux de conversion
+   - Résultats par canal de recherche
+
+2. BILAN QUALITATIF :
+   - Évolution de la confiance en soi
+   - Amélioration des outils (CV, lettre, profil LinkedIn)
+   - Développement des compétences d'entretien
+   - Clarification du projet professionnel
+   - Élargissement du réseau
+
+3. POINTS FORTS DU PARCOURS :
+   - Réussites marquantes
+   - Progrès les plus significatifs
+   - Compétences développées
+   - Moments de déclic
+
+4. AXES D'AMÉLIORATION :
+   - Objectifs non atteints
+   - Compétences à renforcer
+   - Freins persistants
+   - Points de vigilance
+
+5. ENSEIGNEMENTS ET APPRENTISSAGES :
+   - Stratégies qui ont fonctionné
+   - Approches à ajuster
+   - Découvertes sur le marché
+   - Prise de conscience personnelle
+
+6. RECOMMANDATIONS POUR LA SUITE :
+   - Actions prioritaires pour les 3 prochains mois
+   - Formations complémentaires suggérées
+   - Réseau à développer
+   - Veille à maintenir
+
+7. PLAN D'AUTONOMIE :
+   - Outils pour continuer seul
+   - Rythme de recherche recommandé
+   - Points de vigilance
+   - Moments de réajustement
+
+Conclus par une note d'encouragement et une vision positive pour la suite de sa recherche.`
+    }
+  };
+  
+  return prompts[id] || null;
+}
+
+function getCoacheds() {
+  // Utiliser le système de stockage local s'il est disponible
+  if (typeof DataStorage !== 'undefined') {
+    return DataStorage.get(DataStorage.KEYS.COACHEDS, []);
   }
   
-  function getCoacheds() {
-    // Version simplifiée pour l'exemple
-    return [
-      { id: "1", name: "Marie Dupont" },
-      { id: "2", name: "Thomas Martin" },
-      { id: "3", name: "Sophie Laurent" }
-    ];
-  }
+  // Sinon, utiliser des données par défaut
+  return [
+    { id: "1", name: "Marie Dupont" },
+    { id: "2", name: "Thomas Martin" },
+    { id: "3", name: "Sophie Laurent" }
+  ];
+}
+
+function savePromptResponse(promptId, coachedId, content) {
+  console.log("Sauvegarde de la réponse:", { promptId, coachedId, content, date: new Date() });
   
-  function savePromptResponse(promptId, coachedId, content) {
-    // Dans une application réelle, vous sauvegarderiez dans localStorage
-    console.log("Sauvegarde de la réponse:", { promptId, coachedId, content, date: new Date() });
+  // Utiliser le système de stockage local s'il est disponible
+  if (typeof DataStorage !== 'undefined') {
+    const responses = DataStorage.get(DataStorage.KEYS.PROMPT_RESPONSES, []);
     
-    // Exemple avec localStorage:
+    const response = {
+      id: DataStorage.generateId(),
+      promptId: promptId,
+      coachedId: coachedId,
+      content: content,
+      date: new Date().toISOString()
+    };
+    
+    responses.push(response);
+    DataStorage.save(DataStorage.KEYS.PROMPT_RESPONSES, responses);
+  } else {
+    // Fallback vers localStorage simple
     const responses = JSON.parse(localStorage.getItem('promptResponses') || '[]');
     
     const response = {
-      id: generateUniqueId(),
+      id: 'id_' + Math.random().toString(36).substr(2, 9),
       promptId: promptId,
       coachedId: coachedId,
       content: content,
@@ -550,8 +696,4 @@ Ta synthèse doit être à la fois analytique et constructive, en identifiant co
     responses.push(response);
     localStorage.setItem('promptResponses', JSON.stringify(responses));
   }
-  
-  function generateUniqueId() {
-    return 'id_' + Math.random().toString(36).substr(2, 9);
-  }
-});
+}
