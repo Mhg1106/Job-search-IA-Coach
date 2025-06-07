@@ -853,7 +853,7 @@ Conclus par une note d'encouragement et une vision positive pour la suite de sa 
     }
 };
     
-// VERSION AMÉLIORÉE - Vide le presse-papiers d'abord
+// VERSION FINALE - Évite le cache de ChatGPT
 const chatGptButtons = document.querySelectorAll('.open-in-chatgpt-btn');
 console.log('Boutons ChatGPT trouvés :', chatGptButtons.length);
 
@@ -868,56 +868,46 @@ chatGptButtons.forEach(function(button, index) {
         if (promptData) {
             console.log('Prompt sélectionné :', promptData.title);
             
-            // Demander confirmation avant de procéder
+            // Demander confirmation avec instructions claires
             const confirmAction = confirm(
-                'Vous allez copier le prompt :\n"' + promptData.title + '"\n\n' +
-                'Cliquez OK pour copier et ouvrir ChatGPT, ou Annuler pour revenir.'
+                'PROMPT SÉLECTIONNÉ :\n"' + promptData.title + '"\n\n' +
+                '✅ Le prompt va être copié\n' +
+                '✅ ChatGPT va s\'ouvrir dans un nouvel onglet\n' +
+                '✅ Vous devrez coller le prompt dans la zone de texte\n\n' +
+                'Continuer ?'
             );
             
             if (confirmAction) {
-                console.log('Début du processus pour :', promptData.title);
+                console.log('Début copie pour :', promptData.title);
                 
-                // ÉTAPE 1: Vider d'abord le presse-papiers
+                // Copier le contenu
                 if (navigator.clipboard) {
-                    navigator.clipboard.writeText('').then(function() {
-                        console.log('Presse-papiers vidé');
+                    navigator.clipboard.writeText(promptData.content).then(function() {
+                        console.log('✅ Prompt copié avec succès :', promptData.title);
                         
-                        // ÉTAPE 2: Attendre un peu puis copier le vrai prompt
+                        // Ouvrir ChatGPT avec un paramètre pour éviter le cache
+                        const chatGptUrl = 'https://chat.openai.com/?model=gpt-4';
+                        window.open(chatGptUrl, '_blank', 'noopener,noreferrer');
+                        
+                        // Message avec instructions précises
                         setTimeout(function() {
-                            navigator.clipboard.writeText(promptData.content).then(function() {
-                                console.log('Prompt copié avec succès :', promptData.title);
-                                
-                                // ÉTAPE 3: Ouvrir ChatGPT après copie réussie
-                                setTimeout(function() {
-                                    window.open('https://chat.openai.com/', '_blank');
-                                }, 500);
-                                
-                                // ÉTAPE 4: Message final
-                                setTimeout(function() {
-                                    alert('✅ Prompt "' + promptData.title + '" copié !\n\nLe presse-papiers a été nettoyé puis le nouveau prompt a été copié.\nVous pouvez maintenant le coller dans ChatGPT.');
-                                }, 800);
-                                
-                            }).catch(function(err) {
-                                console.error('Erreur lors de la copie du prompt:', err);
-                                alert('❌ Erreur lors de la copie du prompt. Essayez de recharger la page.');
-                            });
-                        }, 300);
+                            alert(
+                                '🎯 PROMPT "' + promptData.title + '" COPIÉ !\n\n' +
+                                'ÉTAPES SUIVANTES :\n' +
+                                '1. Allez dans l\'onglet ChatGPT qui vient de s\'ouvrir\n' +
+                                '2. Cliquez dans la zone de texte en bas\n' +
+                                '3. Collez avec Ctrl+V (ou Cmd+V sur Mac)\n' +
+                                '4. Appuyez sur Entrée pour envoyer\n\n' +
+                                '💡 Si du texte apparaît automatiquement, supprimez-le d\'abord !'
+                            );
+                        }, 1000);
                         
                     }).catch(function(err) {
-                        console.error('Erreur lors du vidage du presse-papiers:', err);
-                        
-                        // Si le vidage échoue, tenter quand même la copie directe
-                        navigator.clipboard.writeText(promptData.content).then(function() {
-                            console.log('Copie directe réussie :', promptData.title);
-                            setTimeout(function() {
-                                window.open('https://chat.openai.com/', '_blank');
-                            }, 500);
-                            alert('✅ Prompt "' + promptData.title + '" copié !');
-                        });
+                        console.error('Erreur clipboard:', err);
+                        alert('❌ Erreur lors de la copie. Veuillez réessayer ou recharger la page.');
                     });
                 } else {
-                    // Fallback pour navigateurs sans support clipboard API
-                    alert('❌ Fonction de copie avancée non disponible.\nVeuillez copier manuellement le prompt.');
+                    alert('❌ Fonction de copie non disponible sur ce navigateur.');
                 }
             }
         } else {
@@ -926,6 +916,7 @@ chatGptButtons.forEach(function(button, index) {
         }
     });
 });
+
     
     // Gestionnaire pour les boutons "Enregistrer réponse"
     const saveButtons = document.querySelectorAll('.save-response-btn');
