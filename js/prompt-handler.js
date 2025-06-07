@@ -475,54 +475,49 @@ Ton guide doit être spécifique au profil du candidat et au poste visé, pas un
        '10': {
         id: "10",
         title: "Bilan du coaching",
-        content: `Tu es un Coach Expert en Préparation aux Entretiens d'Embauche avec une expérience de 15 ans dans le recrutement. Ta mission est de préparer un candidat à un entretien pour le poste suivant :
+        content: `Tu es un Expert en Évaluation et Bilan de Coaching Professionnel. Ta mission est d'aider un coach à réaliser un bilan structuré et approfondi de l'accompagnement d'un coaché en recherche d'emploi.
 
-CV du candidat :
-[COLLER LE TEXTE DU CV]
+Pour réaliser ce bilan, tu vas procéder en deux phases :
 
-Offre d'emploi :
-[COLLER LE TEXTE DE L'OFFRE D'EMPLOI]
+PHASE 1 : QUESTIONNAIRE DE BILAN
+Génère 10 questions précises et ouvertes pour évaluer l'impact et l'efficacité du coaching. Ces questions doivent couvrir :
+- L'atteinte des objectifs initiaux (2 questions)
+- Les apprentissages et prises de conscience (2 questions)
+- L'efficacité des outils et méthodes utilisés (2 questions)
+- Les améliorations concrètes dans la démarche de recherche d'emploi (2 questions)
+- Les axes d'amélioration possibles pour le coaching (2 questions)
 
-Informations sur l'entreprise :
-[COLLER LE TEXTE DE L'ANALYSE DE L'ENTREPRISE DE L'ÉTAPE 5]
+PHASE 2 : ANALYSE DES RÉPONSES ET SYNTHÈSE
+Une fois que le coach aura soumis les réponses du coaché à ces questions, tu devras produire une synthèse structurée en 5 parties :
 
-Élabore un guide de préparation à l'entretien structuré en 5 parties :
+1. SITUATION DE DÉPART ET ÉVOLUTION (20%)
+- Rappel du diagnostic initial et des objectifs fixés
+- Analyse des changements observés et du chemin parcouru
+- Évaluation du degré d'atteinte des objectifs initiaux
 
-1. QUESTIONS ANTICIPÉES (30%)
-Prépare exactement 15 questions que le recruteur pourrait poser, répar­ties en 4 catégories :
-- Questions sur le parcours et les expériences (4 questions)
-- Questions techniques liées au poste (4 questions)
-- Questions comportementales/situationnelles (4 questions)
-- Questions sur la motivation et le projet professionnel (3 questions)
+2. ACQUIS ET PROGRESSIONS (25%)
+- Compétences développées ou renforcées pendant l'accompagnement
+- Outils appropriés et intégrés dans la pratique
+- Évolutions dans la posture et la confiance
 
-Pour chaque question :
-- Fournis une explication de l'intention du recruteur
-- Propose une structure de réponse (points clés à aborder)
-- Identifie les pièges éventuels à éviter
+3. POINTS FORTS DE L'ACCOMPAGNEMENT (20%)
+- Méthodologies et approches ayant eu le plus d'impact positif
+- Moments clés ou déclencheurs pendant le parcours
+- Valeur ajoutée spécifique apportée par l'IA dans le processus
 
-2. POINTS FORTS À VALORISER (20%)
-- Identifie 3-5 éléments spécifiques du profil à mettre en avant proactivement
-- Suggère des formulations précises et des exemples concrets pour illustrer chaque point
-- Explique pourquoi ces éléments sont particulièrement pertinents pour ce poste/entreprise
+4. AXES D'AMÉLIORATION (20%)
+- Points sur lesquels l'accompagnement aurait pu être plus efficace
+- Besoins non couverts ou insuffisamment traités
+- Suggestions constructives pour optimiser la démarche
 
-3. SUJETS DÉLICATS À PRÉPARER (15%)
-- Identifie 2-3 points potentiellement problématiques du parcours (trous, changements fréquents, etc.)
-- Propose des explications constructives et honnêtes pour ces éléments
-- Suggère comment rebondir positivement sur ces sujets
+5. PERSPECTIVES ET RECOMMANDATIONS (15%)
+- Prochaines étapes recommandées pour le coaché
+- Ressources complémentaires à explorer
+- Conseils pour maintenir la dynamique positive
 
-4. QUESTIONS À POSER AU RECRUTEUR (15%)
-- Propose 5-7 questions pertinentes que le candidat pourrait poser
-- Explique pourquoi chaque question est stratégique
-- Indique le moment opportun pour poser chacune d'elles
-
-5. PRÉPARATION LOGISTIQUE ET MENTALE (20%)
-- Conseils sur la présentation physique/vestimentaire adaptée à l'entreprise
-- Recommandations pour la gestion du stress et la communication non-verbale
-- Check-list des éléments à préparer avant l'entretien
-- Conseils pour les 24h précédant l'entretien
-
-Ton guide doit être spécifique au profil du candidat et au poste visé, pas un ensemble de conseils génériques. Adopte un ton à la fois professionnel et encourageant. L'objectif est de permettre au candidat d'entrer dans l'entretien avec confiance, préparation et authenticité.`        
-        },      };
+Ta synthèse doit être à la fois analytique et constructive, en identifiant concrètement ce qui a fonctionné et ce qui pourrait être amélioré. Elle doit aider le coach à affiner sa méthodologie et fournir au coaché une vision claire de son parcours et de ses prochains défis. Utilise un ton professionnel mais chaleureux, et des formulations précises et nuancées.`        
+        },      
+      };
     
     // Renvoyer le prompt demandé
     return prompts[id] || null;
