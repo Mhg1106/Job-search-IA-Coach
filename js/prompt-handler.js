@@ -271,9 +271,43 @@ Ta réponse doit être factuelle, précise et basée uniquement sur des informat
        '5': {
         id: "5",
         title: "Optimisation du CV",
-        content: `Tu es un Consultant Expert en Intelligence Économique spécialisé dans l'analyse d'entreprises pour les candidats à l'emploi. Ta mission est de fournir une analyse complète et structurée de l'entreprise [NOM DE L'ENTREPRISE] pour un candidat qui postule au poste de [INTITULÉ DU POSTE].
-      },
-    };
+        content: `Tu es un expert en optimisation de CV et en recrutement avec 15 ans d'expérience. Ta mission est d'analyser en profondeur le CV que je vais te partager pour un poste de [TYPE DE POSTE].
+
+Fournis une analyse détaillée et actionnable structurée comme suit:
+
+1. IMPACT VISUEL ET STRUCTURE (20%)
+- Évalue la lisibilité, l'organisation et l'équilibre des sections
+- Identifie les améliorations possibles de mise en page
+- Suggère des optimisations pour la hiérarchisation des informations
+
+2. CONTENU ET FORMULATION (30%)
+- Évalue la pertinence des informations par rapport au poste visé
+- Analyse l'utilisation des verbes d'action et l'impact des réalisations
+- Identifie les informations manquantes ou superflues
+- Suggère des formulations plus percutantes pour les réalisations clés
+
+3. COMPATIBILITÉ ATS (25%)
+- Évalue si le CV passerait les filtres automatiques
+- Identifie les mots-clés manquants ou à renforcer
+- Propose des ajustements pour optimiser la détection par les ATS
+
+4. SUGGESTIONS D'AMÉLIORATION (25%)
+- Propose 5-7 modifications concrètes et prioritaires
+- Justifie chaque suggestion avec son impact potentiel
+- Fournit des exemples de reformulations pour les sections clés
+
+Voici le CV à analyser :
+[COLLER LE TEXTE DU CV]
+
+Sois précis, direct et constructif. Évite les généralités et concentre-toi sur des améliorations spécifiques et actionnables. Ton objectif est d'aider le candidat à transformer son CV en un outil de marketing personnel efficace qui se démarque et passe les filtres ATS.`
+       },
+
+       '6': {
+        id: "6",
+        title: "Matching CV/emploi",
+        content: `Tu es un expert en optimisation de CV et en recrutement avec 15 ans d'expérience. Ta mission est d'analyser en profondeur le CV que je vais te partager pour un poste de [TYPE DE POSTE].`        
+        },
+      };
     
     // Renvoyer le prompt demandé
     return prompts[id] || null;
