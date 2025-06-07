@@ -389,50 +389,82 @@ Assure-toi que chaque version soit unique dans son approche tout en restant auth
        '8': {
         id: "8",
         title: "Sélection des offres d'emploi à retenir",
-        content: `Tu es un Expert en Communication Professionnelle spécialisé dans la rédaction de lettres de motivation percutantes. Ta mission est de créer 3 versions distinctes mais également efficaces d'une lettre de motivation pour le poste suivant :
+        content: `Tu es un Expert en Recrutement et Stratégie de Candidature. Ta mission est d'analyser la compatibilité entre un CV et plusieurs offres d'emploi pour identifier celles qui représentent les meilleures opportunités. Cette analyse aidera à prioriser les candidatures du coaché.
 
 CV du candidat :
 [COLLER LE TEXTE DU CV]
 
-Offre d'emploi :
-[COLLER LE TEXTE DE L'OFFRE D'EMPLOI]
+Voici les offres d'emploi à évaluer :
+[COLLER LES TEXTES DES DIFFÉRENTES OFFRES D'EMPLOI, CLAIREMENT SÉPARÉES ET NUMÉROTÉES]
 
-Informations sur l'entreprise :
-[COLLER LE TEXTE DE L'ANALYSE DE L'ENTREPRISE DE L'ÉTAPE 5]
+Pour chaque offre d'emploi, fournis une analyse structurée en 4 sections :
 
-Pour chacune des 3 versions, respecte la structure suivante :
+1. TAUX DE CORRESPONDANCE GLOBAL (note sur 100)
+- Score précis d'adéquation entre le CV et l'offre
+- 3 principaux facteurs qui déterminent ce score
+- Recommandation claire : Priorité Haute (80-100), Moyenne (60-79), ou Basse (<60)
 
-1. ACCROCHE INITIALE (20%)
-- Une ouverture originale et personnalisée qui capte l'attention
-- Un lien clair avec l'entreprise ou le poste spécifique
-- Une formulation qui démontre la compréhension des enjeux du poste
+2. POINTS FORTS DE LA CANDIDATURE
+- 3-5 éléments du CV qui correspondent parfaitement aux exigences
+- 1-2 avantages compétitifs du candidat pour ce poste spécifique
 
-2. CORPS DE LA LETTRE (60%)
-- Mise en avant de 2-3 expériences ou compétences directement pertinentes pour le poste
-- Exemples concrets et chiffrés illustrant ces compétences
-- Connexion explicite entre le parcours du candidat et les besoins de l'entreprise
-- Valorisation de la motivation spécifique pour cette entreprise (pas de formules génériques)
+3. ÉCARTS À COMBLER
+- 2-3 compétences ou expériences requises mais absentes ou insuffisamment démontrées
+- Suggestions concrètes pour compenser ou expliquer ces écarts
 
-3. CONCLUSION ET APPEL À L'ACTION (20%)
-- Synthèse de l'adéquation profil/poste
-- Proposition concrète (entretien, démonstration de compétences)
-- Formule de politesse professionnelle et signature
+4. RECOMMANDATIONS STRATÉGIQUES
+- 2-3 modifications spécifiques à apporter au CV pour cette candidature
+- Points à mettre en avant lors d'un entretien éventuel
 
-Différenciation des 3 versions :
-- Version 1 : Approche classique et formelle, mettant l'accent sur le parcours et les compétences techniques
-- Version 2 : Approche orientée "résolution de problèmes", démontrant la compréhension des défis du poste
-- Version 3 : Approche focalisée sur la culture d'entreprise et l'alignement de valeurs
+Une fois toutes les offres analysées individuellement, fournis en conclusion :
 
-Pour les 3 versions, respecte ces règles :
-- Longueur optimale : 350 mots maximum (environ 1 page)
-- Ton professionnel mais pas impersonnel
-- Contenu spécifique à cette candidature (pas de formules passe-partout)
-- Intégration naturelle des mots-clés de l'offre d'emploi
-- Présentation soignée et paragraphes courts pour une lecture facile
+CLASSEMENT DES OFFRES PAR PERTINENCE
+- Liste des offres par ordre décroissant de taux de correspondance
+- Pour chaque offre : numéro, intitulé du poste, score, et commentaire synthétique (1 ligne)
+- Recommandation sur les 3 offres à prioriser avec justification en 1-2 phrases par offre
 
-Assure-toi que chaque version soit unique dans son approche tout en restant authentique et adaptée au profil du candidat.`        
+Ton analyse doit être objective, précise et actionnable. Les recommandations doivent aider le candidat à concentrer ses efforts sur les opportunités les plus prometteuses et à adapter sa stratégie de candidature en fonction de chaque offre.`        
         },
-      
+
+       '9': {
+        id: "9",
+        title: "Coach expert en préparation d'entretien",
+        content: `Tu es un Expert en Recrutement et Stratégie de Candidature. Ta mission est d'analyser la compatibilité entre un CV et plusieurs offres d'emploi pour identifier celles qui représentent les meilleures opportunités. Cette analyse aidera à prioriser les candidatures du coaché.
+
+CV du candidat :
+[COLLER LE TEXTE DU CV]
+
+Voici les offres d'emploi à évaluer :
+[COLLER LES TEXTES DES DIFFÉRENTES OFFRES D'EMPLOI, CLAIREMENT SÉPARÉES ET NUMÉROTÉES]
+
+Pour chaque offre d'emploi, fournis une analyse structurée en 4 sections :
+
+1. TAUX DE CORRESPONDANCE GLOBAL (note sur 100)
+- Score précis d'adéquation entre le CV et l'offre
+- 3 principaux facteurs qui déterminent ce score
+- Recommandation claire : Priorité Haute (80-100), Moyenne (60-79), ou Basse (<60)
+
+2. POINTS FORTS DE LA CANDIDATURE
+- 3-5 éléments du CV qui correspondent parfaitement aux exigences
+- 1-2 avantages compétitifs du candidat pour ce poste spécifique
+
+3. ÉCARTS À COMBLER
+- 2-3 compétences ou expériences requises mais absentes ou insuffisamment démontrées
+- Suggestions concrètes pour compenser ou expliquer ces écarts
+
+4. RECOMMANDATIONS STRATÉGIQUES
+- 2-3 modifications spécifiques à apporter au CV pour cette candidature
+- Points à mettre en avant lors d'un entretien éventuel
+
+Une fois toutes les offres analysées individuellement, fournis en conclusion :
+
+CLASSEMENT DES OFFRES PAR PERTINENCE
+- Liste des offres par ordre décroissant de taux de correspondance
+- Pour chaque offre : numéro, intitulé du poste, score, et commentaire synthétique (1 ligne)
+- Recommandation sur les 3 offres à prioriser avec justification en 1-2 phrases par offre
+
+Ton analyse doit être objective, précise et actionnable. Les recommandations doivent aider le candidat à concentrer ses efforts sur les opportunités les plus prometteuses et à adapter sa stratégie de candidature en fonction de chaque offre.`        
+        },
       };
     
     // Renvoyer le prompt demandé
