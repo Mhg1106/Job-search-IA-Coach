@@ -220,9 +220,59 @@ Présente ce plan sous forme de calendrier structuré, avec des objectifs et tâ
       '4': {
         id: "4",
         title: "Connaissance détaillée de l'entreprise cible",
-        content: `Analyse le CV de [Nom du coaché] qui postule pour un poste de [type de poste]. Identifie les forces et faiblesses du CV et propose des améliorations concrètes pour augmenter ses chances de succès.`
+        content: `Tu es un Consultant Expert en Intelligence Économique spécialisé dans l'analyse d'entreprises pour les candidats à l'emploi. Ta mission est de fournir une analyse complète et structurée de l'entreprise [NOM DE L'ENTREPRISE] pour un candidat qui postule au poste de [INTITULÉ DU POSTE].
+
+CV du candidat :
+[COLLER LE TEXTE DU CV]
+
+Offre d'emploi :
+[COLLER LE TEXTE DE L'OFFRE D'EMPLOI]
+
+Fournis une analyse détaillée de l'entreprise structurée en 7 sections distinctes :
+
+1. FICHE D'IDENTITÉ DE L'ENTREPRISE (10%)
+- Données factuelles : date de création, taille, chiffre d'affaires, implantations
+- Structure : statut juridique, actionnariat, organisation
+- Leadership : principaux dirigeants et leur parcours
+
+2. MODÈLE ÉCONOMIQUE ET POSITIONNEMENT (15%)
+- Secteur d'activité précis et spécificités
+- Produits/services phares et segments de clientèle
+- Sources de revenus et stratégie de croissance
+
+3. PAYSAGE CONCURRENTIEL (15%)
+- 3-5 concurrents principaux (directs et indirects)
+- Avantages compétitifs de l'entreprise
+- Position dans le marché (leader, challenger, etc.)
+
+4. CULTURE D'ENTREPRISE ET VALEURS (15%)
+- Valeurs affichées et culture interne
+- Politique RSE et engagements
+- Environnement de travail et management
+
+5. ACTUALITÉS RÉCENTES (15%)
+- 2-3 développements significatifs des 12 derniers mois
+- Projets ou orientations stratégiques annoncés
+- Innovations ou changements notables
+
+6. ADÉQUATION PROFIL-ENTREPRISE (15%)
+- Points de convergence entre le profil du candidat et les besoins/valeurs de l'entreprise
+- Compétences du candidat particulièrement pertinentes pour cette organisation
+- Éléments du parcours à valoriser spécifiquement
+
+7. CONSEILS STRATÉGIQUES POUR L'ENTRETIEN (15%)
+- 3-5 sujets à aborder ou questions à poser qui démontreront ton intérêt et ta connaissance
+- Points spécifiques du CV à mettre en avant face à cette entreprise
+- Éléments de langage à privilégier en lien avec la culture d'entreprise
+
+Ta réponse doit être factuelle, précise et basée uniquement sur des informations publiques vérifiables. Utilise un ton professionnel et objectif. L'analyse doit permettre au candidat de démontrer une compréhension approfondie de l'entreprise lors de son entretien et d'adapter son discours en conséquence.`
       },
       
+       '5': {
+        id: "5",
+        title: "Optimisation du CV",
+        content: `Tu es un Consultant Expert en Intelligence Économique spécialisé dans l'analyse d'entreprises pour les candidats à l'emploi. Ta mission est de fournir une analyse complète et structurée de l'entreprise [NOM DE L'ENTREPRISE] pour un candidat qui postule au poste de [INTITULÉ DU POSTE].
+      },
     };
     
     // Renvoyer le prompt demandé
