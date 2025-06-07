@@ -853,11 +853,10 @@ Conclus par une note d'encouragement et une vision positive pour la suite de sa 
     }
 };
     
-// SOLUTION DÉFINITIVE - UN SEUL CLIC
+// SOLUTION ALTERNATIVE - Force nouvelle conversation
 const chatGptButtons = document.querySelectorAll('.open-in-chatgpt-btn');
-console.log('Boutons ChatGPT trouvés :', chatGptButtons.length);
 
-chatGptButtons.forEach(function(button, index) {
+chatGptButtons.forEach(function(button) {
     button.addEventListener('click', function(e) {
         e.preventDefault();
         
@@ -865,20 +864,15 @@ chatGptButtons.forEach(function(button, index) {
         const promptData = promptsData[promptId];
         
         if (promptData) {
-            console.log('Ouverture prompt :', promptData.title);
-            
-            // Copier immédiatement
+            // Copier silencieusement
             navigator.clipboard.writeText(promptData.content);
             
-            // Ouvrir ChatGPT avec un timestamp pour forcer un nouvel onglet
-            const timestamp = new Date().getTime();
-            const chatGptUrl = 'https://chat.openai.com/?t=' + timestamp;
-            window.open(chatGptUrl, '_blank');
-            
-            console.log('✅ Prompt copié et ChatGPT ouvert');
+            // Ouvrir directement une nouvelle conversation
+            window.open('https://chat.openai.com/?model=gpt-4', '_blank');
         }
     });
 });
+
     
     // Gestionnaire pour les boutons "Enregistrer réponse"
     const saveButtons = document.querySelectorAll('.save-response-btn');
