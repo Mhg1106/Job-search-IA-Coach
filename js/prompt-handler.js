@@ -267,7 +267,6 @@ Fournis une analyse détaillée de l'entreprise structurée en 7 sections distin
 
 Ta réponse doit être factuelle, précise et basée uniquement sur des informations publiques vérifiables. Utilise un ton professionnel et objectif. L'analyse doit permettre au candidat de démontrer une compréhension approfondie de l'entreprise lors de son entretien et d'adapter son discours en conséquence.`
       },
-      
        '5': {
         id: "5",
         title: "Optimisation du CV",
@@ -301,7 +300,6 @@ Voici le CV à analyser :
 
 Sois précis, direct et constructif. Évite les généralités et concentre-toi sur des améliorations spécifiques et actionnables. Ton objectif est d'aider le candidat à transformer son CV en un outil de marketing personnel efficace qui se démarque et passe les filtres ATS.`
        },
-
        '6': {
         id: "6",
         title: "Matching CV/emploi",
@@ -338,7 +336,6 @@ Réalise une analyse structurée en 4 parties:
 
 Sois précis et actionnable dans tes recommandations. L'objectif est d'aider le candidat à augmenter significativement ses chances d'être sélectionné pour un entretien pour ce poste spécifique.`        
         },
-
        '7': {
         id: "7",
         title: "Rédaction d'une lettre de motivation",
@@ -385,7 +382,6 @@ Pour les 3 versions, respecte ces règles :
 
 Assure-toi que chaque version soit unique dans son approche tout en restant authentique et adaptée au profil du candidat.`        
         },
-
        '8': {
         id: "8",
         title: "Sélection des offres d'emploi à retenir",
@@ -425,47 +421,108 @@ CLASSEMENT DES OFFRES PAR PERTINENCE
 
 Ton analyse doit être objective, précise et actionnable. Les recommandations doivent aider le candidat à concentrer ses efforts sur les opportunités les plus prometteuses et à adapter sa stratégie de candidature en fonction de chaque offre.`        
         },
-
        '9': {
         id: "9",
         title: "Coach expert en préparation d'entretien",
-        content: `Tu es un Expert en Recrutement et Stratégie de Candidature. Ta mission est d'analyser la compatibilité entre un CV et plusieurs offres d'emploi pour identifier celles qui représentent les meilleures opportunités. Cette analyse aidera à prioriser les candidatures du coaché.
+        content: `Tu es un Coach Expert en Préparation aux Entretiens d'Embauche avec une expérience de 15 ans dans le recrutement. Ta mission est de préparer un candidat à un entretien pour le poste suivant :
 
 CV du candidat :
 [COLLER LE TEXTE DU CV]
 
-Voici les offres d'emploi à évaluer :
-[COLLER LES TEXTES DES DIFFÉRENTES OFFRES D'EMPLOI, CLAIREMENT SÉPARÉES ET NUMÉROTÉES]
+Offre d'emploi :
+[COLLER LE TEXTE DE L'OFFRE D'EMPLOI]
 
-Pour chaque offre d'emploi, fournis une analyse structurée en 4 sections :
+Informations sur l'entreprise :
+[COLLER LE TEXTE DE L'ANALYSE DE L'ENTREPRISE DE L'ÉTAPE 5]
 
-1. TAUX DE CORRESPONDANCE GLOBAL (note sur 100)
-- Score précis d'adéquation entre le CV et l'offre
-- 3 principaux facteurs qui déterminent ce score
-- Recommandation claire : Priorité Haute (80-100), Moyenne (60-79), ou Basse (<60)
+Élabore un guide de préparation à l'entretien structuré en 5 parties :
 
-2. POINTS FORTS DE LA CANDIDATURE
-- 3-5 éléments du CV qui correspondent parfaitement aux exigences
-- 1-2 avantages compétitifs du candidat pour ce poste spécifique
+1. QUESTIONS ANTICIPÉES (30%)
+Prépare exactement 15 questions que le recruteur pourrait poser, répar­ties en 4 catégories :
+- Questions sur le parcours et les expériences (4 questions)
+- Questions techniques liées au poste (4 questions)
+- Questions comportementales/situationnelles (4 questions)
+- Questions sur la motivation et le projet professionnel (3 questions)
 
-3. ÉCARTS À COMBLER
-- 2-3 compétences ou expériences requises mais absentes ou insuffisamment démontrées
-- Suggestions concrètes pour compenser ou expliquer ces écarts
+Pour chaque question :
+- Fournis une explication de l'intention du recruteur
+- Propose une structure de réponse (points clés à aborder)
+- Identifie les pièges éventuels à éviter
 
-4. RECOMMANDATIONS STRATÉGIQUES
-- 2-3 modifications spécifiques à apporter au CV pour cette candidature
-- Points à mettre en avant lors d'un entretien éventuel
+2. POINTS FORTS À VALORISER (20%)
+- Identifie 3-5 éléments spécifiques du profil à mettre en avant proactivement
+- Suggère des formulations précises et des exemples concrets pour illustrer chaque point
+- Explique pourquoi ces éléments sont particulièrement pertinents pour ce poste/entreprise
 
-Une fois toutes les offres analysées individuellement, fournis en conclusion :
+3. SUJETS DÉLICATS À PRÉPARER (15%)
+- Identifie 2-3 points potentiellement problématiques du parcours (trous, changements fréquents, etc.)
+- Propose des explications constructives et honnêtes pour ces éléments
+- Suggère comment rebondir positivement sur ces sujets
 
-CLASSEMENT DES OFFRES PAR PERTINENCE
-- Liste des offres par ordre décroissant de taux de correspondance
-- Pour chaque offre : numéro, intitulé du poste, score, et commentaire synthétique (1 ligne)
-- Recommandation sur les 3 offres à prioriser avec justification en 1-2 phrases par offre
+4. QUESTIONS À POSER AU RECRUTEUR (15%)
+- Propose 5-7 questions pertinentes que le candidat pourrait poser
+- Explique pourquoi chaque question est stratégique
+- Indique le moment opportun pour poser chacune d'elles
 
-Ton analyse doit être objective, précise et actionnable. Les recommandations doivent aider le candidat à concentrer ses efforts sur les opportunités les plus prometteuses et à adapter sa stratégie de candidature en fonction de chaque offre.`        
+5. PRÉPARATION LOGISTIQUE ET MENTALE (20%)
+- Conseils sur la présentation physique/vestimentaire adaptée à l'entreprise
+- Recommandations pour la gestion du stress et la communication non-verbale
+- Check-list des éléments à préparer avant l'entretien
+- Conseils pour les 24h précédant l'entretien
+
+Ton guide doit être spécifique au profil du candidat et au poste visé, pas un ensemble de conseils génériques. Adopte un ton à la fois professionnel et encourageant. L'objectif est de permettre au candidat d'entrer dans l'entretien avec confiance, préparation et authenticité.`        
         },
-      };
+       '10': {
+        id: "10",
+        title: "Bilan du coaching",
+        content: `Tu es un Coach Expert en Préparation aux Entretiens d'Embauche avec une expérience de 15 ans dans le recrutement. Ta mission est de préparer un candidat à un entretien pour le poste suivant :
+
+CV du candidat :
+[COLLER LE TEXTE DU CV]
+
+Offre d'emploi :
+[COLLER LE TEXTE DE L'OFFRE D'EMPLOI]
+
+Informations sur l'entreprise :
+[COLLER LE TEXTE DE L'ANALYSE DE L'ENTREPRISE DE L'ÉTAPE 5]
+
+Élabore un guide de préparation à l'entretien structuré en 5 parties :
+
+1. QUESTIONS ANTICIPÉES (30%)
+Prépare exactement 15 questions que le recruteur pourrait poser, répar­ties en 4 catégories :
+- Questions sur le parcours et les expériences (4 questions)
+- Questions techniques liées au poste (4 questions)
+- Questions comportementales/situationnelles (4 questions)
+- Questions sur la motivation et le projet professionnel (3 questions)
+
+Pour chaque question :
+- Fournis une explication de l'intention du recruteur
+- Propose une structure de réponse (points clés à aborder)
+- Identifie les pièges éventuels à éviter
+
+2. POINTS FORTS À VALORISER (20%)
+- Identifie 3-5 éléments spécifiques du profil à mettre en avant proactivement
+- Suggère des formulations précises et des exemples concrets pour illustrer chaque point
+- Explique pourquoi ces éléments sont particulièrement pertinents pour ce poste/entreprise
+
+3. SUJETS DÉLICATS À PRÉPARER (15%)
+- Identifie 2-3 points potentiellement problématiques du parcours (trous, changements fréquents, etc.)
+- Propose des explications constructives et honnêtes pour ces éléments
+- Suggère comment rebondir positivement sur ces sujets
+
+4. QUESTIONS À POSER AU RECRUTEUR (15%)
+- Propose 5-7 questions pertinentes que le candidat pourrait poser
+- Explique pourquoi chaque question est stratégique
+- Indique le moment opportun pour poser chacune d'elles
+
+5. PRÉPARATION LOGISTIQUE ET MENTALE (20%)
+- Conseils sur la présentation physique/vestimentaire adaptée à l'entreprise
+- Recommandations pour la gestion du stress et la communication non-verbale
+- Check-list des éléments à préparer avant l'entretien
+- Conseils pour les 24h précédant l'entretien
+
+Ton guide doit être spécifique au profil du candidat et au poste visé, pas un ensemble de conseils génériques. Adopte un ton à la fois professionnel et encourageant. L'objectif est de permettre au candidat d'entrer dans l'entretien avec confiance, préparation et authenticité.`        
+        },      };
     
     // Renvoyer le prompt demandé
     return prompts[id] || null;
