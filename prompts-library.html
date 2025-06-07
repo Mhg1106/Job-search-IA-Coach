@@ -853,7 +853,7 @@ Conclus par une note d'encouragement et une vision positive pour la suite de sa 
     }
 };
     
-// SOLUTION ALTERNATIVE - Force nouvelle conversation
+// SOLUTION ULTIME - Affiche le prompt
 const chatGptButtons = document.querySelectorAll('.open-in-chatgpt-btn');
 
 chatGptButtons.forEach(function(button) {
@@ -864,11 +864,19 @@ chatGptButtons.forEach(function(button) {
         const promptData = promptsData[promptId];
         
         if (promptData) {
-            // Copier silencieusement
-            navigator.clipboard.writeText(promptData.content);
-            
-            // Ouvrir directement une nouvelle conversation
-            window.open('https://chat.openai.com/?model=gpt-4', '_blank');
+            // Créer une popup avec le prompt
+            const newWindow = window.open('', '_blank', 'width=800,height=600,scrollbars=yes');
+            newWindow.document.write(`
+                <html>
+                <head><title>Prompt: ${promptData.title}</title></head>
+                <body style="font-family: Arial; padding: 20px;">
+                    <h2>${promptData.title}</h2>
+                    <textarea style="width: 100%; height: 400px; font-size: 14px;">${promptData.content}</textarea>
+                    <br><br>
+                    <button onclick="navigator.clipboard.writeText(document.querySelector('textarea').value); alert('Copié!'); window.open('https://chat.openai.com/', '_blank');" style="background: #10a37f; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px;">Copier et ouvrir ChatGPT</button>
+                </body>
+                </html>
+            `);
         }
     });
 });
