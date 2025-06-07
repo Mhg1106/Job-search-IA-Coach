@@ -219,9 +219,10 @@ Présente ce plan sous forme de calendrier structuré, avec des objectifs et tâ
       // Ajoutez vos autres prompts ici
       '4': {
         id: "4",
-        title: "Optimisation du CV",
+        title: "Connaissance détaillée de l'entreprise cible",
         content: `Analyse le CV de [Nom du coaché] qui postule pour un poste de [type de poste]. Identifie les forces et faiblesses du CV et propose des améliorations concrètes pour augmenter ses chances de succès.`
       },
+      
     };
     
     // Renvoyer le prompt demandé
