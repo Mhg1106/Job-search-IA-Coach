@@ -32,6 +32,8 @@ body::before {
 .md\:fixed.md\:left-0.md\:top-0 {
   top: 48px !important; /* Aligner avec le bas de la bande noire */
 }
+/* Fichier CSS custom pour les corrections */
+
 /* Garantir la visibilité des boutons */
 .open-in-chatgpt-btn, .save-response-btn {
     display: flex !important;
@@ -48,4 +50,9 @@ body::before {
 /* Assurer que le modal est au-dessus de tout */
 #responseModal {
     z-index: 9999 !important;
+}
+
+/* Corrections générales */
+body {
+    font-family: inherit;
 }
