@@ -342,38 +342,95 @@ Sois précis et actionnable dans tes recommandations. L'objectif est d'aider le 
        '7': {
         id: "7",
         title: "Rédaction d'une lettre de motivation",
-        content: `Tu es un expert en recrutement spécialisé dans l'évaluation de candidatures. Je te transmets un CV et une offre d'emploi. Ta mission est d'analyser précisément le degré de correspondance entre les deux.
+        content: `Tu es un Expert en Communication Professionnelle spécialisé dans la rédaction de lettres de motivation percutantes. Ta mission est de créer 3 versions distinctes mais également efficaces d'une lettre de motivation pour le poste suivant :
 
-CV du candidat:
+CV du candidat :
 [COLLER LE TEXTE DU CV]
 
-Offre d'emploi:
-[COLLER LE TEXTE DE L'OFFRE]
+Offre d'emploi :
+[COLLER LE TEXTE DE L'OFFRE D'EMPLOI]
 
-Réalise une analyse structurée en 4 parties:
+Informations sur l'entreprise :
+[COLLER LE TEXTE DE L'ANALYSE DE L'ENTREPRISE DE L'ÉTAPE 5]
 
-1. TAUX DE CORRESPONDANCE GLOBAL (note sur 100)
-- Évalue objectivement l'adéquation globale avec une note précise
-- Justifie cette note avec 2-3 facteurs déterminants
-- Identifie les points décisifs qui pourraient influencer positivement ou négativement la sélection
+Pour chacune des 3 versions, respecte la structure suivante :
 
-2. POINTS FORTS DU PROFIL (30%)
-- Identifie les 3-5 éléments du CV qui répondent parfaitement aux exigences
-- Explique en quoi ces éléments sont pertinents et convaincants
-- Suggère comment les mettre davantage en valeur pour cette candidature spécifique
+1. ACCROCHE INITIALE (20%)
+- Une ouverture originale et personnalisée qui capte l'attention
+- Un lien clair avec l'entreprise ou le poste spécifique
+- Une formulation qui démontre la compréhension des enjeux du poste
 
-3. ÉCARTS ET AXES D'AMÉLIORATION (30%)
-- Identifie les 3-5 principales exigences de l'offre insuffisamment couvertes
-- Suggère comment combler ces écarts (mise en avant d'expériences, reformulation, etc.)
-- Propose des alternatives pour compenser les manques éventuels
+2. CORPS DE LA LETTRE (60%)
+- Mise en avant de 2-3 expériences ou compétences directement pertinentes pour le poste
+- Exemples concrets et chiffrés illustrant ces compétences
+- Connexion explicite entre le parcours du candidat et les besoins de l'entreprise
+- Valorisation de la motivation spécifique pour cette entreprise (pas de formules génériques)
 
-4. RECOMMANDATIONS DE PERSONNALISATION (40%)
-- Propose des modifications concrètes pour maximiser l'impact du CV
-- Suggère 3-5 points clés à mettre en avant dans la lettre de motivation
-- Identifie les mots-clés essentiels à intégrer pour les filtres ATS
-- Recommande une stratégie d'approche adaptée à cette candidature spécifique
+3. CONCLUSION ET APPEL À L'ACTION (20%)
+- Synthèse de l'adéquation profil/poste
+- Proposition concrète (entretien, démonstration de compétences)
+- Formule de politesse professionnelle et signature
 
-Sois précis et actionnable dans tes recommandations. L'objectif est d'aider le candidat à augmenter significativement ses chances d'être sélectionné pour un entretien pour ce poste spécifique.`        
+Différenciation des 3 versions :
+- Version 1 : Approche classique et formelle, mettant l'accent sur le parcours et les compétences techniques
+- Version 2 : Approche orientée "résolution de problèmes", démontrant la compréhension des défis du poste
+- Version 3 : Approche focalisée sur la culture d'entreprise et l'alignement de valeurs
+
+Pour les 3 versions, respecte ces règles :
+- Longueur optimale : 350 mots maximum (environ 1 page)
+- Ton professionnel mais pas impersonnel
+- Contenu spécifique à cette candidature (pas de formules passe-partout)
+- Intégration naturelle des mots-clés de l'offre d'emploi
+- Présentation soignée et paragraphes courts pour une lecture facile
+
+Assure-toi que chaque version soit unique dans son approche tout en restant authentique et adaptée au profil du candidat.`        
+        },
+
+       '8': {
+        id: "8",
+        title: "Sélection des offres d'emploi à retenir",
+        content: `Tu es un Expert en Communication Professionnelle spécialisé dans la rédaction de lettres de motivation percutantes. Ta mission est de créer 3 versions distinctes mais également efficaces d'une lettre de motivation pour le poste suivant :
+
+CV du candidat :
+[COLLER LE TEXTE DU CV]
+
+Offre d'emploi :
+[COLLER LE TEXTE DE L'OFFRE D'EMPLOI]
+
+Informations sur l'entreprise :
+[COLLER LE TEXTE DE L'ANALYSE DE L'ENTREPRISE DE L'ÉTAPE 5]
+
+Pour chacune des 3 versions, respecte la structure suivante :
+
+1. ACCROCHE INITIALE (20%)
+- Une ouverture originale et personnalisée qui capte l'attention
+- Un lien clair avec l'entreprise ou le poste spécifique
+- Une formulation qui démontre la compréhension des enjeux du poste
+
+2. CORPS DE LA LETTRE (60%)
+- Mise en avant de 2-3 expériences ou compétences directement pertinentes pour le poste
+- Exemples concrets et chiffrés illustrant ces compétences
+- Connexion explicite entre le parcours du candidat et les besoins de l'entreprise
+- Valorisation de la motivation spécifique pour cette entreprise (pas de formules génériques)
+
+3. CONCLUSION ET APPEL À L'ACTION (20%)
+- Synthèse de l'adéquation profil/poste
+- Proposition concrète (entretien, démonstration de compétences)
+- Formule de politesse professionnelle et signature
+
+Différenciation des 3 versions :
+- Version 1 : Approche classique et formelle, mettant l'accent sur le parcours et les compétences techniques
+- Version 2 : Approche orientée "résolution de problèmes", démontrant la compréhension des défis du poste
+- Version 3 : Approche focalisée sur la culture d'entreprise et l'alignement de valeurs
+
+Pour les 3 versions, respecte ces règles :
+- Longueur optimale : 350 mots maximum (environ 1 page)
+- Ton professionnel mais pas impersonnel
+- Contenu spécifique à cette candidature (pas de formules passe-partout)
+- Intégration naturelle des mots-clés de l'offre d'emploi
+- Présentation soignée et paragraphes courts pour une lecture facile
+
+Assure-toi que chaque version soit unique dans son approche tout en restant authentique et adaptée au profil du candidat.`        
         },
       
       };
