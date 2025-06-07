@@ -61,6 +61,7 @@
           
           <!-- Grille des prompts -->
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              
               <!-- Prompt 1 -->
               <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-green-500">
                   <div class="flex justify-between items-center mb-3">
@@ -68,10 +69,9 @@
                       <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">3-5 min</span>
                   </div>
                   <p class="text-sm text-gray-600 mb-4">Analyse de la situation du coaché et identification des axes de travail</p>
-                  <div class="text-xs text-gray-500 mb-4 italic">
+                  <div class="text-xs text-gray-500 mb-4 italic line-clamp-3">
                       Je suis un coach spécialisé en emploi et carrière. Je réalise un diagnostic initial pour [Nom du coaché], qui recherche un poste de [type de poste]...
                   </div>
-                  <!-- Un seul ensemble de boutons pour le Prompt 1 -->
                   <div class="flex flex-wrap gap-2 mt-4">
                       <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm flex items-center">
                           <i class="fas fa-play mr-1"></i> Utiliser
@@ -95,110 +95,9 @@
                       <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">4-6 min</span>
                   </div>
                   <p class="text-sm text-gray-600 mb-4">Étude des tendances et opportunités du marché ciblé</p>
-                  <div class="text-xs text-gray-500 mb-4 italic">
+                  <div class="text-xs text-gray-500 mb-4 italic line-clamp-3">
                       En tant que coach en recherche d'emploi, j'ai besoin d'une analyse complète du marché pour le secteur [secteur] dans lequel mon coaché recherche un poste...
                   </div>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prompts IA - Job-search IA & Coach</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
-    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/custom-fixes.css">
-</head>
-<body class="bg-gray-100 font-sans leading-normal tracking-normal">
-
-  <div class="flex flex-col md:flex-row">
-    <!-- Navigation -->
-    <nav aria-label="alternative nav">
-        <div class="bg-gray-800 shadow-xl h-20 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48 content-center">
-            <div class="md:mt-12 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between">
-                <ul class="list-reset flex flex-row md:flex-col pt-3 md:py-3 px-1 md:px-2 text-center md:text-left">
-                    <li class="mr-3 flex-1">
-                        <a href="index.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-blue-500">
-                            <i class="fas fa-chart-area pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Tableau de bord</span>
-                        </a>
-                    </li>
-                    <li class="mr-3 flex-1">
-                        <a href="prompts-library.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-green-600">
-                            <i class="fas fa-comment-alt pr-0 md:pr-3 text-green-600"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-white md:text-white block md:inline-block">Prompts IA</span>
-                        </a>
-                    </li>
-                    <li class="mr-3 flex-1">
-                        <a href="coachees.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-purple-500">
-                            <i class="fas fa-users pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Mes coachés</span>
-                        </a>
-                    </li>
-                    <li class="mr-3 flex-1">
-                        <a href="resources.html" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-red-500">
-                            <i class="fas fa-book pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Ressources</span>
-                        </a>
-                    </li>
-                    <li class="mr-3 flex-1">
-                        <a href="prompt-test.html" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-yellow-500">
-                            <i class="fas fa-vial pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Test des Prompts</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Contenu principal -->
-    <div id="main" class="main-content flex-1 bg-gray-100 pb-24 md:pb-5">
-      <div class="bg-gray-800 pt-3">
-        <div class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white">
-          <h1 class="font-bold pl-2">Prompts IA Optimisés</h1>
-        </div>
-      </div>
-      
-      <div class="p-6">
-        <div class="bg-white rounded-lg shadow-xl p-5">
-          <p class="mb-6">Utilisez ces prompts optimisés pour chaque étape de votre accompagnement coaching.</p>
-          
-          <!-- Grille des prompts -->
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <!-- Prompt 1 -->
-              <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-green-500">
-                  <div class="flex justify-between items-center mb-3">
-                      <div class="text-xl font-bold">1. Diagnostic de Départ</div>
-                      <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">3-5 min</span>
-                  </div>
-                  <p class="text-sm text-gray-600 mb-4">Analyse de la situation du coaché et identification des axes de travail</p>
-                  <div class="text-xs text-gray-500 mb-4 italic">
-                      Je suis un coach spécialisé en emploi et carrière. Je réalise un diagnostic initial pour [Nom du coaché], qui recherche un poste de [type de poste]...
-                  </div>
-                  <!-- Un seul ensemble de boutons pour le Prompt 1 -->
-                  <div class="flex flex-wrap gap-2 mt-4">
-                      <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm flex items-center">
-                          <i class="fas fa-play mr-1"></i> Utiliser
-                      </button>
-                      <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded text-sm flex items-center">
-                          <i class="fas fa-edit mr-1"></i> Modifier
-                      </button>
-                      <button class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm flex items-center open-in-chatgpt-btn" data-prompt-id="1">
-                          <i class="fas fa-external-link-alt mr-1"></i> Ouvrir dans ChatGPT
-                      </button>
-                      <button class="bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-sm flex items-center save-response-btn" data-prompt-id="1">
-                          <i class="fas fa-save mr-1"></i> Enregistrer réponse
-                      </button>
-                  </div>
-              </div>
-              
-              <!-- Prompt 2 -->
-              <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-blue-500">
-                  <div class="flex justify-between items-center mb-3">
-                      <div class="text-xl font-bold">2. Analyse du Marché</div>
-                      <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">4-6 min</span>
-                  </div>
-                  <p class="text-sm text-gray-600 mb-4">Étude des tendances et opportunités du marché ciblé</p>
-                  <div class="text-xs text-gray-500 mb-4 italic">
-                      En tant que coach en recherche d'emploi, j'ai besoin d'une analyse complète du marché pour le secteur [secteur] dans lequel mon coaché recherche un poste...
-                  </div>
-                  <!-- Un seul ensemble de boutons pour le Prompt 2 -->
                   <div class="flex flex-wrap gap-2 mt-4">
                       <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm flex items-center">
                           <i class="fas fa-play mr-1"></i> Utiliser
@@ -222,10 +121,9 @@
                       <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded">5-7 min</span>
                   </div>
                   <p class="text-sm text-gray-600 mb-4">Élaboration d'une stratégie personnalisée et étapes clés</p>
-                  <div class="text-xs text-gray-500 mb-4 italic">
+                  <div class="text-xs text-gray-500 mb-4 italic line-clamp-3">
                       Sur la base du diagnostic réalisé pour [Nom du coaché] qui recherche un poste de [type de poste], élabore un plan d'action concret et détaillé...
                   </div>
-                  <!-- Un seul ensemble de boutons pour le Prompt 3 -->
                   <div class="flex flex-wrap gap-2 mt-4">
                       <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm flex items-center">
                           <i class="fas fa-play mr-1"></i> Utiliser
@@ -246,13 +144,12 @@
               <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-yellow-500">
                   <div class="flex justify-between items-center mb-3">
                       <div class="text-xl font-bold">4. Analyse CV</div>
-                      <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">4-6 min</span>
+                      <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">4-5 min</span>
                   </div>
                   <p class="text-sm text-gray-600 mb-4">Optimisation du CV pour maximiser l'impact</p>
-                  <div class="text-xs text-gray-500 mb-4 italic">
+                  <div class="text-xs text-gray-500 mb-4 italic line-clamp-3">
                       Analyse le CV de [Nom du coaché] qui postule pour un poste de [type de poste]. Identifie les forces et faiblesses du CV...
                   </div>
-                  <!-- Un seul ensemble de boutons pour le Prompt 4 -->
                   <div class="flex flex-wrap gap-2 mt-4">
                       <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm flex items-center">
                           <i class="fas fa-play mr-1"></i> Utiliser
@@ -276,10 +173,9 @@
                       <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded">3-5 min</span>
                   </div>
                   <p class="text-sm text-gray-600 mb-4">Analyse approfondie d'une entreprise cible</p>
-                  <div class="text-xs text-gray-500 mb-4 italic">
+                  <div class="text-xs text-gray-500 mb-4 italic line-clamp-3">
                       Réalise une synthèse complète sur l'entreprise [Nom de l'entreprise] pour mon coaché qui souhaite y postuler...
                   </div>
-                  <!-- Un seul ensemble de boutons pour le Prompt 5 -->
                   <div class="flex flex-wrap gap-2 mt-4">
                       <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm flex items-center">
                           <i class="fas fa-play mr-1"></i> Utiliser
@@ -303,10 +199,9 @@
                       <span class="bg-indigo-100 text-indigo-800 text-xs px-2 py-1 rounded">4-6 min</span>
                   </div>
                   <p class="text-sm text-gray-600 mb-4">Analyse de compatibilité entre CV et offre d'emploi</p>
-                  <div class="text-xs text-gray-500 mb-4 italic">
+                  <div class="text-xs text-gray-500 mb-4 italic line-clamp-3">
                       Analyse le degré de matching entre le CV de [Nom du coaché] et l'offre d'emploi pour le poste de [intitulé du poste] chez [nom de l'entreprise]...
                   </div>
-                  <!-- Un seul ensemble de boutons pour le Prompt 6 -->
                   <div class="flex flex-wrap gap-2 mt-4">
                       <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm flex items-center">
                           <i class="fas fa-play mr-1"></i> Utiliser
@@ -330,10 +225,9 @@
                       <span class="bg-pink-100 text-pink-800 text-xs px-2 py-1 rounded">5-7 min</span>
                   </div>
                   <p class="text-sm text-gray-600 mb-4">Création de lettres de motivation personnalisées</p>
-                  <div class="text-xs text-gray-500 mb-4 italic">
+                  <div class="text-xs text-gray-500 mb-4 italic line-clamp-3">
                       Rédige une lettre de motivation percutante pour [Nom du coaché] qui postule au poste de [intitulé du poste] chez [nom de l'entreprise]...
                   </div>
-                  <!-- Un seul ensemble de boutons pour le Prompt 7 -->
                   <div class="flex flex-wrap gap-2 mt-4">
                       <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm flex items-center">
                           <i class="fas fa-play mr-1"></i> Utiliser
@@ -351,16 +245,15 @@
               </div>
               
               <!-- Prompt 8 -->
-              <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-green-500">
+              <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-teal-500">
                   <div class="flex justify-between items-center mb-3">
                       <div class="text-xl font-bold">8. Ciblage Offres</div>
-                      <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">4-6 min</span>
+                      <span class="bg-teal-100 text-teal-800 text-xs px-2 py-1 rounded">4-6 min</span>
                   </div>
                   <p class="text-sm text-gray-600 mb-4">Analyse et priorisation des offres d'emploi</p>
-                  <div class="text-xs text-gray-500 mb-4 italic">
+                  <div class="text-xs text-gray-500 mb-4 italic line-clamp-3">
                       Évalue le matching entre le profil de [Nom du coaché] et ces offres d'emploi. Classe-les par pertinence et suggère des adaptations...
                   </div>
-                  <!-- Un seul ensemble de boutons pour le Prompt 8 -->
                   <div class="flex flex-wrap gap-2 mt-4">
                       <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm flex items-center">
                           <i class="fas fa-play mr-1"></i> Utiliser
@@ -378,16 +271,15 @@
               </div>
               
               <!-- Prompt 9 -->
-              <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-blue-500">
+              <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-orange-500">
                   <div class="flex justify-between items-center mb-3">
                       <div class="text-xl font-bold">9. Préparation Entretien</div>
-                      <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">5-7 min</span>
+                      <span class="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded">5-7 min</span>
                   </div>
                   <p class="text-sm text-gray-600 mb-4">Préparation ciblée aux entretiens de recrutement</p>
-                  <div class="text-xs text-gray-500 mb-4 italic">
+                  <div class="text-xs text-gray-500 mb-4 italic line-clamp-3">
                       Génère une série de questions d'entretien pour [Nom du coaché] qui postule au poste de [intitulé du poste] chez [nom de l'entreprise]...
                   </div>
-                  <!-- Un seul ensemble de boutons pour le Prompt 9 -->
                   <div class="flex flex-wrap gap-2 mt-4">
                       <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm flex items-center">
                           <i class="fas fa-play mr-1"></i> Utiliser
@@ -405,16 +297,15 @@
               </div>
               
               <!-- Prompt 10 -->
-              <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-purple-500">
+              <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-gray-500">
                   <div class="flex justify-between items-center mb-3">
                       <div class="text-xl font-bold">10. Bilan du Coaching</div>
-                      <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded">4-6 min</span>
+                      <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded">4-6 min</span>
                   </div>
                   <p class="text-sm text-gray-600 mb-4">Synthèse et analyse du parcours d'accompagnement</p>
-                  <div class="text-xs text-gray-500 mb-4 italic">
+                  <div class="text-xs text-gray-500 mb-4 italic line-clamp-3">
                       Réalise un bilan complet du coaching réalisé avec [Nom du coaché]. Analyse la progression, les points forts, les axes d'amélioration...
                   </div>
-                    <!-- Un seul ensemble de boutons pour le Prompt 10 -->
                   <div class="flex flex-wrap gap-2 mt-4">
                       <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm flex items-center">
                           <i class="fas fa-play mr-1"></i> Utiliser
@@ -430,18 +321,13 @@
                       </button>
                   </div>
               </div>
-          
-          <!-- Bouton d'ajout -->
-          <div class="mt-8 flex justify-end">
-              <button class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded flex items-center">
-                  <i class="fas fa-plus mr-2"></i> Ajouter un prompt personnalisé
-              </button>
+              
           </div>
         </div>
       </div>
     </div>
   </div>
-  <script src="js/prompts.js"></script>
+  
   <!-- Modal pour enregistrer la réponse -->
   <div id="responseModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
     <div class="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white">
@@ -480,7 +366,6 @@
     </div>
   </div>
   
+  <!-- Scripts -->
   <script src="js/data-storage.js"></script>
-  <script src="js/prompt-handler.js"></script>
-</body>
-</html>
+  <script src="js/prompt
