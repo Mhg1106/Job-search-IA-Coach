@@ -1087,36 +1087,59 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Sauvegarder les modifications
-    const savePromptEdit = document.getElementById('savePromptEdit');
-    if (savePromptEdit) {
-        savePromptEdit.addEventListener('click', function() {
-            const promptId = this.getAttribute('data-prompt-id');
-            const newTitle = document.getElementById('promptTitleEdit').value;
-            const newContent = document.getElementById('promptContentEdit').value;
+// Sauvegarder les modifications
+const savePromptEdit = document.getElementById('savePromptEdit');
+if (savePromptEdit) {
+    savePromptEdit.addEventListener('click', function() {
+        const promptId = this.getAttribute('data-prompt-id');
+        const newTitle = document.getElementById('promptTitleEdit').value;
+        const newContent = document.getElementById('promptContentEdit').value;
+        
+        console.log('Tentative de sauvegarde pour prompt ID:', promptId);
+        console.log('promptsData disponible:', typeof promptsData);
+        console.log('Prompt existe:', promptsData && promptsData[promptId] ? 'OUI' : 'NON');
+        
+        if (newTitle.trim() && newContent.trim()) {
+            // Vérifications de sécurité
+            if (typeof promptsData === 'undefined') {
+                alert('❌ Erreur : données des prompts non disponibles. Rechargez la page.');
+                return;
+            }
             
-            if (newTitle.trim() && newContent.trim()) {
-                // Mettre à jour les données
+            if (!promptsData[promptId]) {
+                alert('❌ Erreur : prompt non trouvé (ID: ' + promptId + '). Rechargez la page.');
+                return;
+            }
+            
+            // Mettre à jour les données de façon sécurisée
+            try {
                 promptsData[promptId].title = newTitle;
                 promptsData[promptId].content = newContent;
+                
+                console.log('✅ Prompt mis à jour avec succès');
                 
                 // Sauvegarder dans localStorage si disponible
                 try {
                     localStorage.setItem('customPrompts', JSON.stringify(promptsData));
+                    console.log('✅ Sauvegarde localStorage réussie');
                 } catch(e) {
-                    console.log('LocalStorage non disponible');
+                    console.log('⚠️ LocalStorage non disponible:', e);
                 }
                 
                 // Fermer le modal
                 document.getElementById('promptModal').classList.add('hidden');
                 
                 alert('✅ Prompt modifié et sauvegardé !');
-            } else {
-                alert('❌ Veuillez remplir le titre et le contenu !');
+                
+            } catch(error) {
+                console.error('❌ Erreur lors de la mise à jour:', error);
+                alert('❌ Erreur lors de la sauvegarde. Vérifiez la console.');
             }
-        });
-    }
-});
+        } else {
+            alert('❌ Veuillez remplir le titre et le contenu !');
+        }
+    });
+}
 </script>
 </body>
 </html>
