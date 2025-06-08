@@ -938,7 +938,177 @@ chatGptButtons.forEach(function(button) {
             }
         });
     });
+
+    // Gestionnaire pour les boutons "Utiliser"
+    const utiliserButtons = document.querySelectorAll('button');
+    let useButtonsCount = 0;
     
+    utiliserButtons.forEach(function(button) {
+        if (button.textContent.includes('Utiliser') && button.querySelector('.fa-play')) {
+            useButtonsCount++;
+            console.log('Ajout événement sur bouton Utiliser', useButtonsCount);
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('Clic détecté sur bouton Utiliser');
+                
+                // Trouver l'ID du prompt depuis le conteneur parent
+                const promptContainer = this.closest('.bg-white');
+                const promptTitle = promptContainer.querySelector('.text-xl.font-bold').textContent.trim();
+                const promptId = promptTitle.match(/(\d+)\./)[1]; // Extraire le numéro
+                
+                const promptData = promptsData[promptId];
+                if (promptData) {
+                    console.log('Ouverture du prompt en mode utilisation :', promptData.title);
+                    showPromptModal(promptData, 'use');
+                }
+            });
+        }
+    });
+    
+    // Gestionnaire pour les boutons "Modifier"
+    const modifierButtons = document.querySelectorAll('button');
+    let editButtonsCount = 0;
+    
+    modifierButtons.forEach(function(button) {
+        if (button.textContent.includes('Modifier') && button.querySelector('.fa-edit')) {
+            editButtonsCount++;
+            console.log('Ajout événement sur bouton Modifier', editButtonsCount);
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('Clic détecté sur bouton Modifier');
+                
+                // Trouver l'ID du prompt
+                const promptContainer = this.closest('.bg-white');
+                const promptTitle = promptContainer.querySelector('.text-xl.font-bold').textContent.trim();
+                const promptId = promptTitle.match(/(\d+)\./)[1];
+                
+                const promptData = promptsData[promptId];
+                if (promptData) {
+                    console.log('Ouverture du prompt en mode édition :', promptData.title);
+                    showPromptModal(promptData, 'edit');
+                }
+            });
+        }
+    });
+    
+    console.log('Boutons Utiliser trouvés :', useButtonsCount);
+    console.log('Boutons Modifier trouvés :', editButtonsCount);
+    
+    console.log('Initialisation terminée - ' + chatGptButtons.length + ' boutons ChatGPT et ' + saveButtons.length + ' boutons Save configurés');
+}
+
+// Fonction pour afficher le modal des prompts
+function showPromptModal(promptData, mode) {
+    const modal = document.getElementById('promptModal');
+    const modalTitle = document.getElementById('promptModalTitle');
+    const titleInput = document.getElementById('promptTitleEdit');
+    const contentTextarea = document.getElementById('promptContentEdit');
+    const saveButton = document.getElementById('savePromptEdit');
+    const actionsDiv = document.getElementById('promptActions');
+    
+    // Remplir les champs
+    titleInput.value = promptData.title;
+    contentTextarea.value = promptData.content;
+    
+    if (mode === 'use') {
+        // Mode "Utiliser" - Lecture seule
+        modalTitle.textContent = 'Utiliser le prompt : ' + promptData.title;
+        titleInput.readOnly = true;
+        contentTextarea.readOnly = true;
+        saveButton.classList.add('hidden');
+        
+        // Boutons d'action pour utilisation
+        actionsDiv.innerHTML = `
+            <button type="button" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded mr-2" onclick="copyPromptFromModal()">
+                <i class="fas fa-copy mr-1"></i> Copier
+            </button>
+            <button type="button" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded" onclick="openChatGPTFromModal()">
+                <i class="fas fa-external-link-alt mr-1"></i> Ouvrir dans ChatGPT
+            </button>
+        `;
+        
+    } else if (mode === 'edit') {
+        // Mode "Modifier" - Éditable
+        modalTitle.textContent = 'Modifier le prompt : ' + promptData.title;
+        titleInput.readOnly = false;
+        contentTextarea.readOnly = false;
+        saveButton.classList.remove('hidden');
+        saveButton.setAttribute('data-prompt-id', promptData.id);
+        
+        // Boutons d'action pour édition
+        actionsDiv.innerHTML = `
+            <button type="button" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded mr-2" onclick="resetPromptToOriginal('${promptData.id}')">
+                <i class="fas fa-undo mr-1"></i> Réinitialiser
+            </button>
+        `;
+    }
+    
+    // Afficher le modal
+    modal.classList.remove('hidden');
+    
+    // Stocker les données actuelles pour référence
+    modal.setAttribute('data-current-prompt-id', promptData.id);
+}
+
+// Fermer le modal
+document.querySelectorAll('.close-prompt-modal').forEach(button => {
+    button.addEventListener('click', function() {
+        document.getElementById('promptModal').classList.add('hidden');
+    });
+});
+
+// Fonctions utilitaires pour les boutons du modal
+function copyPromptFromModal() {
+    const content = document.getElementById('promptContentEdit').value;
+    navigator.clipboard.writeText(content).then(function() {
+        alert('✅ Prompt copié dans le presse-papiers !');
+    });
+}
+
+function openChatGPTFromModal() {
+    const content = document.getElementById('promptContentEdit').value;
+    const encodedPrompt = encodeURIComponent(content);
+    const chatGptUrl = `https://chat.openai.com/?q=${encodedPrompt}`;
+    window.open(chatGptUrl, '_blank');
+    alert('✅ ChatGPT ouvert avec le prompt !');
+}
+
+function resetPromptToOriginal(promptId) {
+    const originalPrompt = promptsData[promptId];
+    if (originalPrompt) {
+        document.getElementById('promptTitleEdit').value = originalPrompt.title;
+        document.getElementById('promptContentEdit').value = originalPrompt.content;
+        alert('✅ Prompt réinitialisé à sa version originale !');
+    }
+}
+
+// Sauvegarder les modifications
+document.getElementById('savePromptEdit').addEventListener('click', function() {
+    const promptId = this.getAttribute('data-prompt-id');
+    const newTitle = document.getElementById('promptTitleEdit').value;
+    const newContent = document.getElementById('promptContentEdit').value;
+    
+    if (newTitle.trim() && newContent.trim()) {
+        // Mettre à jour les données
+        promptsData[promptId].title = newTitle;
+        promptsData[promptId].content = newContent;
+        
+        // Sauvegarder dans localStorage si disponible
+        try {
+            localStorage.setItem('customPrompts', JSON.stringify(promptsData));
+        } catch(e) {
+            console.log('LocalStorage non disponible');
+        }
+        
+        // Fermer le modal
+        document.getElementById('promptModal').classList.add('hidden');
+        
+        alert('✅ Prompt modifié et sauvegardé !');
+    } else {
+        alert('❌ Veuillez remplir le titre et le contenu !');
+    }
+});
+
     console.log('Initialisation terminée - ' + chatGptButtons.length + ' boutons ChatGPT et ' + saveButtons.length + ' boutons Save configurés');
 }
 </script>
