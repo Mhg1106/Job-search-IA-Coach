@@ -853,7 +853,7 @@ Conclus par une note d'encouragement et une vision positive pour la suite de sa 
     }
 };
     
-// SOLUTION ULTIME - Affiche le prompt
+// SOLUTION PARFAITE - Prompt auto-rempli dans ChatGPT
 const chatGptButtons = document.querySelectorAll('.open-in-chatgpt-btn');
 
 chatGptButtons.forEach(function(button) {
@@ -864,24 +864,22 @@ chatGptButtons.forEach(function(button) {
         const promptData = promptsData[promptId];
         
         if (promptData) {
-            // Créer une popup avec le prompt
-            const newWindow = window.open('', '_blank', 'width=800,height=600,scrollbars=yes');
-            newWindow.document.write(`
-                <html>
-                <head><title>Prompt: ${promptData.title}</title></head>
-                <body style="font-family: Arial; padding: 20px;">
-                    <h2>${promptData.title}</h2>
-                    <textarea style="width: 100%; height: 400px; font-size: 14px;">${promptData.content}</textarea>
-                    <br><br>
-                    <button onclick="navigator.clipboard.writeText(document.querySelector('textarea').value); alert('Copié!'); window.open('https://chat.openai.com/', '_blank');" style="background: #10a37f; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px;">Copier et ouvrir ChatGPT</button>
-                </body>
-                </html>
-            `);
+            console.log('Ouverture directe du prompt :', promptData.title);
+            
+            // Encoder le prompt pour l'URL
+            const encodedPrompt = encodeURIComponent(promptData.content);
+            
+            // Créer l'URL ChatGPT avec le prompt pré-rempli
+            const chatGptUrl = `https://chat.openai.com/?q=${encodedPrompt}`;
+            
+            // Ouvrir ChatGPT avec le prompt déjà dans la zone de texte
+            window.open(chatGptUrl, '_blank');
+            
+            console.log('✅ ChatGPT ouvert avec le prompt pré-rempli');
         }
     });
 });
 
-    
     // Gestionnaire pour les boutons "Enregistrer réponse"
     const saveButtons = document.querySelectorAll('.save-response-btn');
     console.log('Boutons Save trouvés :', saveButtons.length);
