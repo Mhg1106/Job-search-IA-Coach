@@ -414,6 +414,9 @@
 <script>
 console.log('Script JavaScript intégré chargé');
 
+// VARIABLE GLOBALE - Données complètes des prompts
+let promptsData = {};
+
 // Attendre que le DOM soit complètement chargé
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM chargé, initialisation des gestionnaires...');
@@ -427,8 +430,8 @@ document.addEventListener('DOMContentLoaded', function() {
 function initializeButtons() {
     console.log('Initialisation des boutons...');
     
-    // Données complètes des prompts
-    const promptsData = {
+    // Initialiser les données des prompts
+    promptsData = {
         '1': {
             title: "Diagnostic de Départ",
             content: `Je suis un coach spécialisé en emploi et carrière. Je réalise un diagnostic initial pour [Nom du coaché], qui recherche un poste de [type de poste].
