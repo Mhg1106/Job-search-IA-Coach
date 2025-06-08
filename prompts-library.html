@@ -427,11 +427,11 @@ document.addEventListener('DOMContentLoaded', function() {
 function initializeButtons() {
     console.log('Initialisation des boutons...');
     
-// Données complètes des prompts
-const promptsData = {
-    '1': {
-        title: "Diagnostic de Départ",
-        content: `Je suis un coach spécialisé en emploi et carrière. Je réalise un diagnostic initial pour [Nom du coaché], qui recherche un poste de [type de poste].
+    // Données complètes des prompts
+    const promptsData = {
+        '1': {
+            title: "Diagnostic de Départ",
+            content: `Je suis un coach spécialisé en emploi et carrière. Je réalise un diagnostic initial pour [Nom du coaché], qui recherche un poste de [type de poste].
 
 Sur la base des réponses au questionnaire suivant, je souhaite que tu établisses une synthèse structurée de sa situation, identifiant ses forces, axes d'amélioration, et les points prioritaires à travailler.
 
@@ -461,10 +461,10 @@ Ta synthèse doit inclure :
 6. Un plan d'action initial recommandé
 
 Présente ta réponse de manière professionnelle et encourageante, sans jugement, en adoptant une approche coach qui associe bienveillance et lucidité.`
-    },
-    '2': {
-        title: "Analyse du Marché",
-        content: `En tant que coach en recherche d'emploi, j'ai besoin d'une analyse complète du marché pour le secteur [secteur] dans lequel mon coaché recherche un poste de [type de poste]. Je souhaite obtenir une synthèse actuelle et pertinente pour l'aider à comprendre l'environnement professionnel et optimiser sa recherche.
+        },
+        '2': {
+            title: "Analyse du Marché",
+            content: `En tant que coach en recherche d'emploi, j'ai besoin d'une analyse complète du marché pour le secteur [secteur] dans lequel mon coaché recherche un poste de [type de poste]. Je souhaite obtenir une synthèse actuelle et pertinente pour l'aider à comprendre l'environnement professionnel et optimiser sa recherche.
 
 Fournissez une analyse détaillée incluant :
 
@@ -501,10 +501,10 @@ Fournissez une analyse détaillée incluant :
    - Préparation spécifique pour les entretiens
 
 Basez votre analyse sur le marché français actuel, tout en mentionnant les particularités régionales si pertinent. Présentez les informations de manière structurée et actionnable pour un candidat.`
-    },
-    '3': {
-        title: "Plan d'action détaillé",
-        content: `Sur la base du diagnostic réalisé pour [Nom du coaché] qui recherche un poste de [type de poste], élabore un plan d'action concret et détaillé sur 8 semaines pour structurer sa recherche d'emploi et maximiser ses chances de succès.
+        },
+        '3': {
+            title: "Plan d'action détaillé",
+            content: `Sur la base du diagnostic réalisé pour [Nom du coaché] qui recherche un poste de [type de poste], élabore un plan d'action concret et détaillé sur 8 semaines pour structurer sa recherche d'emploi et maximiser ses chances de succès.
 
 Ce plan d'action doit :
 1. S'appuyer sur ses forces identifiées : [forces principales]
@@ -530,10 +530,10 @@ Le plan doit couvrir les dimensions essentielles d'une recherche efficace :
 - Stratégie de veille sur le marché
 
 Présente ce plan sous forme de calendrier structuré, avec des objectifs et tâches clairement définis pour chaque semaine. Utilise un ton motivant et directif. Veille à ce que le plan soit à la fois ambitieux et réaliste, adapté au profil et à la situation du coaché.`
-    },
-    '4': {
-        title: "Analyse CV",
-        content: `Analyse le CV de [Nom du coaché] qui postule pour un poste de [type de poste]. Identifie les forces et faiblesses du CV et propose des améliorations concrètes pour augmenter ses chances de succès.
+        },
+        '4': {
+            title: "Analyse CV",
+            content: `Analyse le CV de [Nom du coaché] qui postule pour un poste de [type de poste]. Identifie les forces et faiblesses du CV et propose des améliorations concrètes pour augmenter ses chances de succès.
 
 Voici le CV à analyser :
 [Coller ici le CV complet du candidat]
@@ -573,10 +573,10 @@ Effectue une analyse complète selon les critères suivants :
    - Éléments à supprimer ou raccourcir
 
 Fournis une note globale sur 10 et un plan d'action pour optimiser ce CV dans les 48h.`
-    },
-    '5': {
-        title: "Recherche Entreprise",
-        content: `Réalise une synthèse complète sur l'entreprise [Nom de l'entreprise] pour mon coaché qui souhaite y postuler. Cette recherche doit lui permettre de personnaliser sa candidature et de se préparer efficacement aux entretiens.
+        },
+        '5': {
+            title: "Recherche Entreprise",
+            content: `Réalise une synthèse complète sur l'entreprise [Nom de l'entreprise] pour mon coaché qui souhaite y postuler. Cette recherche doit lui permettre de personnaliser sa candidature et de se préparer efficacement aux entretiens.
 
 Fournissez une analyse détaillée couvrant :
 
@@ -617,10 +617,10 @@ Fournissez une analyse détaillée couvrant :
    - Pièges à éviter
 
 Termine par 3 raisons concrètes pour lesquelles [Nom du coaché] devrait rejoindre cette entreprise.`
-    },
-    '6': {
-        title: "Matching CV / Offre",
-        content: `Analyse le degré de matching entre le CV de [Nom du coaché] et l'offre d'emploi pour le poste de [intitulé du poste] chez [nom de l'entreprise].
+        },
+        '6': {
+            title: "Matching CV / Offre",
+            content: `Analyse le degré de matching entre le CV de [Nom du coaché] et l'offre d'emploi pour le poste de [intitulé du poste] chez [nom de l'entreprise].
 
 Voici l'offre d'emploi :
 [Coller ici le texte complet de l'offre]
@@ -670,10 +670,10 @@ Effectue une analyse comparative détaillée :
    - Préparation spécifique pour l'entretien
 
 Conclus par un avis motivé : candidature à encourager ou non, et stratégie recommandée.`
-    },
-    '7': {
-        title: "Lettre de Motivation",
-        content: `Rédige une lettre de motivation percutante pour [Nom du coaché] qui postule au poste de [intitulé du poste] chez [nom de l'entreprise].
+        },
+        '7': {
+            title: "Lettre de Motivation",
+            content: `Rédige une lettre de motivation percutante pour [Nom du coaché] qui postule au poste de [intitulé du poste] chez [nom de l'entreprise].
 
 Informations sur le candidat :
 - Profil : [résumé du profil professionnel]
@@ -719,10 +719,10 @@ Critères de qualité :
 - Axée sur la valeur ajoutée pour l'entreprise
 
 Génère 2 versions : une version classique et une version plus créative/moderne.`
-    },
-    '8': {
-        title: "Ciblage Offres",
-        content: `Évalue le matching entre le profil de [Nom du coaché] et ces offres d'emploi. Classe-les par pertinence et suggère des adaptations.
+        },
+        '8': {
+            title: "Ciblage Offres",
+            content: `Évalue le matching entre le profil de [Nom du coaché] et ces offres d'emploi. Classe-les par pertinence et suggère des adaptations.
 
 Profil du candidat :
 - Formation : [formation]
@@ -779,10 +779,10 @@ Conclus par :
 - Stratégie globale de candidature
 - Planning de candidatures sur 2 semaines
 - Formations/préparations recommandées pour améliorer le profil`
-    },
-    '9': {
-        title: "Préparation Entretien",
-        content: `Génère une série de questions d'entretien pour [Nom du coaché] qui postule au poste de [intitulé du poste] chez [nom de l'entreprise].
+        },
+        '9': {
+            title: "Préparation Entretien",
+            content: `Génère une série de questions d'entretien pour [Nom du coaché] qui postule au poste de [intitulé du poste] chez [nom de l'entreprise].
 
 Informations sur le candidat :
 - Profil : [résumé du profil]
@@ -830,10 +830,10 @@ Pour chaque question, fournis :
 - Des exemples concrets du parcours du candidat
 
 Ajoute des conseils pratiques pour l'entretien et la posture à adopter.`
-    },
-    '10': {
-        title: "Bilan du Coaching",
-        content: `Réalise un bilan complet du coaching réalisé avec [Nom du coaché]. Analyse la progression, les points forts, les axes d'amélioration et propose des recommandations pour la suite.
+        },
+        '10': {
+            title: "Bilan du Coaching",
+            content: `Réalise un bilan complet du coaching réalisé avec [Nom du coaché]. Analyse la progression, les points forts, les axes d'amélioration et propose des recommandations pour la suite.
 
 Informations sur le parcours de coaching :
 - Durée : [X semaines/mois]
@@ -889,36 +889,36 @@ Effectue une analyse détaillée :
    - Moments de réajustement
 
 Conclus par une note d'encouragement et une vision positive pour la suite de sa recherche.`
-    }
-};
-    
-// SOLUTION PARFAITE - Prompt auto-rempli dans ChatGPT
-const chatGptButtons = document.querySelectorAll('.open-in-chatgpt-btn');
-
-chatGptButtons.forEach(function(button) {
-    button.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        const promptId = this.getAttribute('data-prompt-id');
-        const promptData = promptsData[promptId];
-        
-        if (promptData) {
-            console.log('Ouverture directe du prompt :', promptData.title);
-            
-            // Encoder le prompt pour l'URL
-            const encodedPrompt = encodeURIComponent(promptData.content);
-            
-            // Créer l'URL ChatGPT avec le prompt pré-rempli
-            const chatGptUrl = `https://chat.openai.com/?q=${encodedPrompt}`;
-            
-            // Ouvrir ChatGPT avec le prompt déjà dans la zone de texte
-            window.open(chatGptUrl, '_blank');
-            
-            console.log('✅ ChatGPT ouvert avec le prompt pré-rempli');
         }
-    });
-});
+    };
+    
+    // SOLUTION PARFAITE - Le prompt s'affiche automatiquement dans ChatGPT
+    const chatGptButtons = document.querySelectorAll('.open-in-chatgpt-btn');
 
+    chatGptButtons.forEach(function(button) {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const promptId = this.getAttribute('data-prompt-id');
+            const promptData = promptsData[promptId];
+            
+            if (promptData) {
+                console.log('Ouverture directe du prompt :', promptData.title);
+                
+                // Encoder le prompt pour l'URL
+                const encodedPrompt = encodeURIComponent(promptData.content);
+                
+                // Créer l'URL ChatGPT avec le prompt pré-rempli
+                const chatGptUrl = `https://chat.openai.com/?q=${encodedPrompt}`;
+                
+                // Ouvrir ChatGPT avec le prompt déjà dans la zone de texte
+                window.open(chatGptUrl, '_blank');
+                
+                console.log('✅ ChatGPT ouvert avec le prompt pré-rempli');
+            }
+        });
+    });
+    
     // Gestionnaire pour les boutons "Enregistrer réponse"
     const saveButtons = document.querySelectorAll('.save-response-btn');
     console.log('Boutons Save trouvés :', saveButtons.length);
@@ -937,7 +937,7 @@ chatGptButtons.forEach(function(button) {
             }
         });
     });
-
+    
     // Gestionnaire pour les boutons "Utiliser"
     const utiliserButtons = document.querySelectorAll('button');
     let useButtonsCount = 0;
@@ -990,10 +990,11 @@ chatGptButtons.forEach(function(button) {
         }
     });
     
+    console.log('Boutons ChatGPT trouvés :', chatGptButtons.length);
+    console.log('Boutons Save trouvés :', saveButtons.length);
     console.log('Boutons Utiliser trouvés :', useButtonsCount);
     console.log('Boutons Modifier trouvés :', editButtonsCount);
-    
-    console.log('Initialisation terminée - ' + chatGptButtons.length + ' boutons ChatGPT et ' + saveButtons.length + ' boutons Save configurés');
+    console.log('Initialisation terminée');
 }
 
 // Fonction pour afficher le modal des prompts
@@ -1049,13 +1050,6 @@ function showPromptModal(promptData, mode) {
     modal.setAttribute('data-current-prompt-id', promptData.id);
 }
 
-// Fermer le modal
-document.querySelectorAll('.close-prompt-modal').forEach(button => {
-    button.addEventListener('click', function() {
-        document.getElementById('promptModal').classList.add('hidden');
-    });
-});
-
 // Fonctions utilitaires pour les boutons du modal
 function copyPromptFromModal() {
     const content = document.getElementById('promptContentEdit').value;
@@ -1081,35 +1075,45 @@ function resetPromptToOriginal(promptId) {
     }
 }
 
-// Sauvegarder les modifications
-document.getElementById('savePromptEdit').addEventListener('click', function() {
-    const promptId = this.getAttribute('data-prompt-id');
-    const newTitle = document.getElementById('promptTitleEdit').value;
-    const newContent = document.getElementById('promptContentEdit').value;
+// Gestionnaires d'événements qui s'exécutent après le chargement du DOM
+document.addEventListener('DOMContentLoaded', function() {
+    // Fermer le modal
+    document.querySelectorAll('.close-prompt-modal').forEach(button => {
+        button.addEventListener('click', function() {
+            document.getElementById('promptModal').classList.add('hidden');
+        });
+    });
     
-    if (newTitle.trim() && newContent.trim()) {
-        // Mettre à jour les données
-        promptsData[promptId].title = newTitle;
-        promptsData[promptId].content = newContent;
-        
-        // Sauvegarder dans localStorage si disponible
-        try {
-            localStorage.setItem('customPrompts', JSON.stringify(promptsData));
-        } catch(e) {
-            console.log('LocalStorage non disponible');
-        }
-        
-        // Fermer le modal
-        document.getElementById('promptModal').classList.add('hidden');
-        
-        alert('✅ Prompt modifié et sauvegardé !');
-    } else {
-        alert('❌ Veuillez remplir le titre et le contenu !');
+    // Sauvegarder les modifications
+    const savePromptEdit = document.getElementById('savePromptEdit');
+    if (savePromptEdit) {
+        savePromptEdit.addEventListener('click', function() {
+            const promptId = this.getAttribute('data-prompt-id');
+            const newTitle = document.getElementById('promptTitleEdit').value;
+            const newContent = document.getElementById('promptContentEdit').value;
+            
+            if (newTitle.trim() && newContent.trim()) {
+                // Mettre à jour les données
+                promptsData[promptId].title = newTitle;
+                promptsData[promptId].content = newContent;
+                
+                // Sauvegarder dans localStorage si disponible
+                try {
+                    localStorage.setItem('customPrompts', JSON.stringify(promptsData));
+                } catch(e) {
+                    console.log('LocalStorage non disponible');
+                }
+                
+                // Fermer le modal
+                document.getElementById('promptModal').classList.add('hidden');
+                
+                alert('✅ Prompt modifié et sauvegardé !');
+            } else {
+                alert('❌ Veuillez remplir le titre et le contenu !');
+            }
+        });
     }
 });
-
-    console.log('Initialisation terminée - ' + chatGptButtons.length + ' boutons ChatGPT et ' + saveButtons.length + ' boutons Save configurés');
-}
 </script>
 </body>
 </html>
