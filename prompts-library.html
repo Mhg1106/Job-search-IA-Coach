@@ -961,7 +961,7 @@ Conclus par une note d'encouragement et une vision positive pour la suite de sa 
                 const promptData = promptsData[promptId];
                 if (promptData) {
                     console.log('Ouverture du prompt en mode utilisation :', promptData.title);
-                    showPromptModal(promptData, 'use');
+                    showPromptModal(promptData, 'use', promptId);
                 }
             });
         }
@@ -987,7 +987,7 @@ Conclus par une note d'encouragement et une vision positive pour la suite de sa 
                 const promptData = promptsData[promptId];
                 if (promptData) {
                     console.log('Ouverture du prompt en mode édition :', promptData.title);
-                    showPromptModal(promptData, 'edit');
+                    showPromptModal(promptData, 'edit', promptId);
                 }
             });
         }
@@ -1001,7 +1001,7 @@ Conclus par une note d'encouragement et une vision positive pour la suite de sa 
 }
 
 // Fonction pour afficher le modal des prompts
-function showPromptModal(promptData, mode) {
+function showPromptModal(promptData, mode, promptId) {
     const modal = document.getElementById('promptModal');
     const modalTitle = document.getElementById('promptModalTitle');
     const titleInput = document.getElementById('promptTitleEdit');
@@ -1036,7 +1036,8 @@ function showPromptModal(promptData, mode) {
         titleInput.readOnly = false;
         contentTextarea.readOnly = false;
         saveButton.classList.remove('hidden');
-        saveButton.setAttribute('data-prompt-id', promptData.id);
+        saveButton.setAttribute('data-prompt-id', promptId);
+
         
         // Boutons d'action pour édition
         actionsDiv.innerHTML = `
