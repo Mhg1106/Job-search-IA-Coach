@@ -1,1 +1,195 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session de Coaching | Job-search AI & Coach</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
 
+<div class="flex flex-col md:flex-row">
+    <!-- Navigation -->
+    <nav aria-label="alternative nav">
+        <div class="bg-gray-800 shadow-xl h-20 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48 content-center">
+            <div class="md:mt-12 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between">
+                <ul class="list-reset flex flex-row md:flex-col pt-3 md:py-3 px-1 md:px-2 text-center md:text-left">
+                    <li class="mr-3 flex-1">
+                        <a href="index.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-blue-500">
+                            <i class="fas fa-chart-area pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Tableau de bord</span>
+                        </a>
+                    </li>
+                    <li class="mr-3 flex-1">
+                        <a href="prompts-library.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-green-500">
+                            <i class="fas fa-comment-alt pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Prompts IA</span>
+                        </a>
+                    </li>
+                    <li class="mr-3 flex-1">
+                        <a href="coachees.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-purple-600">
+                            <i class="fas fa-users pr-0 md:pr-3 text-purple-600"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-white md:text-white block md:inline-block">Mes coachés</span>
+                        </a>
+                    </li>
+                    <li class="mr-3 flex-1">
+                        <a href="resources.html" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-red-500">
+                            <i class="fas fa-book pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Ressources</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenu principal -->
+    <div id="main" class="main-content flex-1 bg-gray-100 pb-24 md:pb-5">
+        <div class="bg-gray-800 pt-3">
+            <div class="rounded-tl-3xl bg-gradient-to-r from-purple-900 to-gray-800 p-4 shadow text-2xl text-white">
+                <h1 class="font-bold pl-2">
+                    <i class="fas fa-video mr-3"></i>Session de Coaching
+                    <span id="coachedName" class="text-lg font-normal ml-2"></span>
+                </h1>
+            </div>
+        </div>
+        
+        <div class="p-6">
+            <!-- Retour aux coachés -->
+            <div class="mb-4">
+                <a href="coachees.html" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded inline-flex items-center">
+                    <i class="fas fa-arrow-left mr-2"></i> Retour aux coachés
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Panneau de contrôle session -->
+                <div class="lg:col-span-1">
+                    <div class="bg-white rounded-lg shadow-xl p-5 mb-6">
+                        <h3 class="text-lg font-bold mb-4">Contrôles de Session</h3>
+                        
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Étape actuelle</label>
+                            <select id="currentStep" class="w-full border border-gray-300 rounded-md p-2">
+                                <option value="1">1. Diagnostic de Départ</option>
+                                <option value="2">2. Analyse du Marché</option>
+                                <option value="3">3. Plan d'action détaillé</option>
+                                <option value="4">4. Analyse CV</option>
+                                <option value="5">5. Recherche Entreprise</option>
+                                <option value="6">6. Matching CV / Offre</option>
+                                <option value="7">7. Lettre de Motivation</option>
+                                <option value="8">8. Ciblage Offres</option>
+                                <option value="9">9. Préparation Entretien</option>
+                                <option value="10">10. Bilan du Coaching</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <button id="openPromptBtn" class="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
+                                <i class="fas fa-external-link-alt mr-2"></i>Ouvrir le Prompt dans ChatGPT
+                            </button>
+                        </div>
+
+                        <div class="mb-4">
+                            <button id="saveNotesBtn" class="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+                                <i class="fas fa-save mr-2"></i>Sauvegarder les Notes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Zone de notes -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white rounded-lg shadow-xl p-5">
+                        <h3 class="text-lg font-bold mb-4">Notes de Session</h3>
+                        
+                        <div class="mb-4">
+                            <label for="sessionNotes" class="block text-sm font-medium text-gray-700 mb-2">
+                                Prenez vos notes de coaching en temps réel :
+                            </label>
+                            <textarea id="sessionNotes" rows="20" class="w-full border border-gray-300 rounded-md p-3" placeholder="Notez ici les échanges, observations, actions à prévoir..."></textarea>
+                        </div>
+
+                        <div class="flex justify-between">
+                            <div class="text-sm text-gray-500">
+                                Dernière sauvegarde : <span id="lastSaved">Jamais</span>
+                            </div>
+                            <div class="text-sm text-gray-500">
+                                Session démarrée à : <span id="sessionStart"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Gestion de la session de coaching
+document.addEventListener('DOMContentLoaded', function() {
+    // Récupérer les paramètres URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const coachedName = urlParams.get('name') || 'Coaché Inconnu';
+    const currentStep = urlParams.get('step') || '1';
+    
+    // Afficher le nom du coaché
+    document.getElementById('coachedName').textContent = `- ${coachedName}`;
+    document.getElementById('currentStep').value = currentStep.charAt(0);
+    
+    // Afficher l'heure de début
+    document.getElementById('sessionStart').textContent = new Date().toLocaleTimeString('fr-FR');
+    
+    // Charger les notes existantes
+    loadSessionNotes();
+    
+    // Gestionnaire pour ouvrir le prompt
+    document.getElementById('openPromptBtn').addEventListener('click', function() {
+        const step = document.getElementById('currentStep').value;
+        // Redirection vers prompts-library avec l'étape sélectionnée
+        window.open(`prompts-library.html#prompt-${step}`, '_blank');
+    });
+    
+    // Gestionnaire pour sauvegarder les notes
+    document.getElementById('saveNotesBtn').addEventListener('click', function() {
+        saveSessionNotes();
+    });
+    
+    // Sauvegarde automatique toutes les 30 secondes
+    setInterval(saveSessionNotes, 30000);
+});
+
+function loadSessionNotes() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const coachedName = urlParams.get('name');
+    const storageKey = `session_notes_${coachedName}`;
+    
+    const savedNotes = localStorage.getItem(storageKey);
+    if (savedNotes) {
+        document.getElementById('sessionNotes').value = savedNotes;
+        document.getElementById('lastSaved').textContent = new Date().toLocaleTimeString('fr-FR');
+    }
+}
+
+function saveSessionNotes() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const coachedName = urlParams.get('name');
+    const storageKey = `session_notes_${coachedName}`;
+    const notes = document.getElementById('sessionNotes').value;
+    
+    localStorage.setItem(storageKey, notes);
+    document.getElementById('lastSaved').textContent = new Date().toLocaleTimeString('fr-FR');
+    
+    // Notification visuelle
+    const saveBtn = document.getElementById('saveNotesBtn');
+    const originalText = saveBtn.innerHTML;
+    saveBtn.innerHTML = '<i class="fas fa-check mr-2"></i>Sauvegardé !';
+    saveBtn.className = 'w-full bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded';
+    
+    setTimeout(() => {
+        saveBtn.innerHTML = originalText;
+        saveBtn.className = 'w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded';
+    }, 2000);
+}
+</script>
+
+</body>
+</html>
