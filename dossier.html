@@ -1,1 +1,223 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dossier Coaché - Job Search IA Coach</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar (identique à vos autres pages) -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-briefcase mr-3"></i>Job Search IA Coach</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="index.html" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Tableau de bord</span>
+                </a>
+                <a href="prompts-library.html" class="nav-item">
+                    <i class="fas fa-robot"></i>
+                    <span>Prompts IA</span>
+                </a>
+                <a href="coachees.html" class="nav-item active">
+                    <i class="fas fa-users"></i>
+                    <span>Mes coachés</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-folder"></i>
+                    <span>Ressources</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Test des Prompts</span>
+                </a>
+            </nav>
+        </div>
 
+        <!-- Contenu principal -->
+        <div class="main-content">
+            <div class="content-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1><i class="fas fa-folder-open text-primary"></i> Dossier Coaché <span id="coachedName">- Coaché Inconnu</span></h1>
+                        <p class="text-muted">Gestion complète du dossier et suivi personnalisé</p>
+                    </div>
+                    <div>
+                        <button class="btn btn-outline-secondary me-2" onclick="window.history.back()">
+                            <i class="fas fa-arrow-left"></i> Retour aux coachés
+                        </button>
+                        <button class="btn btn-primary" onclick="startSession()">
+                            <i class="fas fa-play"></i> Nouvelle Session
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- Colonne gauche - Informations principales -->
+                    <div class="col-lg-8">
+                        <!-- Profil du coaché -->
+                        <div class="card mb-4">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5><i class="fas fa-user-circle text-primary"></i> Profil du Coaché</h5>
+                                <button class="btn btn-sm btn-outline-primary" onclick="editProfile()">
+                                    <i class="fas fa-edit"></i> Modifier
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="profile-info">
+                                            <div class="info-item">
+                                                <strong>Nom complet :</strong>
+                                                <span id="fullName">-</span>
+                                            </div>
+                                            <div class="info-item">
+                                                <strong>Poste recherché :</strong>
+                                                <span id="targetPosition">-</span>
+                                            </div>
+                                            <div class="info-item">
+                                                <strong>Secteur d'activité :</strong>
+                                                <span id="sector">-</span>
+                                            </div>
+                                            <div class="info-item">
+                                                <strong>Expérience :</strong>
+                                                <span id="experience">-</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="profile-info">
+                                            <div class="info-item">
+                                                <strong>Email :</strong>
+                                                <span id="email">-</span>
+                                            </div>
+                                            <div class="info-item">
+                                                <strong>Téléphone :</strong>
+                                                <span id="phone">-</span>
+                                            </div>
+                                            <div class="info-item">
+                                                <strong>Localisation :</strong>
+                                                <span id="location">-</span>
+                                            </div>
+                                            <div class="info-item">
+                                                <strong>Début coaching :</strong>
+                                                <span id="startDate">-</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Historique des sessions -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5><i class="fas fa-history text-success"></i> Historique des Sessions</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="sessionsHistory">
+                                    <!-- Contenu généré dynamiquement -->
+                                </div>
+                                <div class="text-center mt-3">
+                                    <button class="btn btn-outline-primary" onclick="loadMoreSessions()">
+                                        <i class="fas fa-plus"></i> Charger plus de sessions
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Notes du coach -->
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5><i class="fas fa-sticky-note text-warning"></i> Notes du Coach</h5>
+                                <button class="btn btn-sm btn-success" onclick="saveCoachNotes()">
+                                    <i class="fas fa-save"></i> Sauvegarder
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <textarea id="coachNotes" class="form-control" rows="8" 
+                                    placeholder="Notes générales sur le coaché, observations, points d'attention..."></textarea>
+                                <small class="text-muted mt-2 d-block">
+                                    <i class="fas fa-clock"></i> Dernière modification : <span id="notesLastUpdate">Jamais</span>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Colonne droite - Informations secondaires -->
+                    <div class="col-lg-4">
+                        <!-- Progression -->
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h5><i class="fas fa-chart-line text-info"></i> Progression</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="progress-item mb-3">
+                                    <div class="d-flex justify-content-between">
+                                        <span>Avancement global</span>
+                                        <span id="globalProgress">0/10</span>
+                                    </div>
+                                    <div class="progress mt-1">
+                                        <div id="globalProgressBar" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div class="progress-steps">
+                                    <div class="step-item" data-step="1">
+                                        <i class="fas fa-circle-check text-muted"></i>
+                                        <span>Diagnostic de départ</span>
+                                    </div>
+                                    <div class="step-item" data-step="2">
+                                        <i class="fas fa-circle text-muted"></i>
+                                        <span>Analyse du marché</span>
+                                    </div>
+                                    <!-- Autres étapes... -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Documents -->
+                        <div class="card mb-4">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5><i class="fas fa-file-alt text-secondary"></i> Documents</h5>
+                                <button class="btn btn-sm btn-outline-primary" onclick="uploadDocument()">
+                                    <i class="fas fa-upload"></i> Ajouter
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div id="documentsList">
+                                    <!-- Documents générés dynamiquement -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Objectifs -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h5><i class="fas fa-target text-danger"></i> Objectifs</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="objectivesList">
+                                    <!-- Objectifs générés dynamiquement -->
+                                </div>
+                                <button class="btn btn-sm btn-outline-primary w-100 mt-2" onclick="addObjective()">
+                                    <i class="fas fa-plus"></i> Ajouter un objectif
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="dossier.js"></script>
+</body>
+</html>
