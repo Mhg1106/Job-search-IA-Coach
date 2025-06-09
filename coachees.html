@@ -251,5 +251,41 @@
   </div>
   
   <script src="js/coachees.js"></script>
+<script>
+// Gestionnaire pour les boutons Session et Dossier
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Initialisation des boutons coachés...');
+    
+    // Gestionnaire pour les boutons Session
+    document.querySelectorAll('button').forEach(button => {
+        if (button.textContent.trim() === 'Session') {
+            button.addEventListener('click', function() {
+                const coachedCard = this.closest('.bg-white');
+                const coachedName = coachedCard.querySelector('h3').textContent.trim();
+                const coachedStep = coachedCard.querySelector('.text-sm').textContent.trim();
+                
+                console.log('Ouverture session pour:', coachedName);
+                
+                // Créer l'URL de session avec paramètres
+                const sessionUrl = `session.html?name=${encodeURIComponent(coachedName)}&step=${encodeURIComponent(coachedStep)}`;
+                window.location.href = sessionUrl;
+            });
+        }
+        
+        if (button.textContent.trim() === 'Dossier') {
+            button.addEventListener('click', function() {
+                const coachedCard = this.closest('.bg-white');
+                const coachedName = coachedCard.querySelector('h3').textContent.trim();
+                
+                console.log('Ouverture dossier pour:', coachedName);
+                
+                // Créer l'URL de dossier avec paramètres
+                const dossierUrl = `dossier.html?name=${encodeURIComponent(coachedName)}`;
+                window.location.href = dossierUrl;
+            });
+        }
+    });
+});
+</script>
 </body>
 </html>
