@@ -8,9 +8,9 @@ function initializeDossier() {
     // Récupérer les paramètres URL
     const urlParams = new URLSearchParams(window.location.search);
     const coachedName = decodeURIComponent(urlParams.get('name') || 'Coaché Inconnu');
-    console.log('Paramètre name reçu:', urlParams.get('name'));
-    console.log('Nom du coaché décodé:', coachedName);
-
+    
+    // LIGNE DE DEBUG À AJOUTER :
+    alert(`URL actuelle: ${window.location.href}\nParamètre name: ${urlParams.get('name')}\nNom décodé: ${coachedName}`);
     
     // Afficher le nom du coaché
     document.getElementById('coachedName').textContent = `- ${coachedName}`;
