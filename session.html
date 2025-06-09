@@ -141,11 +141,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Charger les notes existantes
     loadSessionNotes();
     
-    // Gestionnaire pour ouvrir le prompt
+    // Gestionnaire pour ouvrir le prompt dans ChatGPT
     document.getElementById('openPromptBtn').addEventListener('click', function() {
-        const step = document.getElementById('currentStep').value;
-        // Redirection vers prompts-library avec l'étape sélectionnée
-        window.open(`prompts-library.html#prompt-${step}`, '_blank');
+    ouvrirDansChatGPT();
     });
     
     // Gestionnaire pour sauvegarder les notes
@@ -189,7 +187,51 @@ function saveSessionNotes() {
         saveBtn.className = 'w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded';
     }, 2000);
 }
+function ouvrirDansChatGPT() {
+    const step = document.getElementById('currentStep').value;
+    const urlParams = new URLSearchParams(window.location.search);
+    const coachedName = urlParams.get('name') || '[Nom du coaché]';
+    
+    // Dictionnaire des prompts basé sur vos prompts-library.html
+    const prompts = {
+        "1": "Je suis un coach spécialisé en emploi et carrière. Je réalise un diagnostic initial pour [Nom du coaché], qui recherche un poste de [type de poste]. Mon objectif est d'identifier ses motivations, ses compétences clés, ses freins potentiels et de définir ensemble une stratégie de recherche d'emploi personnalisée. Peux-tu m'aider à structurer ce diagnostic en me proposant une série de questions pertinentes à poser durant cette session ?",
+        
+        "2": "En tant que coach en recherche d'emploi, j'ai besoin d'une analyse complète du marché pour le secteur [secteur] dans lequel mon coaché recherche un poste. Je souhaite comprendre les tendances actuelles, les compétences recherchées, les types d'entreprises qui recrutent, et les évolutions à venir. Peux-tu m'aider à structurer cette analyse de marché pour mieux conseiller mon coaché ?",
+        
+        "3": "Sur la base du diagnostic réalisé pour [Nom du coaché] qui recherche un poste de [type de poste], élabore un plan d'action concret et détaillé. Ce plan doit inclure les étapes chronologiques, les objectifs SMART, les outils à utiliser, et les indicateurs de suivi. Aide-moi à structurer ce plan d'action pour maximiser les chances de succès de mon coaché.",
+        
+        "4": "Analyse le CV de [Nom du coaché] qui postule pour un poste de [type de poste]. Identifie les forces et faiblesses du CV, propose des améliorations concrètes pour optimiser son impact, et suggère des adaptations en fonction du secteur visé. Aide-moi à guider mon coaché dans l'amélioration de son CV.",
+        
+        "5": "Réalise une synthèse complète sur l'entreprise [Nom de l'entreprise] pour mon coaché qui souhaite y postuler. Include l'historique, la culture d'entreprise, les valeurs, les actualités récentes, les défis du secteur, et les opportunités de carrière. Cette analyse servira à personnaliser sa candidature et préparer ses entretiens.",
+        
+        "6": "Analyse le degré de matching entre le CV de [Nom du coaché] et l'offre d'emploi pour le poste de [intitulé du poste] chez [nom de l'entreprise]. Identifie les points de correspondance, les gaps à combler, et propose des stratégies pour renforcer la candidature. Aide-moi à conseiller mon coaché sur l'adaptation de son profil.",
+        
+        "7": "Rédige une lettre de motivation percutante pour [Nom du coaché] qui postule au poste de [intitulé du poste] chez [nom de l'entreprise]. La lettre doit être personnalisée, mettre en valeur les compétences clés, démontrer la motivation et s'adapter à la culture de l'entreprise. Aide-moi à structurer cette lettre de motivation.",
+        
+        "8": "Évalue le matching entre le profil de [Nom du coaché] et ces offres d'emploi. Classe-les par pertinence et suggère des adaptations du CV ou de la stratégie de candidature pour chaque offre. Aide-moi à prioriser les candidatures et optimiser les chances de succès.",
+        
+        "9": "Génère une série de questions d'entretien pour [Nom du coaché] qui postule au poste de [intitulé du poste] chez [nom de l'entreprise]. Include les questions techniques, comportementales, et spécifiques à l'entreprise. Propose aussi des conseils pour structurer les réponses et gérer le stress. Aide-moi à préparer efficacement mon coaché.",
+        
+        "10": "Réalise un bilan complet du coaching réalisé avec [Nom du coaché]. Analyse la progression, les points forts, les axes d'amélioration, les objectifs atteints et ceux à poursuivre. Propose des recommandations pour la suite de son parcours professionnel et des conseils pour maintenir sa motivation."
+    };
+    
+    // Récupérer le prompt correspondant
+    let prompt = prompts[step] || prompts["1"];
+    
+    // Remplacer le placeholder par le vrai nom du coaché
+    if (coachedName && coachedName !== 'Coaché Inconnu') {
+        prompt = prompt.replace(/\[Nom du coaché\]/g, coachedName);
+    }
+    
+    // Encoder le prompt pour l'URL
+    const encodedPrompt = encodeURIComponent(prompt);
+    
+    // Créer l'URL ChatGPT avec le prompt pré-rempli
+    const chatGPTUrl = `https://chat.openai.com/?q=${encodedPrompt}`;
+    
+    // Ouvrir ChatGPT dans un nouvel onglet
+    window.open(chatGPTUrl, '_blank');
+}
 </script>
-
 </body>
 </html>
