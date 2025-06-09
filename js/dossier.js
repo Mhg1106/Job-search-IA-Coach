@@ -7,7 +7,10 @@ document.addEventListener('DOMContentLoaded', function() {
 function initializeDossier() {
     // Récupérer les paramètres URL
     const urlParams = new URLSearchParams(window.location.search);
-    const coachedName = urlParams.get('name') || 'Coaché Inconnu';
+    const coachedName = decodeURIComponent(urlParams.get('name') || 'Coaché Inconnu');
+    console.log('Paramètre name reçu:', urlParams.get('name'));
+    console.log('Nom du coaché décodé:', coachedName);
+
     
     // Afficher le nom du coaché
     document.getElementById('coachedName').textContent = `- ${coachedName}`;
