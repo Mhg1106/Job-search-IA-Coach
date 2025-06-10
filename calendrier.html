@@ -1,1 +1,541 @@
+Excellente idée ! Un calendrier intégré va considérablement améliorer la gestion de vos rendez-vous de coaching. Voici ce que je propose :
 
+📅 Concept du Calendrier de Rendez-vous
+Fonctionnalités principales :
+Vue calendrier mensuelle/hebdomadaire avec créneaux disponibles
+Réservation de rendez-vous directement depuis les dossiers coachés
+Notifications et rappels automatiques
+Gestion des créneaux (disponibilités du coach)
+Historique des rendez-vous passés et à venir
+Intégration avec les sessions de coaching existantes
+🛠️ Création de la page calendrier.html
+Copy<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendrier - Job Search IA Coach</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    
+    <style>
+        /* CSS pour le calendrier */
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #1f2937;
+            color: white;
+            padding: 1rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .sidebar-header h2 {
+            color: white;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-nav .nav-item {
+            display: flex;
+            align-items: center;
+            color: #d1d5db;
+            text-decoration: none;
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .sidebar-nav .nav-item:hover {
+            background-color: #374151;
+            color: white;
+            text-decoration: none;
+        }
+
+        .sidebar-nav .nav-item.active {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .sidebar-nav .nav-item i {
+            margin-right: 0.75rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            flex: 1;
+            padding: 2rem;
+            background-color: #f9fafb;
+            min-height: 100vh;
+        }
+
+        .content-header {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background-color: #e5e7eb;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        .calendar-header {
+            background-color: #374151;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .calendar-day {
+            background-color: white;
+            min-height: 120px;
+            padding: 0.5rem;
+            position: relative;
+            border: 1px solid #e5e7eb;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .calendar-day:hover {
+            background-color: #f8fafc;
+        }
+
+        .calendar-day.other-month {
+            background-color: #f9fafb;
+            color: #9ca3af;
+        }
+
+        .calendar-day.today {
+            background-color: #dbeafe;
+            border-color: #3b82f6;
+        }
+
+        .calendar-day.selected {
+            background-color: #3b82f6;
+            color: white;
+        }
+
+        .day-number {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .appointment {
+            background-color: #10b981;
+            color: white;
+            padding: 0.125rem 0.25rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            margin-bottom: 0.125rem;
+            cursor: pointer;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .appointment.busy {
+            background-color: #ef4444;
+        }
+
+        .appointment.pending {
+            background-color: #f59e0b;
+        }
+
+        .time-slot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.5rem;
+            margin-bottom: 0.5rem;
+            background: white;
+            transition: all 0.2s ease;
+        }
+
+        .time-slot:hover {
+            border-color: #3b82f6;
+            background-color: #f8fafc;
+        }
+
+        .time-slot.booked {
+            background-color: #fee2e2;
+            border-color: #ef4444;
+        }
+
+        .time-slot.available {
+            background-color: #ecfdf5;
+            border-color: #10b981;
+        }
+
+        .appointment-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                position: relative;
+                height: auto;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+
+            .calendar-grid {
+                grid-template-columns: repeat(7, 1fr);
+                gap: 0;
+            }
+
+            .calendar-day {
+                min-height: 80px;
+                padding: 0.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-briefcase mr-3"></i>Job Search IA Coach</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="index.html" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Tableau de bord</span>
+                </a>
+                <a href="prompts-library.html" class="nav-item">
+                    <i class="fas fa-robot"></i>
+                    <span>Prompts IA</span>
+                </a>
+                <a href="coachees.html" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span>Mes coachés</span>
+                </a>
+                <a href="resources.html" class="nav-item">
+                    <i class="fas fa-folder"></i>
+                    <span>Ressources</span>
+                </a>
+                <a href="calendrier.html" class="nav-item active">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Calendrier</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-cog"></i>
+                    <span>Test des Prompts</span>
+                </a>
+            </nav>
+        </div>
+
+        <!-- Contenu principal -->
+        <div class="main-content">
+            <div class="content-header">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h1><i class="fas fa-calendar-alt text-primary"></i> Calendrier des Rendez-vous</h1>
+                        <p class="text-muted">Gérez vos créneaux et planifiez vos sessions de coaching</p>
+                    </div>
+                    <div>
+                        <button class="btn btn-outline-primary me-2" onclick="toggleView()">
+                            <i class="fas fa-list" id="viewIcon"></i> <span id="viewText">Vue Liste</span>
+                        </button>
+                        <button class="btn btn-success" onclick="openAppointmentModal()">
+                            <i class="fas fa-plus"></i> Nouveau RDV
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- Navigation du calendrier -->
+                    <div class="col-12 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <button class="btn btn-outline-secondary me-2" onclick="previousMonth()">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </button>
+                                        <h3 class="mb-0 mx-3" id="currentMonth">Décembre 2024</h3>
+                                        <button class="btn btn-outline-secondary ms-2" onclick="nextMonth()">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </button>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-sm btn-outline-primary me-2" onclick="goToToday()">
+                                            Aujourd'hui
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-info" onclick="manageAvailability()">
+                                            <i class="fas fa-clock"></i> Disponibilités
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vue Calendrier -->
+                    <div class="col-12" id="calendarView">
+                        <div class="card">
+                            <div class="card-body p-0">
+                                <div class="calendar-grid" id="calendarGrid">
+                                    <!-- En-têtes des jours -->
+                                    <div class="calendar-header">Lun</div>
+                                    <div class="calendar-header">Mar</div>
+                                    <div class="calendar-header">Mer</div>
+                                    <div class="calendar-header">Jeu</div>
+                                    <div class="calendar-header">Ven</div>
+                                    <div class="calendar-header">Sam</div>
+                                    <div class="calendar-header">Dim</div>
+                                    <!-- Jours du calendrier générés dynamiquement -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vue Liste (cachée par défaut) -->
+                    <div class="col-12" id="listView" style="display: none;">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5><i class="fas fa-list"></i> Prochains Rendez-vous</h5>
+                                    </div>
+                                    <div class="card-body" id="appointmentsList">
+                                        <!-- Liste des rendez-vous générée dynamiquement -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5><i class="fas fa-clock"></i> Créneaux du jour</h5>
+                                    </div>
+                                    <div class="card-body" id="todaySlots">
+                                        <!-- Créneaux du jour -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Rendez-vous -->
+    <div id="appointmentModal" class="appointment-modal">
+        <div class="modal-content">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4><i class="fas fa-calendar-plus text-primary"></i> <span id="modalTitle">Nouveau Rendez-vous</span></h4>
+                <button onclick="closeAppointmentModal()" class="btn btn-sm btn-outline-secondary">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <form id="appointmentForm">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Coaché</label>
+                        <select class="form-select" id="appointmentCoachee" required>
+                            <option value="">Sélectionner un coaché</option>
+                            <option value="Marie Dupont">Marie Dupont</option>
+                            <option value="Thomas Martin">Thomas Martin</option>
+                            <option value="Sophie Laurent">Sophie Laurent</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Type de session</label>
+                        <select class="form-select" id="appointmentType" required>
+                            <option value="">Type de session</option>
+                            <option value="1">Diagnostic de départ</option>
+                            <option value="2">Analyse du marché</option>
+                            <option value="3">Plan d'action détaillé</option>
+                            <option value="4">Analyse CV</option>
+                            <option value="5">Recherche entreprise</option>
+                            <option value="6">Matching CV / Offre</option>
+                            <option value="7">Lettres de motivation</option>
+                            <option value="8">Ciblage offres</option>
+                            <option value="9">Préparation entretien</option>
+                            <option value="10">Bilan du coaching</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Date</label>
+                        <input type="date" class="form-control" id="appointmentDate" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Heure</label>
+                        <select class="form-select" id="appointmentTime" required>
+                            <option value="">Sélectionner l'heure</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Durée</label>
+                    <select class="form-select" id="appointmentDuration">
+                        <option value="60">1 heure</option>
+                        <option value="90">1h30</option>
+                        <option value="120">2 heures</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Mode</label>
+                    <select class="form-select" id="appointmentMode">
+                        <option value="visio">Visioconférence</option>
+                        <option value="presentiel">Présentiel</option>
+                        <option value="telephone">Téléphone</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Notes (optionnel)</label>
+                    <textarea class="form-control" id="appointmentNotes" rows="3" placeholder="Objectifs spécifiques, préparation nécessaire..."></textarea>
+                </div>
+
+                <div class="d-flex justify-content-end">
+                    <button type="button" onclick="closeAppointmentModal()" class="btn btn-secondary me-2">
+                        Annuler
+                    </button>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i> Planifier
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Disponibilités -->
+    <div id="availabilityModal" class="appointment-modal">
+        <div class="modal-content">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4><i class="fas fa-clock text-info"></i> Gérer mes Disponibilités</h4>
+                <button onclick="closeAvailabilityModal()" class="btn btn-sm btn-outline-secondary">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="mb-4">
+                <h6>Horaires de travail par défaut</h6>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="form-label">Début</label>
+                        <input type="time" class="form-control" id="workStartTime" value="09:00">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Fin</label>
+                        <input type="time" class="form-control" id="workEndTime" value="18:00">
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <h6>Jours de travail</h6>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="workMonday" checked>
+                            <label class="form-check-label">Lundi</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="workTuesday" checked>
+                            <label class="form-check-label">Mardi</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="workWednesday" checked>
+                            <label class="form-check-label">Mercredi</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="workThursday" checked>
+                            <label class="form-check-label">Jeudi</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="workFriday" checked>
+                            <label class="form-check-label">Vendredi</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="workSaturday">
+                            <label class="form-check-label">Samedi</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <button type="button" onclick="closeAvailabilityModal()" class="btn btn-secondary me-2">
+                    Annuler
+                </button>
+                <button type="button" onclick="saveAvailability()" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Sauvegarder
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/calendrier.js"></script>
+</body>
+</html>
