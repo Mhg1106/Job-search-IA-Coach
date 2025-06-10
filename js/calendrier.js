@@ -32,6 +32,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function renderCalendar() {
     const calendarGrid = document.getElementById('calendarGrid');
+    if (!calendarGrid) {
+        console.error('Element calendarGrid non trouvé');
+        return;
+    }
+    
     const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
     const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
     const startDate = new Date(firstDay);
@@ -119,7 +124,9 @@ function updateCurrentMonthDisplay() {
     ];
     
     const currentMonthElement = document.getElementById('currentMonth');
-    currentMonthElement.textContent = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+    if (currentMonthElement) {
+        currentMonthElement.textContent = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+    }
 }
 
 function previousMonth() {
@@ -145,6 +152,11 @@ function goToToday() {
 
 function openAppointmentModal(appointment = null) {
     const modal = document.getElementById('appointmentModal');
+    if (!modal) {
+        console.error('Modal appointmentModal non trouvé');
+        return;
+    }
+    
     const modalTitle = document.getElementById('modalTitle');
     
     if (appointment) {
@@ -156,8 +168,11 @@ function openAppointmentModal(appointment = null) {
         
         // Pré-remplir la date si une date est sélectionnée
         if (selectedDate) {
-            document.getElementById('appointmentDate').value = selectedDate.toISOString().split('T')[0];
-            updateAvailableTimeSlots();
+            const dateInput = document.getElementById('appointmentDate');
+            if (dateInput) {
+                dateInput.value = selectedDate.toISOString().split('T')[0];
+                updateAvailableTimeSlots();
+            }
         }
     }
     
@@ -165,12 +180,20 @@ function openAppointmentModal(appointment = null) {
 }
 
 function closeAppointmentModal() {
-    document.getElementById('appointmentModal').style.display = 'none';
+    const modal = document.getElementById('appointmentModal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
 }
 
 function initializeAppointmentForm() {
     const form = document.getElementById('appointmentForm');
     const dateInput = document.getElementById('appointmentDate');
+    
+    if (!form || !dateInput) {
+        console.error('Formulaire ou input date non trouvé');
+        return;
+    }
     
     // Mettre la date minimum à aujourd'hui
     const today = new Date().toISOString().split('T')[0];
@@ -189,8 +212,10 @@ function initializeAppointmentForm() {
 function updateAvailableTimeSlots() {
     const dateInput = document.getElementById('appointmentDate');
     const timeSelect = document.getElementById('appointmentTime');
-    const selectedDateStr = dateInput.value;
     
+    if (!dateInput || !timeSelect) return;
+    
+    const selectedDateStr = dateInput.value;
     if (!selectedDateStr) return;
     
     // Vider les options existantes
@@ -259,282 +284,13 @@ function isTimeSlotBooked(date, time) {
 function saveAppointment() {
     const formData = {
         id: Date.now().toString(),
-        coachee: document.getElementById('appointmentCoachee').value,
-        type: document.getElementById('appointmentType').value,
-        date: document.getElementById('appointmentDate').value,
-        time: document.getElementById('appointmentTime').value,
-        duration: parseInt(document.getElementById('appointmentDuration').value),
-        mode: document.getElementById('appointmentMode').value,
-        notes: document.
-
-// Gestion du calendrier - calendrier.js
-let currentDate = new Date();
-let selectedDate = null;
-let currentView = 'calendar'; // 'calendar' ou 'list'
-let appointments = [];
-let availability = {
-    workDays: [1, 2, 3, 4, 5], // Lundi à Vendredi
-    startTime: '09:00',
-    endTime: '18:00',
-    slotDuration: 60 // minutes
-};
-
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('Initialisation du calendrier...');
-    
-    // Charger les données
-    loadAppointments();
-    loadAvailability();
-    
-    // Initialiser le calendrier
-    renderCalendar();
-    updateCurrentMonthDisplay();
-    
-    // Initialiser le formulaire
-    initializeAppointmentForm();
-    
-    // Mettre à jour la vue liste
-    renderAppointmentsList();
-});
-
-// ========== GESTION DU CALENDRIER ==========
-
-function renderCalendar() {
-    const calendarGrid = document.getElementById('calendarGrid');
-    const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-    const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-    const startDate = new Date(firstDay);
-    
-    // Ajuster au lundi de la première semaine
-    startDate.setDate(startDate.getDate() - (startDate.getDay() + 6) % 7);
-    
-    // Garder les en-têtes et vider le reste
-    const headers = calendarGrid.querySelectorAll('.calendar-header');
-    calendarGrid.innerHTML = '';
-    headers.forEach(header => calendarGrid.appendChild(header));
-    
-    // Générer 42 jours (6 semaines)
-    for (let i = 0; i < 42; i++) {
-        const date = new Date(startDate);
-        date.setDate(startDate.getDate() + i);
-        
-        const dayElement = createDayElement(date, firstDay, lastDay);
-        calendarGrid.appendChild(dayElement);
-    }
-}
-
-function createDayElement(date, firstDay, lastDay) {
-    const dayDiv = document.createElement('div');
-    dayDiv.className = 'calendar-day';
-    
-    // Classes conditionnelles
-    if (date < firstDay || date > lastDay) {
-        dayDiv.classList.add('other-month');
-    }
-    
-    const today = new Date();
-    if (date.toDateString() === today.toDateString()) {
-        dayDiv.classList.add('today');
-    }
-    
-    // Numéro du jour
-    const dayNumber = document.createElement('div');
-    dayNumber.className = 'day-number';
-    dayNumber.textContent = date.getDate();
-    dayDiv.appendChild(dayNumber);
-    
-    // Rendez-vous du jour
-    const dayAppointments = getAppointmentsForDate(date);
-    dayAppointments.forEach(appointment => {
-        const appointmentDiv = document.createElement('div');
-        appointmentDiv.className = `appointment ${appointment.status || 'confirmed'}`;
-        appointmentDiv.textContent = `${appointment.time} ${appointment.coachee}`;
-        appointmentDiv.onclick = (e) => {
-            e.stopPropagation();
-            viewAppointment(appointment);
-        };
-        dayDiv.appendChild(appointmentDiv);
-    });
-    
-    // Click handler pour le jour
-    dayDiv.onclick = () => selectDate(date);
-    
-    return dayDiv;
-}
-
-function selectDate(date) {
-    // Enlever la sélection précédente
-    document.querySelectorAll('.calendar-day.selected').forEach(day => {
-        day.classList.remove('selected');
-    });
-    
-    // Sélectionner le nouveau jour
-    event.target.closest('.calendar-day').classList.add('selected');
-    selectedDate = date;
-    
-    // Mettre à jour les créneaux disponibles
-    updateTodaySlots(date);
-}
-
-function getAppointmentsForDate(date) {
-    const dateString = date.toISOString().split('T')[0];
-    return appointments.filter(apt => apt.date === dateString);
-}
-
-function updateCurrentMonthDisplay() {
-    const monthNames = [
-        'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
-        'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
-    ];
-    
-    const currentMonthElement = document.getElementById('currentMonth');
-    currentMonthElement.textContent = `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
-}
-
-function previousMonth() {
-    currentDate.setMonth(currentDate.getMonth() - 1);
-    renderCalendar();
-    updateCurrentMonthDisplay();
-}
-
-function nextMonth() {
-    currentDate.setMonth(currentDate.getMonth() + 1);
-    renderCalendar();
-    updateCurrentMonthDisplay();
-}
-
-function goToToday() {
-    currentDate = new Date();
-    renderCalendar();
-    updateCurrentMonthDisplay();
-    selectDate(currentDate);
-}
-
-// ========== GESTION DES RENDEZ-VOUS ==========
-
-function openAppointmentModal(appointment = null) {
-    const modal = document.getElementById('appointmentModal');
-    const modalTitle = document.getElementById('modalTitle');
-    
-    if (appointment) {
-        modalTitle.textContent = 'Modifier Rendez-vous';
-        fillAppointmentForm(appointment);
-    } else {
-        modalTitle.textContent = 'Nouveau Rendez-vous';
-        clearAppointmentForm();
-        
-        // Pré-remplir la date si une date est sélectionnée
-        if (selectedDate) {
-            document.getElementById('appointmentDate').value = selectedDate.toISOString().split('T')[0];
-            updateAvailableTimeSlots();
-        }
-    }
-    
-    modal.style.display = 'flex';
-}
-
-function closeAppointmentModal() {
-    document.getElementById('appointmentModal').style.display = 'none';
-}
-
-function initializeAppointmentForm() {
-    const form = document.getElementById('appointmentForm');
-    const dateInput = document.getElementById('appointmentDate');
-    
-    // Mettre la date minimum à aujourd'hui
-    const today = new Date().toISOString().split('T')[0];
-    dateInput.min = today;
-    
-    // Listener pour changement de date
-    dateInput.addEventListener('change', updateAvailableTimeSlots);
-    
-    // Gestionnaire de soumission
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        saveAppointment();
-    });
-}
-
-function updateAvailableTimeSlots() {
-    const dateInput = document.getElementById('appointmentDate');
-    const timeSelect = document.getElementById('appointmentTime');
-    const selectedDateStr = dateInput.value;
-    
-    if (!selectedDateStr) return;
-    
-    // Vider les options existantes
-    timeSelect.innerHTML = '<option value="">Sélectionner l\'heure</option>';
-    
-    // Générer les créneaux disponibles
-    const availableSlots = generateTimeSlots(selectedDateStr);
-    
-    availableSlots.forEach(slot => {
-        const option = document.createElement('option');
-        option.value = slot.time;
-        option.textContent = `${slot.time} ${slot.available ? '' : '(Occupé)'}`;
-        option.disabled = !slot.available;
-        timeSelect.appendChild(option);
-    });
-}
-
-function generateTimeSlots(dateStr) {
-    const slots = [];
-    const selectedDate = new Date(dateStr);
-    const dayOfWeek = selectedDate.getDay();
-    
-    // Vérifier si c'est un jour de travail
-    if (!availability.workDays.includes(dayOfWeek)) {
-        return slots;
-    }
-    
-    // Générer les créneaux horaires
-    const startTime = availability.startTime;
-    const endTime = availability.endTime;
-    const duration = availability.slotDuration;
-    
-    let currentTime = timeToMinutes(startTime);
-    const endTimeMinutes = timeToMinutes(endTime);
-    
-    while (currentTime < endTimeMinutes) {
-        const timeStr = minutesToTime(currentTime);
-        const isAvailable = !isTimeSlotBooked(dateStr, timeStr);
-        
-        slots.push({
-            time: timeStr,
-            available: isAvailable
-        });
-        
-        currentTime += duration;
-    }
-    
-    return slots;
-}
-
-function timeToMinutes(timeStr) {
-    const [hours, minutes] = timeStr.split(':').map(Number);
-    return hours * 60 + minutes;
-}
-
-function minutesToTime(minutes) {
-    const hours = Math.floor(minutes / 60);
-    const mins = minutes % 60;
-    return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
-}
-
-function isTimeSlotBooked(date, time) {
-    return appointments.some(apt => apt.date === date && apt.time === time);
-}
-
-function saveAppointment() {
-    const formData = {
-        id: Date.now().toString(),
-        coachee: document.getElementById('appointmentCoachee').value,
-        type: document.getElementById('appointmentType').value,
-        date: document.getElementById('appointmentDate').value,
-        time: document.getElementById('appointmentTime').value,
-        duration: parseInt(document.getElementById('appointmentDuration').value),
-        mode: document.getElementById('appointmentMode').value,
-        notes: document.getElementById('appointmentNotes').value,
+        coachee: document.getElementById('appointmentCoachee')?.value || '',
+        type: document.getElementById('appointmentType')?.value || '',
+        date: document.getElementById('appointmentDate')?.value || '',
+        time: document.getElementById('appointmentTime')?.value || '',
+        duration: parseInt(document.getElementById('appointmentDuration')?.value || '60'),
+        mode: document.getElementById('appointmentMode')?.value || 'visio',
+        notes: document.getElementById('appointmentNotes')?.value || '',
         status: 'confirmed',
         createdAt: new Date().toISOString()
     };
@@ -563,22 +319,36 @@ function saveAppointment() {
 }
 
 function fillAppointmentForm(appointment) {
-    document.getElementById('appointmentCoachee').value = appointment.coachee;
-    document.getElementById('appointmentType').value = appointment.type;
-    document.getElementById('appointmentDate').value = appointment.date;
-    document.getElementById('appointmentTime').value = appointment.time;
-    document.getElementById('appointmentDuration').value = appointment.duration;
-    document.getElementById('appointmentMode').value = appointment.mode;
-    document.getElementById('appointmentNotes').value = appointment.notes || '';
+    const elements = {
+        'appointmentCoachee': appointment.coachee,
+        'appointmentType': appointment.type,
+        'appointmentDate': appointment.date,
+        'appointmentTime': appointment.time,
+        'appointmentDuration': appointment.duration,
+        'appointmentMode': appointment.mode,
+        'appointmentNotes': appointment.notes || ''
+    };
+    
+    Object.entries(elements).forEach(([id, value]) => {
+        const element = document.getElementById(id);
+        if (element) {
+            element.value = value;
+        }
+    });
 }
 
 function clearAppointmentForm() {
-    document.getElementById('appointmentForm').reset();
-    document.getElementById('appointmentTime').innerHTML = '<option value="">Sélectionner l\'heure</option>';
+    const form = document.getElementById('appointmentForm');
+    if (form) {
+        form.reset();
+        const timeSelect = document.getElementById('appointmentTime');
+        if (timeSelect) {
+            timeSelect.innerHTML = '<option value="">Sélectionner l\'heure</option>';
+        }
+    }
 }
 
 function viewAppointment(appointment) {
-    // Ouvrir le modal en mode édition
     openAppointmentModal(appointment);
 }
 
@@ -596,34 +366,51 @@ function deleteAppointment(appointmentId) {
 
 function manageAvailability() {
     const modal = document.getElementById('availabilityModal');
+    if (!modal) {
+        console.error('Modal availabilityModal non trouvé');
+        return;
+    }
     
     // Charger les valeurs actuelles
-    document.getElementById('workStartTime').value = availability.startTime;
-    document.getElementById('workEndTime').value = availability.endTime;
+    const startTimeInput = document.getElementById('workStartTime');
+    const endTimeInput = document.getElementById('workEndTime');
+    
+    if (startTimeInput) startTimeInput.value = availability.startTime;
+    if (endTimeInput) endTimeInput.value = availability.endTime;
     
     // Charger les jours de travail
     const days = ['workMonday', 'workTuesday', 'workWednesday', 'workThursday', 'workFriday', 'workSaturday'];
     days.forEach((dayId, index) => {
-        document.getElementById(dayId).checked = availability.workDays.includes(index + 1);
+        const checkbox = document.getElementById(dayId);
+        if (checkbox) {
+            checkbox.checked = availability.workDays.includes(index + 1);
+        }
     });
     
     modal.style.display = 'flex';
 }
 
 function closeAvailabilityModal() {
-    document.getElementById('availabilityModal').style.display = 'none';
+    const modal = document.getElementById('availabilityModal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
 }
 
 function saveAvailability() {
     // Récupérer les nouvelles valeurs
-    availability.startTime = document.getElementById('workStartTime').value;
-    availability.endTime = document.getElementById('workEndTime').value;
+    const startTimeInput = document.getElementById('workStartTime');
+    const endTimeInput = document.getElementById('workEndTime');
+    
+    if (startTimeInput) availability.startTime = startTimeInput.value;
+    if (endTimeInput) availability.endTime = endTimeInput.value;
     
     // Récupérer les jours de travail
     const workDays = [];
     const days = ['workMonday', 'workTuesday', 'workWednesday', 'workThursday', 'workFriday', 'workSaturday'];
     days.forEach((dayId, index) => {
-        if (document.getElementById(dayId).checked) {
+        const checkbox = document.getElementById(dayId);
+        if (checkbox && checkbox.checked) {
             workDays.push(index + 1);
         }
     });
@@ -647,24 +434,30 @@ function toggleView() {
     const viewIcon = document.getElementById('viewIcon');
     const viewText = document.getElementById('viewText');
     
+    if (!calendarView || !listView) {
+        console.error('Vues calendar ou list non trouvées');
+        return;
+    }
+    
     if (currentView === 'calendar') {
         calendarView.style.display = 'none';
         listView.style.display = 'block';
-        viewIcon.className = 'fas fa-calendar-alt';
-        viewText.textContent = 'Vue Calendrier';
+        if (viewIcon) viewIcon.className = 'fas fa-calendar-alt';
+        if (viewText) viewText.textContent = 'Vue Calendrier';
         currentView = 'list';
         renderAppointmentsList();
     } else {
         calendarView.style.display = 'block';
         listView.style.display = 'none';
-        viewIcon.className = 'fas fa-list';
-        viewText.textContent = 'Vue Liste';
+        if (viewIcon) viewIcon.className = 'fas fa-list';
+        if (viewText) viewText.textContent = 'Vue Liste';
         currentView = 'calendar';
     }
 }
 
 function renderAppointmentsList() {
     const container = document.getElementById('appointmentsList');
+    if (!container) return;
     
     // Trier les rendez-vous par date et heure
     const sortedAppointments = [...appointments].sort((a, b) => {
@@ -728,7 +521,7 @@ function renderAppointmentsList() {
                             <button class="btn btn-sm btn-outline-primary mb-1" onclick="startSession('${appointment.coachee}', '${appointment.type}')">
                                 <i class="fas fa-play"></i>
                             </button>
-                            <button class="btn btn-sm btn-outline-secondary mb-1" onclick="viewAppointment(${JSON.stringify(appointment).replace(/"/g, '&quot;')})">
+                            <button class="btn btn-sm btn-outline-secondary mb-1" onclick="editAppointment('${appointment.id}')">
                                 <i class="fas fa-edit"></i>
                             </button>
                             <button class="btn btn-sm btn-outline-danger" onclick="deleteAppointment('${appointment.id}')">
@@ -742,6 +535,13 @@ function renderAppointmentsList() {
     });
     
     container.innerHTML = html;
+}
+
+function editAppointment(appointmentId) {
+    const appointment = appointments.find(apt => apt.id === appointmentId);
+    if (appointment) {
+        openAppointmentModal(appointment);
+    }
 }
 
 function updateTodaySlots(date) {
@@ -789,8 +589,14 @@ function updateTodaySlots(date) {
 
 function quickBookSlot(date, time) {
     selectedDate = new Date(date);
-    document.getElementById('appointmentDate').value = date;
-    document.getElementById('appointmentTime').innerHTML = `<option value="${time}" selected>${time}</option>`;
+    const dateInput = document.getElementById('appointmentDate');
+    const timeSelect = document.getElementById('appointmentTime');
+    
+    if (dateInput) dateInput.value = date;
+    if (timeSelect) {
+        timeSelect.innerHTML = `<option value="${time}" selected>${time}</option>`;
+    }
+    
     openAppointmentModal();
 }
 
