@@ -332,7 +332,210 @@
         window.addEventListener('load', function() {
             console.log('Test: Fenêtre complètement chargée');
         });
-<script src="js/dashboard.js"></script>
+        <script>
+// Code JavaScript temporaire intégré pour tester
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Dashboard initialisé');
+    
+    // Données de test
+    const testData = {
+        activeCoachees: 3,
+        successRate: 67,
+        monthlySessions: 8
+    };
+    
+    // Afficher les statistiques de test
+    if (document.getElementById('activeCoacheesCount')) {
+        document.getElementById('activeCoacheesCount').textContent = testData.activeCoachees;
+        document.getElementById('activeCoacheesEvolution').textContent = '+2 ce mois';
+    }
+    
+    if (document.getElementById('successRate')) {
+        document.getElementById('successRate').textContent = testData.successRate + '%';
+        document.getElementById('successEvolution').textContent = 'Objectif: 75%';
+    }
+    
+    if (document.getElementById('monthlySessionsCount')) {
+        document.getElementById('monthlySessionsCount').textContent = testData.monthlySessions;
+        document.getElementById('sessionsEvolution').textContent = '+3 vs mois dernier';
+    }
+    
+    // Graphique progression simple
+    const progressChart = document.getElementById('progressChart');
+    if (progressChart) {
+        progressChart.innerHTML = `
+            <div class="space-y-3">
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-gray-600 w-20">Diagnostic</span>
+                    <div class="flex-1 mx-3">
+                        <div class="bg-gray-200 rounded-full h-3">
+                            <div class="bg-blue-500 h-3 rounded-full" style="width: 33%"></div>
+                        </div>
+                    </div>
+                    <span class="text-sm font-medium w-8">1</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-gray-600 w-20">CV</span>
+                    <div class="flex-1 mx-3">
+                        <div class="bg-gray-200 rounded-full h-3">
+                            <div class="bg-blue-500 h-3 rounded-full" style="width: 33%"></div>
+                        </div>
+                    </div>
+                    <span class="text-sm font-medium w-8">1</span>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span class="text-sm text-gray-600 w-20">Entretien</span>
+                    <div class="flex-1 mx-3">
+                        <div class="bg-gray-200 rounded-full h-3">
+                            <div class="bg-blue-500 h-3 rounded-full" style="width: 33%"></div>
+                        </div>
+                    </div>
+                    <span class="text-sm font-medium w-8">1</span>
+                </div>
+            </div>
+        `;
+    }
+    
+    // Graphique prompts IA
+    const promptsChart = document.getElementById('promptsChart');
+    if (promptsChart) {
+        promptsChart.innerHTML = `
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-4 h-4 bg-green-500 rounded mr-3"></div>
+                        <span class="text-sm">⭐⭐⭐⭐⭐ Excellent</span>
+                    </div>
+                    <div class="text-right">
+                        <span class="font-medium">5</span>
+                        <span class="text-sm text-gray-500 ml-2">(62.5%)</span>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-4 h-4 bg-blue-500 rounded mr-3"></div>
+                        <span class="text-sm">⭐⭐⭐⭐ Bon</span>
+                    </div>
+                    <div class="text-right">
+                        <span class="font-medium">2</span>
+                        <span class="text-sm text-gray-500 ml-2">(25%)</span>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <div class="w-4 h-4 bg-yellow-500 rounded mr-3"></div>
+                        <span class="text-sm">⭐⭐⭐ Moyen</span>
+                    </div>
+                    <div class="text-right">
+                        <span class="font-medium">1</span>
+                        <span class="text-sm text-gray-500 ml-2">(12.5%)</span>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+    
+    // Sessions à venir
+    const upcomingSessions = document.getElementById('upcomingSessions');
+    if (upcomingSessions) {
+        upcomingSessions.innerHTML = `
+            <div class="flex items-center justify-between p-3 border-l-4 border-blue-500 bg-blue-50 rounded mb-3">
+                <div class="flex-grow-1">
+                    <div class="font-medium">Marie Dupont</div>
+                    <div class="text-sm text-gray-600">Préparation entretien • Demain à 14h00</div>
+                </div>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm">
+                    <i class="fas fa-play"></i>
+                </button>
+            </div>
+            <div class="flex items-center justify-between p-3 border-l-4 border-green-500 bg-green-50 rounded mb-3">
+                <div class="flex-grow-1">
+                    <div class="font-medium">Sophie Laurent</div>
+                    <div class="text-sm text-gray-600">Diagnostic initial • Vendredi à 10h00</div>
+                </div>
+                <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm">
+                    <i class="fas fa-play"></i>
+                </button>
+            </div>
+        `;
+    }
+    
+    // Activités récentes
+    const recentActivities = document.getElementById('recentActivities');
+    if (recentActivities) {
+        recentActivities.innerHTML = `
+            <div class="flex items-center p-3 hover:bg-gray-50 rounded">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-video text-blue-600"></i>
+                </div>
+                <div class="ml-3 flex-grow-1">
+                    <div class="text-sm font-medium">Marie Dupont</div>
+                    <div class="text-sm text-gray-600">Session 9 - Préparation entretien</div>
+                </div>
+                <div class="text-xs text-gray-500">2h</div>
+            </div>
+            <div class="flex items-center p-3 hover:bg-gray-50 rounded">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-calendar-plus text-green-600"></i>
+                </div>
+                <div class="ml-3 flex-grow-1">
+                    <div class="text-sm font-medium">Thomas Martin</div>
+                    <div class="text-sm text-gray-600">Rendez-vous planifié</div>
+                </div>
+                <div class="text-xs text-gray-500">1j</div>
+            </div>
+        `;
+    }
+    
+    // Alertes
+    const alertsSection = document.getElementById('alertsSection');
+    if (alertsSection) {
+        alertsSection.innerHTML = `
+            <div class="flex items-center justify-between p-4 bg-blue-50 border border-blue-200 rounded-lg mb-3">
+                <div class="flex items-center">
+                    <i class="fas fa-calendar-day text-blue-800 mr-3"></i>
+                    <span class="text-blue-800">2 session(s) prévue(s) aujourd'hui</span>
+                </div>
+                <button class="text-sm text-blue-800 hover:underline">
+                    Voir calendrier
+                </button>
+            </div>
+        `;
+    }
+});
+
+// Fonctions pour les boutons
+function refreshProgressChart() {
+    console.log('Actualisation graphique progression');
+}
+
+function refreshPromptsChart() {
+    console.log('Actualisation graphique prompts');
+}
+
+function refreshActivities() {
+    console.log('Actualisation activités');
+}
+
+function toggleQuickActions() {
+    const menu = document.getElementById('quickActionsMenu');
+    if (menu) {
+        menu.classList.toggle('hidden');
+    }
+}
+
+function quickAddCoachee() {
+    window.location.href = 'coachees.html';
+}
+
+function quickScheduleSession() {
+    window.location.href = 'calendrier.html';
+}
+
+function quickAccessPrompts() {
+    window.location.href = 'prompts-library.html';
+}
+</script>
     </script>
 </body>
 </html>
