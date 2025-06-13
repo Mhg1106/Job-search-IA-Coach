@@ -28,8 +28,6 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
   // Vérification et ajout des event listeners
-  const statusFilter = document.getElementById('status-filter');
-  const stageFilter = document.getElementById('step-filter'); // Changé de 'stage-filter' à 'step-filter'
   
   if (statusFilter) {
     statusFilter.addEventListener('change', function() {
