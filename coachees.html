@@ -326,40 +326,584 @@
   
   <script src="js/coachees.js"></script>
 <script>
-// Gestionnaire pour les boutons Session et Dossier
+// Gestion avancée des coachés - Version adaptée à votre structure
+let coachees = [];
+let currentCoacheeToDelete = null;
+
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Initialisation des boutons coachés...');
+    console.log('Initialisation de la gestion des coachés...');
+    initializeCoacheesManagement();
+    setupEventListeners();
+});
+
+function initializeCoacheesManagement() {
+    loadCoacheesData();
+    updateCoacheesDisplay();
     
-    // Gestionnaire pour les boutons Session
-    document.querySelectorAll('button').forEach(button => {
-        if (button.textContent.trim() === 'Session') {
-            button.addEventListener('click', function() {
-                const coachedCard = this.closest('.bg-white');
-                const coachedName = coachedCard.querySelector('h3').textContent.trim();
-                const coachedStep = coachedCard.querySelector('.text-sm').textContent.trim();
-                
-                console.log('Ouverture session pour:', coachedName);
-                
-                // Créer l'URL de session avec paramètres
-                const sessionUrl = `session.html?name=${encodeURIComponent(coachedName)}&step=${encodeURIComponent(coachedStep)}`;
-                window.location.href = sessionUrl;
-            });
+    // Gestionnaire pour fermer les menus quand on clique ailleurs
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.coachee-actions')) {
+            closeAllMenus();
         }
-        
-        if (button.textContent.trim() === 'Dossier') {
+    });
+}
+
+function setupEventListeners() {
+    // Gestionnaire du formulaire d'ajout/modification
+    const form = document.getElementById('coacheeForm');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            saveCoachee();
+        });
+    }
+    
+    // Gestionnaire pour les boutons de filtres
+    document.querySelectorAll('.flex.flex-wrap button').forEach(button => {
+        if (button.textContent.trim() !== 'Coachés fictifs' && button.textContent.trim() !== 'Ajouter un coaché') {
             button.addEventListener('click', function() {
-                const coachedCard = this.closest('.bg-white');
-                const coachedName = coachedCard.querySelector('h3').textContent.trim();
-                
-                console.log('Ouverture dossier pour:', coachedName);
-                
-                // Créer l'URL de dossier avec paramètres
-                const dossierUrl = `dossier.html?name=${encodeURIComponent(coachedName)}`;
-                window.location.href = dossierUrl;
+                filterCoachees(this.textContent.trim());
             });
         }
     });
-});
+}
+
+// ========== GESTION DES DONNÉES ==========
+
+function loadCoacheesData() {
+    const savedCoachees = localStorage.getItem('coachees_data');
+    
+    if (savedCoachees) {
+        coachees = JSON.parse(savedCoachees);
+        console.log('Coachés chargés depuis localStorage:', coachees);
+    } else {
+        // Initialiser avec les coachés fictifs
+        coachees = [
+            {
+                id: 'marie-dupont',
+                name: 'Marie Dupont',
+                sector: 'Marketing Digital',
+                email: 'marie.dupont@email.com',
+                phone: '06 12 34 56 78',
+                currentStep: 9,
+                status: 'active',
+                startDate: '2024-11-01',
+                lastActivity: new Date().toISOString(),
+                isFictional: true,
+                avatar: 'MD',
+                avatarColor: '#3498DB'
+            },
+            {
+                id: 'thomas-martin',
+                name: 'Thomas Martin',
+                sector: 'Développement Web',
+                email: 'thomas.martin@email.com',
+                phone: '06 23 45 67 89',
+                currentStep: 4,
+                status: 'pending',
+                startDate: '2024-11-15',
+                lastActivity: new Date(Date.now() - 86400000).toISOString(),
+                isFictional: true,
+                avatar: 'TM',
+                avatarColor: '#E67E22'
+            },
+            {
+                id: 'sophie-laurent',
+                name: 'Sophie Laurent',
+                sector: 'Chef de Projet',
+                email: 'sophie.laurent@email.com',
+                phone: '06 34 56 78 90',
+                currentStep: 1,
+                status: 'active',
+                startDate: '2024-12-01',
+                lastActivity: new Date(Date.now() - 172800000).toISOString(),
+                isFictional: true,
+                avatar: 'SL',
+                avatarColor: '#9B59B6'
+            }
+        ];
+        saveCoacheesData();
+        console.log('Coachés fictifs initialisés');
+    }
+}
+
+function saveCoacheesData() {
+    localStorage.setItem('coachees_data', JSON.stringify(coachees));
+    console.log('Données coachés sauvegardées');
+}
+
+function updateCoacheesDisplay() {
+    // Mettre à jour chaque carte avec les données actuelles
+    coachees.forEach(coachee => {
+        updateCoacheeCard(coachee);
+    });
+    
+    // Marquer les coachés fictifs
+    markFictionalCoachees();
+}
+
+function updateCoacheeCard(coachee) {
+    const card = document.querySelector(`[data-coachee-id="${coachee.id}"]`);
+    if (!card) return;
+    
+    // Mettre à jour le nom
+    const nameElement = card.querySelector('.coachee-name');
+    if (nameElement) nameElement.textContent = coachee.name;
+    
+    // Mettre à jour le secteur
+    const sectorElement = card.querySelector('.coachee-position');
+    if (sectorElement) sectorElement.textContent = coachee.sector;
+    
+    // Mettre à jour le statut
+    const statusElement = card.querySelector('.coachee-status');
+    if (statusElement) {
+        statusElement.textContent = getStatusText(coachee.status);
+        statusElement.className = `px-2 py-1 text-xs rounded-full ${getStatusClasses(coachee.status)}`;
+    }
+    
+    // Mettre à jour la progression
+    const progressBar = card.querySelector('.progress-bar');
+    const progressText = card.querySelector('.progress-bar span');
+    if (progressBar && progressText) {
+        const percentage = (coachee.currentStep / 10) * 100;
+        progressBar.style.width = percentage + '%';
+        progressText.textContent = `${coachee.currentStep}/10`;
+    }
+    
+    // Mettre à jour l'étape actuelle
+    const stageElement = card.querySelector('.current-stage span');
+    if (stageElement) {
+        stageElement.textContent = getStepName(coachee.currentStep);
+    }
+    
+    // Mettre à jour l'activité
+    const activityElement = card.querySelector('.last-activity span');
+    if (activityElement) {
+        activityElement.textContent = `Dernière activité : ${formatLastActivity(coachee.lastActivity)}`;
+    }
+}
+
+function markFictionalCoachees() {
+    coachees.forEach(coachee => {
+        if (coachee.isFictional) {
+            const card = document.querySelector(`[data-coachee-id="${coachee.id}"]`);
+            if (card) {
+                const badge = card.querySelector('.fictional-badge');
+                if (badge) {
+                    badge.style.display = 'block';
+                }
+            }
+        }
+    });
+}
+
+// ========== GESTION DES MENUS ==========
+
+function toggleCoacheeMenu(coacheeId) {
+    closeAllMenus();
+    const menu = document.getElementById(`menu-${coacheeId}`);
+    if (menu) {
+        menu.classList.toggle('hidden');
+    }
+}
+
+function closeAllMenus() {
+    const menus = document.querySelectorAll('.coachee-menu');
+    menus.forEach(menu => menu.classList.add('hidden'));
+}
+
+// ========== ACTIONS SUR LES COACHÉS ==========
+
+function editCoachee(coacheeId) {
+    closeAllMenus();
+    const coachee = coachees.find(c => c.id === coacheeId);
+    if (!coachee) return;
+    
+    // Remplir le formulaire avec les données existantes
+    document.getElementById('modalTitle').textContent = 'Modifier le coaché';
+    document.getElementById('submitButtonText').textContent = 'Modifier';
+    document.getElementById('coacheeId').value = coachee.id;
+    document.getElementById('coacheeName').value = coachee.name;
+    document.getElementById('coacheeSector').value = coachee.sector;
+    document.getElementById('coacheeEmail').value = coachee.email || '';
+    document.getElementById('coacheePhone').value = coachee.phone || '';
+    document.getElementById('coacheeCurrentStep').value = coachee.currentStep;
+    document.getElementById('coacheeStatus').value = coachee.status;
+    
+    document.getElementById('coacheeModal').classList.remove('hidden');
+}
+
+function duplicateCoachee(coacheeId) {
+    closeAllMenus();
+    const coachee = coachees.find(c => c.id === coacheeId);
+    if (!coachee) return;
+    
+    const newCoachee = {
+        ...coachee,
+        id: generateId(),
+        name: coachee.name + ' (Copie)',
+        isFictional: false,
+        startDate: new Date().toISOString().split('T')[0],
+        lastActivity: new Date().toISOString()
+    };
+    
+    coachees.push(newCoachee);
+    saveCoacheesData();
+    
+    showNotification(`${coachee.name} dupliqué avec succès !`, 'success');
+    
+    // Recharger la page pour afficher le nouveau coaché
+    setTimeout(() => location.reload(), 1000);
+}
+
+function exportCoachee(coacheeId) {
+    closeAllMenus();
+    const coachee = coachees.find(c => c.id === coacheeId);
+    if (!coachee) return;
+    
+    // Exporter les données du coaché en JSON
+    const exportData = {
+        coachee: coachee,
+        sessions: JSON.parse(localStorage.getItem(`sessions_history_${coachee.name}`)) || [],
+        notes: localStorage.getItem(`coach_notes_${coachee.name}`) || '',
+        progress: JSON.parse(localStorage.getItem(`coached_progress_${coachee.name}`)) || {},
+        exportDate: new Date().toISOString()
+    };
+    
+    const dataStr = JSON.stringify(exportData, null, 2);
+    const dataBlob = new Blob([dataStr], {type: 'application/json'});
+    
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(dataBlob);
+    link.download = `${coachee.name.replace(/\s+/g, '_')}_export.json`;
+    link.click();
+    
+    showNotification(`Données de ${coachee.name} exportées !`, 'success');
+}
+
+function deleteCoachee(coacheeId) {
+    closeAllMenus();
+    const coachee = coachees.find(c => c.id === coacheeId);
+    if (!coachee) return;
+    
+    currentCoacheeToDelete = coacheeId;
+    document.getElementById('deleteCoacheeName').textContent = coachee.name;
+    document.getElementById('deleteModal').classList.remove('hidden');
+}
+
+function confirmDelete() {
+    if (!currentCoacheeToDelete) return;
+    
+    const coachee = coachees.find(c => c.id === currentCoacheeToDelete);
+    if (!coachee) return;
+    
+    // Supprimer le coaché de la liste
+    coachees = coachees.filter(c => c.id !== currentCoacheeToDelete);
+    
+    // Nettoyer toutes les données associées
+    cleanupCoacheeData(coachee.name);
+    
+    // Supprimer la carte du DOM
+    const card = document.querySelector(`[data-coachee-id="${currentCoacheeToDelete}"]`);
+    if (card) {
+        card.remove();
+    }
+    
+    saveCoacheesData();
+    closeDeleteModal();
+    
+    showNotification(`${coachee.name} supprimé avec succès !`, 'success');
+}
+
+function cleanupCoacheeData(coacheeName) {
+    // Supprimer toutes les données associées au coaché
+    const keysToRemove = [
+        `sessions_history_${coacheeName}`,
+        `session_notes_${coacheeName}`,
+        `coached_profile_${coacheeName}`,
+        `coach_notes_${coacheeName}`,
+        `coached_progress_${coacheeName}`,
+        `documents_${coacheeName}`,
+        `objectives_${coacheeName}`
+    ];
+    
+    keysToRemove.forEach(key => localStorage.removeItem(key));
+    
+    // Supprimer les rendez-vous
+    const appointments = JSON.parse(localStorage.getItem('coach_appointments')) || [];
+    const filteredAppointments = appointments.filter(apt => apt.coachee !== coacheeName);
+    localStorage.setItem('coach_appointments', JSON.stringify(filteredAppointments));
+    
+    console.log(`Données supprimées pour ${coacheeName}`);
+}
+
+// ========== GESTION DES COACHÉS FICTIFS ==========
+
+function showFictionalCoacheesOptions() {
+    const fictionalCoachees = coachees.filter(c => c.isFictional);
+    
+    if (fictionalCoachees.length === 0) {
+        showNotification('Aucun coaché fictif trouvé !', 'info');
+        return;
+    }
+    
+    // Mettre à jour le compteur
+    document.getElementById('fictionalCount').textContent = `${fictionalCoachees.length} coachés fictifs`;
+    
+    // Afficher le modal
+    document.getElementById('fictionalModal').classList.remove('hidden');
+}
+
+function closeFictionalModal() {
+    document.getElementById('fictionalModal').classList.add('hidden');
+}
+
+function convertFictionalToReal() {
+    const fictionalCoachees = coachees.filter(c => c.isFictional);
+    
+    if (confirm(`Convertir ${fictionalCoachees.length} coachés fictifs en vrais coachés ?\n\nIls ne seront plus marqués comme fictifs.`)) {
+        // Convertir tous les coachés fictifs
+        coachees.forEach(coachee => {
+            if (coachee.isFictional) {
+                coachee.isFictional = false;
+                coachee.startDate = new Date().toISOString().split('T')[0];
+                coachee.lastActivity = new Date().toISOString();
+            }
+        });
+        
+        saveCoacheesData();
+        updateCoacheesDisplay();
+        closeFictionalModal();
+        
+        // Masquer les badges fictifs
+        const badges = document.querySelectorAll('.fictional-badge');
+        badges.forEach(badge => badge.style.display = 'none');
+        
+        showNotification(`${fictionalCoachees.length} coachés convertis en vrais coachés !`, 'success');
+    }
+}
+
+function removeAllFictionalCoachees() {
+    const fictionalCoachees = coachees.filter(c => c.isFictional);
+    
+    if (confirm(`Supprimer définitivement ${fictionalCoachees.length} coachés fictifs ?\n\nCette action supprimera toutes leurs données (sessions, notes, rendez-vous).`)) {
+        fictionalCoachees.forEach(coachee => {
+            cleanupCoacheeData(coachee.name);
+            
+            // Supprimer la carte du DOM
+            const card = document.querySelector(`[data-coachee-id="${coachee.id}"]`);
+            if (card) {
+                card.remove();
+            }
+        });
+        
+        // Supprimer de la liste
+        coachees = coachees.filter(c => !c.isFictional);
+        saveCoacheesData();
+        closeFictionalModal();
+        
+        showNotification(`${fictionalCoachees.length} coachés fictifs supprimés !`, 'success');
+    }
+}
+
+// ========== MODAL DE GESTION ==========
+
+function openAddCoacheeModal() {
+    document.getElementById('modalTitle').textContent = 'Ajouter un coaché';
+    document.getElementById('submitButtonText').textContent = 'Ajouter';
+    document.getElementById('coacheeForm').reset();
+    document.getElementById('coacheeId').value = '';
+    document.getElementById('coacheeModal').classList.remove('hidden');
+}
+
+function saveCoachee() {
+    const coacheeId = document.getElementById('coacheeId').value;
+    const isEdit = coacheeId !== '';
+    
+    const coacheeData = {
+        id: isEdit ? coacheeId : generateId(),
+        name: document.getElementById('coacheeName').value,
+        sector: document.getElementById('coacheeSector').value,
+        email: document.getElementById('coacheeEmail').value,
+        phone: document.getElementById('coacheePhone').value,
+        currentStep: parseInt(document.getElementById('coacheeCurrentStep').value),
+        status: document.getElementById('coacheeStatus').value,
+        startDate: isEdit ? coachees.find(c => c.id === coacheeId)?.startDate : new Date().toISOString().split('T')[0],
+        lastActivity: new Date().toISOString(),
+        isFictional: false,
+        avatar: generateAvatar(document.getElementById('coacheeName').value),
+        avatarColor: generateAvatarColor()
+    };
+    
+    if (isEdit) {
+        // Modifier
+        const index = coachees.findIndex(c => c.id === coacheeId);
+        if (index !== -1) {
+            coachees[index] = { ...coachees[index], ...coacheeData };
+            updateCoacheeCard(coacheeData);
+        }
+    } else {
+        // Ajouter
+        coachees.push(coacheeData);
+        // Recharger la page pour afficher le nouveau coaché
+        setTimeout(() => location.reload(), 1000);
+    }
+    
+    saveCoacheesData();
+    closeCoacheeModal();
+    
+    showNotification(isEdit ? 'Coaché modifié avec succès !' : 'Coaché ajouté avec succès !', 'success');
+}
+
+function closeCoacheeModal() {
+    document.getElementById('coacheeModal').classList.add('hidden');
+}
+
+function closeDeleteModal() {
+    document.getElementById('deleteModal').classList.add('hidden');
+    currentCoacheeToDelete = null;
+}
+
+// ========== FONCTIONS UTILITAIRES ==========
+
+function generateId() {
+    return 'coachee-' + Date.now().toString(36) + Math.random().toString(36).substr(2);
+}
+
+function generateAvatar(name) {
+    const words = name.split(' ');
+    return words.map(word => word.charAt(0).toUpperCase()).join('').substring(0, 2);
+}
+
+function generateAvatarColor() {
+    const colors = ['#3498DB', '#E67E22', '#9B59B6', '#27AE60', '#F39C12', '#E74C3C', '#1ABC9C', '#34495E'];
+    return colors[Math.floor(Math.random() * colors.length)];
+}
+
+function getStatusText(status) {
+    const statusMap = {
+        'active': 'Actif',
+        'pending': 'En attente',
+        'completed': 'Terminé',
+        'paused': 'En pause'
+    };
+    return statusMap[status] || 'Inconnu';
+}
+
+function getStatusClasses(status) {
+    const classMap = {
+        'active': 'bg-green-100 text-green-800',
+        'pending': 'bg-yellow-100 text-yellow-800',
+        'completed': 'bg-blue-100 text-blue-800',
+        'paused': 'bg-gray-100 text-gray-800'
+    };
+    return classMap[status] || 'bg-gray-100 text-gray-800';
+}
+
+function getStepName(stepNumber) {
+    const stepNames = {
+        1: 'Diagnostic de départ',
+        2: 'Analyse du marché',
+        3: 'Plan d\'action détaillé',
+        4: 'Analyse CV',
+        5: 'Recherche entreprise',
+        6: 'Matching CV / Offre',
+        7: 'Lettres de motivation',
+        8: 'Ciblage offres',
+        9: 'Préparation entretien',
+        10: 'Bilan du coaching'
+    };
+    return stepNames[stepNumber] || 'Étape inconnue';
+}
+
+function formatLastActivity(dateString) {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffTime = Math.abs(now - date);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    if (diffDays === 1) return "Aujourd'hui";
+    if (diffDays === 2) return "Hier";
+    if (diffDays <= 7) return `Il y a ${diffDays - 1} jours`;
+    
+    return date.toLocaleDateString('fr-FR');
+}
+
+function filterCoachees(category) {
+    const cards = document.querySelectorAll('.coachee-card');
+    const buttons = document.querySelectorAll('.flex.flex-wrap button');
+    
+    // Réinitialiser les styles des boutons (sauf les boutons spéciaux)
+    buttons.forEach(btn => {
+        if (btn.textContent.trim() !== 'Coachés fictifs' && btn.textContent.trim() !== 'Ajouter un coaché') {
+            btn.classList.remove('bg-gray-800', 'text-white');
+            btn.classList.add('bg-gray-200', 'hover:bg-gray-300', 'text-gray-800');
+        }
+    });
+    
+    // Activer le bouton cliqué
+    if (event && event.target) {
+        event.target.classList.remove('bg-gray-200', 'hover:bg-gray-300', 'text-gray-800');
+        event.target.classList.add('bg-gray-800', 'text-white');
+    }
+    
+    // Filtrer les cartes
+    cards.forEach(card => {
+        const position = card.querySelector('.coachee-position')?.textContent.toLowerCase() || '';
+        const stage = card.querySelector('.current-stage span')?.textContent.toLowerCase() || '';
+        
+        if (category.toLowerCase() === 'tous' || 
+            position.includes(category.toLowerCase()) || 
+            stage.includes(category.toLowerCase())) {
+            card.style.display = 'block';
+        } else {
+            card.style.display = 'none';
+        }
+    });
+}
+
+function startSession(coacheeName, step) {
+    window.location.href = `session.html?name=${encodeURIComponent(coacheeName)}&step=${step}`;
+}
+
+function openDossier(coacheeName) {
+    window.location.href = `dossier.html?name=${encodeURIComponent(coacheeName)}`;
+}
+
+function showNotification(message, type = 'info', duration = 3000) {
+    const notification = document.createElement('div');
+    const bgColor = type === 'success' ? 'notification-success' : 
+                   type === 'error' ? 'notification-error' : 
+                   type === 'warning' ? 'notification-warning' : 'notification-info';
+    
+    const iconClass = type === 'success' ? 'fa-check-circle' : 
+                     type === 'error' ? 'fa-exclamation-triangle' : 
+                     type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle';
+    
+    notification.className = `fixed top-4 right-4 text-white px-6 py-3 rounded shadow-lg z-50 transform translate-x-full transition-all duration-300 ${bgColor}`;
+    notification.innerHTML = `
+        <div class="flex items-center">
+            <i class="fas ${iconClass} mr-2"></i>
+            <span>${message}</span>
+            <button onclick="this.parentElement.parentElement.remove()" class="ml-4 text-white hover:text-gray-200">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Animation d'apparition
+    setTimeout(() => notification.style.transform = 'translateX(0)', 100);
+    
+    // Suppression automatique
+    setTimeout(() => {
+        if (notification.parentElement) {
+            notification.style.transform = 'translateX(100%)';
+            setTimeout(() => notification.remove(), 300);
+        }
+    }, duration);
+}
 </script>
 <!-- Modal Ajouter/Modifier Coaché -->
 <div id="coacheeModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
