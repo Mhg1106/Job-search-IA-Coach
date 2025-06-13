@@ -77,27 +77,6 @@
                   <option value="pending">En attente</option>
                   <option value="completed">Terminé</option>
                 </select>
-                
-                <select id="stage-filter" class="filter-select border border-gray-300 rounded-md px-3 py-2">
-                  <option value="all">Toutes les étapes</option>
-                  <option value="1">Diagnostic Initial</option>
-                  <option value="2">Analyse du Marché</option>
-                  <option value="3">Plan d'Actions</option>
-                  <option value="4">Analyse CV</option>
-                  <option value="5">Recherche Entreprise</option>
-                  <option value="6">Matching CV/Offre</option>
-                  <option value="7">Lettre de Motivation</option>
-                  <option value="8">Ciblage Offres</option>
-                  <option value="9">Préparation Entretien</option>
-                  <option value="10">Bilan Coaching</option>
-                </select>
-                
-                <button id="add-coachee" class="btn-primary bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded flex items-center">
-                  <i class="fas fa-plus mr-2"></i> Ajouter un coaché
-                </button>
-              </div>
-            </div>
-          </div>
           
 <!-- Carte coaché dynamique -->
 <div class="coachee-card bg-white rounded-lg shadow-md overflow-hidden" data-coachee-id="marie-dupont">
@@ -339,7 +318,10 @@ document.addEventListener('DOMContentLoaded', function() {
 function initializeCoacheesManagement() {
     loadCoacheesData();
     updateCoacheesDisplay();
-    
+
+    // Nouvelle ligne à ajouter :
+    setupExistingFilters();
+
     // Gestionnaire pour fermer les menus quand on clique ailleurs
     document.addEventListener('click', function(e) {
         if (!e.target.closest('.coachee-actions')) {
