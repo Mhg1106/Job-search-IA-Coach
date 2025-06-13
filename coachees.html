@@ -852,7 +852,96 @@ function openDossier(coacheeName) {
     window.location.href = `dossier.html?name=${encodeURIComponent(coacheeName)}`;
 }
 
-function showNotification(message, type = 'info', duration = 3000) {
+    // 🆕 NOUVELLES FONCTIONS À AJOUTER ICI :
+    function setupExistingFilters() {
+        // Gestionnaire pour la recherche
+        const searchInput = document.getElementById('coachee-search');
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                filterCoacheesBySearch(this.value);
+            });
+        }
+        
+        // Gestionnaire pour le filtre de statut
+        const statusFilter = document.getElementById('status-filter');
+        if (statusFilter) {
+            statusFilter.addEventListener('change', function() {
+                filterCoacheesByStatus(this.value);
+            });
+        }
+        
+        // Gestionnaire pour le filtre d'étape
+        const stepFilter = document.getElementById('step-filter');
+        if (stepFilter) {
+            stepFilter.addEventListener('change', function() {
+                filterCoacheesByStep(this.value);
+            });
+        }
+    }
+
+    function filterCoacheesBySearch(searchTerm) {
+        const cards = document.querySelectorAll('.coachee-card');
+        const term = searchTerm.toLowerCase();
+        
+        cards.forEach(card => {
+            const name = card.querySelector('.coachee-name')?.textContent.toLowerCase() || '';
+            const sector = card.querySelector('.coachee-position')?.textContent.toLowerCase() || '';
+            
+            if (name.includes(term) || sector.includes(term)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    function filterCoacheesByStatus(status) {
+        const cards = document.querySelectorAll('.coachee-card');
+        
+        cards.forEach(card => {
+            const statusElement = card.querySelector('.coachee-status');
+            const cardStatus = statusElement?.textContent.toLowerCase() || '';
+            
+            if (status === 'all' || cardStatus.includes(status)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    function filterCoacheesByStep(step) {
+        const cards = document.querySelectorAll('.coachee-card');
+        
+        cards.forEach(card => {
+            const progressText = card.querySelector('.progress-bar span')?.textContent || '';
+            const currentStep = progressText.split('/')[0];
+            
+            if (step === 'all' || currentStep === step) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+    
+    // Fonction initializeCoacheesManagement() MODIFIÉE
+    function initializeCoacheesManagement() {
+        loadCoacheesData();
+        updateCoacheesDisplay();
+        
+        // 🆕 Nouvelle ligne ajoutée :
+        setupExistingFilters();
+        
+        // Gestionnaire pour fermer les menus quand on clique ailleurs
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.coachee-actions')) {
+                closeAllMenus();
+            }
+        });
+    }
+  
+    function showNotification(message, type = 'info', duration = 3000) {
     const notification = document.createElement('div');
     const bgColor = type === 'success' ? 'notification-success' : 
                    type === 'error' ? 'notification-error' : 
