@@ -27,28 +27,36 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
   
-  // Filtre par statut
-  statusFilter.addEventListener('change', function() {
-    const status = this.value;
-    const cards = document.querySelectorAll('.coachee-card');
-    
-    cards.forEach(card => {
-      if (status === 'all' || card.classList.contains(status)) {
-        card.style.display = '';
-      } else {
-        card.style.display = 'none';
-      }
+  // Vérification et ajout des event listeners
+  const statusFilter = document.getElementById('status-filter');
+  const stageFilter = document.getElementById('step-filter'); // Changé de 'stage-filter' à 'step-filter'
+  
+  if (statusFilter) {
+    statusFilter.addEventListener('change', function() {
+      const status = this.value;
+      const cards = document.querySelectorAll('.coachee-card');
+      
+      cards.forEach(card => {
+        if (status === 'all' || card.classList.contains(status)) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
     });
-  });
+  }
   
   // Filtre par étape
-  stageFilter.addEventListener('change', function() {
-    const stage = this.value;
-    const cards = document.querySelectorAll('.coachee-card');
-    
-    cards.forEach(card => {
-      const currentStage = card.querySelector('.current-stage span').textContent;
-      const stageMapping = {
+  if (stageFilter) {
+    stageFilter.addEventListener('change', function() {
+      const stage = this.value;
+      const cards = document.querySelectorAll('.coachee-card');
+      
+      cards.forEach(card => {
+        const stageElement = card.querySelector('.current-stage span');
+        if (stageElement) {
+          const currentStage = stageElement.textContent;
+          const stageMapping = {
         '1': 'Diagnostic Initial',
         '2': 'Analyse du Marché',
         '3': 'Plan d\'Actions',
@@ -61,13 +69,15 @@ document.addEventListener('DOMContentLoaded', function() {
         '10': 'Bilan Coaching'
       };
       
-      if (stage === 'all' || currentStage === stageMapping[stage]) {
-        card.style.display = '';
-      } else {
-        card.style.display = 'none';
-      }
+          if (stage === 'all' || currentStage === stageMapping[stage]) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        }
+      });
     });
-  });
+  }
   
   // Modal d'ajout de coaché
   addCoacheeBtn.addEventListener('click', function() {
