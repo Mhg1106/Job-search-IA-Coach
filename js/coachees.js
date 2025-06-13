@@ -78,17 +78,24 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   
   // Modal d'ajout de coaché
+ // Remplacez cette section (lignes ~81-95) par :
+if (addCoacheeBtn) {
   addCoacheeBtn.addEventListener('click', function() {
     modal.style.display = 'flex';
   });
-  
+}
+
+if (closeModal) {
   closeModal.addEventListener('click', function() {
     modal.style.display = 'none';
   });
-  
+}
+
+if (cancelBtn) {
   cancelBtn.addEventListener('click', function() {
     modal.style.display = 'none';
   });
+}
   
   // Cliquer en dehors du modal pour fermer
   window.addEventListener('click', function(event) {
