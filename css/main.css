@@ -27,3 +27,95 @@
   }
 }
 */
+/* Styles pour les modals et menus */
+.coachee-card {
+    position: relative;
+}
+
+.coachee-menu {
+    min-width: 160px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+}
+
+.coachee-menu button {
+    transition: background-color 0.2s ease;
+    width: 100%;
+    text-align: left;
+}
+
+.coachee-menu button:hover {
+    background-color: #f3f4f6;
+}
+
+.coachee-menu button:hover.text-red-600 {
+    background-color: #fef2f2;
+}
+
+.fictional-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+/* Animation pour les modals */
+.modal-enter {
+    animation: modalFadeIn 0.3s ease-out;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Focus styles pour l'accessibilité */
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    ring: 2px;
+    ring-color: #3b82f6;
+    border-color: #3b82f6;
+}
+
+/* Style pour les notifications */
+.notification-success {
+    background-color: #10b981;
+}
+
+.notification-error {
+    background-color: #ef4444;
+}
+
+.notification-warning {
+    background-color: #f59e0b;
+}
+
+.notification-info {
+    background-color: #3b82f6;
+}
+
+/* Responsive pour mobile */
+@media (max-width: 640px) {
+    .coachee-menu {
+        right: 0 !important;
+        left: auto !important;
+        min-width: 140px;
+    }
+    
+    .modal-content {
+        margin: 1rem;
+        max-height: calc(100vh - 2rem);
+    }
+}
