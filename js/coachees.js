@@ -217,24 +217,27 @@ function loadCoacheesFromStorage() {
 }
 
 function createCoacheeCardFromData(coacheeData) {
-  console.log('Tentative création carte pour:', coacheeData.name);
+  console.log('🔄 Tentative création carte pour:', coacheeData.name);
   
   // Chercher où insérer la nouvelle carte
   const allCards = document.querySelectorAll('.coachee-card:not([data-custom])');
-  console.log('Cartes non-custom trouvées:', allCards.length);
+  console.log('📋 Cartes non-custom trouvées:', allCards.length);
   
   if (allCards.length === 0) {
-    console.log('Aucune carte de référence trouvée');
+    console.log('❌ Aucune carte de référence trouvée');
     return;
   }
   
   const lastCard = allCards[allCards.length - 1];
-  console.log('Insertion après:', lastCard.querySelector('.coachee-name')?.textContent);
+  const refName = lastCard.querySelector('.coachee-name')?.textContent;
+  console.log('📍 Insertion après:', refName);
   
   const newCard = document.createElement('div');
   newCard.className = 'coachee-card bg-white rounded-lg shadow-md overflow-hidden mb-4';
   newCard.setAttribute('data-coachee-id', coacheeData.id);
   newCard.setAttribute('data-custom', 'true');
+  
+  console.log('🏗️ Création de l\'élément HTML...');
   
   newCard.innerHTML = `
     <div class="coachee-header flex justify-between items-center p-4 bg-gray-50 border-b border-gray-200">
@@ -295,11 +298,23 @@ function createCoacheeCardFromData(coacheeData) {
     </div>
   `;
   
+  console.log('📝 HTML généré, longueur:', newCard.innerHTML.length);
+  
   try {
+    console.log('🔧 Tentative d\'insertion...');
     lastCard.insertAdjacentElement('afterend', newCard);
-    console.log('Carte créée avec succès pour:', coacheeData.name);
+    
+    // Vérifier si la carte a bien été ajoutée
+    const verification = document.querySelector(`[data-coachee-id="${coacheeData.id}"]`);
+    if (verification) {
+      console.log('✅ Carte créée avec succès pour:', coacheeData.name);
+      console.log('🎯 Position dans le DOM:', verification.offsetTop > 0 ? 'Visible' : 'Cachée');
+    } else {
+      console.log('❌ Carte non trouvée après insertion');
+    }
+    
   } catch (error) {
-    console.log('Erreur création carte:', error);
+    console.log('💥 Erreur création carte:', error);
   }
 }
 
