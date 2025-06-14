@@ -108,6 +108,61 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+// 🔧 GESTION DU MODAL DE MODIFICATION
+const editModal = document.getElementById('edit-coachee-modal');
+const editCloseModal = editModal ? editModal.querySelector('.close') : null;
+const editCancelBtn = editModal ? editModal.querySelector('.cancel-btn') : null;
+const editCoacheeForm = document.getElementById('edit-coachee-form');
+
+if (editCloseModal) {
+  editCloseModal.addEventListener('click', function() {
+    if (editModal) {
+      editModal.style.display = 'none';
+      currentEditingCoacheeId = null;
+    }
+  });
+}
+
+if (editCancelBtn) {
+  editCancelBtn.addEventListener('click', function() {
+    if (editModal) {
+      editModal.style.display = 'none';
+      currentEditingCoacheeId = null;
+    }
+  });
+}
+
+// Gestion du formulaire de modification
+if (editCoacheeForm) {
+  editCoacheeForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('edit-coachee-name').value;
+    const position = document.getElementById('edit-coachee-position').value;
+    const email = document.getElementById('edit-coachee-email').value;
+    const status = document.getElementById('edit-coachee-status').value;
+    const stage = document.getElementById('edit-coachee-stage').value;
+    const notes = document.getElementById('edit-coachee-notes').value;
+    
+    // Sauvegarder les modifications
+    saveCoacheeChanges(name, position, email, status, stage, notes);
+    
+    // Fermer le modal
+    if (editModal) {
+      editModal.style.display = 'none';
+      currentEditingCoacheeId = null;
+    }
+  });
+}
+
+// Cliquer en dehors du modal pour fermer
+window.addEventListener('click', function(event) {
+  if (event.target === editModal) {
+    editModal.style.display = 'none';
+    currentEditingCoacheeId = null;
+  }
+});
+
 // Gestion du formulaire
 if (coacheeForm) {
   coacheeForm.addEventListener('submit', function(e) {
@@ -521,6 +576,117 @@ function startSession(name, step) {
 
 function openDossier(name) {
   alert(`Ouvrir le dossier de ${name} - À implémenter`);
+}
+
+// 🔧 VARIABLES GLOBALES POUR LA MODIFICATION
+let currentEditingCoacheeId = null;
+
+// 🔧 FONCTION POUR OUVRIR LE MODAL DE MODIFICATION
+function editCoachee(coacheeId) {
+  console.log('Modification du coaché:', coacheeId);
+  
+  const card = document.querySelector(`[data-coachee-id="${coacheeId}"]`);
+  if (!card) {
+    alert('Coaché non trouvé');
+    return;
+  }
+  
+  // Récupérer les données actuelles
+  const name = card.querySelector('.coachee-name').textContent;
+  const position = card.querySelector('.coachee-position').textContent;
+  const status = card.querySelector('.coachee-status').textContent;
+  const currentStage = card.querySelector('.current-stage span').textContent;
+  
+  // Mapper l'étape actuelle vers le numéro
+  const stageMapping = {
+    'Diagnostic Initial': '1',
+    'Analyse du Marché': '2',
+    'Plan d\'Actions': '3',
+    'Analyse CV': '4',
+    'Recherche d\'emploi': '5',
+    'Matching': '6',
+    'Lettres de motivation': '7',
+    'Ciblage': '8',
+    'Préparation entretien': '9',
+    'Bilan final': '10'
+  };
+  
+  const stageNumber = stageMapping[currentStage] || '1';
+  
+  // Remplir le formulaire de modification
+  document.getElementById('edit-coachee-name').value = name;
+  document.getElementById('edit-coachee-position').value = position;
+  document.getElementById('edit-coachee-email').value = ''; // Email pas stocké actuellement
+  document.getElementById('edit-coachee-status').value = status;
+  document.getElementById('edit-coachee-stage').value = stageNumber;
+  document.getElementById('edit-coachee-notes').value = '';
+  
+  // Stocker l'ID du coaché en cours de modification
+  currentEditingCoacheeId = coacheeId;
+  
+  // Ouvrir le modal
+  const modal = document.getElementById('edit-coachee-modal');
+  if (modal) {
+    modal.style.display = 'flex';
+  }
+}
+
+// 🔧 FONCTION POUR SAUVEGARDER LES MODIFICATIONS
+function saveCoacheeChanges(name, position, email, status, stage, notes) {
+  if (!currentEditingCoacheeId) {
+    alert('Erreur: Aucun coaché sélectionné');
+    return;
+  }
+  
+  const card = document.querySelector(`[data-coachee-id="${currentEditingCoacheeId}"]`);
+  if (!card) {
+    alert('Erreur: Coaché non trouvé');
+    return;
+  }
+  
+  // Mapping des étapes
+  const stageNames = {
+    '1': 'Diagnostic Initial',
+    '2': 'Analyse du Marché',
+    '3': 'Plan d\'Actions',
+    '4': 'Analyse CV',
+    '5': 'Recherche d\'emploi',
+    '6': 'Matching',
+    '7': 'Lettres de motivation',
+    '8': 'Ciblage',
+    '9': 'Préparation entretien',
+    '10': 'Bilan final'
+  };
+  
+  const stageName = stageNames[stage] || 'Diagnostic Initial';
+  const progressWidth = (parseInt(stage) * 10) + '%';
+  
+  // Mettre à jour les classes de statut
+  const statusElement = card.querySelector('.coachee-status');
+  statusElement.className = 'coachee-status px-2 py-1 text-xs rounded-full';
+  
+  if (status === 'Actif') {
+    statusElement.classList.add('bg-green-100', 'text-green-800');
+  } else if (status === 'En attente') {
+    statusElement.classList.add('bg-yellow-100', 'text-yellow-800');
+  } else if (status === 'Terminé') {
+    statusElement.classList.add('bg-blue-100', 'text-blue-800');
+  }
+  
+  // Mettre à jour le contenu de la carte
+  card.querySelector('.coachee-name').textContent = name;
+  card.querySelector('.coachee-position').textContent = position;
+  card.querySelector('.coachee-status').textContent = status;
+  card.querySelector('.current-stage span').textContent = stageName;
+  card.querySelector('.progress-bar').style.width = progressWidth;
+  card.querySelector('.progress-bar span').textContent = stage + '/10';
+  card.querySelector('.last-activity span').textContent = 'Dernière activité : Modifié maintenant';
+  
+  // Sauvegarder dans localStorage
+  saveCoacheesToStorage();
+  
+  console.log('Coaché modifié:', name);
+  alert(`${name} a été modifié avec succès !`);
 }
 
   // 🆕 CHARGER LES COACHÉS SAUVEGARDÉS (À LA FIN, APRÈS LES DÉFINITIONS)
