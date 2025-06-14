@@ -108,17 +108,122 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Gestion du formulaire
-  if (coacheeForm) {
-    coacheeForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      // Logique d'ajout de coaché à implémenter
-      console.log('Formulaire soumis');
-      if (modal) {
-        modal.style.display = 'none';
-      }
-    });
+// Gestion du formulaire
+if (coacheeForm) {
+  coacheeForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Récupérer les données du formulaire
+    const name = document.getElementById('coachee-name').value;
+    const position = document.getElementById('coachee-position').value;
+    const email = document.getElementById('coachee-email').value;
+    
+    // Créer un nouveau coaché
+    addNewCoachee(name, position, email);
+    
+    // Fermer le modal et réinitialiser le formulaire
+    if (modal) {
+      modal.style.display = 'none';
+    }
+    coacheeForm.reset();
+  });
+}
+
+// Fonction pour ajouter un nouveau coaché
+function addNewCoachee(name, position, email) {
+  console.log('Tentative d\'ajout du coaché:', name);
+  
+  // Chercher le container parent des cartes existantes
+  const existingCard = document.querySelector('.coachee-card');
+  if (!existingCard) {
+    alert('Aucune carte existante trouvée !');
+    return;
   }
+  
+  const coacheeContainer = existingCard.parentElement;
+  console.log('Container trouvé:', coacheeContainer);
+  
+  // Générer un ID unique pour le nouveau coaché
+  const coacheeId = name.toLowerCase().replace(/\s+/g, '-');
+  
+  // Générer les initiales du coaché
+  const initials = name.split(' ').map(part => part[0]).join('');
+  
+  // Générer une couleur aléatoire pour l'avatar
+  const colors = ['#3498DB', '#9B59B6', '#2ECC71', '#E67E22', '#F39C12'];
+  const randomColor = colors[Math.floor(Math.random() * colors.length)];
+  
+  // Créer un nouvel élément de carte de coaché
+  const newCard = document.createElement('div');
+  newCard.className = 'coachee-card bg-white rounded-lg shadow-md overflow-hidden';
+  newCard.setAttribute('data-coachee-id', coacheeId);
+  
+  // Remplir la carte avec les informations du nouveau coaché
+  newCard.innerHTML = `
+    <div class="coachee-header flex justify-between items-center p-4 bg-gray-50 border-b border-gray-200">
+      <div class="coachee-avatar w-10 h-10 rounded-full flex items-center justify-center text-white font-bold" style="background-color: ${randomColor};">${initials}</div>
+      <div class="flex items-center gap-2">
+        <div class="coachee-status px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Actif</div>
+      </div>
+      <div class="coachee-actions flex gap-1">
+        <button onclick="editCoachee('${coacheeId}')" class="btn-icon w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200" title="Modifier">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button onclick="toggleCoacheeMenu('${coacheeId}')" class="btn-icon w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200" title="Plus d'options">
+          <i class="fas fa-ellipsis-v"></i>
+        </button>
+      </div>
+    </div>
+    <div class="coachee-body p-4">
+      <h3 class="coachee-name text-lg font-bold mb-1">${name}</h3>
+      <p class="coachee-position text-sm text-gray-600 mb-3">${position}</p>
+      <div class="progress-container h-2 bg-gray-200 rounded-full overflow-hidden mb-3">
+        <div class="progress-bar h-full bg-gradient-to-r from-blue-500 to-purple-500 relative" style="width: 10%;">
+          <span class="absolute right-0 top-0 transform translate-y-4 text-xs text-gray-600">1/10</span>
+        </div>
+      </div>
+      <p class="current-stage flex items-center text-sm text-gray-700 mb-2">
+        <i class="fas fa-tasks mr-2 text-gray-500"></i>
+        <span>Diagnostic Initial</span>
+      </p>
+      <p class="last-activity flex items-center text-sm text-gray-700">
+        <i class="fas fa-clock mr-2 text-gray-500"></i>
+        <span>Dernière activité : Maintenant</span>
+      </p>
+    </div>
+    <div class="coachee-footer flex justify-between p-4 border-t border-gray-200 bg-gray-50">
+      <button onclick="startSession('${name}', '1')" class="btn-action flex items-center px-3 py-1 text-sm bg-blue-500 hover:bg-blue-600 text-white rounded">
+        <i class="fas fa-play mr-1"></i> Session
+      </button>
+      <button onclick="openDossier('${name}')" class="btn-action flex items-center px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 rounded">
+        <i class="fas fa-folder-open mr-1"></i> Dossier
+      </button>
+    </div>
+    
+    <!-- Menu contextuel -->
+    <div id="menu-${coacheeId}" class="coachee-menu absolute right-4 top-16 bg-white border border-gray-200 rounded-lg shadow-lg z-10 hidden">
+      <button onclick="editCoachee('${coacheeId}')" class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">
+        <i class="fas fa-edit mr-2 text-blue-600"></i>Modifier
+      </button>
+      <button onclick="duplicateCoachee('${coacheeId}')" class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">
+        <i class="fas fa-copy mr-2 text-green-600"></i>Dupliquer
+      </button>
+      <button onclick="exportCoachee('${coacheeId}')" class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">
+        <i class="fas fa-download mr-2 text-purple-600"></i>Exporter
+      </button>
+      <hr class="my-1">
+      <button onclick="deleteCoachee('${coacheeId}')" class="block w-full text-left px-4 py-2 text-sm hover:bg-red-50 text-red-600">
+        <i class="fas fa-trash mr-2"></i>Supprimer
+      </button>
+    </div>
+  `;
+  
+  // Ajouter la nouvelle carte au début du container
+  coacheeContainer.insertBefore(newCard, coacheeContainer.firstChild);
+  
+  console.log('Nouvelle carte ajoutée !');
+  alert(`Coaché ${name} ajouté avec succès !`);
+}
 
   // 🆕 NOUVELLES FONCTIONS pour les boutons
   function openAddCoacheeModal() {
