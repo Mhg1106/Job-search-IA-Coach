@@ -179,25 +179,41 @@ function saveCoacheesToStorage() {
 }
 
 function loadCoacheesFromStorage() {
+  console.log('=== DÉBUT CHARGEMENT ===');
+  
   const savedCoachees = localStorage.getItem('job-coach-coachees');
   if (!savedCoachees) {
     console.log('Aucun coaché sauvegardé trouvé');
     return;
   }
   
-  const coachees = JSON.parse(savedCoachees);
-  console.log('Coachés chargés:', coachees.length);
+  console.log('Données brutes trouvées:', savedCoachees);
   
-  // Supprimer les cartes personnalisées existantes pour éviter les doublons
-  document.querySelectorAll('.coachee-card[data-custom]').forEach(card => {
-    card.remove();
-  });
-  
-  // Recréer les cartes personnalisées
-  const customCoachees = coachees.filter(c => c.isCustom);
-  customCoachees.forEach(coacheeData => {
-    createCoacheeCardFromData(coacheeData);
-  });
+  try {
+    const coachees = JSON.parse(savedCoachees);
+    console.log('Coachés parsés:', coachees.length);
+    
+    // Supprimer les cartes personnalisées existantes pour éviter les doublons
+    const existingCustomCards = document.querySelectorAll('.coachee-card[data-custom]');
+    console.log('Cartes custom existantes à supprimer:', existingCustomCards.length);
+    existingCustomCards.forEach(card => {
+      card.remove();
+    });
+    
+    // Recréer les cartes personnalisées
+    const customCoachees = coachees.filter(c => c.isCustom);
+    console.log('Coachés custom à recréer:', customCoachees.length);
+    
+    customCoachees.forEach((coacheeData, index) => {
+      console.log(`Création carte ${index + 1}:`, coacheeData.name);
+      createCoacheeCardFromData(coacheeData);
+    });
+    
+    console.log('=== FIN CHARGEMENT ===');
+    
+  } catch (error) {
+    console.log('Erreur parsing JSON:', error);
+  }
 }
 
 function createCoacheeCardFromData(coacheeData) {
