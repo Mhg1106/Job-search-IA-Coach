@@ -217,15 +217,24 @@ function loadCoacheesFromStorage() {
 }
 
 function createCoacheeCardFromData(coacheeData) {
-  const lastCard = document.querySelector('.coachee-card:not([data-custom]):last-of-type') || 
-                   document.querySelector('.coachee-card:last-child');
+  console.log('Tentative création carte pour:', coacheeData.name);
   
-  if (!lastCard) return;
+  // Chercher où insérer la nouvelle carte
+  const allCards = document.querySelectorAll('.coachee-card:not([data-custom])');
+  console.log('Cartes non-custom trouvées:', allCards.length);
+  
+  if (allCards.length === 0) {
+    console.log('Aucune carte de référence trouvée');
+    return;
+  }
+  
+  const lastCard = allCards[allCards.length - 1];
+  console.log('Insertion après:', lastCard.querySelector('.coachee-name')?.textContent);
   
   const newCard = document.createElement('div');
   newCard.className = 'coachee-card bg-white rounded-lg shadow-md overflow-hidden mb-4';
   newCard.setAttribute('data-coachee-id', coacheeData.id);
-  newCard.setAttribute('data-custom', 'true'); // Marquer comme personnalisé
+  newCard.setAttribute('data-custom', 'true');
   
   newCard.innerHTML = `
     <div class="coachee-header flex justify-between items-center p-4 bg-gray-50 border-b border-gray-200">
@@ -286,7 +295,12 @@ function createCoacheeCardFromData(coacheeData) {
     </div>
   `;
   
-  lastCard.insertAdjacentElement('afterend', newCard);
+  try {
+    lastCard.insertAdjacentElement('afterend', newCard);
+    console.log('Carte créée avec succès pour:', coacheeData.name);
+  } catch (error) {
+    console.log('Erreur création carte:', error);
+  }
 }
 
 function addNewCoachee(name, position, email) {
