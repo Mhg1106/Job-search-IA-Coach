@@ -689,6 +689,43 @@ function saveCoacheeChanges(name, position, email, status, stage, notes) {
   alert(`${name} a été modifié avec succès !`);
 }
 
+  // 🔍 AJOUTEZ LA FONCTION DE DEBUG ICI :
+  function debugCoacheeCard(coacheeId) {
+    console.log('🔍 Debug pour:', coacheeId);
+    
+    const card = document.querySelector(`[data-coachee-id="${coacheeId}"]`);
+    if (!card) {
+      console.log('❌ Carte non trouvée');
+      return;
+    }
+    
+    console.log('✅ Carte trouvée');
+    
+    // Vérifier chaque élément
+    const elements = {
+      name: card.querySelector('.coachee-name'),
+      position: card.querySelector('.coachee-position'),
+      status: card.querySelector('.coachee-status'),
+      stage: card.querySelector('.current-stage span')
+    };
+    
+    Object.keys(elements).forEach(key => {
+      const element = elements[key];
+      if (element) {
+        console.log(`✅ ${key}:`, element.textContent);
+      } else {
+        console.log(`❌ ${key}: ÉLÉMENT MANQUANT`);
+      }
+    });
+    
+    // Vérifier si c'est une carte custom
+    console.log('🏷️ Est custom:', card.hasAttribute('data-custom'));
+    console.log('📋 Classes:', card.className);
+  }
+  
+  // 🌐 RENDRE LA FONCTION ACCESSIBLE GLOBALEMENT
+  window.debugCoacheeCard = debugCoacheeCard;
+
   // 🆕 CHARGER LES COACHÉS SAUVEGARDÉS (À LA FIN, APRÈS LES DÉFINITIONS)
   loadCoacheesFromStorage();
 
