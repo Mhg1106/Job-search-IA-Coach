@@ -1,7 +1,5 @@
 // coachees.js
 document.addEventListener('DOMContentLoaded', function() {
-  // 🆕 CHARGER LES COACHÉS SAUVEGARDÉS
-  loadCoacheesFromStorage();
   // Référencer les éléments
   const searchInput = document.getElementById('coachee-search');
   const statusFilter = document.getElementById('status-filter');
@@ -456,6 +454,10 @@ function startSession(name, step) {
 function openDossier(name) {
   alert(`Ouvrir le dossier de ${name} - À implémenter`);
 }
+
+  // 🆕 CHARGER LES COACHÉS SAUVEGARDÉS (À LA FIN, APRÈS LES DÉFINITIONS)
+  loadCoacheesFromStorage();
+
   // ⚠️ IMPORTANT: Rendre les fonctions globales pour le HTML
   window.openAddCoacheeModal = openAddCoacheeModal;
   window.showFictionalCoacheesOptions = showFictionalCoacheesOptions;
