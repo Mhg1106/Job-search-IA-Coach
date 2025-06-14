@@ -130,35 +130,18 @@ if (coacheeForm) {
 }
 
 function addNewCoachee(name, position, email) {
-  console.log('Tentative d\'ajout du coaché:', name);
+  console.log('Ajout de:', name);
   
-  // 🆕 APPROCHE AMÉLIORÉE : Chercher spécifiquement la zone des cartes
-  // Chercher un container qui contient plusieurs cartes
+  // 🆕 NOUVELLE APPROCHE : Insérer après la dernière carte existante
   const allCards = document.querySelectorAll('.coachee-card');
   if (allCards.length === 0) {
-    alert('Aucune carte existante trouvée !');
+    alert('Aucune carte trouvée');
     return;
   }
   
-  // Trouver le container parent qui contient le plus de cartes
-  let bestContainer = null;
-  let maxCards = 0;
-  
-  allCards.forEach(card => {
-    const parent = card.parentElement;
-    const cardsInParent = parent.querySelectorAll('.coachee-card').length;
-    if (cardsInParent > maxCards) {
-      maxCards = cardsInParent;
-      bestContainer = parent;
-    }
-  });
-  
-  if (!bestContainer) {
-    alert('Container des cartes non trouvé !');
-    return;
-  }
-  
-  console.log('Container trouvé:', bestContainer, 'avec', maxCards, 'cartes');
+  // Prendre la dernière carte comme référence
+  const lastCard = allCards[allCards.length - 1];
+  console.log('Insertion après la carte:', lastCard.querySelector('.coachee-name').textContent);
   
   // Générer un ID unique pour le nouveau coaché
   const coacheeId = name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
@@ -172,21 +155,23 @@ function addNewCoachee(name, position, email) {
   
   // Créer un nouvel élément de carte de coaché
   const newCard = document.createElement('div');
-  newCard.className = 'coachee-card bg-white rounded-lg shadow-md overflow-hidden';
+  newCard.className = 'coachee-card bg-white rounded-lg shadow-md overflow-hidden mb-4'; // Ajout mb-4 pour l'espacement
   newCard.setAttribute('data-coachee-id', coacheeId);
   
-  // Remplir la carte avec les informations du nouveau coaché
+  // Structure identique à vos cartes existantes
   newCard.innerHTML = `
     <div class="coachee-header flex justify-between items-center p-4 bg-gray-50 border-b border-gray-200">
       <div class="coachee-avatar w-10 h-10 rounded-full flex items-center justify-center text-white font-bold" style="background-color: ${randomColor};">${initials}</div>
       <div class="flex items-center gap-2">
+        <!-- Badge fictif (conditionnel) -->
+        <div class="fictional-badge px-2 py-1 text-xs rounded-full bg-orange-100 text-orange-800" style="display: none;">Fictif</div>
         <div class="coachee-status px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Actif</div>
       </div>
       <div class="coachee-actions flex gap-1">
-        <button onclick="alert('Fonction Modifier à implémenter pour ${name}')" class="btn-icon w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200" title="Modifier">
+        <button onclick="editCoachee('${coacheeId}')" class="btn-icon w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200" title="Modifier">
           <i class="fas fa-edit"></i>
         </button>
-        <button onclick="toggleNewCoacheeMenu('${coacheeId}')" class="btn-icon w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200" title="Plus d'options">
+        <button onclick="toggleCoacheeMenu('${coacheeId}')" class="btn-icon w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200" title="Plus d'options">
           <i class="fas fa-ellipsis-v"></i>
         </button>
       </div>
@@ -209,36 +194,36 @@ function addNewCoachee(name, position, email) {
       </p>
     </div>
     <div class="coachee-footer flex justify-between p-4 border-t border-gray-200 bg-gray-50">
-      <button onclick="alert('Session avec ${name} - À implémenter')" class="btn-action flex items-center px-3 py-1 text-sm bg-blue-500 hover:bg-blue-600 text-white rounded">
+      <button onclick="startSession('${name}', '1')" class="btn-action flex items-center px-3 py-1 text-sm bg-blue-500 hover:bg-blue-600 text-white rounded">
         <i class="fas fa-play mr-1"></i> Session
       </button>
-      <button onclick="alert('Dossier de ${name} - À implémenter')" class="btn-action flex items-center px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 rounded">
+      <button onclick="openDossier('${name}')" class="btn-action flex items-center px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 rounded">
         <i class="fas fa-folder-open mr-1"></i> Dossier
       </button>
     </div>
     
-    <!-- Menu contextuel -->
+    <!-- Menu contextuel (caché par défaut) -->
     <div id="menu-${coacheeId}" class="coachee-menu absolute right-4 top-16 bg-white border border-gray-200 rounded-lg shadow-lg z-10 hidden">
-      <button onclick="alert('Modifier ${name} - À implémenter')" class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">
+      <button onclick="editCoachee('${coacheeId}')" class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">
         <i class="fas fa-edit mr-2 text-blue-600"></i>Modifier
       </button>
-      <button onclick="alert('Dupliquer ${name} - À implémenter')" class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">
+      <button onclick="duplicateCoachee('${coacheeId}')" class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">
         <i class="fas fa-copy mr-2 text-green-600"></i>Dupliquer
       </button>
-      <button onclick="alert('Exporter ${name} - À implémenter')" class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">
+      <button onclick="exportCoachee('${coacheeId}')" class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">
         <i class="fas fa-download mr-2 text-purple-600"></i>Exporter
       </button>
       <hr class="my-1">
-      <button onclick="confirmDeleteNewCoachee('${coacheeId}', '${name}')" class="block w-full text-left px-4 py-2 text-sm hover:bg-red-50 text-red-600">
+      <button onclick="deleteCoachee('${coacheeId}')" class="block w-full text-left px-4 py-2 text-sm hover:bg-red-50 text-red-600">
         <i class="fas fa-trash mr-2"></i>Supprimer
       </button>
     </div>
   `;
   
-  // 🆕 PLACEMENT AMÉLIORÉ : Ajouter à la fin du container (pas au début)
-  bestContainer.appendChild(newCard);
+  // 🎯 INSERTION CORRECTE : Après la dernière carte
+  lastCard.insertAdjacentElement('afterend', newCard);
   
-  console.log('Nouvelle carte ajoutée !');
+  console.log('Nouvelle carte ajoutée après', lastCard.querySelector('.coachee-name').textContent);
   alert(`Coaché ${name} ajouté avec succès !`);
 }
 
@@ -295,6 +280,49 @@ function confirmDeleteNewCoachee(coacheeId, name) {
     }
   }
   
+// 🆕 FONCTIONS POUR QUE TOUS LES BOUTONS MARCHENT
+function editCoachee(coacheeId) {
+  alert(`Fonction Modifier pour ${coacheeId} - À implémenter`);
+}
+
+function toggleCoacheeMenu(coacheeId) {
+  const menu = document.getElementById('menu-' + coacheeId);
+  if (menu) {
+    // Fermer tous les autres menus d'abord
+    document.querySelectorAll('.coachee-menu').forEach(m => {
+      if (m !== menu) m.classList.add('hidden');
+    });
+    // Toggle le menu actuel
+    menu.classList.toggle('hidden');
+  }
+}
+
+function duplicateCoachee(coacheeId) {
+  alert(`Fonction Dupliquer pour ${coacheeId} - À implémenter`);
+}
+
+function exportCoachee(coacheeId) {
+  alert(`Fonction Exporter pour ${coacheeId} - À implémenter`);
+}
+
+function deleteCoachee(coacheeId) {
+  if (confirm(`Êtes-vous sûr de vouloir supprimer ce coaché ?`)) {
+    const card = document.querySelector(`[data-coachee-id="${coacheeId}"]`);
+    if (card) {
+      const name = card.querySelector('.coachee-name').textContent;
+      card.remove();
+      alert(`${name} a été supprimé.`);
+    }
+  }
+}
+
+function startSession(name, step) {
+  alert(`Démarrer une session avec ${name} (étape ${step}) - À implémenter`);
+}
+
+function openDossier(name) {
+  alert(`Ouvrir le dossier de ${name} - À implémenter`);
+}
   // ⚠️ IMPORTANT: Rendre les fonctions globales pour le HTML
   window.openAddCoacheeModal = openAddCoacheeModal;
   window.showFictionalCoacheesOptions = showFictionalCoacheesOptions;
