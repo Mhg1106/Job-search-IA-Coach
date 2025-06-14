@@ -135,20 +135,43 @@ function saveCoacheesToStorage() {
   const coacheeCards = document.querySelectorAll('.coachee-card');
   
   coacheeCards.forEach(card => {
-    const coacheeData = {
-      id: card.getAttribute('data-coachee-id'),
-      name: card.querySelector('.coachee-name').textContent,
-      position: card.querySelector('.coachee-position').textContent,
-      status: card.querySelector('.coachee-status').textContent,
-      currentStage: card.querySelector('.current-stage span').textContent,
-      progress: card.querySelector('.progress-bar').style.width,
-      progressText: card.querySelector('.progress-bar span').textContent,
-      lastActivity: card.querySelector('.last-activity span').textContent,
-      avatarColor: card.querySelector('.coachee-avatar').style.backgroundColor,
-      avatarInitials: card.querySelector('.coachee-avatar').textContent,
-      isCustom: card.hasAttribute('data-custom') // Pour identifier les cartes ajoutées dynamiquement
-    };
-    coachees.push(coacheeData);
+    try {
+      // Vérifications sécurisées pour éviter les erreurs null
+      const nameElement = card.querySelector('.coachee-name');
+      const positionElement = card.querySelector('.coachee-position');
+      const statusElement = card.querySelector('.coachee-status');
+      const stageElement = card.querySelector('.current-stage span');
+      const progressBar = card.querySelector('.progress-bar');
+      const progressSpan = card.querySelector('.progress-bar span');
+      const activityElement = card.querySelector('.last-activity span');
+      const avatarElement = card.querySelector('.coachee-avatar');
+      
+      // Vérifier que tous les éléments essentiels existent
+      if (!nameElement || !positionElement) {
+        console.log('Carte ignorée - éléments manquants');
+        return; // Ignorer cette carte
+      }
+      
+      const coacheeData = {
+        id: card.getAttribute('data-coachee-id') || 'unknown',
+        name: nameElement.textContent || 'Sans nom',
+        position: positionElement.textContent || 'Sans poste',
+        status: statusElement ? statusElement.textContent : 'Actif',
+        currentStage: stageElement ? stageElement.textContent : 'Diagnostic Initial',
+        progress: progressBar ? progressBar.style.width : '10%',
+        progressText: progressSpan ? progressSpan.textContent : '1/10',
+        lastActivity: activityElement ? activityElement.textContent : 'Maintenant',
+        avatarColor: avatarElement ? avatarElement.style.backgroundColor : '#3498DB',
+        avatarInitials: avatarElement ? avatarElement.textContent : 'XX',
+        isCustom: card.hasAttribute('data-custom')
+      };
+      
+      coachees.push(coacheeData);
+      
+    } catch (error) {
+      console.log('Erreur lors de la sauvegarde d\'une carte:', error);
+      // Continuer avec les autres cartes
+    }
   });
   
   localStorage.setItem('job-coach-coachees', JSON.stringify(coachees));
