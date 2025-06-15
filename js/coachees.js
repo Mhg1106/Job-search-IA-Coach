@@ -680,6 +680,139 @@ function editCoachee(coacheeId) {
   }
   console.log('✅ Carte trouvée');
   
+  // 🆕 RÉCUPÉRER LES DONNÉES DEPUIS LE LOCALSTORAGE EN PRIORITÉ
+  const savedCoachees = localStorage.getItem('job-coach-coachees');
+  let savedData = null;
+  
+  if (savedCoachees) {
+    const coachees = JSON.parse(savedCoachees);
+    savedData = coachees.find(c => c.id === coacheeId);
+    console.log('📋 Données sauvegardées trouvées:', savedData);
+  }
+  
+  // Si on a des données sauvegardées, les utiliser en priorité
+  let name, position, status, currentStage;
+  
+  if (savedData) {
+    // Utiliser les données du localStorage
+    name = savedData.name || 'Nom inconnu';
+    position = savedData.position || 'Poste inconnu';
+    status = savedData.status || 'Actif';
+    currentStage = savedData.currentStage || 'Diagnostic Initial';
+    console.log('✅ Utilisation des données sauvegardées');
+  } else {
+    // Fallback : lire depuis la carte HTML
+    console.log('⚠️ Aucune donnée sauvegardée, lecture depuis la carte HTML');
+    
+    // Récupération ultra-robuste avec multiples sélecteurs
+    function getTextSafely(selectors) {
+      for (let selector of selectors) {
+        const element = card.querySelector(selector);
+        if (element && element.textContent) {
+          return element.textContent.trim();
+        }
+      }
+      return null;
+    }
+    
+    name = getTextSafely([
+      '.coachee-name',
+      'h3.coachee-name', 
+      '.coachee-body h3',
+      'h3'
+    ]) || 'Nom inconnu';
+    
+    position = getTextSafely([
+      '.coachee-position',
+      'p.coachee-position',
+      '.coachee-body p',
+      '.coachee-body p:first-of-type'
+    ]) || 'Poste inconnu';
+    
+    status = getTextSafely([
+      '.coachee-status',
+      '.status',
+      '[class*="status"]'
+    ]) || 'Actif';
+    
+    currentStage = getTextSafely([
+      '.current-stage span',
+      '.current-stage',
+      '[class*="stage"] span',
+      '[class*="stage"]'
+    ]) || 'Diagnostic Initial';
+  }
+  
+  console.log('📋 Données finales utilisées:', { name, position, status, currentStage });
+  
+  // Mapper l'étape actuelle vers le numéro
+  const stageMapping = {
+    'Diagnostic Initial': '1',
+    'Analyse du Marché': '2',
+    'Plan d\'Actions': '3',
+    'Analyse CV': '4',
+    'Recherche d\'emploi': '5',
+    'Matching': '6',
+    'Lettres de motivation': '7',
+    'Ciblage': '8',
+    'Préparation entretien': '9',
+    'Bilan final': '10'
+  };
+  
+  const stageNumber = stageMapping[currentStage] || '1';
+  console.log('🎯 Étape mappée:', currentStage, '->', stageNumber);
+  
+  // Vérifier que le modal existe
+  const modal = document.getElementById('edit-coachee-modal');
+  if (!modal) {
+    console.log('❌ Modal de modification non trouvé');
+    alert('Modal de modification non trouvé. Avez-vous ajouté le HTML du modal ?');
+    return;
+  }
+  console.log('✅ Modal trouvé');
+  
+  // Remplir le formulaire de modification avec vérifications
+  const formElements = [
+    { id: 'edit-coachee-name', value: name },
+    { id: 'edit-coachee-position', value: position },
+    { id: 'edit-coachee-email', value: savedData?.email || '' },
+    { id: 'edit-coachee-status', value: status },
+    { id: 'edit-coachee-stage', value: stageNumber },
+    { id: 'edit-coachee-notes', value: savedData?.notes || '' }
+  ];
+  
+  let allFieldsOk = true;
+  formElements.forEach(({ id, value }) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.value = value;
+      console.log(`✅ Rempli ${id}:`, value);
+    } else {
+      console.log(`❌ Élément non trouvé: ${id}`);
+      allFieldsOk = false;
+    }
+  });
+  
+  if (!allFieldsOk) {
+    alert('Erreur: Certains champs du formulaire sont manquants');
+    return;
+  }
+  
+  // Stocker l'ID du coaché en cours de modification
+  currentEditingCoacheeId = coacheeId;
+  console.log('💾 ID stocké:', currentEditingCoacheeId);
+  
+  // Ouvrir le modal
+  try {
+    modal.style.display = 'flex';
+    console.log('🎉 Modal ouvert avec succès pour:', coacheeId);
+  } catch (error) {
+    console.log('💥 Erreur ouverture modal:', error);
+    alert('Erreur lors de l\'ouverture du modal');
+  }
+}
+  console.log('✅ Carte trouvée');
+  
   // 🔧 RÉCUPÉRATION ULTRA-ROBUSTE avec multiples sélecteurs
   function getTextSafely(selectors) {
     for (let selector of selectors) {
