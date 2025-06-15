@@ -532,7 +532,94 @@ function confirmDeleteNewCoachee(coacheeId, name) {
   
 // 🆕 FONCTIONS POUR QUE TOUS LES BOUTONS MARCHENT
 function editCoachee(coacheeId) {
-  alert(`Fonction Modifier pour ${coacheeId} - À implémenter`);
+  console.log('🚀 DÉBUT modification du coaché:', coacheeId);
+  
+  const card = document.querySelector(`[data-coachee-id="${coacheeId}"]`);
+  if (!card) {
+    console.log('❌ Carte non trouvée');
+    alert('Coaché non trouvé');
+    return;
+  }
+  console.log('✅ Carte trouvée');
+  
+  // Récupérer les données avec vérifications sécurisées
+  const nameElement = card.querySelector('.coachee-name');
+  const positionElement = card.querySelector('.coachee-position');
+  const statusElement = card.querySelector('.coachee-status');
+  const stageElement = card.querySelector('.current-stage span');
+  
+  const name = nameElement ? nameElement.textContent.trim() : 'Nom inconnu';
+  const position = positionElement ? positionElement.textContent.trim() : 'Poste inconnu';
+  const status = statusElement ? statusElement.textContent.trim() : 'Actif';
+  const currentStage = stageElement ? stageElement.textContent.trim() : 'Diagnostic Initial';
+  
+  console.log('📋 Données récupérées:', { name, position, status, currentStage });
+  
+  // Mapper l'étape actuelle vers le numéro
+  const stageMapping = {
+    'Diagnostic Initial': '1',
+    'Analyse du Marché': '2',
+    'Plan d\'Actions': '3',
+    'Analyse CV': '4',
+    'Recherche d\'emploi': '5',
+    'Matching': '6',
+    'Lettres de motivation': '7',
+    'Ciblage': '8',
+    'Préparation entretien': '9',
+    'Bilan final': '10'
+  };
+  
+  const stageNumber = stageMapping[currentStage] || '1';
+  console.log('🎯 Étape mappée:', currentStage, '->', stageNumber);
+  
+  // Vérifier que le modal existe
+  const modal = document.getElementById('edit-coachee-modal');
+  if (!modal) {
+    console.log('❌ Modal de modification non trouvé');
+    alert('Modal de modification non trouvé. Avez-vous ajouté le HTML du modal ?');
+    return;
+  }
+  console.log('✅ Modal trouvé');
+  
+  // Remplir le formulaire de modification avec vérifications
+  const formElements = [
+    { id: 'edit-coachee-name', value: name },
+    { id: 'edit-coachee-position', value: position },
+    { id: 'edit-coachee-email', value: '' },
+    { id: 'edit-coachee-status', value: status },
+    { id: 'edit-coachee-stage', value: stageNumber },
+    { id: 'edit-coachee-notes', value: '' }
+  ];
+  
+  let allFieldsOk = true;
+  formElements.forEach(({ id, value }) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.value = value;
+      console.log(`✅ Rempli ${id}:`, value);
+    } else {
+      console.log(`❌ Élément non trouvé: ${id}`);
+      allFieldsOk = false;
+    }
+  });
+  
+  if (!allFieldsOk) {
+    alert('Erreur: Certains champs du formulaire sont manquants');
+    return;
+  }
+  
+  // Stocker l'ID du coaché en cours de modification
+  currentEditingCoacheeId = coacheeId;
+  console.log('💾 ID stocké:', currentEditingCoacheeId);
+  
+  // Ouvrir le modal
+  try {
+    modal.style.display = 'flex';
+    console.log('🎉 Modal ouvert avec succès pour:', coacheeId);
+  } catch (error) {
+    console.log('💥 Erreur ouverture modal:', error);
+    alert('Erreur lors de l\'ouverture du modal');
+  }
 }
 
 function toggleCoacheeMenu(coacheeId) {
