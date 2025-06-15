@@ -890,8 +890,8 @@ const editModal = document.getElementById('edit-coachee-modal');
   console.log('🎯 Étape mappée:', currentStage, '->', stageNumber);
   
   // Vérifier que le modal existe
-  const modal = document.getElementById('edit-coachee-modal');
-  if (!modal) {
+  editModal = document.getElementById('edit-coachee-modal');
+  if (!editModal) {
     console.log('❌ Modal de modification non trouvé');
     alert('Modal de modification non trouvé. Avez-vous ajouté le HTML du modal ?');
     return;
@@ -931,7 +931,7 @@ const editModal = document.getElementById('edit-coachee-modal');
   
   // Ouvrir le modal
   try {
-    modal.style.display = 'flex';
+    editModal.style.display = 'flex';
     console.log('🎉 Modal ouvert avec succès pour:', coacheeId);
   } catch (error) {
     console.log('💥 Erreur ouverture modal:', error);
