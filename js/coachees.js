@@ -765,7 +765,7 @@ function editCoachee(coacheeId) {
   // Vérifier que le modal existe
 // ✅ CORRECTION
 const editModal = document.getElementById('edit-coachee-modal');
-  if (!éditmodal) {
+if (!editModal) {
     console.log('❌ Modal de modification non trouvé');
     alert('Modal de modification non trouvé. Avez-vous ajouté le HTML du modal ?');
     return;
@@ -931,7 +931,7 @@ formElements.forEach(({ id, value }) => {
   
   // Ouvrir le modal
   try {
-    modificationModal.style.display = 'flex';
+  editModal.style.display = 'flex';  
     console.log('🎉 Modal ouvert avec succès pour:', coacheeId);
   } catch (error) {
     console.log('💥 Erreur ouverture modal:', error);
@@ -1006,8 +1006,6 @@ function saveCoacheeChanges(name, position, email, status, stage, notes) {
       console.log('❌ Carte non trouvée');
       return;
     }
-    
-    console.log('✅ Carte trouvée');
     
     // Vérifier chaque élément
     const elements = {
