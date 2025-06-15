@@ -909,16 +909,16 @@ console.log('✅ Modal trouvé');
   ];
   
   let allFieldsOk = true;
-  formElements.forEach(({ id, value }) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.value = value;
-      console.log(`✅ Rempli ${id}:`, value);
-    } else {
-      console.log(`❌ Élément non trouvé: ${id}`);
-      allFieldsOk = false;
-    }
-  });
+formElements.forEach(({ id, value }) => {
+  const element = document.getElementById(id);
+  if (element) {
+    element.value = value;
+    console.log(`✅ Rempli ${id}:`, value);  // ← BACKTICKS
+  } else {
+    console.log(`❌ Élément non trouvé: ${id}`);  // ← BACKTICKS
+    allFieldsOk = false;
+  }
+});
   
   if (!allFieldsOk) {
     alert('Erreur: Certains champs du formulaire sont manquants');
