@@ -816,8 +816,10 @@ function saveCoacheeChanges(name, position, email, status, stage, notes) {
   // 🆕 CHARGER LES COACHÉS SAUVEGARDÉS (À LA FIN, APRÈS LES DÉFINITIONS)
   loadCoacheesFromStorage();
 
-  // ⚠️ IMPORTANT: Rendre les fonctions globales pour le HTML
-  window.openAddCoacheeModal = openAddCoacheeModal;
-  window.showFictionalCoacheesOptions = showFictionalCoacheesOptions;
+// ⚠️ IMPORTANT: Rendre les fonctions globales pour le HTML
+window.openAddCoacheeModal = openAddCoacheeModal;
+window.showFictionalCoacheesOptions = showFictionalCoacheesOptions;
+window.editCoachee = editCoachee;
+window.saveCoacheeChanges = saveCoacheeChanges;
   
 }); // Fin du DOMContentLoaded
