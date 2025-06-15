@@ -670,19 +670,73 @@ let currentEditingCoacheeId = null;
 
 // 🔧 FONCTION POUR OUVRIR LE MODAL DE MODIFICATION
 function editCoachee(coacheeId) {
-  console.log('Modification du coaché:', coacheeId);
+  console.log('🚀 DÉBUT modification du coaché:', coacheeId);
   
   const card = document.querySelector(`[data-coachee-id="${coacheeId}"]`);
   if (!card) {
+    console.log('❌ Carte non trouvée');
     alert('Coaché non trouvé');
     return;
   }
+  console.log('✅ Carte trouvée');
   
-  // Récupérer les données actuelles
-  const name = card.querySelector('.coachee-name').textContent;
-  const position = card.querySelector('.coachee-position').textContent;
-  const status = card.querySelector('.coachee-status').textContent;
-  const currentStage = card.querySelector('.current-stage span').textContent;
+  // 🔧 RÉCUPÉRATION ULTRA-ROBUSTE avec multiples sélecteurs
+  function getTextSafely(selectors) {
+    for (let selector of selectors) {
+      const element = card.querySelector(selector);
+      if (element && element.textContent) {
+        return element.textContent.trim();
+      }
+    }
+    return null;
+  }
+  
+  // Essayer différents sélecteurs pour chaque champ
+  const name = getTextSafely([
+    '.coachee-name',
+    'h3.coachee-name', 
+    '.coachee-body h3',
+    'h3'
+  ]) || 'Nom inconnu';
+  
+  const position = getTextSafely([
+    '.coachee-position',
+    'p.coachee-position',
+    '.coachee-body p',
+    '.coachee-body p:first-of-type'
+  ]) || 'Poste inconnu';
+  
+  const status = getTextSafely([
+    '.coachee-status',
+    '.status',
+    '[class*="status"]'
+  ]) || 'Actif';
+  
+  const currentStage = getTextSafely([
+    '.current-stage span',
+    '.current-stage',
+    '[class*="stage"] span',
+    '[class*="stage"]'
+  ]) || 'Diagnostic Initial';
+  
+  console.log('📋 Données récupérées:', { name, position, status, currentStage });
+  
+  // Validation des données critiques
+  if (name === 'Nom inconnu' || position === 'Poste inconnu') {
+    console.log('⚠️ Données manquantes détectées');
+    
+    // Debug approfondi
+    console.log('🔍 Structure de la carte:');
+    console.log('Nom trouvé avec .coachee-name:', card.querySelector('.coachee-name'));
+    console.log('Position trouvée avec .coachee-position:', card.querySelector('.coachee-position'));
+    console.log('HTML de la carte:', card.innerHTML.substring(0, 200) + '...');
+    
+    // Continuer quand même si au moins le nom est trouvé
+    if (name === 'Nom inconnu') {
+      alert('Impossible de récupérer les données de ce coaché. Structure HTML incompatible.');
+      return;
+    }
+  }
   
   // Mapper l'étape actuelle vers le numéro
   const stageMapping = {
@@ -699,22 +753,55 @@ function editCoachee(coacheeId) {
   };
   
   const stageNumber = stageMapping[currentStage] || '1';
+  console.log('🎯 Étape mappée:', currentStage, '->', stageNumber);
   
-  // Remplir le formulaire de modification
-  document.getElementById('edit-coachee-name').value = name;
-  document.getElementById('edit-coachee-position').value = position;
-  document.getElementById('edit-coachee-email').value = ''; // Email pas stocké actuellement
-  document.getElementById('edit-coachee-status').value = status;
-  document.getElementById('edit-coachee-stage').value = stageNumber;
-  document.getElementById('edit-coachee-notes').value = '';
+  // Vérifier que le modal existe
+  const modal = document.getElementById('edit-coachee-modal');
+  if (!modal) {
+    console.log('❌ Modal de modification non trouvé');
+    alert('Modal de modification non trouvé. Avez-vous ajouté le HTML du modal ?');
+    return;
+  }
+  console.log('✅ Modal trouvé');
+  
+  // Remplir le formulaire de modification avec vérifications
+  const formElements = [
+    { id: 'edit-coachee-name', value: name },
+    { id: 'edit-coachee-position', value: position },
+    { id: 'edit-coachee-email', value: '' },
+    { id: 'edit-coachee-status', value: status },
+    { id: 'edit-coachee-stage', value: stageNumber },
+    { id: 'edit-coachee-notes', value: '' }
+  ];
+  
+  let allFieldsOk = true;
+  formElements.forEach(({ id, value }) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.value = value;
+      console.log(`✅ Rempli ${id}:`, value);
+    } else {
+      console.log(`❌ Élément non trouvé: ${id}`);
+      allFieldsOk = false;
+    }
+  });
+  
+  if (!allFieldsOk) {
+    alert('Erreur: Certains champs du formulaire sont manquants');
+    return;
+  }
   
   // Stocker l'ID du coaché en cours de modification
   currentEditingCoacheeId = coacheeId;
+  console.log('💾 ID stocké:', currentEditingCoacheeId);
   
   // Ouvrir le modal
-  const modal = document.getElementById('edit-coachee-modal');
-  if (modal) {
+  try {
     modal.style.display = 'flex';
+    console.log('🎉 Modal ouvert avec succès pour:', coacheeId);
+  } catch (error) {
+    console.log('💥 Erreur ouverture modal:', error);
+    alert('Erreur lors de l\'ouverture du modal');
   }
 }
 
