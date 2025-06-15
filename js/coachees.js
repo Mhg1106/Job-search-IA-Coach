@@ -662,25 +662,13 @@ let currentEditingCoacheeId = null;
   
   // Ouvrir le modal
   try {
-    editmodal.style.display = 'flex';
+  editModal.style.display = 'flex';
     console.log('🎉 Modal ouvert avec succès pour:', coacheeId);
   } catch (error) {
     console.log('💥 Erreur ouverture modal:', error);
     alert('Erreur lors de l\'ouverture du modal');
   }
 }
-  console.log('✅ Carte trouvée');
-  
-  // 🔧 RÉCUPÉRATION ULTRA-ROBUSTE avec multiples sélecteurs
-  function getTextSafely(selectors) {
-    for (let selector of selectors) {
-      const element = card.querySelector(selector);
-      if (element && element.textContent) {
-        return element.textContent.trim();
-      }
-    }
-    return null;
-  }
   
   // Essayer différents sélecteurs pour chaque champ
   const name = getTextSafely([
