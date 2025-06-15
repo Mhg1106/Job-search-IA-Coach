@@ -213,9 +213,6 @@
                         <div class="card mb-4">
                             <div class="card-header d-flex justify-content-between align-items-center">
                                 <h5><i class="fas fa-user-circle text-primary"></i> Profil du Coaché</h5>
-                                <button class="btn btn-sm btn-outline-primary" onclick="editProfile()">
-                                    <i class="fas fa-edit"></i> Modifier
-                                </button>
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -655,10 +652,6 @@ function startSession() {
     const coachedName = urlParams.get('name');
     
     window.location.href = `session.html?name=${encodeURIComponent(coachedName)}&step=1`;
-}
-
-function editProfile() {
-    alert('Fonctionnalité d\'édition du profil à développer');
 }
 
 function saveCoachNotes() {
