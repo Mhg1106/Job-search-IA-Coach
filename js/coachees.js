@@ -656,50 +656,6 @@ let currentEditingCoacheeId = null;
     editModal.style.display = 'flex';
   }
   
-  // Stocker l'ID du coaché en cours de modification
-  currentEditingCoacheeId = coacheeId;
-  console.log('💾 ID stocké:', currentEditingCoacheeId);
-  
-  // Ouvrir le modal
-  try {
-  editModal.style.display = 'flex';
-    console.log('🎉 Modal ouvert avec succès pour:', coacheeId);
-  } catch (error) {
-    console.log('💥 Erreur ouverture modal:', error);
-    alert('Erreur lors de l\'ouverture du modal');
-  }
-}
-  
-  // Essayer différents sélecteurs pour chaque champ
-  const name = getTextSafely([
-    '.coachee-name',
-    'h3.coachee-name', 
-    '.coachee-body h3',
-    'h3'
-  ]) || 'Nom inconnu';
-  
-  const position = getTextSafely([
-    '.coachee-position',
-    'p.coachee-position',
-    '.coachee-body p',
-    '.coachee-body p:first-of-type'
-  ]) || 'Poste inconnu';
-  
-  const status = getTextSafely([
-    '.coachee-status',
-    '.status',
-    '[class*="status"]'
-  ]) || 'Actif';
-  
-  const currentStage = getTextSafely([
-    '.current-stage span',
-    '.current-stage',
-    '[class*="stage"] span',
-    '[class*="stage"]'
-  ]) || 'Diagnostic Initial';
-  
-  console.log('📋 Données récupérées:', { name, position, status, currentStage });
-  
   // Validation des données critiques
   if (name === 'Nom inconnu' || position === 'Poste inconnu') {
     console.log('⚠️ Données manquantes détectées');
