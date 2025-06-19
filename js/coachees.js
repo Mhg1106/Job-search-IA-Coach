@@ -550,22 +550,27 @@ function exportCoachee(coacheeId) {
   alert(`Fonction Exporter pour ${coacheeId} - À implémenter`);
 }
 
+// Fichier : coachees.js
+
 function deleteCoachee(coacheeId) {
-    if (confirm(`Êtes-vous sûr de vouloir supprimer ce coaché ?`)) {
+    if (confirm(`Êtes-vous sûr de vouloir supprimer ce coaché ? L'action est irréversible.`)) {
         
-        // --- ÉTAPE 1 : MODIFIER LES DONNÉES ---
-        // On récupère la liste complète des coachés depuis le localStorage.
-        let allCoachees = JSON.parse(localStorage.getItem('coachees')) || [];
+        // --- ÉTAPE 1 : MODIFIER LES DONNÉES EN UTILISANT LA BONNE CLÉ ---
+        
+        // Clé de sauvegarde CORRECTE, utilisée partout dans votre application.
+        const storageKey = 'job-coach-coachees'; 
+
+        // On récupère la liste complète des coachés depuis la bonne clé.
+        let allCoachees = JSON.parse(localStorage.getItem(storageKey)) || [];
 
         // On crée une nouvelle liste qui contient tous les coachés SAUF celui qu'on veut supprimer.
-        // On filtre en se basant sur l'identifiant unique (ID).
         const updatedCoachees = allCoachees.filter(coachee => coachee.id !== coacheeId);
 
-        // On sauvegarde cette nouvelle liste (mise à jour) dans le localStorage.
-        // C'est maintenant la nouvelle "source de vérité".
-        localStorage.setItem('coachees', JSON.stringify(updatedCoachees));
+        // On sauvegarde cette nouvelle liste (mise à jour) dans la bonne clé.
+        localStorage.setItem(storageKey, JSON.stringify(updatedCoachees));
 
         // --- ÉTAPE 2 : METTRE À JOUR L'AFFICHAGE ---
+        
         // On recherche la carte à supprimer dans le document HTML.
         const card = document.querySelector(`[data-coachee-id="${coacheeId}"]`);
         if (card) {
@@ -575,11 +580,6 @@ function deleteCoachee(coacheeId) {
 
         // On affiche une alerte pour confirmer le succès de l'opération.
         alert(`Le coaché a été supprimé avec succès.`);
-        
-        // Optionnel mais recommandé :
-        // Si vous avez une fonction qui met à jour les stats (ex: nombre de coachés),
-        // appelez-la ici.
-        // updateDashboard();
     }
 }
 
