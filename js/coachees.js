@@ -551,18 +551,36 @@ function exportCoachee(coacheeId) {
 }
 
 function deleteCoachee(coacheeId) {
-  if (confirm(`Êtes-vous sûr de vouloir supprimer ce coaché ?`)) {
-    const card = document.querySelector(`[data-coachee-id="${coacheeId}"]`);
-    if (card) {
-      const name = card.querySelector('.coachee-name').textContent;
-      card.remove();
-      
-      // 🆕 SAUVEGARDER APRÈS SUPPRESSION
-      saveCoacheesToStorage();
-      
-      alert(`${name} a été supprimé.`);
+    if (confirm(`Êtes-vous sûr de vouloir supprimer ce coaché ?`)) {
+        
+        // --- ÉTAPE 1 : MODIFIER LES DONNÉES ---
+        // On récupère la liste complète des coachés depuis le localStorage.
+        let allCoachees = JSON.parse(localStorage.getItem('coachees')) || [];
+
+        // On crée une nouvelle liste qui contient tous les coachés SAUF celui qu'on veut supprimer.
+        // On filtre en se basant sur l'identifiant unique (ID).
+        const updatedCoachees = allCoachees.filter(coachee => coachee.id !== coacheeId);
+
+        // On sauvegarde cette nouvelle liste (mise à jour) dans le localStorage.
+        // C'est maintenant la nouvelle "source de vérité".
+        localStorage.setItem('coachees', JSON.stringify(updatedCoachees));
+
+        // --- ÉTAPE 2 : METTRE À JOUR L'AFFICHAGE ---
+        // On recherche la carte à supprimer dans le document HTML.
+        const card = document.querySelector(`[data-coachee-id="${coacheeId}"]`);
+        if (card) {
+            // On la supprime de l'affichage pour un effet immédiat.
+            card.remove();
+        }
+
+        // On affiche une alerte pour confirmer le succès de l'opération.
+        alert(`Le coaché a été supprimé avec succès.`);
+        
+        // Optionnel mais recommandé :
+        // Si vous avez une fonction qui met à jour les stats (ex: nombre de coachés),
+        // appelez-la ici.
+        // updateDashboard();
     }
-  }
 }
 
 function startSession(name, step) {
