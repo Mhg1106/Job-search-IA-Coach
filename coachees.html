@@ -156,148 +156,6 @@
       <i class="fas fa-folder-open mr-1"></i> Dossier
     </button>
   </div>
-  
-  <!-- Menu contextuel (caché par défaut) -->
-  <div id="menu-marie-dupont" class="coachee-menu absolute right-4 top-16 bg-white border border-gray-200 rounded-lg shadow-lg z-10 hidden">
-    <button onclick="editCoachee('marie-dupont')" class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">
-      <i class="fas fa-edit mr-2 text-blue-600"></i>Modifier
-    </button>
-    <button onclick="duplicateCoachee('marie-dupont')" class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">
-      <i class="fas fa-copy mr-2 text-green-600"></i>Dupliquer
-    </button>
-    <button onclick="exportCoachee('marie-dupont')" class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">
-      <i class="fas fa-download mr-2 text-purple-600"></i>Exporter
-    </button>
-    <hr class="my-1">
-    <button onclick="deleteCoachee('marie-dupont')" class="block w-full text-left px-4 py-2 text-sm hover:bg-red-50 text-red-600">
-      <i class="fas fa-trash mr-2"></i>Supprimer
-    </button>
-  </div>
-</div>
-            
-<!-- Carte coaché 2 - Thomas Martin -->
-<div class="coachee-card bg-white rounded-lg shadow-md overflow-hidden" data-coachee-id="thomas-martin">
-  <div class="coachee-header flex justify-between items-center p-4 bg-gray-50 border-b border-gray-200">
-    <div class="coachee-avatar w-10 h-10 rounded-full flex items-center justify-center text-white font-bold" style="background-color: #E67E22;">TM</div>
-    <div class="flex items-center gap-2">
-      <!-- Badge fictif (conditionnel) -->
-      <div class="fictional-badge px-2 py-1 text-xs rounded-full bg-orange-100 text-orange-800" style="display: none;">Fictif</div>
-      <div class="coachee-status px-2 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800">En attente</div>
-    </div>
-    <div class="coachee-actions flex gap-1">
-      <button onclick="editCoachee('thomas-martin')" class="btn-icon w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200" title="Modifier">
-        <i class="fas fa-edit"></i>
-      </button>
-      <button onclick="toggleCoacheeMenu('thomas-martin')" class="btn-icon w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200" title="Plus d'options">
-        <i class="fas fa-ellipsis-v"></i>
-      </button>
-    </div>
-  </div>
-  <div class="coachee-body p-4">
-    <h3 class="coachee-name text-lg font-bold mb-1">Thomas Martin</h3>
-    <p class="coachee-position text-sm text-gray-600 mb-3">Développement Web</p>
-    <div class="progress-container h-2 bg-gray-200 rounded-full overflow-hidden mb-3">
-      <div class="progress-bar h-full bg-gradient-to-r from-blue-500 to-purple-500 relative" style="width: 40%;">
-        <span class="absolute right-0 top-0 transform translate-y-4 text-xs text-gray-600">4/10</span>
-      </div>
-    </div>
-    <p class="current-stage flex items-center text-sm text-gray-700 mb-2">
-      <i class="fas fa-tasks mr-2 text-gray-500"></i>
-      <span>Analyse CV</span>
-    </p>
-    <p class="last-activity flex items-center text-sm text-gray-700">
-      <i class="fas fa-clock mr-2 text-gray-500"></i>
-      <span>Dernière activité : Hier, 14:45</span>
-    </p>
-  </div>
-  <div class="coachee-footer flex justify-between p-4 border-t border-gray-200 bg-gray-50">
-    <button onclick="startSession('Thomas Martin', '4')" class="btn-action flex items-center px-3 py-1 text-sm bg-blue-500 hover:bg-blue-600 text-white rounded">
-      <i class="fas fa-play mr-1"></i> Session
-    </button>
-    <button onclick="openDossier('Thomas Martin')" class="btn-action flex items-center px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 rounded">
-      <i class="fas fa-folder-open mr-1"></i> Dossier
-    </button>
-  </div>
-  
-  <!-- Menu contextuel (caché par défaut) -->
-  <div id="menu-thomas-martin" class="coachee-menu absolute right-4 top-16 bg-white border border-gray-200 rounded-lg shadow-lg z-10 hidden">
-    <button onclick="editCoachee('thomas-martin')" class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">
-      <i class="fas fa-edit mr-2 text-blue-600"></i>Modifier
-    </button>
-    <button onclick="duplicateCoachee('thomas-martin')" class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">
-      <i class="fas fa-copy mr-2 text-green-600"></i>Dupliquer
-    </button>
-    <button onclick="exportCoachee('thomas-martin')" class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">
-      <i class="fas fa-download mr-2 text-purple-600"></i>Exporter
-    </button>
-    <hr class="my-1">
-    <button onclick="deleteCoachee('thomas-martin')" class="block w-full text-left px-4 py-2 text-sm hover:bg-red-50 text-red-600">
-      <i class="fas fa-trash mr-2"></i>Supprimer
-    </button>
-  </div>
-</div>
-            
-<!-- Carte coaché 3 - Sophie Laurent -->
-<div class="coachee-card bg-white rounded-lg shadow-md overflow-hidden" data-coachee-id="sophie-laurent">
-  <div class="coachee-header flex justify-between items-center p-4 bg-gray-50 border-b border-gray-200">
-    <div class="coachee-avatar w-10 h-10 rounded-full flex items-center justify-center text-white font-bold" style="background-color: #9B59B6;">SL</div>
-    <div class="flex items-center gap-2">
-      <!-- Badge fictif (conditionnel) -->
-      <div class="fictional-badge px-2 py-1 text-xs rounded-full bg-orange-100 text-orange-800" style="display: none;">Fictif</div>
-      <div class="coachee-status px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Actif</div>
-    </div>
-    <div class="coachee-actions flex gap-1">
-      <button onclick="editCoachee('sophie-laurent')" class="btn-icon w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200" title="Modifier">
-        <i class="fas fa-edit"></i>
-      </button>
-      <button onclick="toggleCoacheeMenu('sophie-laurent')" class="btn-icon w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200" title="Plus d'options">
-        <i class="fas fa-ellipsis-v"></i>
-      </button>
-    </div>
-  </div>
-  <div class="coachee-body p-4">
-    <h3 class="coachee-name text-lg font-bold mb-1">Sophie Laurent</h3>
-    <p class="coachee-position text-sm text-gray-600 mb-3">Chef de Projet</p>
-    <div class="progress-container h-2 bg-gray-200 rounded-full overflow-hidden mb-3">
-      <div class="progress-bar h-full bg-gradient-to-r from-blue-500 to-purple-500 relative" style="width: 10%;">
-        <span class="absolute right-0 top-0 transform translate-y-4 text-xs text-gray-600">1/10</span>
-      </div>
-    </div>
-    <p class="current-stage flex items-center text-sm text-gray-700 mb-2">
-      <i class="fas fa-tasks mr-2 text-gray-500"></i>
-      <span>Diagnostic Initial</span>
-    </p>
-    <p class="last-activity flex items-center text-sm text-gray-700">
-      <i class="fas fa-clock mr-2 text-gray-500"></i>
-      <span>Dernière activité : 23/05/2025, 11:15</span>
-    </p>
-  </div>
-  <div class="coachee-footer flex justify-between p-4 border-t border-gray-200 bg-gray-50">
-    <button onclick="startSession('Sophie Laurent', '1')" class="btn-action flex items-center px-3 py-1 text-sm bg-blue-500 hover:bg-blue-600 text-white rounded">
-      <i class="fas fa-play mr-1"></i> Session
-    </button>
-    <button onclick="openDossier('Sophie Laurent')" class="btn-action flex items-center px-3 py-1 text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 rounded">
-      <i class="fas fa-folder-open mr-1"></i> Dossier
-    </button>
-  </div>
-  
-  <!-- Menu contextuel (caché par défaut) -->
-  <div id="menu-sophie-laurent" class="coachee-menu absolute right-4 top-16 bg-white border border-gray-200 rounded-lg shadow-lg z-10 hidden">
-    <button onclick="editCoachee('sophie-laurent')" class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">
-      <i class="fas fa-edit mr-2 text-blue-600"></i>Modifier
-    </button>
-    <button onclick="duplicateCoachee('sophie-laurent')" class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">
-      <i class="fas fa-copy mr-2 text-green-600"></i>Dupliquer
-    </button>
-    <button onclick="exportCoachee('sophie-laurent')" class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">
-      <i class="fas fa-download mr-2 text-purple-600"></i>Exporter
-    </button>
-    <hr class="my-1">
-    <button onclick="deleteCoachee('sophie-laurent')" class="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 text-red-600">
-      <i class="fas fa-trash mr-2"></i>Supprimer
-    </button>
-  </div>
-</div>
       
       <!-- Modal d'ajout d'un nouveau coaché (caché par défaut) -->
       <div id="add-coachee-modal" class="modal hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
@@ -406,6 +264,9 @@
 
   <script src="js/coachees.js"></script>
 
+<div id="coachees-container" class="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    </div>
+    
 <!-- Modal Ajouter/Modifier Coaché -->
 <div id="coacheeModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
     <div class="bg-white rounded-lg p-6 w-full max-w-md mx-4 max-h-screen overflow-y-auto">
