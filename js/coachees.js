@@ -552,35 +552,55 @@ function exportCoachee(coacheeId) {
 
 // Fichier : coachees.js
 
+// VERSION DE DÉBOGAGE - À utiliser maintenant
 function deleteCoachee(coacheeId) {
-    if (confirm(`Êtes-vous sûr de vouloir supprimer ce coaché ? L'action est irréversible.`)) {
-        
-        // --- ÉTAPE 1 : MODIFIER LES DONNÉES EN UTILISANT LA BONNE CLÉ ---
-        
-        // Clé de sauvegarde CORRECTE, utilisée partout dans votre application.
-        const storageKey = 'job-coach-coachees'; 
+    console.clear(); // Nettoie la console pour plus de clarté
+    console.log("--- DÉBUT DU DÉBOGAGE DE SUPPRESSION ---");
+    console.log("ID reçu depuis le bouton HTML:", coacheeId);
+    console.log("Type de l'ID reçu:", typeof coacheeId);
 
-        // On récupère la liste complète des coachés depuis la bonne clé.
-        let allCoachees = JSON.parse(localStorage.getItem(storageKey)) || [];
+    const storageKey = 'job-coach-coachees';
+    const rawData = localStorage.getItem(storageKey);
 
-        // On crée une nouvelle liste qui contient tous les coachés SAUF celui qu'on veut supprimer.
+    if (!rawData) {
+        console.error("ERREUR CRITIQUE : Aucune donnée trouvée dans localStorage avec la clé:", storageKey);
+        return;
+    }
+
+    let allCoachees = JSON.parse(rawData);
+
+    console.log("Données complètes récupérées depuis localStorage:", allCoachees);
+    console.log("Liste de tous les IDs présents dans les données:", allCoachees.map(c => c.id));
+
+    // On cherche le coaché avant de filtrer
+    const coacheeToFind = allCoachees.find(coachee => coachee.id === coacheeId);
+
+    if (coacheeToFind) {
+        console.log("✅ SUCCÈS : Le coaché a été trouvé dans les données !", coacheeToFind);
+    } else {
+        console.error("❌ ÉCHEC : Le coaché avec l'ID '" + coacheeId + "' N'A PAS ÉTÉ TROUVÉ dans la liste des IDs. La suppression va échouer.");
+    }
+
+    if (confirm(`Êtes-vous sûr de vouloir supprimer ce coaché ?`)) {
         const updatedCoachees = allCoachees.filter(coachee => coachee.id !== coacheeId);
 
-        // On sauvegarde cette nouvelle liste (mise à jour) dans la bonne clé.
+        console.log("Nombre de coachés avant filtre:", allCoachees.length);
+        console.log("Nombre de coachés après filtre:", updatedCoachees.length);
+
         localStorage.setItem(storageKey, JSON.stringify(updatedCoachees));
 
-        // --- ÉTAPE 2 : METTRE À JOUR L'AFFICHAGE ---
-        
-        // On recherche la carte à supprimer dans le document HTML.
         const card = document.querySelector(`[data-coachee-id="${coacheeId}"]`);
         if (card) {
-            // On la supprime de l'affichage pour un effet immédiat.
             card.remove();
+            console.log("La carte a été supprimée de l'affichage.");
+        } else {
+            console.error("Impossible de trouver la carte à supprimer de l'affichage.");
         }
-
-        // On affiche une alerte pour confirmer le succès de l'opération.
-        alert(`Le coaché a été supprimé avec succès.`);
+        alert(`Opération de suppression terminée.`);
+    } else {
+        console.log("Suppression annulée par l'utilisateur.");
     }
+    console.log("--- FIN DU DÉBOGAGE ---");
 }
 
 function startSession(name, step) {
