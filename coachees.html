@@ -7,95 +7,88 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
     <link rel="stylesheet" href="css/main.css">
+    <style>
+        .app-container { display: flex; min-height: 100vh; }
+        .sidebar { width: 250px; background-color: #1f2937; color: white; padding: 1rem; position: fixed; height: 100vh; overflow-y: auto; z-index: 1000; }
+        .sidebar-header h2 { color: white; font-size: 1.2rem; margin-bottom: 2rem; font-weight: 600; }
+        .sidebar-nav { list-style: none; padding: 0; margin: 0; }
+        .sidebar-nav .nav-item { display: flex; align-items: center; color: #d1d5db; text-decoration: none; padding: 0.75rem 1rem; margin-bottom: 0.5rem; border-radius: 0.5rem; transition: all 0.2s ease; }
+        .sidebar-nav .nav-item:hover { background-color: #374151; color: white; text-decoration: none; }
+        .sidebar-nav .nav-item.active { background-color: #3b82f6; color: white; }
+        .sidebar-nav .nav-item i { margin-right: 0.75rem; width: 20px; text-align: center; }
+        .main-content { margin-left: 250px; flex: 1; padding: 2rem; background-color: #f9fafb; }
+        .content-header { background: white; padding: 2rem; border-radius: 0.5rem; margin-bottom: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        @media (max-width: 768px) {
+            .app-container { flex-direction: column; }
+            .sidebar { width: 100%; position: relative; height: auto; }
+            .main-content { margin-left: 0; }
+        }
+    </style>
 </head>
-<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+<body>
 
-    <div class="flex flex-col md:flex-row">
-        <nav aria-label="alternative nav">
-            <div class="bg-gray-800 shadow-xl h-20 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48 content-center">
-                <div class="md:mt-12 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between">
-                    <ul class="list-reset flex flex-row md:flex-col pt-3 md:py-3 px-1 md:px-2 text-center md:text-left">
-                        <li class="mr-3 flex-1">
-                            <a href="index.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-blue-500">
-                                <i class="fas fa-chart-area pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Tableau de bord</span>
-                            </a>
-                        </li>
-                        <li class="mr-3 flex-1">
-                            <a href="prompts-library.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-green-500">
-                                <i class="fas fa-comment-alt pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Prompts IA</span>
-                            </a>
-                        </li>
-                        <li class="mr-3 flex-1">
-                            <a href="coachees.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-purple-600">
-                                <i class="fas fa-users pr-0 md:pr-3 text-purple-600"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-white md:text-white block md:inline-block">Mes coachés</span>
-                            </a>
-                        </li>
-                        <li class="mr-3 flex-1">
-                            <a href="resources.html" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-red-500">
-                                <i class="fas fa-book pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Ressources</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+    <div class="app-container">
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-briefcase mr-3"></i>Job Search IA Coach</h2>
             </div>
-        </nav>
+            <nav class="sidebar-nav">
+                <a href="index.html" class="nav-item"><i class="fas fa-chart-line"></i><span>Tableau de bord</span></a>
+                <a href="prompts-library.html" class="nav-item"><i class="fas fa-robot"></i><span>Prompts IA</span></a>
+                <a href="coachees.html" class="nav-item active"><i class="fas fa-users"></i><span>Mes coachés</span></a>
+                <a href="resources.html" class="nav-item"><i class="fas fa-folder"></i><span>Ressources</span></a>
+                <a href="calendrier.html" class="nav-item"><i class="fas fa-calendar-alt"></i><span>Calendrier</span></a>
+                <a href="prompt-test.html" class="nav-item"><i class="fas fa-cog"></i><span>Test des Prompts</span></a>
+            </nav>
+        </div>
 
-        <div id="main" class="main-content flex-1 bg-gray-100 pb-24 md:pb-5">
-            <div class="bg-gray-800 pt-3">
-                <div class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white">
-                    <h1 class="font-bold pl-2">Mes Coachés</h1>
-                </div>
+        <div class="main-content">
+            <div class="content-header">
+                <h1 class="text-3xl font-bold text-gray-800">Mes Coachés</h1>
+                <p class="text-gray-500">Gérez la liste de vos coachés et suivez leur progression.</p>
             </div>
-            
-            <div class="p-6">
-                <div class="bg-white rounded-lg shadow-xl p-5">
-                    <div class="filters-container bg-gray-50 p-4 rounded-lg mb-6">
-                        <div class="flex flex-wrap gap-4 items-center justify-between">
-                            <div class="flex flex-wrap gap-4 items-center">
-                                </div>
-                            <div class="flex flex-wrap gap-3">
-                                <button onclick="openAddCoacheeModal()" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded flex items-center transition-colors">
-                                    <i class="fas fa-plus mr-2"></i>Ajouter un coaché
-                                </button>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div id="coachees-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        </div>
-                </div>
+            <div class="mb-6 flex justify-end">
+                <button id="add-coachee-btn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg flex items-center transition-colors shadow-lg">
+                    <i class="fas fa-plus mr-2"></i>Ajouter un coaché
+                </button>
             </div>
+
+            <div id="coachees-container" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                </div>
         </div>
     </div>
 
-    <div id="add-coachee-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
-        <div class="modal-content bg-white w-full max-w-md mx-4 rounded-lg shadow-xl">
-            <div class="flex justify-between items-center p-6 border-b border-gray-200">
-                <h2 id="modal-title" class="text-xl font-bold">Ajouter un nouveau coaché</h2>
-                <button onclick="closeCoacheeModal()" class="text-2xl cursor-pointer">&times;</button>
+    <div id="coachee-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="modal-content bg-white w-full max-w-md mx-auto rounded-lg shadow-xl">
+            <div class="flex justify-between items-center p-5 border-b border-gray-200">
+                <h2 id="modal-title" class="text-xl font-bold text-gray-800">Ajouter un nouveau coaché</h2>
+                <button id="close-modal-btn" class="text-2xl cursor-pointer text-gray-400 hover:text-gray-600">&times;</button>
             </div>
-            <form id="new-coachee-form" class="p-6">
+            <form id="coachee-form" class="p-5">
                 <input type="hidden" id="coachee-id">
-                <div class="form-group mb-4">
+                <div class="mb-4">
                     <label for="coachee-name" class="block text-sm font-medium text-gray-700 mb-1">Nom complet</label>
-                    <input type="text" id="coachee-name" required class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                    <input type="text" id="coachee-name" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                 </div>
-                <div class="form-group mb-4">
+                <div class="mb-4">
                     <label for="coachee-position" class="block text-sm font-medium text-gray-700 mb-1">Poste recherché</label>
-                    <input type="text" id="coachee-position" required class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                    <input type="text" id="coachee-position" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                 </div>
-                <div class="form-group mb-4">
+                <div class="mb-4">
                     <label for="coachee-start-date" class="block text-sm font-medium text-gray-700 mb-1">Date de début du coaching</label>
-                    <input type="date" id="coachee-start-date" required class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                    <input type="date" id="coachee-start-date" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500">
                 </div>
-                <div class="form-actions flex justify-end space-x-3">
-                    <button type="button" onclick="closeCoacheeModal()" class="cancel-btn px-4 py-2 text-gray-700 bg-gray-200 hover:bg-gray-300 rounded">Annuler</button>
-                    <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Sauvegarder</button>
+                <div class="flex justify-end space-x-3 pt-4 border-t border-gray-200">
+                    <button type="button" id="cancel-modal-btn" class="px-4 py-2 text-gray-700 bg-gray-200 hover:bg-gray-300 rounded-lg">Annuler</button>
+                    <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">Sauvegarder</button>
                 </div>
             </form>
         </div>
     </div>
 
+    <script src="js/data-storage.js"></script>
     <script src="js/coachees.js"></script>
+
 </body>
 </html>
