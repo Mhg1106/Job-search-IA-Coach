@@ -1,45 +1,1141 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prompts IA - Job-search IA & Coach</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
-    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
-    <link rel="stylesheet" href="css/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompts IA - Job-search IA & Coach</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <!-- SUPPRIMEZ toute autre ligne link rel="stylesheet" qui cause des 404 -->
 </head>
 <body class="bg-gray-100 font-sans leading-normal tracking-normal">
 
-    <div class="flex flex-col md:flex-row">
-        <nav aria-label="alternative nav">
-            <div class="bg-gray-800 shadow-xl h-20 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48 content-center">
-                <div class="md:mt-12 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between">
-                    <ul class="list-reset flex flex-row md:flex-col pt-3 md:py-3 px-1 md:px-2 text-center md:text-left">
-                        <li class="mr-3 flex-1">
-                            <a href="index.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-blue-500">
-                                <i class="fas fa-chart-area pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Tableau de bord</span>
-                            </a>
-                        </li>
-                        <li class="mr-3 flex-1">
-                            <a href="prompts-library.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-green-600">
-                                <i class="fas fa-comment-alt pr-0 md:pr-3 text-green-600"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-white md:text-white block md:inline-block">Prompts IA</span>
-                            </a>
-                        </li>
-                        <li class="mr-3 flex-1">
-                            <a href="coachees.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-purple-500">
-                                <i class="fas fa-users pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Mes coachés</span>
-                            </a>
-                        </li>
-                        <li class="mr-3 flex-1">
-                            <a href="resources.html" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-red-500">
-                                <i class="fas fa-book pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Ressources</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+  <div class="flex flex-col md:flex-row">
+    <!-- Navigation -->
+    <nav aria-label="alternative nav">
+        <div class="bg-gray-800 shadow-xl h-20 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48 content-center">
+            <div class="md:mt-12 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between">
+                <ul class="list-reset flex flex-row md:flex-col pt-3 md:py-3 px-1 md:px-2 text-center md:text-left">
+                    <li class="mr-3 flex-1">
+                        <a href="index.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-blue-500">
+                            <i class="fas fa-chart-area pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Tableau de bord</span>
+                        </a>
+                    </li>
+                    <li class="mr-3 flex-1">
+                        <a href="prompts-library.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-green-600">
+                            <i class="fas fa-comment-alt pr-0 md:pr-3 text-green-600"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-white md:text-white block md:inline-block">Prompts IA</span>
+                        </a>
+                    </li>
+                    <li class="mr-3 flex-1">
+                        <a href="coachees.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-purple-500">
+                            <i class="fas fa-users pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Mes coachés</span>
+                        </a>
+                    </li>
+                    <li class="mr-3 flex-1">
+                        <a href="resources.html" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-red-500">
+                            <i class="fas fa-book pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Ressources</span>
+                        </a>
+                    </li>
+                    <li class="mr-3 flex-1">
+                        <a href="prompt-test.html" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-yellow-500">
+                            <i class="fas fa-vial pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Test des Prompts</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-        <div id="main" class="main-content flex-1 bg-gray-100 pb-24 md:pb-5">
-            <div class="bg-gray-800 pt-3">
-                <div
+    <!-- Contenu principal -->
+    <div id="main" class="main-content flex-1 bg-gray-100 pb-24 md:pb-5">
+      <div class="bg-gray-800 pt-3">
+        <div class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white">
+          <h1 class="font-bold pl-2">Prompts IA Optimisés</h1>
+        </div>
+      </div>
+      
+      <div class="p-6">
+        <div class="bg-white rounded-lg shadow-xl p-5">
+          <p class="mb-6">Utilisez ces prompts optimisés pour chaque étape de votre accompagnement coaching.</p>
+          
+          <!-- Grille des prompts -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              
+              <!-- Prompt 1 -->
+              <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-green-500">
+                  <div class="flex justify-between items-center mb-3">
+                      <div class="text-xl font-bold">1. Diagnostic de Départ</div>
+                      <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">3-5 min</span>
+                  </div>
+                  <p class="text-sm text-gray-600 mb-4">Analyse de la situation du coaché et identification des axes de travail</p>
+                  <div class="text-xs text-gray-500 mb-4 italic line-clamp-3">
+                      Je suis un coach spécialisé en emploi et carrière. Je réalise un diagnostic initial pour [Nom du coaché], qui recherche un poste de [type de poste]...
+                  </div>
+                  <div class="flex flex-wrap gap-2 mt-4">
+                      <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm flex items-center">
+                          <i class="fas fa-play mr-1"></i> Utiliser
+                      </button>
+                      <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded text-sm flex items-center">
+                          <i class="fas fa-edit mr-1"></i> Modifier
+                      </button>
+                      <button class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm flex items-center open-in-chatgpt-btn" data-prompt-id="1">
+                          <i class="fas fa-external-link-alt mr-1"></i> Ouvrir dans ChatGPT
+                      </button>
+                      <button class="bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-sm flex items-center save-response-btn" data-prompt-id="1">
+                          <i class="fas fa-save mr-1"></i> Enregistrer réponse
+                      </button>
+                  </div>
+              </div>
+              
+              <!-- Prompt 2 -->
+              <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-blue-500">
+                  <div class="flex justify-between items-center mb-3">
+                      <div class="text-xl font-bold">2. Analyse du Marché</div>
+                      <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">4-6 min</span>
+                  </div>
+                  <p class="text-sm text-gray-600 mb-4">Étude des tendances et opportunités du marché ciblé</p>
+                  <div class="text-xs text-gray-500 mb-4 italic line-clamp-3">
+                      En tant que coach en recherche d'emploi, j'ai besoin d'une analyse complète du marché pour le secteur [secteur] dans lequel mon coaché recherche un poste...
+                  </div>
+                  <div class="flex flex-wrap gap-2 mt-4">
+                      <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm flex items-center">
+                          <i class="fas fa-play mr-1"></i> Utiliser
+                      </button>
+                      <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded text-sm flex items-center">
+                          <i class="fas fa-edit mr-1"></i> Modifier
+                      </button>
+                      <button class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm flex items-center open-in-chatgpt-btn" data-prompt-id="2">
+                          <i class="fas fa-external-link-alt mr-1"></i> Ouvrir dans ChatGPT
+                      </button>
+                      <button class="bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-sm flex items-center save-response-btn" data-prompt-id="2">
+                          <i class="fas fa-save mr-1"></i> Enregistrer réponse
+                      </button>
+                  </div>
+              </div>
+              
+              <!-- Prompt 3 -->
+              <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-purple-500">
+                  <div class="flex justify-between items-center mb-3">
+                      <div class="text-xl font-bold">3. Plan d'action détaillé</div>
+                      <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded">5-7 min</span>
+                  </div>
+                  <p class="text-sm text-gray-600 mb-4">Élaboration d'une stratégie personnalisée et étapes clés</p>
+                  <div class="text-xs text-gray-500 mb-4 italic line-clamp-3">
+                      Sur la base du diagnostic réalisé pour [Nom du coaché] qui recherche un poste de [type de poste], élabore un plan d'action concret et détaillé...
+                  </div>
+                  <div class="flex flex-wrap gap-2 mt-4">
+                      <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm flex items-center">
+                          <i class="fas fa-play mr-1"></i> Utiliser
+                      </button>
+                      <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded text-sm flex items-center">
+                          <i class="fas fa-edit mr-1"></i> Modifier
+                      </button>
+                      <button class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm flex items-center open-in-chatgpt-btn" data-prompt-id="3">
+                          <i class="fas fa-external-link-alt mr-1"></i> Ouvrir dans ChatGPT
+                      </button>
+                      <button class="bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-sm flex items-center save-response-btn" data-prompt-id="3">
+                          <i class="fas fa-save mr-1"></i> Enregistrer réponse
+                      </button>
+                  </div>
+              </div>
+              
+              <!-- Prompt 4 -->
+              <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-yellow-500">
+                  <div class="flex justify-between items-center mb-3">
+                      <div class="text-xl font-bold">4. Analyse CV</div>
+                      <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">4-5 min</span>
+                  </div>
+                  <p class="text-sm text-gray-600 mb-4">Optimisation du CV pour maximiser l'impact</p>
+                  <div class="text-xs text-gray-500 mb-4 italic line-clamp-3">
+                      Analyse le CV de [Nom du coaché] qui postule pour un poste de [type de poste]. Identifie les forces et faiblesses du CV...
+                  </div>
+                  <div class="flex flex-wrap gap-2 mt-4">
+                      <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm flex items-center">
+                          <i class="fas fa-play mr-1"></i> Utiliser
+                      </button>
+                      <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded text-sm flex items-center">
+                          <i class="fas fa-edit mr-1"></i> Modifier
+                      </button>
+                      <button class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm flex items-center open-in-chatgpt-btn" data-prompt-id="4">
+                          <i class="fas fa-external-link-alt mr-1"></i> Ouvrir dans ChatGPT
+                      </button>
+                      <button class="bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-sm flex items-center save-response-btn" data-prompt-id="4">
+                          <i class="fas fa-save mr-1"></i> Enregistrer réponse
+                      </button>
+                  </div>
+              </div>
+              
+              <!-- Prompt 5 -->
+              <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-red-500">
+                  <div class="flex justify-between items-center mb-3">
+                      <div class="text-xl font-bold">5. Recherche Entreprise</div>
+                      <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded">3-5 min</span>
+                  </div>
+                  <p class="text-sm text-gray-600 mb-4">Analyse approfondie d'une entreprise cible</p>
+                  <div class="text-xs text-gray-500 mb-4 italic line-clamp-3">
+                      Réalise une synthèse complète sur l'entreprise [Nom de l'entreprise] pour mon coaché qui souhaite y postuler...
+                  </div>
+                  <div class="flex flex-wrap gap-2 mt-4">
+                      <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm flex items-center">
+                          <i class="fas fa-play mr-1"></i> Utiliser
+                      </button>
+                      <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded text-sm flex items-center">
+                          <i class="fas fa-edit mr-1"></i> Modifier
+                      </button>
+                      <button class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm flex items-center open-in-chatgpt-btn" data-prompt-id="5">
+                          <i class="fas fa-external-link-alt mr-1"></i> Ouvrir dans ChatGPT
+                      </button>
+                      <button class="bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-sm flex items-center save-response-btn" data-prompt-id="5">
+                          <i class="fas fa-save mr-1"></i> Enregistrer réponse
+                      </button>
+                  </div>
+              </div>
+              
+              <!-- Prompt 6 -->
+              <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-indigo-500">
+                  <div class="flex justify-between items-center mb-3">
+                      <div class="text-xl font-bold">6. Matching CV / Offre</div>
+                      <span class="bg-indigo-100 text-indigo-800 text-xs px-2 py-1 rounded">4-6 min</span>
+                  </div>
+                  <p class="text-sm text-gray-600 mb-4">Analyse de compatibilité entre CV et offre d'emploi</p>
+                  <div class="text-xs text-gray-500 mb-4 italic line-clamp-3">
+                      Analyse le degré de matching entre le CV de [Nom du coaché] et l'offre d'emploi pour le poste de [intitulé du poste] chez [nom de l'entreprise]...
+                  </div>
+                  <div class="flex flex-wrap gap-2 mt-4">
+                      <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm flex items-center">
+                          <i class="fas fa-play mr-1"></i> Utiliser
+                      </button>
+                      <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded text-sm flex items-center">
+                          <i class="fas fa-edit mr-1"></i> Modifier
+                      </button>
+                      <button class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm flex items-center open-in-chatgpt-btn" data-prompt-id="6">
+                          <i class="fas fa-external-link-alt mr-1"></i> Ouvrir dans ChatGPT
+                      </button>
+                      <button class="bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-sm flex items-center save-response-btn" data-prompt-id="6">
+                          <i class="fas fa-save mr-1"></i> Enregistrer réponse
+                      </button>
+                  </div>
+              </div>
+              
+              <!-- Prompt 7 -->
+              <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-pink-500">
+                  <div class="flex justify-between items-center mb-3">
+                      <div class="text-xl font-bold">7. Lettre de Motivation</div>
+                      <span class="bg-pink-100 text-pink-800 text-xs px-2 py-1 rounded">5-7 min</span>
+                  </div>
+                  <p class="text-sm text-gray-600 mb-4">Création de lettres de motivation personnalisées</p>
+                  <div class="text-xs text-gray-500 mb-4 italic line-clamp-3">
+                      Rédige une lettre de motivation percutante pour [Nom du coaché] qui postule au poste de [intitulé du poste] chez [nom de l'entreprise]...
+                  </div>
+                  <div class="flex flex-wrap gap-2 mt-4">
+                      <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm flex items-center">
+                          <i class="fas fa-play mr-1"></i> Utiliser
+                      </button>
+                      <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded text-sm flex items-center">
+                          <i class="fas fa-edit mr-1"></i> Modifier
+                      </button>
+                      <button class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm flex items-center open-in-chatgpt-btn" data-prompt-id="7">
+                          <i class="fas fa-external-link-alt mr-1"></i> Ouvrir dans ChatGPT
+                      </button>
+                      <button class="bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-sm flex items-center save-response-btn" data-prompt-id="7">
+                          <i class="fas fa-save mr-1"></i> Enregistrer réponse
+                      </button>
+                  </div>
+              </div>
+              
+              <!-- Prompt 8 -->
+              <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-teal-500">
+                  <div class="flex justify-between items-center mb-3">
+                      <div class="text-xl font-bold">8. Ciblage Offres</div>
+                      <span class="bg-teal-100 text-teal-800 text-xs px-2 py-1 rounded">4-6 min</span>
+                  </div>
+                  <p class="text-sm text-gray-600 mb-4">Analyse et priorisation des offres d'emploi</p>
+                  <div class="text-xs text-gray-500 mb-4 italic line-clamp-3">
+                      Évalue le matching entre le profil de [Nom du coaché] et ces offres d'emploi. Classe-les par pertinence et suggère des adaptations...
+                  </div>
+                  <div class="flex flex-wrap gap-2 mt-4">
+                      <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm flex items-center">
+                          <i class="fas fa-play mr-1"></i> Utiliser
+                      </button>
+                      <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded text-sm flex items-center">
+                          <i class="fas fa-edit mr-1"></i> Modifier
+                      </button>
+                      <button class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm flex items-center open-in-chatgpt-btn" data-prompt-id="8">
+                          <i class="fas fa-external-link-alt mr-1"></i> Ouvrir dans ChatGPT
+                      </button>
+                      <button class="bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-sm flex items-center save-response-btn" data-prompt-id="8">
+                          <i class="fas fa-save mr-1"></i> Enregistrer réponse
+                      </button>
+                  </div>
+              </div>
+              
+              <!-- Prompt 9 -->
+              <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-orange-500">
+                  <div class="flex justify-between items-center mb-3">
+                      <div class="text-xl font-bold">9. Préparation Entretien</div>
+                      <span class="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded">5-7 min</span>
+                  </div>
+                  <p class="text-sm text-gray-600 mb-4">Préparation ciblée aux entretiens de recrutement</p>
+                  <div class="text-xs text-gray-500 mb-4 italic line-clamp-3">
+                      Génère une série de questions d'entretien pour [Nom du coaché] qui postule au poste de [intitulé du poste] chez [nom de l'entreprise]...
+                  </div>
+                  <div class="flex flex-wrap gap-2 mt-4">
+                      <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm flex items-center">
+                          <i class="fas fa-play mr-1"></i> Utiliser
+                      </button>
+                      <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded text-sm flex items-center">
+                          <i class="fas fa-edit mr-1"></i> Modifier
+                      </button>
+                      <button class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm flex items-center open-in-chatgpt-btn" data-prompt-id="9">
+                          <i class="fas fa-external-link-alt mr-1"></i> Ouvrir dans ChatGPT
+                      </button>
+                      <button class="bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-sm flex items-center save-response-btn" data-prompt-id="9">
+                          <i class="fas fa-save mr-1"></i> Enregistrer réponse
+                      </button>
+                  </div>
+              </div>
+              
+              <!-- Prompt 10 -->
+              <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-gray-500">
+                  <div class="flex justify-between items-center mb-3">
+                      <div class="text-xl font-bold">10. Bilan du Coaching</div>
+                      <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded">4-6 min</span>
+                  </div>
+                  <p class="text-sm text-gray-600 mb-4">Synthèse et analyse du parcours d'accompagnement</p>
+                  <div class="text-xs text-gray-500 mb-4 italic line-clamp-3">
+                      Réalise un bilan complet du coaching réalisé avec [Nom du coaché]. Analyse la progression, les points forts, les axes d'amélioration...
+                  </div>
+                  <div class="flex flex-wrap gap-2 mt-4">
+                      <button class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm flex items-center">
+                          <i class="fas fa-play mr-1"></i> Utiliser
+                      </button>
+                      <button class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded text-sm flex items-center">
+                          <i class="fas fa-edit mr-1"></i> Modifier
+                      </button>
+                      <button class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm flex items-center open-in-chatgpt-btn" data-prompt-id="10">
+                          <i class="fas fa-external-link-alt mr-1"></i> Ouvrir dans ChatGPT
+                      </button>
+                      <button class="bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-sm flex items-center save-response-btn" data-prompt-id="10">
+                          <i class="fas fa-save mr-1"></i> Enregistrer réponse
+                      </button>
+                  </div>
+              </div>
+              
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal pour enregistrer la réponse -->
+  <div id="responseModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+    <div class="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white">
+      <div class="mt-3">
+        <div class="flex justify-between items-center border-b pb-3">
+          <h3 class="text-lg font-medium text-gray-900">Enregistrer la réponse pour le prompt</h3>
+          <button type="button" class="close-modal text-gray-400 hover:text-gray-500">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        
+        <div class="mt-4">
+          <div class="mb-4">
+            <label for="promptTitle" class="block text-sm font-medium text-gray-700">Titre du prompt</label>
+            <input type="text" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="promptTitle" readonly>
+          </div>
+          
+          <div class="mb-4">
+            <label for="responseContent" class="block text-sm font-medium text-gray-700">Réponse de ChatGPT</label>
+            <textarea class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="responseContent" rows="15"></textarea>
+          </div>
+          
+          <div class="mb-4">
+            <label for="coachedSelect" class="block text-sm font-medium text-gray-700">Associer à un coaché</label>
+            <select class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="coachedSelect">
+              <!-- Options seront générées dynamiquement -->
+            </select>
+          </div>
+        </div>
+        
+        <div class="flex items-center justify-end mt-4">
+          <button type="button" class="close-modal bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded mr-2">Annuler</button>
+          <button type="button" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded" id="saveResponseBtn">Enregistrer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal pour Utiliser/Modifier les prompts -->
+  <div id="promptModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
+    <div class="relative top-10 mx-auto p-5 border w-11/12 md:w-4/5 lg:w-3/4 shadow-lg rounded-md bg-white">
+      <div class="mt-3">
+        <div class="flex justify-between items-center border-b pb-3">
+          <h3 class="text-lg font-medium text-gray-900" id="promptModalTitle">Prompt</h3>
+          <button type="button" class="close-prompt-modal text-gray-400 hover:text-gray-500">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        
+        <div class="mt-4">
+          <div class="mb-4">
+            <label for="promptTitleEdit" class="block text-sm font-medium text-gray-700">Titre du prompt</label>
+            <input type="text" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="promptTitleEdit">
+          </div>
+          
+          <div class="mb-4">
+            <label for="promptContentEdit" class="block text-sm font-medium text-gray-700">Contenu du prompt</label>
+            <textarea class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 font-mono text-sm" id="promptContentEdit" rows="20"></textarea>
+          </div>
+        </div>
+        
+        <div class="flex items-center justify-between mt-4">
+          <div id="promptActions">
+            <!-- Boutons dynamiques selon le mode -->
+          </div>
+          <div>
+            <button type="button" class="close-prompt-modal bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded mr-2">Fermer</button>
+            <button type="button" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded hidden" id="savePromptEdit">Sauvegarder</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Scripts -->
+
+<!-- Ajoutez le JavaScript intégré juste avant </body> -->
+<script>
+console.log('Script JavaScript intégré chargé');
+
+// VARIABLE GLOBALE - Données complètes des prompts
+let promptsData = {};
+
+// Attendre que le DOM soit complètement chargé
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM chargé, initialisation des gestionnaires...');
+    
+    // Initialiser après un délai pour s'assurer que tout est prêt
+    setTimeout(function() {
+        initializeButtons();
+    }, 500);
+});
+
+function initializeButtons() {
+    console.log('Initialisation des boutons...');
+    
+    // Initialiser les données des prompts
+    promptsData = {
+        '1': {
+            title: "Diagnostic de Départ",
+            content: `Je suis un coach spécialisé en emploi et carrière. Je réalise un diagnostic initial pour [Nom du coaché], qui recherche un poste de [type de poste].
+
+Sur la base des réponses au questionnaire suivant, je souhaite que tu établisses une synthèse structurée de sa situation, identifiant ses forces, axes d'amélioration, et les points prioritaires à travailler.
+
+Voici les réponses au questionnaire diagnostic :
+1. Formation et parcours académique : [réponse]
+2. Expérience professionnelle (principaux postes et durées) : [réponse]
+3. Compétences techniques principales : [réponse]
+4. Compétences comportementales (soft skills) : [réponse]
+5. Domaines/secteurs d'activité ciblés : [réponse]
+6. Types de postes recherchés : [réponse]
+7. Zone géographique souhaitée : [réponse]
+8. Prétentions salariales : [réponse]
+9. Critères prioritaires dans la recherche (ambiance, valeurs, télétravail, etc.) : [réponse]
+10. Canaux de recherche déjà utilisés : [réponse]
+11. Résultats actuels (nombre de candidatures, entretiens) : [réponse]
+12. Difficultés principales rencontrées : [réponse]
+13. Auto-évaluation de ses outils de recherche (CV, lettre, profil LinkedIn) sur 10 : [réponse]
+14. Objectif principal du coaching : [réponse]
+15. Temps hebdomadaire pouvant être consacré à sa recherche : [réponse]
+
+Ta synthèse doit inclure :
+1. Un résumé du profil et de la situation actuelle
+2. Une analyse des forces et atouts
+3. Les axes d'amélioration prioritaires
+4. Une évaluation de la cohérence du projet professionnel
+5. Des recommandations pour les prochaines étapes du coaching, en priorisant les actions
+6. Un plan d'action initial recommandé
+
+Présente ta réponse de manière professionnelle et encourageante, sans jugement, en adoptant une approche coach qui associe bienveillance et lucidité.`
+        },
+        '2': {
+            title: "Analyse du Marché",
+            content: `En tant que coach en recherche d'emploi, j'ai besoin d'une analyse complète du marché pour le secteur [secteur] dans lequel mon coaché recherche un poste de [type de poste]. Je souhaite obtenir une synthèse actuelle et pertinente pour l'aider à comprendre l'environnement professionnel et optimiser sa recherche.
+
+Fournissez une analyse détaillée incluant :
+
+1. État actuel du marché de l'emploi dans ce secteur :
+   - Tendances générales (croissance, stabilité, déclin)
+   - Impact des évolutions économiques et technologiques récentes
+   - Prévisions pour les 1-2 prochaines années
+
+2. Compétences recherchées :
+   - Compétences techniques essentielles pour le poste ciblé
+   - Soft skills particulièrement valorisées
+   - Certifications ou formations appréciées
+   - Compétences émergentes à développer
+
+3. Entreprises à cibler :
+   - Principaux employeurs dans ce secteur
+   - Entreprises en développement ou recrutement actif
+   - Startups prometteuses ou PME pertinentes
+   - Particularités des entreprises françaises dans ce domaine
+
+4. Processus de recrutement typiques :
+   - Canaux de recrutement privilégiés (sites spécialisés, plateformes, réseaux)
+   - Étapes courantes du processus de sélection
+   - Spécificités des entretiens dans ce secteur
+
+5. Rémunération :
+   - Fourchettes salariales pour ce type de poste
+   - Avantages complémentaires généralement proposés
+   - Facteurs influençant la négociation salariale
+
+6. Conseils stratégiques :
+   - Recommandations pour se démarquer des autres candidats
+   - Approches de networking efficaces spécifiques au secteur
+   - Préparation spécifique pour les entretiens
+
+Basez votre analyse sur le marché français actuel, tout en mentionnant les particularités régionales si pertinent. Présentez les informations de manière structurée et actionnable pour un candidat.`
+        },
+        '3': {
+            title: "Plan d'action détaillé",
+            content: `Sur la base du diagnostic réalisé pour [Nom du coaché] qui recherche un poste de [type de poste], élabore un plan d'action concret et détaillé sur 8 semaines pour structurer sa recherche d'emploi et maximiser ses chances de succès.
+
+Ce plan d'action doit :
+1. S'appuyer sur ses forces identifiées : [forces principales]
+2. Adresser ses axes d'amélioration prioritaires : [axes d'amélioration]
+3. Tenir compte de sa disponibilité de [X] heures par semaine
+4. Être organisé semaine par semaine avec des objectifs clairs et mesurables
+5. Inclure des actions concrètes et un calendrier réaliste
+
+Pour chaque semaine, précise :
+- Les objectifs spécifiques de la semaine
+- Les tâches prioritaires à accomplir (3-5 maximum)
+- Les outils ou ressources à mobiliser
+- Les livrables attendus
+- Un système simple de suivi de la progression
+
+Le plan doit couvrir les dimensions essentielles d'une recherche efficace :
+- Optimisation des outils de candidature (CV, lettre de motivation, profil LinkedIn)
+- Stratégie de ciblage des entreprises et des offres
+- Techniques de candidatures spontanées
+- Activation et développement du réseau professionnel
+- Préparation aux entretiens
+- Suivi des candidatures et relances
+- Stratégie de veille sur le marché
+
+Présente ce plan sous forme de calendrier structuré, avec des objectifs et tâches clairement définis pour chaque semaine. Utilise un ton motivant et directif. Veille à ce que le plan soit à la fois ambitieux et réaliste, adapté au profil et à la situation du coaché.`
+        },
+        '4': {
+            title: "Analyse CV",
+            content: `Analyse le CV de [Nom du coaché] qui postule pour un poste de [type de poste]. Identifie les forces et faiblesses du CV et propose des améliorations concrètes pour augmenter ses chances de succès.
+
+Voici le CV à analyser :
+[Coller ici le CV complet du candidat]
+
+Effectue une analyse complète selon les critères suivants :
+
+1. Structure et présentation :
+   - Lisibilité et mise en forme
+   - Organisation des informations
+   - Longueur et équilibre des sections
+   - Design et impact visuel
+
+2. Contenu et pertinence :
+   - Adéquation avec le poste ciblé
+   - Valorisation des expériences
+   - Mise en avant des compétences clés
+   - Cohérence du parcours
+
+3. Optimisation ATS (Applicant Tracking System) :
+   - Mots-clés du secteur
+   - Formatage compatible
+   - Structure lisible par les robots
+
+4. Points forts à maintenir :
+   - Éléments différenciants
+   - Expériences valorisantes
+   - Compétences recherchées
+
+5. Axes d'amélioration prioritaires :
+   - Sections à renforcer
+   - Informations manquantes
+   - Reformulations suggérées
+
+6. Recommandations concrètes :
+   - Modifications spécifiques à apporter
+   - Nouvelles sections à ajouter
+   - Éléments à supprimer ou raccourcir
+
+Fournis une note globale sur 10 et un plan d'action pour optimiser ce CV dans les 48h.`
+        },
+        '5': {
+            title: "Recherche Entreprise",
+            content: `Réalise une synthèse complète sur l'entreprise [Nom de l'entreprise] pour mon coaché qui souhaite y postuler. Cette recherche doit lui permettre de personnaliser sa candidature et de se préparer efficacement aux entretiens.
+
+Fournissez une analyse détaillée couvrant :
+
+1. Présentation générale :
+   - Secteur d'activité et positionnement
+   - Taille et implantations
+   - Histoire et évolution récente
+   - Chiffres clés (CA, effectifs, croissance)
+
+2. Business model et stratégie :
+   - Modèle économique
+   - Marchés et clients cibles
+   - Avantages concurrentiels
+   - Projets de développement
+
+3. Culture d'entreprise :
+   - Valeurs et mission
+   - Style de management
+   - Ambiance et environnement de travail
+   - Politique RH et avantages sociaux
+
+4. Actualités et enjeux :
+   - Actualités récentes (6 derniers mois)
+   - Défis et opportunités
+   - Projets en cours
+   - Évolutions du marché
+
+5. Opportunités pour le candidat :
+   - Pourquoi cette entreprise recrute
+   - Profils recherchés
+   - Évolutions possibles
+   - Compétences valorisées
+
+6. Conseils pour la candidature :
+   - Arguments à mettre en avant
+   - Motivations à exprimer
+   - Questions pertinentes à poser
+   - Pièges à éviter
+
+Termine par 3 raisons concrètes pour lesquelles [Nom du coaché] devrait rejoindre cette entreprise.`
+        },
+        '6': {
+            title: "Matching CV / Offre",
+            content: `Analyse le degré de matching entre le CV de [Nom du coaché] et l'offre d'emploi pour le poste de [intitulé du poste] chez [nom de l'entreprise].
+
+Voici l'offre d'emploi :
+[Coller ici le texte complet de l'offre]
+
+Voici le CV du candidat :
+[Coller ici le CV ou les éléments clés du CV]
+
+Effectue une analyse comparative détaillée :
+
+1. Score de compatibilité global (sur 100) avec justification
+
+2. Analyse des compétences :
+   - Compétences requises vs compétences du candidat
+   - Niveau de maîtrise pour chaque compétence
+   - Compétences manquantes critiques
+   - Compétences supplémentaires valorisantes
+
+3. Expérience professionnelle :
+   - Adéquation des expériences passées
+   - Niveau de séniorité requis vs acquis
+   - Secteurs d'activité en phase
+   - Responsabilités similaires
+
+4. Formation et certifications :
+   - Niveau d'études requis vs acquis
+   - Formations complémentaires nécessaires
+   - Certifications manquantes ou à valoriser
+
+5. Soft skills et savoir-être :
+   - Qualités humaines recherchées
+   - Fit culturel avec l'entreprise
+   - Style de management adapté
+
+6. Points forts du candidat pour ce poste :
+   - Éléments différenciants
+   - Expériences transférables
+   - Atouts concurrentiels
+
+7. Points d'amélioration :
+   - Lacunes à combler
+   - Formations à envisager
+   - Expériences à acquérir
+
+8. Recommandations pour optimiser la candidature :
+   - Adaptations du CV
+   - Arguments à développer en lettre de motivation
+   - Préparation spécifique pour l'entretien
+
+Conclus par un avis motivé : candidature à encourager ou non, et stratégie recommandée.`
+        },
+        '7': {
+            title: "Lettre de Motivation",
+            content: `Rédige une lettre de motivation percutante pour [Nom du coaché] qui postule au poste de [intitulé du poste] chez [nom de l'entreprise].
+
+Informations sur le candidat :
+- Profil : [résumé du profil professionnel]
+- Expériences clés : [principales expériences]
+- Motivations : [pourquoi ce poste/cette entreprise]
+- Compétences principales : [compétences à valoriser]
+
+Informations sur le poste :
+[Description du poste et exigences]
+
+Informations sur l'entreprise :
+[Contexte, valeurs, actualités de l'entreprise]
+
+Structure attendue :
+
+1. En-tête professionnel avec coordonnées
+
+2. Objet clair et accrocheur
+
+3. Paragraphe d'accroche (pourquoi ce poste vous intéresse)
+
+4. Paragraphe "ce que j'apporte" :
+   - Expériences pertinentes
+   - Compétences clés en lien avec le poste
+   - Réalisations concrètes et chiffrées
+
+5. Paragraphe "pourquoi cette entreprise" :
+   - Connaissance de l'entreprise
+   - Adéquation avec ses valeurs
+   - Vision commune des enjeux
+
+6. Paragraphe de conclusion :
+   - Motivation pour un entretien
+   - Disponibilité
+   - Formule de politesse
+
+Critères de qualité :
+- Personnalisée et non générique
+- Concise (1 page maximum)
+- Dynamique et positive
+- Sans fautes d'orthographe
+- Complémentaire au CV (ne pas répéter)
+- Axée sur la valeur ajoutée pour l'entreprise
+
+Génère 2 versions : une version classique et une version plus créative/moderne.`
+        },
+        '8': {
+            title: "Ciblage Offres",
+            content: `Évalue le matching entre le profil de [Nom du coaché] et ces offres d'emploi. Classe-les par pertinence et suggère des adaptations.
+
+Profil du candidat :
+- Formation : [formation]
+- Expérience : [expériences clés]
+- Compétences : [compétences principales]
+- Secteurs de prédilection : [secteurs]
+- Contraintes : [zone géographique, salaire, etc.]
+
+Offres à analyser :
+
+OFFRE 1 :
+[Titre du poste]
+[Entreprise]
+[Description et exigences]
+
+OFFRE 2 :
+[Titre du poste]
+[Entreprise]
+[Description et exigences]
+
+OFFRE 3 :
+[Titre du poste]
+[Entreprise]
+[Description et exigences]
+
+[Ajouter d'autres offres si nécessaire]
+
+Pour chaque offre, fournis :
+
+1. Score de pertinence (sur 10) avec justification
+
+2. Points de convergence :
+   - Compétences en adéquation
+   - Expériences transférables
+   - Fit culturel potentiel
+
+3. Points de divergence :
+   - Compétences manquantes
+   - Expérience insuffisante
+   - Autres écarts
+
+4. Niveau de priorité :
+   - Priorité 1 : candidature immédiate
+   - Priorité 2 : candidature après préparation
+   - Priorité 3 : candidature à long terme
+
+5. Adaptations nécessaires :
+   - Modifications du CV
+   - Angle de la lettre de motivation
+   - Préparation spécifique
+
+Conclus par :
+- Classement final des offres par ordre de priorité
+- Stratégie globale de candidature
+- Planning de candidatures sur 2 semaines
+- Formations/préparations recommandées pour améliorer le profil`
+        },
+        '9': {
+            title: "Préparation Entretien",
+            content: `Génère une série de questions d'entretien pour [Nom du coaché] qui postule au poste de [intitulé du poste] chez [nom de l'entreprise].
+
+Informations sur le candidat :
+- Profil : [résumé du profil]
+- Expériences clés : [expériences principales]
+- Points forts : [atouts]
+- Points de vigilance : [faiblesses potentielles]
+
+Informations sur le poste :
+- Missions principales : [missions]
+- Compétences requises : [compétences]
+- Enjeux du poste : [contexte et défis]
+
+Prépare les questions suivantes :
+
+1. QUESTIONS CLASSIQUES (10 questions) :
+   - Présentez-vous en quelques minutes
+   - Pourquoi ce poste vous intéresse-t-il ?
+   - Pourquoi notre entreprise ?
+   - Quelles sont vos principales qualités ?
+   - Quel est votre principal défaut ?
+   - Décrivez une réalisation dont vous êtes fier
+   - Comment gérez-vous le stress ?
+   - Où vous voyez-vous dans 5 ans ?
+   - Avez-vous des questions sur le poste/l'équipe ?
+   - Quelles sont vos prétentions salariales ?
+
+2. QUESTIONS TECHNIQUES (5 questions spécifiques au poste)
+
+3. QUESTIONS COMPORTEMENTALES (5 questions STAR) :
+   - Situation où vous avez dû gérer un conflit
+   - Moment où vous avez pris une initiative
+   - Échec professionnel et leçons apprises
+   - Travail en équipe difficile
+   - Adaptation à un changement
+
+4. QUESTIONS À POSER AU RECRUTEUR :
+   - 5 questions pertinentes sur le poste
+   - 3 questions sur l'équipe/l'entreprise
+   - 2 questions sur les perspectives d'évolution
+
+Pour chaque question, fournis :
+- La réponse recommandée (structure STAR si applicable)
+- Les points clés à mentionner
+- Les pièges à éviter
+- Des exemples concrets du parcours du candidat
+
+Ajoute des conseils pratiques pour l'entretien et la posture à adopter.`
+        },
+        '10': {
+            title: "Bilan du Coaching",
+            content: `Réalise un bilan complet du coaching réalisé avec [Nom du coaché]. Analyse la progression, les points forts, les axes d'amélioration et propose des recommandations pour la suite.
+
+Informations sur le parcours de coaching :
+- Durée : [X semaines/mois]
+- Objectif initial : [objectif fixé au départ]
+- Étapes réalisées : [liste des étapes du coaching]
+- Difficultés rencontrées : [obstacles principaux]
+- Résultats obtenus : [candidatures, entretiens, offres]
+
+Effectue une analyse détaillée :
+
+1. BILAN QUANTITATIF :
+   - Nombre de candidatures envoyées
+   - Taux de réponses positives
+   - Nombre d'entretiens obtenus
+   - Évolution du taux de conversion
+   - Résultats par canal de recherche
+
+2. BILAN QUALITATIF :
+   - Évolution de la confiance en soi
+   - Amélioration des outils (CV, lettre, profil LinkedIn)
+   - Développement des compétences d'entretien
+   - Clarification du projet professionnel
+   - Élargissement du réseau
+
+3. POINTS FORTS DU PARCOURS :
+   - Réussites marquantes
+   - Progrès les plus significatifs
+   - Compétences développées
+   - Moments de déclic
+
+4. AXES D'AMÉLIORATION :
+   - Objectifs non atteints
+   - Compétences à renforcer
+   - Freins persistants
+   - Points de vigilance
+
+5. ENSEIGNEMENTS ET APPRENTISSAGES :
+   - Stratégies qui ont fonctionné
+   - Approches à ajuster
+   - Découvertes sur le marché
+   - Prise de conscience personnelle
+
+6. RECOMMANDATIONS POUR LA SUITE :
+   - Actions prioritaires pour les 3 prochains mois
+   - Formations complémentaires suggérées
+   - Réseau à développer
+   - Veille à maintenir
+
+7. PLAN D'AUTONOMIE :
+   - Outils pour continuer seul
+   - Rythme de recherche recommandé
+   - Points de vigilance
+   - Moments de réajustement
+
+Conclus par une note d'encouragement et une vision positive pour la suite de sa recherche.`
+        }
+    };
+    
+    // SOLUTION PARFAITE - Le prompt s'affiche automatiquement dans ChatGPT
+    const chatGptButtons = document.querySelectorAll('.open-in-chatgpt-btn');
+
+    chatGptButtons.forEach(function(button) {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const promptId = this.getAttribute('data-prompt-id');
+            const promptData = promptsData[promptId];
+            
+            if (promptData) {
+                console.log('Ouverture directe du prompt :', promptData.title);
+                
+                // Encoder le prompt pour l'URL
+                const encodedPrompt = encodeURIComponent(promptData.content);
+                
+                // Créer l'URL ChatGPT avec le prompt pré-rempli
+                const chatGptUrl = `https://chat.openai.com/?q=${encodedPrompt}`;
+                
+                // Ouvrir ChatGPT avec le prompt déjà dans la zone de texte
+                window.open(chatGptUrl, '_blank');
+                
+                console.log('✅ ChatGPT ouvert avec le prompt pré-rempli');
+            }
+        });
+    });
+    
+    // Gestionnaire pour les boutons "Enregistrer réponse"
+    const saveButtons = document.querySelectorAll('.save-response-btn');
+    console.log('Boutons Save trouvés :', saveButtons.length);
+    
+    saveButtons.forEach(function(button, index) {
+        console.log('Ajout événement sur bouton save', index + 1);
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Clic détecté sur bouton Save');
+            
+            const promptId = this.getAttribute('data-prompt-id');
+            const promptData = promptsData[promptId];
+            
+            if (promptData) {
+                alert('Fonctionnalité "Enregistrer réponse" pour le prompt :\n"' + promptData.title + '"\n\nCette fonction sera disponible prochainement.');
+            }
+        });
+    });
+    
+    // Gestionnaire pour les boutons "Utiliser"
+    const utiliserButtons = document.querySelectorAll('button');
+    let useButtonsCount = 0;
+    
+    utiliserButtons.forEach(function(button) {
+        if (button.textContent.includes('Utiliser') && button.querySelector('.fa-play')) {
+            useButtonsCount++;
+            console.log('Ajout événement sur bouton Utiliser', useButtonsCount);
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('Clic détecté sur bouton Utiliser');
+                
+                // Trouver l'ID du prompt depuis le conteneur parent
+                const promptContainer = this.closest('.bg-white');
+                const promptTitle = promptContainer.querySelector('.text-xl.font-bold').textContent.trim();
+                const promptId = promptTitle.match(/(\d+)\./)[1]; // Extraire le numéro
+                
+                const promptData = promptsData[promptId];
+                if (promptData) {
+                    console.log('Ouverture du prompt en mode utilisation :', promptData.title);
+                    showPromptModal(promptData, 'use', promptId);
+                }
+            });
+        }
+    });
+    
+    // Gestionnaire pour les boutons "Modifier"
+    const modifierButtons = document.querySelectorAll('button');
+    let editButtonsCount = 0;
+    
+    modifierButtons.forEach(function(button) {
+        if (button.textContent.includes('Modifier') && button.querySelector('.fa-edit')) {
+            editButtonsCount++;
+            console.log('Ajout événement sur bouton Modifier', editButtonsCount);
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('Clic détecté sur bouton Modifier');
+                
+                // Trouver l'ID du prompt
+                const promptContainer = this.closest('.bg-white');
+                const promptTitle = promptContainer.querySelector('.text-xl.font-bold').textContent.trim();
+                const promptId = promptTitle.match(/(\d+)\./)[1];
+                
+                const promptData = promptsData[promptId];
+                if (promptData) {
+                    console.log('Ouverture du prompt en mode édition :', promptData.title);
+                    showPromptModal(promptData, 'edit', promptId);
+                }
+            });
+        }
+    });
+    
+    console.log('Boutons ChatGPT trouvés :', chatGptButtons.length);
+    console.log('Boutons Save trouvés :', saveButtons.length);
+    console.log('Boutons Utiliser trouvés :', useButtonsCount);
+    console.log('Boutons Modifier trouvés :', editButtonsCount);
+    console.log('Initialisation terminée');
+}
+
+// Fonction pour afficher le modal des prompts
+function showPromptModal(promptData, mode, promptId) {
+    const modal = document.getElementById('promptModal');
+    const modalTitle = document.getElementById('promptModalTitle');
+    const titleInput = document.getElementById('promptTitleEdit');
+    const contentTextarea = document.getElementById('promptContentEdit');
+    const saveButton = document.getElementById('savePromptEdit');
+    const actionsDiv = document.getElementById('promptActions');
+    
+    // Remplir les champs
+    titleInput.value = promptData.title;
+    contentTextarea.value = promptData.content;
+    
+    if (mode === 'use') {
+        // Mode "Utiliser" - Lecture seule
+        modalTitle.textContent = 'Utiliser le prompt : ' + promptData.title;
+        titleInput.readOnly = true;
+        contentTextarea.readOnly = true;
+        saveButton.classList.add('hidden');
+        
+        // Boutons d'action pour utilisation
+        actionsDiv.innerHTML = `
+            <button type="button" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded mr-2" onclick="copyPromptFromModal()">
+                <i class="fas fa-copy mr-1"></i> Copier
+            </button>
+            <button type="button" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded" onclick="openChatGPTFromModal()">
+                <i class="fas fa-external-link-alt mr-1"></i> Ouvrir dans ChatGPT
+            </button>
+        `;
+        
+    } else if (mode === 'edit') {
+        // Mode "Modifier" - Éditable
+        modalTitle.textContent = 'Modifier le prompt : ' + promptData.title;
+        titleInput.readOnly = false;
+        contentTextarea.readOnly = false;
+        saveButton.classList.remove('hidden');
+        saveButton.setAttribute('data-prompt-id', promptId);
+
+        
+        // Boutons d'action pour édition
+        actionsDiv.innerHTML = `
+            <button type="button" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded mr-2" onclick="resetPromptToOriginal('${promptData.id}')">
+                <i class="fas fa-undo mr-1"></i> Réinitialiser
+            </button>
+        `;
+    }
+    
+    // Afficher le modal
+    modal.classList.remove('hidden');
+    
+    // Stocker les données actuelles pour référence
+    modal.setAttribute('data-current-prompt-id', promptData.id);
+}
+
+// Fonctions utilitaires pour les boutons du modal
+function copyPromptFromModal() {
+    const content = document.getElementById('promptContentEdit').value;
+    navigator.clipboard.writeText(content).then(function() {
+        alert('✅ Prompt copié dans le presse-papiers !');
+    });
+}
+
+function openChatGPTFromModal() {
+    const content = document.getElementById('promptContentEdit').value;
+    const encodedPrompt = encodeURIComponent(content);
+    const chatGptUrl = `https://chat.openai.com/?q=${encodedPrompt}`;
+    window.open(chatGptUrl, '_blank');
+    alert('✅ ChatGPT ouvert avec le prompt !');
+}
+
+function resetPromptToOriginal(promptId) {
+    const originalPrompt = promptsData[promptId];
+    if (originalPrompt) {
+        document.getElementById('promptTitleEdit').value = originalPrompt.title;
+        document.getElementById('promptContentEdit').value = originalPrompt.content;
+        alert('✅ Prompt réinitialisé à sa version originale !');
+    }
+}
+
+// Gestionnaires d'événements qui s'exécutent après le chargement du DOM
+document.addEventListener('DOMContentLoaded', function() {
+    // Fermer le modal
+    document.querySelectorAll('.close-prompt-modal').forEach(button => {
+        button.addEventListener('click', function() {
+            document.getElementById('promptModal').classList.add('hidden');
+        });
+    });
+    
+    // Sauvegarder les modifications
+    const savePromptEdit = document.getElementById('savePromptEdit');
+    if (savePromptEdit) {
+        savePromptEdit.addEventListener('click', function() {
+            const promptId = this.getAttribute('data-prompt-id');
+            const newTitle = document.getElementById('promptTitleEdit').value;
+            const newContent = document.getElementById('promptContentEdit').value;
+            
+            console.log('Tentative de sauvegarde pour prompt ID:', promptId);
+            console.log('promptsData disponible:', typeof promptsData);
+            console.log('Prompt existe:', promptsData && promptsData[promptId] ? 'OUI' : 'NON');
+            
+            if (newTitle.trim() && newContent.trim()) {
+                // Vérifications de sécurité
+                if (typeof promptsData === 'undefined') {
+                    alert('❌ Erreur : données des prompts non disponibles. Rechargez la page.');
+                    return;
+                }
+                
+                if (!promptsData[promptId]) {
+                    alert('❌ Erreur : prompt non trouvé (ID: ' + promptId + '). Rechargez la page.');
+                    return;
+                }
+                
+                // Mettre à jour les données de façon sécurisée
+                try {
+                    promptsData[promptId].title = newTitle;
+                    promptsData[promptId].content = newContent;
+                    
+                    console.log('✅ Prompt mis à jour avec succès');
+                    
+                    // Sauvegarder dans localStorage si disponible
+                    try {
+                        localStorage.setItem('customPrompts', JSON.stringify(promptsData));
+                        console.log('✅ Sauvegarde localStorage réussie');
+                    } catch(e) {
+                        console.log('⚠️ LocalStorage non disponible:', e);
+                    }
+                    
+                    // Fermer le modal
+                    document.getElementById('promptModal').classList.add('hidden');
+                    
+                    alert('✅ Prompt modifié et sauvegardé !');
+                    
+                } catch(error) {
+                    console.error('❌ Erreur lors de la mise à jour:', error);
+                    alert('❌ Erreur lors de la sauvegarde. Vérifiez la console.');
+                }
+            } else {
+                alert('❌ Veuillez remplir le titre et le contenu !');
+            }
+        });
+    }
+}); // ← CETTE ACCOLADE ET PARENTHÈSE ÉTAIENT MANQUANTES !
+</script>
+</body>
+</html>
