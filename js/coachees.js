@@ -1,75 +1,55 @@
-// js/coachees.js - Version Finale Unifiée
+// js/coachees.js - Version Finale Unifiée et Fonctionnelle
 
-// On encapsule toute la logique dans un seul bloc pour éviter les conflits globaux
 document.addEventListener('DOMContentLoaded', function() {
-
-    // --- PARTIE 1 : Le Système de Stockage (inspiré de data-storage.js) ---
-    // C'est notre unique manière de parler au localStorage.
-    const DataStorage = {
-        KEY: 'job-coach-app-coachees', // Une clé unique et claire
-
-        get: function(defaultValue = []) {
-            try {
-                const data = localStorage.getItem(this.KEY);
-                return data ? JSON.parse(data) : defaultValue;
-            } catch (error) {
-                console.error('Erreur lors de la récupération des données:', error);
-                return defaultValue;
-            }
-        },
-
-        save: function(data) {
-            try {
-                localStorage.setItem(this.KEY, JSON.stringify(data));
-                return true;
-            } catch (error) {
-                console.error('Erreur lors de la sauvegarde des données:', error);
-                return false;
-            }
-        }
-    };
-
-    // --- PARTIE 2 : Les Données et l'Initialisation ---
     
     // Notre unique source de vérité pour les données de l'application
-    let coachees = [];
+    let coachees = []; 
+    const storageKey = 'job-coach-app-coachees'; // Une clé unique et claire
 
     // Données de départ si aucune sauvegarde n'existe.
-    // C'est ici que nous définissons la structure correcte une bonne fois pour toutes.
     const initialCoachees = [
         { id: 'coachee-1', name: 'Marie Dupont', position: 'Marketing Digital', status: 'Actif', currentStep: 9, startDate: '2024-05-15' },
         { id: 'coachee-2', name: 'Thomas Martin', position: 'Développement Web', status: 'En attente', currentStep: 4, startDate: '2024-06-01' },
         { id: 'coachee-3', name: 'Sophie Laurent', position: 'Chef de Projet', status: 'Actif', currentStep: 1, startDate: '2024-06-20' }
     ];
 
+    // ------ FONCTION PRINCIPALE D'INITIALISATION ------
     function initializeApp() {
-        const savedData = DataStorage.get(null);
-        if (savedData) {
-            coachees = savedData;
+        const savedData = localStorage.getItem(storageKey);
+        // Si des données valides existent, on les utilise. Sinon, on prend les données initiales.
+        if (savedData && JSON.parse(savedData).length > 0) {
+            coachees = JSON.parse(savedData);
         } else {
             coachees = initialCoachees;
-            DataStorage.save(coachees);
+            saveData();
         }
         renderAllCoachees();
         setupEventListeners();
     }
 
-    // --- PARTIE 3 : Logique d'Affichage et d'Interaction ---
-
+    // ------ GESTION DE L'AFFICHAGE (HTML) ------
     function renderAllCoachees() {
         const container = document.getElementById('coachees-container');
         if (!container) return;
-        container.innerHTML = '';
+        container.innerHTML = ''; // Toujours vider avant de reconstruire
+
         if (coachees.length === 0) {
-            container.innerHTML = `<p class="text-gray-500 col-span-full text-center">Aucun coaché.</p>`;
+            container.innerHTML = `<p class="text-gray-500 col-span-full text-center">Aucun coaché pour le moment.</p>`;
             return;
         }
+
         coachees.forEach(coachee => {
             const cardHTML = createCoacheeCardHTML(coachee);
             container.insertAdjacentHTML('beforeend', cardHTML);
         });
     }
+    
+    // ------ GESTION DES DONNÉES (LocalStorage) ------
+    function saveData() {
+        localStorage.setItem(storageKey, JSON.stringify(coachees));
+    }
 
+    // ------ GESTION DES ÉVÉNEMENTS (Formulaires, etc.) ------
     function setupEventListeners() {
         const coacheeForm = document.getElementById('new-coachee-form');
         if (coacheeForm) {
@@ -108,14 +88,13 @@ document.addEventListener('DOMContentLoaded', function() {
             coachees.push(newCoachee);
         }
 
-        DataStorage.save(coachees);
+        saveData();
         renderAllCoachees();
         closeCoacheeModal();
     }
     
-    // --- PARTIE 4 : Fonctions Globales (pour les onclick) ---
-    // On les attache à "window" pour être sûr que le HTML les trouve.
-
+    // ------ FONCTIONS GLOBALES (appelées depuis le HTML via 'window') ------
+    
     window.openAddCoacheeModal = function() {
         document.getElementById('new-coachee-form').reset();
         document.getElementById('coachee-id').value = '';
@@ -143,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.deleteCoachee = function(coacheeId) {
         if (!confirm('Êtes-vous sûr de vouloir supprimer ce coaché ?')) return;
         coachees = coachees.filter(c => c.id !== coacheeId);
-        DataStorage.save(coachees);
+        saveData();
         renderAllCoachees();
     }
     
@@ -154,15 +133,14 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById(`menu-${coacheeId}`).classList.toggle('hidden');
     }
 
-    // --- PARTIE 5 : Générateur de HTML ---
-
+    // ------ FONCTION UTILITAIRE (pour créer le HTML d'une carte) ------
     function createCoacheeCardHTML(coachee) {
         const initials = (coachee.name || '').split(' ').map(n => n[0]).join('').toUpperCase();
         const progress = (coachee.currentStep || 1) * 10;
         
         let formattedDate = 'Date non définie';
         if (coachee.startDate) {
-            const date = new Date(coachee.startDate + 'T00:00:00');
+            const date = new Date(coachee.startDate + 'T00:00:00'); // Évite les soucis de fuseau horaire
             formattedDate = date.toLocaleDateString('fr-FR', {
                 day: '2-digit', month: 'long', year: 'numeric'
             });
