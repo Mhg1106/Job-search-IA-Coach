@@ -9,11 +9,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const storageKey = 'job-coach-app-data';
 
     // Les données de départ si le navigateur est vide
-    const initialCoachees = [
-        { id: 'marie-dupont', name: 'Marie Dupont', position: 'Marketing Digital', status: 'Actif', currentStep: 9 },
-        { id: 'thomas-martin', name: 'Thomas Martin', position: 'Développement Web', status: 'En attente', currentStep: 4 },
-        { id: 'sophie-laurent', name: 'Sophie Laurent', position: 'Chef de Projet', status: 'Actif', currentStep: 1 }
-    ];
+const initialCoachees = [
+    { id: 'marie-dupont', name: 'Marie Dupont', position: 'Marketing Digital', status: 'Actif', currentStep: 9, startDate: '2024-05-15' },
+    { id: 'thomas-martin', name: 'Thomas Martin', position: 'Développement Web', status: 'En attente', currentStep: 4, startDate: '2024-06-01' },
+    { id: 'sophie-laurent', name: 'Sophie Laurent', position: 'Chef de Projet', status: 'Actif', currentStep: 1, startDate: '2024-06-20' }
+];
 
     // ----- INITIALISATION DE L'APPLICATION -----
     function initializeApp() {
