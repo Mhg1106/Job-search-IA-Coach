@@ -1,4 +1,4 @@
-// js/prompts.js - NOUVELLE VERSION COMPLÈTE
+// js/prompts.js - VERSION FINALE ET NETTOYÉE
 
 document.addEventListener('DOMContentLoaded', function() {
     // --- ÉLÉMENTS DU DOM ---
@@ -8,6 +8,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const titleInput = document.getElementById('promptTitleEdit');
     const contentTextarea = document.getElementById('promptContentEdit');
     const saveButton = document.getElementById('savePromptEdit');
+
+    // Si un élément clé est manquant, on arrête tout pour éviter les erreurs.
+    if (!promptContainer || !promptModal || !saveButton) {
+        console.error("Erreur critique : Un ou plusieurs éléments HTML clés sont introuvables (#prompt-container, #promptModal, #savePromptEdit). Le script ne peut pas continuer.");
+        return; 
+    }
 
     // --- DONNÉES PAR DÉFAUT ---
     // Vos prompts détaillés, utilisés uniquement si la mémoire est vide.
@@ -445,80 +451,59 @@ Effectue une analyse détaillée :
 Conclus par une note d'encouragement et une vision positive pour la suite de sa recherche.` }
     ];
 
-    // --- FONCTIONS PRINCIPALES ---
+// --- FONCTIONS PRINCIPALES ---
 
-    /**
-     * Affiche dynamiquement les prompts dans le conteneur HTML.
-     */
-// NOUVELLE VERSION CORRIGÉE
-function displayPrompts() {
-    const prompts = DataStorage.get(DataStorage.KEYS.PROMPTS);
-    promptContainer.innerHTML = ''; // Toujours vider avant de remplir
+    function displayPrompts() {
+        const prompts = DataStorage.get(DataStorage.KEYS.PROMPTS, defaultPrompts);
+        if(!promptContainer) return;
+        promptContainer.innerHTML = ''; 
 
-    prompts.forEach(prompt => {
-        // Crée un aperçu court du contenu (ex: 30 premiers mots)
-        const contentPreview = prompt.content.split(' ').slice(0, 30).join(' ') + '...';
-
-        const cardHTML = `
-            <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-blue-500" data-id="${prompt.id}">
-                <h3 class="text-xl font-bold text-gray-800">${prompt.title}</h3>
-                <div class="text-xs text-gray-500 my-4 italic">
-                    ${contentPreview}
-                </div>
-                <div class="flex flex-wrap gap-2 mt-4">
-                    <button data-action="use" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm flex items-center">
-                        <i class="fas fa-play mr-1"></i> Utiliser
-                    </button>
-                    <button data-action="edit" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded text-sm flex items-center">
-                        <i class="fas fa-edit mr-1"></i> Modifier
-                    </button>
-                    <button data-action="open-chatgpt" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm flex items-center">
-                        <i class="fas fa-external-link-alt mr-1"></i> Ouvrir dans ChatGPT
-                    </button>
-                    <button data-action="save-response" class="bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-sm flex items-center">
-                        <i class="fas fa-save mr-1"></i> Enregistrer réponse
-                    </button>
-                </div>
-            </div>`;
-        promptContainer.insertAdjacentHTML('beforeend', cardHTML);
-    });
-}
-
-    /**
-     * Ouvre et configure le modal pour utiliser ou modifier un prompt.
-     * @param {string} promptId - L'ID du prompt à afficher.
-     * @param {'use'|'edit'} mode - Le mode d'ouverture du modal.
-     */
+        prompts.forEach(prompt => {
+            const contentPreview = prompt.content.split(' ').slice(0, 30).join(' ') + '...';
+            const cardHTML = `
+                <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-blue-500" data-id="${prompt.id}">
+                    <h3 class="text-xl font-bold text-gray-800">${prompt.title}</h3>
+                    <div class="text-xs text-gray-500 my-4 italic" style="height: 4.5rem; overflow: hidden;">
+                        ${contentPreview}
+                    </div>
+                    <div class="flex flex-wrap gap-2 mt-4">
+                        <button data-action="use" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm flex items-center">
+                            <i class="fas fa-play mr-1"></i> Utiliser
+                        </button>
+                        <button data-action="edit" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded text-sm flex items-center">
+                            <i class="fas fa-edit mr-1"></i> Modifier
+                        </button>
+                        <button data-action="open-chatgpt" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm flex items-center">
+                            <i class="fas fa-external-link-alt mr-1"></i> Ouvrir dans ChatGPT
+                        </button>
+                        <button data-action="save-response" class="bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-sm flex items-center">
+                            <i class="fas fa-save mr-1"></i> Enregistrer réponse
+                        </button>
+                    </div>
+                </div>`;
+            promptContainer.insertAdjacentHTML('beforeend', cardHTML);
+        });
+    }
+    
     function showPromptModal(promptId, mode) {
-        const prompts = DataStorage.get(DataStorage.KEYS.PROMPTS);
+        const prompts = DataStorage.get(DataStorage.KEYS.PROMPTS, defaultPrompts);
         const promptData = prompts.find(p => p.id === promptId);
-        if (!promptData) return;
+        if (!promptData || !promptModal) return;
 
+        modalTitle.textContent = (mode === 'edit' ? 'Modifier le prompt : ' : 'Utiliser le prompt : ') + promptData.title;
         titleInput.value = promptData.title;
         contentTextarea.value = promptData.content;
-
-        if (mode === 'edit') {
-            modalTitle.textContent = 'Modifier le prompt : ' + promptData.title;
-            titleInput.readOnly = false;
-            contentTextarea.readOnly = false;
-            saveButton.classList.remove('hidden');
-            saveButton.dataset.promptId = promptId; // Stocker l'ID pour la sauvegarde
-        } else { // mode 'use'
-            modalTitle.textContent = 'Utiliser le prompt : ' + promptData.title;
-            titleInput.readOnly = true;
-            contentTextarea.readOnly = true;
-            saveButton.classList.add('hidden');
-        }
+        titleInput.readOnly = (mode === 'use');
+        contentTextarea.readOnly = (mode === 'use');
+        saveButton.classList.toggle('hidden', mode === 'use');
+        saveButton.dataset.promptId = promptId;
+        
         promptModal.classList.remove('hidden');
     }
     
-    /**
-     * Initialise la page: vérifie les données, les crée si besoin, et affiche.
-     */
     function initializePage() {
         let prompts = DataStorage.get(DataStorage.KEYS.PROMPTS);
         if (prompts.length === 0) {
-            console.log("Aucun prompt trouvé en mémoire, création des prompts par défaut.");
             DataStorage.save(DataStorage.KEYS.PROMPTS, defaultPrompts);
         }
         displayPrompts();
@@ -526,58 +511,49 @@ function displayPrompts() {
 
     // --- GESTION DES ÉVÉNEMENTS ---
 
-    // Gérer tous les clics sur les boutons des cartes de prompt
     promptContainer.addEventListener('click', (event) => {
         const button = event.target.closest('button');
         if (!button) return;
 
         const card = button.closest('[data-id]');
-        const promptId = card.dataset.id;
+        const promptId = card?.dataset.id;
         const action = button.dataset.action;
         
-        const prompts = DataStorage.get(DataStorage.KEYS.PROMPTS);
+        const prompts = DataStorage.get(DataStorage.KEYS.PROMPTS, defaultPrompts);
         const promptData = prompts.find(p => p.id === promptId);
+        if (!promptData) return;
 
         switch (action) {
             case 'edit':
-                showPromptModal(promptId, 'edit');
-                break;
             case 'use':
-                showPromptModal(promptId, 'use');
+                showPromptModal(promptId, action);
                 break;
             case 'open-chatgpt':
-                const encodedPrompt = encodeURIComponent(promptData.content);
-                window.open(`https://chat.openai.com/?q=${encodedPrompt}`, '_blank');
+                window.open(`https://chat.openai.com/?q=${encodeURIComponent(promptData.content)}`, '_blank');
                 break;
             case 'save-response':
-                // Logique pour le modal "Enregistrer réponse"
-                alert("Fonctionnalité à connecter au modal de réponse.");
-                // document.getElementById('responseModal').classList.remove('hidden');
+                alert("Fonctionnalité 'Enregistrer réponse' à développer.");
                 break;
         }
     });
 
-    // Gérer le clic sur le bouton "Sauvegarder" du modal d'édition
     saveButton.addEventListener('click', () => {
         const promptId = saveButton.dataset.promptId;
         const updatedData = {
             title: titleInput.value,
             content: contentTextarea.value
         };
-
         if (DataStorage.update(DataStorage.KEYS.PROMPTS, promptId, updatedData)) {
             promptModal.classList.add('hidden');
-            displayPrompts(); // Rafraîchir l'affichage
-            alert('Prompt mis à jour avec succès !');
+            displayPrompts();
         } else {
             alert('Erreur lors de la mise à jour.');
         }
     });
 
-    // Gérer la fermeture du modal
-    document.querySelectorAll('.close-prompt-modal').forEach(btn => {
+    document.querySelectorAll('.close-prompt-modal, .close-modal').forEach(btn => {
         btn.addEventListener('click', () => {
-            promptModal.classList.add('hidden');
+            btn.closest('#promptModal, #responseModal')?.classList.add('hidden');
         });
     });
 
