@@ -1,4 +1,4 @@
-// js/coachees.js - Version avec date de début
+// js/coachees.js - Version Finale, Propre et Fonctionnelle
 
 document.addEventListener('DOMContentLoaded', function() {
     
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function initializeApp() {
         const savedData = localStorage.getItem(storageKey);
-        if (savedData) {
+        if (savedData && JSON.parse(savedData).length > 0) {
             coachees = JSON.parse(savedData);
         } else {
             coachees = initialCoachees;
@@ -53,7 +53,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const coacheeId = document.getElementById('coachee-id').value;
         const name = document.getElementById('coachee-name').value;
         const position = document.getElementById('coachee-position').value;
-        // On récupère la nouvelle donnée
         const startDate = document.getElementById('coachee-start-date').value;
 
         if (!name || !position || !startDate) {
@@ -66,7 +65,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (index > -1) {
                 coachees[index].name = name;
                 coachees[index].position = position;
-                // On met à jour la date
                 coachees[index].startDate = startDate;
             }
         } else {
@@ -74,7 +72,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 id: 'coachee-' + Date.now(),
                 name: name,
                 position: position,
-                // On ajoute la date pour le nouveau coaché
                 startDate: startDate,
                 status: 'Actif',
                 currentStep: 1
@@ -90,7 +87,6 @@ document.addEventListener('DOMContentLoaded', function() {
     window.openAddCoacheeModal = function() {
         document.getElementById('new-coachee-form').reset();
         document.getElementById('coachee-id').value = '';
-        // On met la date du jour par défaut pour un nouveau coaché
         document.getElementById('coachee-start-date').valueAsDate = new Date();
         document.getElementById('modal-title').innerText = 'Ajouter un nouveau coaché';
         document.getElementById('add-coachee-modal').classList.remove('hidden');
@@ -103,13 +99,11 @@ document.addEventListener('DOMContentLoaded', function() {
     window.editCoachee = function(coacheeId) {
         const coachee = coachees.find(c => c.id === coacheeId);
         if (!coachee) return;
-
         document.getElementById('new-coachee-form').reset();
         document.getElementById('modal-title').innerText = 'Modifier le coaché';
         document.getElementById('coachee-id').value = coachee.id;
         document.getElementById('coachee-name').value = coachee.name;
         document.getElementById('coachee-position').value = coachee.position;
-        // On pré-remplit la date pour la modification
         document.getElementById('coachee-start-date').value = coachee.startDate;
         document.getElementById('add-coachee-modal').classList.remove('hidden');
     }
@@ -119,7 +113,6 @@ document.addEventListener('DOMContentLoaded', function() {
         coachees = coachees.filter(c => c.id !== coacheeId);
         saveData();
         renderAllCoachees();
-        alert('Coaché supprimé.');
     }
     
     window.toggleCoacheeMenu = function(coacheeId) {
@@ -133,13 +126,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const initials = coachee.name.split(' ').map(n => n[0]).join('').toUpperCase();
         const progress = (coachee.currentStep || 1) * 10;
         
-        // Formattage de la date pour un affichage plus lisible
         let formattedDate = 'Date non définie';
         if (coachee.startDate) {
             formattedDate = new Date(coachee.startDate).toLocaleDateString('fr-FR', {
-                day: '2-digit',
-                month: 'long',
-                year: 'numeric'
+                day: '2-digit', month: 'long', year: 'numeric'
             });
         }
 
@@ -169,7 +159,6 @@ document.addEventListener('DOMContentLoaded', function() {
                             <p class="text-sm font-medium text-gray-800">${formattedDate}</p>
                         </div>
                     </div>
-                    
                     <p class="text-sm text-gray-500">Progression</p>
                     <div class="progress-container h-2 bg-gray-200 rounded-full overflow-hidden mt-1">
                         <div class="progress-bar h-full bg-blue-500" style="width: ${progress}%;"></div>
