@@ -1,21 +1,16 @@
-// js/coachees.js - Version Finale, Propre et Fonctionnelle
+// js/coachees.js - Version avec date de début
 
 document.addEventListener('DOMContentLoaded', function() {
     
-    // Notre unique base de données de coachés
     let coachees = [];
-    
-    // Clé pour la sauvegarde dans le navigateur
     const storageKey = 'job-coach-app-data';
 
-    // Les données de départ si le navigateur est vide
-const initialCoachees = [
-    { id: 'marie-dupont', name: 'Marie Dupont', position: 'Marketing Digital', status: 'Actif', currentStep: 9, startDate: '2024-05-15' },
-    { id: 'thomas-martin', name: 'Thomas Martin', position: 'Développement Web', status: 'En attente', currentStep: 4, startDate: '2024-06-01' },
-    { id: 'sophie-laurent', name: 'Sophie Laurent', position: 'Chef de Projet', status: 'Actif', currentStep: 1, startDate: '2024-06-20' }
-];
+    const initialCoachees = [
+        { id: 'marie-dupont', name: 'Marie Dupont', position: 'Marketing Digital', status: 'Actif', currentStep: 9, startDate: '2024-05-15' },
+        { id: 'thomas-martin', name: 'Thomas Martin', position: 'Développement Web', status: 'En attente', currentStep: 4, startDate: '2024-06-01' },
+        { id: 'sophie-laurent', name: 'Sophie Laurent', position: 'Chef de Projet', status: 'Actif', currentStep: 1, startDate: '2024-06-20' }
+    ];
 
-    // ----- INITIALISATION DE L'APPLICATION -----
     function initializeApp() {
         const savedData = localStorage.getItem(storageKey);
         if (savedData) {
@@ -28,30 +23,24 @@ const initialCoachees = [
         setupEventListeners();
     }
 
-    // ----- GESTION DE L'AFFICHAGE -----
     function renderAllCoachees() {
         const container = document.getElementById('coachees-container');
         if (!container) return;
-
-        container.innerHTML = ''; // On vide avant de reconstruire
-
+        container.innerHTML = '';
         if (coachees.length === 0) {
             container.innerHTML = `<p class="text-gray-500 col-span-full text-center">Aucun coaché.</p>`;
             return;
         }
-
         coachees.forEach(coachee => {
             const cardHTML = createCoacheeCardHTML(coachee);
             container.insertAdjacentHTML('beforeend', cardHTML);
         });
     }
 
-    // ----- GESTION DES DONNÉES -----
     function saveData() {
         localStorage.setItem(storageKey, JSON.stringify(coachees));
     }
 
-    // ----- GESTION DES ÉVÉNEMENTS (MODALS, FORMULAIRES) -----
     function setupEventListeners() {
         const coacheeForm = document.getElementById('new-coachee-form');
         if (coacheeForm) {
@@ -64,25 +53,29 @@ const initialCoachees = [
         const coacheeId = document.getElementById('coachee-id').value;
         const name = document.getElementById('coachee-name').value;
         const position = document.getElementById('coachee-position').value;
+        // On récupère la nouvelle donnée
+        const startDate = document.getElementById('coachee-start-date').value;
 
-        if (!name || !position) {
-            alert('Le nom et le poste sont obligatoires.');
+        if (!name || !position || !startDate) {
+            alert('Le nom, le poste et la date sont obligatoires.');
             return;
         }
 
         if (coacheeId) {
-            // Mode Édition
             const index = coachees.findIndex(c => c.id === coacheeId);
             if (index > -1) {
                 coachees[index].name = name;
                 coachees[index].position = position;
+                // On met à jour la date
+                coachees[index].startDate = startDate;
             }
         } else {
-            // Mode Ajout
             const newCoachee = {
-                id: 'coachee-' + Date.now(), // Génère un ID unique
+                id: 'coachee-' + Date.now(),
                 name: name,
                 position: position,
+                // On ajoute la date pour le nouveau coaché
+                startDate: startDate,
                 status: 'Actif',
                 currentStep: 1
             };
@@ -94,11 +87,11 @@ const initialCoachees = [
         closeCoacheeModal();
     }
 
-    // ----- FONCTIONS GLOBALES (accessibles depuis le HTML) -----
-    
     window.openAddCoacheeModal = function() {
         document.getElementById('new-coachee-form').reset();
         document.getElementById('coachee-id').value = '';
+        // On met la date du jour par défaut pour un nouveau coaché
+        document.getElementById('coachee-start-date').valueAsDate = new Date();
         document.getElementById('modal-title').innerText = 'Ajouter un nouveau coaché';
         document.getElementById('add-coachee-modal').classList.remove('hidden');
     }
@@ -116,12 +109,13 @@ const initialCoachees = [
         document.getElementById('coachee-id').value = coachee.id;
         document.getElementById('coachee-name').value = coachee.name;
         document.getElementById('coachee-position').value = coachee.position;
+        // On pré-remplit la date pour la modification
+        document.getElementById('coachee-start-date').value = coachee.startDate;
         document.getElementById('add-coachee-modal').classList.remove('hidden');
     }
 
     window.deleteCoachee = function(coacheeId) {
         if (!confirm('Êtes-vous sûr de vouloir supprimer ce coaché ?')) return;
-
         coachees = coachees.filter(c => c.id !== coacheeId);
         saveData();
         renderAllCoachees();
@@ -135,11 +129,20 @@ const initialCoachees = [
         document.getElementById(`menu-${coacheeId}`).classList.toggle('hidden');
     }
 
-    // ----- FONCTIONS UTILITAIRES (génération de l'HTML) -----
     function createCoacheeCardHTML(coachee) {
         const initials = coachee.name.split(' ').map(n => n[0]).join('').toUpperCase();
         const progress = (coachee.currentStep || 1) * 10;
         
+        // Formattage de la date pour un affichage plus lisible
+        let formattedDate = 'Date non définie';
+        if (coachee.startDate) {
+            formattedDate = new Date(coachee.startDate).toLocaleDateString('fr-FR', {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric'
+            });
+        }
+
         return `
             <div class="coachee-card bg-white rounded-lg shadow-md overflow-hidden flex flex-col">
                 <div class="coachee-header flex justify-between items-center p-4 bg-gray-50 border-b border-gray-200">
@@ -159,6 +162,14 @@ const initialCoachees = [
                     </div>
                 </div>
                 <div class="coachee-body p-4 flex-grow">
+                    <div class="mb-4 p-2 bg-gray-100 rounded-lg flex items-center">
+                        <i class="fas fa-calendar-alt w-5 mr-3 text-gray-500"></i>
+                        <div>
+                            <p class="text-xs text-gray-600">Début du coaching</p>
+                            <p class="text-sm font-medium text-gray-800">${formattedDate}</p>
+                        </div>
+                    </div>
+                    
                     <p class="text-sm text-gray-500">Progression</p>
                     <div class="progress-container h-2 bg-gray-200 rounded-full overflow-hidden mt-1">
                         <div class="progress-bar h-full bg-blue-500" style="width: ${progress}%;"></div>
@@ -170,6 +181,5 @@ const initialCoachees = [
             </div>`;
     }
 
-    // Lancement de l'application
     initializeApp();
 });
