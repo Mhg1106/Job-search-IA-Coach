@@ -450,35 +450,39 @@ Conclus par une note d'encouragement et une vision positive pour la suite de sa 
     /**
      * Affiche dynamiquement les prompts dans le conteneur HTML.
      */
-    function displayPrompts() {
-        const prompts = DataStorage.get(DataStorage.KEYS.PROMPTS);
-        promptContainer.innerHTML = ''; // Toujours vider avant de remplir
+// NOUVELLE VERSION CORRIGÉE
+function displayPrompts() {
+    const prompts = DataStorage.get(DataStorage.KEYS.PROMPTS);
+    promptContainer.innerHTML = ''; // Toujours vider avant de remplir
 
-        prompts.forEach(prompt => {
-            const cardHTML = `
-                <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-blue-500" data-id="${prompt.id}">
-                    <h3 class="text-xl font-bold text-gray-800">${prompt.title}</h3>
-                    <div class="text-xs text-gray-500 my-4 italic line-clamp-3">
-                        ${prompt.content}
-                    </div>
-                    <div class="flex flex-wrap gap-2 mt-4">
-                        <button data-action="use" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm flex items-center">
-                            <i class="fas fa-play mr-1"></i> Utiliser
-                        </button>
-                        <button data-action="edit" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded text-sm flex items-center">
-                            <i class="fas fa-edit mr-1"></i> Modifier
-                        </button>
-                        <button data-action="open-chatgpt" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm flex items-center">
-                            <i class="fas fa-external-link-alt mr-1"></i> Ouvrir dans ChatGPT
-                        </button>
-                        <button data-action="save-response" class="bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-sm flex items-center">
-                            <i class="fas fa-save mr-1"></i> Enregistrer réponse
-                        </button>
-                    </div>
-                </div>`;
-            promptContainer.insertAdjacentHTML('beforeend', cardHTML);
-        });
-    }
+    prompts.forEach(prompt => {
+        // Crée un aperçu court du contenu (ex: 30 premiers mots)
+        const contentPreview = prompt.content.split(' ').slice(0, 30).join(' ') + '...';
+
+        const cardHTML = `
+            <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-blue-500" data-id="${prompt.id}">
+                <h3 class="text-xl font-bold text-gray-800">${prompt.title}</h3>
+                <div class="text-xs text-gray-500 my-4 italic">
+                    ${contentPreview}
+                </div>
+                <div class="flex flex-wrap gap-2 mt-4">
+                    <button data-action="use" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded text-sm flex items-center">
+                        <i class="fas fa-play mr-1"></i> Utiliser
+                    </button>
+                    <button data-action="edit" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-1 rounded text-sm flex items-center">
+                        <i class="fas fa-edit mr-1"></i> Modifier
+                    </button>
+                    <button data-action="open-chatgpt" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm flex items-center">
+                        <i class="fas fa-external-link-alt mr-1"></i> Ouvrir dans ChatGPT
+                    </button>
+                    <button data-action="save-response" class="bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-sm flex items-center">
+                        <i class="fas fa-save mr-1"></i> Enregistrer réponse
+                    </button>
+                </div>
+            </div>`;
+        promptContainer.insertAdjacentHTML('beforeend', cardHTML);
+    });
+}
 
     /**
      * Ouvre et configure le modal pour utiliser ou modifier un prompt.
