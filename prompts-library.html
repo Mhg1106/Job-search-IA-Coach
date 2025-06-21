@@ -148,44 +148,25 @@
         }
     </style> 
 </head>
-<body>
+<body class="bg-gray-100">
 
     <div class="app-container">
         <div class="sidebar">
-            <div class="sidebar-header">
-                <h2><i class="fas fa-briefcase mr-3"></i>Job Search IA Coach</h2>
-            </div>
+            <div class="sidebar-header"><h2><i class="fas fa-briefcase mr-3"></i>Job Search IA Coach</h2></div>
             <nav class="sidebar-nav">
-                <a href="index.html" class="nav-item">
-                    <i class="fas fa-chart-line"></i>
-                    <span>Tableau de bord</span>
-                </a>
-                <a href="prompts-library.html" class="nav-item active"> <i class="fas fa-robot"></i>
-                    <span>Prompts IA</span>
-                </a>
-                <a href="coachees.html" class="nav-item">
-                    <i class="fas fa-users"></i>
-                    <span>Mes coachés</span>
-                </a>
-                <a href="resources.html" class="nav-item">
-                    <i class="fas fa-folder"></i>
-                    <span>Ressources</span>
-                </a>
-                <a href="calendrier.html" class="nav-item">
-                    <i class="fas fa-calendar-alt"></i>
-                    <span>Calendrier</span>
-                </a>
-                <a href="prompt-test.html" class="nav-item">
-                    <i class="fas fa-cog"></i>
-                    <span>Test des Prompts</span>
-                </a>
+                <a href="index.html" class="nav-item"><i class="fas fa-chart-line"></i><span>Tableau de bord</span></a>
+                <a href="prompts-library.html" class="nav-item active"><i class="fas fa-robot"></i><span>Prompts IA</span></a>
+                <a href="coachees.html" class="nav-item"><i class="fas fa-users"></i><span>Mes coachés</span></a>
+                <a href="resources.html" class="nav-item"><i class="fas fa-folder"></i><span>Ressources</span></a>
+                <a href="calendrier.html" class="nav-item"><i class="fas fa-calendar-alt"></i><span>Calendrier</span></a>
+                <a href="prompt-test.html" class="nav-item"><i class="fas fa-cog"></i><span>Test des Prompts</span></a>
             </nav>
         </div>
 
         <div class="main-content">
-            <div class="content-header" style="background: linear-gradient(to right, #1e3a8a, #1f2937); color: white;">
-                <h1 class="text-2xl font-bold"><i class="fas fa-comment-alt"></i> Bibliothèque de Prompts IA</h1>
-                <p class="text-gray-300">Utilisez ces prompts optimisés pour chaque étape de votre accompagnement coaching.</p>
+            <div class="content-header">
+                <h1 class="text-3xl font-bold text-gray-800">Bibliothèque de Prompts IA</h1>
+                <p class="text-gray-500">Gérez et optimisez les prompts utilisés pour votre coaching.</p>
             </div>
             
             <div id="prompt-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -193,68 +174,10 @@
         </div>
     </div>
 
-<div id="responseModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
-    <div class="relative top-20 mx-auto p-5 border w-11/12 md:w-3/4 lg:w-1/2 shadow-lg rounded-md bg-white">
-        <div class="mt-3">
-            <div class="flex justify-between items-center border-b pb-3">
-                <h3 class="text-lg font-medium text-gray-900">Enregistrer la réponse pour le prompt</h3>
-                <button type="button" class="close-modal text-gray-400 hover:text-gray-500">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="mt-4">
-                <div class="mb-4">
-                    <label for="promptTitle" class="block text-sm font-medium text-gray-700">Titre du prompt</label>
-                    <input type="text" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="promptTitle" readonly>
-                </div>
-                <div class="mb-4">
-                    <label for="responseContent" class="block text-sm font-medium text-gray-700">Réponse de ChatGPT</label>
-                    <textarea class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="responseContent" rows="15"></textarea>
-                </div>
-                <div class="mb-4">
-                    <label for="coachedSelect" class="block text-sm font-medium text-gray-700">Associer à un coaché</label>
-                    <select class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="coachedSelect">
-                        </select>
-                </div>
-            </div>
-            <div class="flex items-center justify-end mt-4">
-                <button type="button" class="close-modal bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded mr-2">Annuler</button>
-                <button type="button" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded" id="saveResponseBtn">Enregistrer</button>
-            </div>
+    <div id="responseModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
         </div>
-    </div>
-</div>
-
-<div id="promptModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
-    <div class="relative top-10 mx-auto p-5 border w-11/12 md:w-4/5 lg:w-3/4 shadow-lg rounded-md bg-white">
-        <div class="mt-3">
-            <div class="flex justify-between items-center border-b pb-3">
-                <h3 class="text-lg font-medium text-gray-900" id="promptModalTitle">Prompt</h3>
-                <button type="button" class="close-prompt-modal text-gray-400 hover:text-gray-500">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="mt-4">
-                <div class="mb-4">
-                    <label for="promptTitleEdit" class="block text-sm font-medium text-gray-700">Titre du prompt</label>
-                    <input type="text" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="promptTitleEdit">
-                </div>
-                <div class="mb-4">
-                    <label for="promptContentEdit" class="block text-sm font-medium text-gray-700">Contenu du prompt</label>
-                    <textarea class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 font-mono text-sm" id="promptContentEdit" rows="20"></textarea>
-                </div>
-            </div>
-            <div class="flex items-center justify-between mt-4">
-                <div id="promptActions">
-                    </div>
-                <div>
-                    <button type="button" class="close-prompt-modal bg-gray-200 hover:bg-gray-300 text-gray-700 px-4 py-2 rounded mr-2">Fermer</button>
-                    <button type="button" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded hidden" id="savePromptEdit">Sauvegarder</button>
-                </div>
-            </div>
+    <div id="promptModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full hidden z-50">
         </div>
-    </div>
-</div>
     
     <script src="js/data-storage.js"></script>
     <script src="js/prompts.js"></script>
