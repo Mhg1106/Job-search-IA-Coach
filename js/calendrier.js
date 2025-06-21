@@ -37,7 +37,10 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('prev-month-btn').addEventListener('click', () => changeMonth(-1));
         document.getElementById('next-month-btn').addEventListener('click', () => changeMonth(1));
         document.getElementById('today-btn').addEventListener('click', goToToday);
-        document.getElementById('add-appointment-btn').addEventListener('click', () => openModal());
+         document.getElementById('add-appointment-btn').addEventListener('click', () => {
+            alert('BOUTON CLIQUE !'); // Ligne de test
+            openModal();
+            });
         document.getElementById('close-modal-btn').addEventListener('click', closeModal);
         document.getElementById('cancel-modal-btn').addEventListener('click', closeModal);
         deleteBtn.addEventListener('click', handleDelete);
