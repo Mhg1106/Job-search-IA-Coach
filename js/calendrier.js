@@ -1,6 +1,7 @@
-// js/calendrier.js - VERSION FINALE HARMONISÉE
+// js/calendrier.js - VERSION FINALE HARMONISÉE - VÉRIFIÉE
 
 document.addEventListener('DOMContentLoaded', function() {
+    console.log("Exécution de calendrier.js - Version du 21 Juin");
 
     // --- STATE & CONFIG ---
     let currentDate = new Date();
@@ -22,11 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- INITIALIZATION ---
     function initializeApp() {
-        // Ajouter une clé pour les RDV dans DataStorage si elle n'existe pas
-        if (!DataStorage.KEYS.APPOINTMENTS) {
-            DataStorage.KEYS.APPOINTMENTS = 'jobsearch_appointments';
-        }
-
+        if (!DataStorage.KEYS.APPOINTMENTS) DataStorage.KEYS.APPOINTMENTS = 'jobsearch_appointments';
         appointments = DataStorage.get(DataStorage.KEYS.APPOINTMENTS, []);
         
         populateCoacheeSelect();
@@ -67,14 +64,12 @@ document.addEventListener('DOMContentLoaded', function() {
         monthDisplay.textContent = currentDate.toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
         
         const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-        const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-
         let startDate = new Date(firstDayOfMonth);
-        let startDayOfWeek = startDate.getDay(); // 0=Dim, 1=Lun, ...
-        if (startDayOfWeek === 0) startDayOfWeek = 7; // Mettre Dimanche à 7
+        let startDayOfWeek = startDate.getDay();
+        if (startDayOfWeek === 0) startDayOfWeek = 7;
         startDate.setDate(startDate.getDate() - (startDayOfWeek - 1));
 
-        const headers = calendarGrid.querySelectorAll('.calendar-header');
+        const headers = Array.from(calendarGrid.querySelectorAll('.calendar-header'));
         calendarGrid.innerHTML = '';
         headers.forEach(header => calendarGrid.appendChild(header));
 
@@ -87,26 +82,30 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function createDayElement(date, currentMonth) {
         const dayDiv = document.createElement('div');
-        dayDiv.className = 'calendar-day';
-        dayDiv.dataset.date = date.toISOString();
+        dayDiv.className = 'calendar-day p-2 flex flex-col';
+        dayDiv.dataset.date = date.toISOString().split('T')[0];
 
-        if (date.getMonth() !== currentMonth) {
-            dayDiv.classList.add('other-month');
-        }
-        if (date.toDateString() === new Date().toDateString()) {
-            dayDiv.classList.add('today');
-        }
-
-        dayDiv.innerHTML = `<div class="day-number">${date.getDate()}</div>`;
+        if (date.getMonth() !== currentMonth) dayDiv.classList.add('other-month', 'bg-gray-50');
         
-        const dayAppointments = appointments.filter(apt => new Date(apt.date).toDateString() === date.toDateString());
+        const dayNumberDiv = document.createElement('div');
+        dayNumberDiv.className = 'day-number self-start mb-1';
+        dayNumberDiv.textContent = date.getDate();
+        if (date.toDateString() === new Date().toDateString()) {
+             dayNumberDiv.classList.add('bg-blue-500', 'text-white', 'rounded-full', 'w-7', 'h-7', 'flex', 'items-center', 'justify-center');
+        }
+        dayDiv.appendChild(dayNumberDiv);
+        
+        const appointmentsContainer = document.createElement('div');
+        appointmentsContainer.className = 'flex-grow overflow-y-auto';
+        const dayAppointments = appointments.filter(apt => apt.date === dayDiv.dataset.date);
         dayAppointments.forEach(apt => {
             const appointmentDiv = document.createElement('div');
-            appointmentDiv.className = 'appointment';
-            appointmentDiv.textContent = `${apt.time} - ${apt.coachee}`;
+            appointmentDiv.className = 'appointment text-xs p-1 rounded mb-1';
+            appointmentDiv.textContent = `${apt.time} ${apt.coachee}`;
             appointmentDiv.dataset.id = apt.id;
-            dayDiv.appendChild(appointmentDiv);
+            appointmentsContainer.appendChild(appointmentDiv);
         });
+        dayDiv.appendChild(appointmentsContainer);
 
         return dayDiv;
     }
@@ -115,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function openModal(appointment = null, date = null) {
         form.reset();
         deleteBtn.classList.add('hidden');
-        if (appointment) { // Mode édition
+        if (appointment) { // Edit mode
             modalTitle.textContent = 'Modifier le Rendez-vous';
             appointmentIdInput.value = appointment.id;
             coacheeSelect.value = appointment.coachee;
@@ -124,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
             timeInput.value = appointment.time;
             notesInput.value = appointment.notes;
             deleteBtn.classList.remove('hidden');
-        } else { // Mode ajout
+        } else { // Add mode
             modalTitle.textContent = 'Nouveau Rendez-vous';
             appointmentIdInput.value = '';
             if (date) {
@@ -149,9 +148,9 @@ document.addEventListener('DOMContentLoaded', function() {
             notes: notesInput.value,
         };
 
-        if (id) { // Update
+        if (id) {
             appointments = appointments.map(apt => apt.id === id ? { ...apt, ...appointmentData } : apt);
-        } else { // Create
+        } else {
             appointments.push({ ...appointmentData, id: 'apt-' + Date.now() });
         }
 
