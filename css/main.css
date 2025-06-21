@@ -1,43 +1,14 @@
-/* Ces styles peuvent être supprimés ou commentés
-.logo-container {
-  display: flex;
-  align-items: center;
-  padding: 5px 10px;
-}
+/* main.css - Version Nettoyée */
 
-.logo {
-  height: 25px;
-  width: auto;
-  margin-right: 10px;
-}
-
-.logo-text {
-  color: #2C3E50;
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
-@media (max-width: 768px) {
-  .logo {
-    height: 20px;
-  }
-  
-  .logo-text {
-    font-size: 0.9rem;
-  }
-}
-*/
-/* Styles pour les modals et menus */
-.coachee-card {
-    position: relative;
-}
-
+/* Styles pour les menus contextuels (ex: carte coaché) */
 .coachee-menu {
     min-width: 160px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     background: white;
     border: 1px solid #e5e7eb;
     border-radius: 0.5rem;
+    position: absolute; /* Assure le positionnement correct */
+    z-index: 20; /* Doit être au-dessus de la carte */
 }
 
 .coachee-menu button {
@@ -50,72 +21,21 @@
     background-color: #f3f4f6;
 }
 
-.coachee-menu button:hover.text-red-600 {
-    background-color: #fef2f2;
-}
-
-.fictional-badge {
-    font-size: 0.75rem;
-    font-weight: 600;
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.7; }
-}
-
-/* Animation pour les modals */
-.modal-enter {
-    animation: modalFadeIn 0.3s ease-out;
-}
-
-@keyframes modalFadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-/* Focus styles pour l'accessibilité */
-input:focus, select:focus, textarea:focus {
-    outline: none;
-    ring: 2px;
-    ring-color: #3b82f6;
-    border-color: #3b82f6;
-}
-
-/* Style pour les notifications */
+/* Styles pour les notifications (si vous en utilisez) */
 .notification-success {
     background-color: #10b981;
 }
-
 .notification-error {
     background-color: #ef4444;
 }
-
-.notification-warning {
-    background-color: #f59e0b;
-}
-
 .notification-info {
     background-color: #3b82f6;
 }
 
-/* Responsive pour mobile */
+/* Améliorations responsives pour les petits écrans */
 @media (max-width: 640px) {
     .coachee-menu {
         right: 0 !important;
         left: auto !important;
-        min-width: 140px;
-    }
-    
-    .modal-content {
-        margin: 1rem;
-        max-height: calc(100vh - 2rem);
     }
 }
