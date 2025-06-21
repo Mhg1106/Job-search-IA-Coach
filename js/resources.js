@@ -1,390 +1,179 @@
-// Gestion des ressources - Version fusionnée
+// js/resources.js - VERSION FINALE HARMONISÉE
+
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Initialisation de la page Ressources...');
+
+    // --- ÉLÉMENTS DU DOM ---
+    const resourcesContainer = document.getElementById('resources-container');
+    const filterContainer = document.getElementById('filter-container');
+    const addResourceBtn = document.getElementById('add-resource-btn');
     
-    // Initialiser les fonctionnalités existantes
-    initializeFilters();
-    initializeExistingButtons();
-    initializeAddResourceButton();
+    // Éléments du Modal
+    const modal = document.getElementById('resource-modal');
+    const form = document.getElementById('resource-form');
+    const modalTitle = document.getElementById('modal-title');
+    const resourceIdInput = document.getElementById('resource-id');
+    const resourceTitleInput = document.getElementById('resource-title');
+    const resourceDescInput = document.getElementById('resource-description');
+    const resourceUrlInput = document.getElementById('resource-url');
+    const resourceCategoryInput = document.getElementById('resource-category');
     
-    // Nouvelles fonctionnalités
-    loadCustomResources();
-    showEmptySlots();
+    if (!resourcesContainer || !modal || !form) {
+        console.error("Éléments HTML critiques non trouvés. Le script ne peut s'exécuter.");
+        return;
+    }
+    
+    // --- DONNÉES PAR DÉFAUT ---
+    const defaultResources = [
+        { id: 'default-1', title: 'Modèles de CV', description: 'Templates professionnels gratuits pour différents secteurs.', url: 'https://www.modeles-de-cv.com/', category: 'cv', isCustom: false },
+        { id: 'default-2', title: 'Templates de Lettres', description: 'Modèles de lettres de motivation gratuits.', url: 'https://www.modele-lettre-gratuit.com/lettres-motivation-emploi/', category: 'lettres', isCustom: false },
+        { id: 'default-3', title: 'Offres France Travail', description: 'Recherche d\'offres d\'emploi officielles.', url: 'https://candidat.pole-emploi.fr/offres/recherche', category: 'marche', isCustom: false },
+        { id: 'default-4', title: 'Guide d\'entretien avancé', description: 'Techniques pour maîtriser tous les types d\'entretiens.', url: 'https://www.pole-emploi.fr/candidat/mes-aides/preparation-entr.html', category: 'entretiens', isCustom: false },
+        { id: 'default-5', title: 'LinkedIn Optimizer', description: 'Optimiser son profil LinkedIn et élargir son réseau.', url: 'https://www.linkedin.com/learning/', category: 'linkedin', isCustom: false },
+        { id: 'default-6', title: 'Guide de Reconversion', description: 'Méthodologie pour réussir une transition professionnelle.', url: 'https://www.pole-emploi.fr/candidat/en-formation/mes-aides-financieres/aide-individuelle-a-la-format.html', category: 'formation', isCustom: false },
+    ];
+
+    // --- INITIALISATION ---
+    function initializeApp() {
+        let resources = DataStorage.get(DataStorage.KEYS.RESOURCES);
+        if (resources.length === 0) {
+            resources = defaultResources;
+            DataStorage.save(DataStorage.KEYS.RESOURCES, resources);
+        }
+        renderResources(resources);
+        setupEventListeners();
+    }
+
+    // --- GESTION DE L'AFFICHAGE ---
+    function renderResources(resources, filter = 'all') {
+        resourcesContainer.innerHTML = '';
+        const filteredResources = resources.filter(r => filter === 'all' || r.category === filter);
+
+        if (filteredResources.length === 0) {
+            resourcesContainer.innerHTML = `<p class="text-gray-500 col-span-full text-center">Aucune ressource dans cette catégorie.</p>`;
+            return;
+        }
+        filteredResources.forEach(resource => {
+            resourcesContainer.insertAdjacentHTML('beforeend', createResourceCardHTML(resource));
+        });
+    }
+
+    function createResourceCardHTML(resource) {
+        // Les ressources par défaut ne peuvent pas être supprimées ou modifiées
+        const editButton = resource.isCustom ? `<button data-action="edit" class="text-gray-500 hover:text-blue-600 p-2 rounded-full"><i class="fas fa-edit"></i></button>` : '';
+        const deleteButton = resource.isCustom ? `<button data-action="delete" class="text-gray-500 hover:text-red-600 p-2 rounded-full"><i class="fas fa-trash"></i></button>` : '';
+
+        return `
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col" data-id="${resource.id}">
+                <div class="p-5 flex-grow">
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">${resource.title}</h3>
+                    <p class="text-sm text-gray-600 mb-4 h-12">${resource.description}</p>
+                    <span class="text-xs text-indigo-600 bg-indigo-100 font-semibold px-2 py-1 rounded-full">${resource.category}</span>
+                </div>
+                <div class="p-3 bg-gray-50 border-t flex justify-end gap-2">
+                    ${editButton}
+                    ${deleteButton}
+                    <a href="${resource.url}" target="_blank" class="px-4 py-2 text-sm bg-red-500 hover:bg-red-600 text-white rounded-lg flex items-center">
+                        <i class="fas fa-external-link-alt mr-2"></i>Accéder
+                    </a>
+                </div>
+            </div>`;
+    }
+    
+    // --- GESTION DES ÉVÉNEMENTS ---
+    function setupEventListeners() {
+        addResourceBtn.addEventListener('click', openModalForAdd);
+        document.getElementById('close-modal-btn').addEventListener('click', closeModal);
+        document.getElementById('cancel-modal-btn').addEventListener('click', closeModal);
+        form.addEventListener('submit', handleFormSubmit);
+
+        filterContainer.addEventListener('click', (event) => {
+            const button = event.target.closest('button.filter-btn');
+            if (!button) return;
+
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('bg-blue-500', 'text-white');
+                btn.classList.add('bg-gray-200', 'text-gray-700');
+            });
+            button.classList.add('bg-blue-500', 'text-white');
+            button.classList.remove('bg-gray-200', 'text-gray-700');
+            
+            const resources = DataStorage.get(DataStorage.KEYS.RESOURCES);
+            renderResources(resources, button.dataset.filter);
+        });
+
+        resourcesContainer.addEventListener('click', (event) => {
+            const button = event.target.closest('button[data-action]');
+            if (!button) return;
+
+            const resourceId = button.closest('[data-id]').dataset.id;
+            const action = button.dataset.action;
+
+            if (action === 'edit') openModalForEdit(resourceId);
+            if (action === 'delete') deleteResource(resourceId);
+        });
+    }
+
+    function handleFormSubmit(event) {
+        event.preventDefault();
+        let resources = DataStorage.get(DataStorage.KEYS.RESOURCES);
+        const resourceData = {
+            title: resourceTitleInput.value,
+            description: resourceDescInput.value,
+            url: resourceUrlInput.value,
+            category: resourceCategoryInput.value,
+        };
+
+        if (resourceIdInput.value) { // Mode Édition
+            resources = resources.map(r => r.id === resourceIdInput.value ? { ...r, ...resourceData } : r);
+        } else { // Mode Ajout
+            resources.push({
+                ...resourceData,
+                id: 'custom-' + Date.now(),
+                isCustom: true // Marquer comme ressource personnalisée
+            });
+        }
+        DataStorage.save(DataStorage.KEYS.RESOURCES, resources);
+        renderResources(resources, 'all'); // Revenir au filtre "Tous"
+        // Mettre à jour le style du bouton de filtre
+        document.querySelector('.filter-btn.bg-blue-500').classList.remove('bg-blue-500', 'text-white');
+        document.querySelector('.filter-btn[data-filter="all"]').classList.add('bg-blue-500', 'text-white');
+        closeModal();
+    }
+    
+    // --- ACTIONS (MODALE, CRUD) ---
+    function openModalForAdd() {
+        form.reset();
+        resourceIdInput.value = '';
+        modalTitle.innerText = 'Ajouter une ressource';
+        modal.classList.remove('hidden');
+    }
+
+    function openModalForEdit(resourceId) {
+        const resources = DataStorage.get(DataStorage.KEYS.RESOURCES);
+        const resource = resources.find(r => r.id === resourceId);
+        if (!resource) return;
+        
+        modalTitle.innerText = 'Modifier la ressource';
+        resourceIdInput.value = resource.id;
+        resourceTitleInput.value = resource.title;
+        resourceDescInput.value = resource.description;
+        resourceUrlInput.value = resource.url;
+        resourceCategoryInput.value = resource.category;
+        modal.classList.remove('hidden');
+    }
+
+    function closeModal() {
+        modal.classList.add('hidden');
+    }
+
+    function deleteResource(resourceId) {
+        if (!confirm('Êtes-vous sûr de vouloir supprimer cette ressource ?')) return;
+        let resources = DataStorage.get(DataStorage.KEYS.RESOURCES);
+        resources = resources.filter(r => r.id !== resourceId);
+        DataStorage.save(DataStorage.KEYS.RESOURCES, resources);
+        renderResources(resources); // Rafraîchir l'affichage
+    }
+
+    // --- DÉMARRAGE ---
+    initializeApp();
 });
-
-// ========== FONCTIONNALITÉS EXISTANTES CONSERVÉES ==========
-
-function initializeFilters() {
-    const filterButtons = document.querySelectorAll('.flex.flex-wrap.mb-8 button');
-    const resourceCards = document.querySelectorAll('.grid.grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-3.gap-6 > div');
-    
-    filterButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Réinitialiser tous les boutons au style par défaut
-            filterButtons.forEach(btn => {
-                btn.classList.remove('bg-gray-800', 'text-white');
-                btn.classList.add('bg-gray-200', 'hover:bg-gray-300', 'text-gray-800');
-            });
-            
-            // Appliquer le style actif au bouton cliqué
-            this.classList.remove('bg-gray-200', 'hover:bg-gray-300', 'text-gray-800');
-            this.classList.add('bg-gray-800', 'text-white');
-            
-            // Filtrer les ressources
-            const filterCategory = this.textContent.trim().toLowerCase();
-            
-            resourceCards.forEach(card => {
-                const title = card.querySelector('h2')?.textContent.toLowerCase() || '';
-                const description = card.querySelector('p')?.textContent.toLowerCase() || '';
-                
-                if (filterCategory === 'tous' || 
-                    title.includes(filterCategory) || 
-                    description.includes(filterCategory)) {
-                    card.style.display = '';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        });
-    });
-}
-
-function initializeExistingButtons() {
-    // Les nouveaux boutons avec onclick seront gérés par les nouvelles fonctions
-    // Garder la logique pour les anciens boutons de consultation (vidéos)
-    const consultButtons = document.querySelectorAll('.bg-blue-500.hover\\:bg-blue-600');
-    consultButtons.forEach(button => {
-        // Vérifier que ce n'est pas un bouton avec onclick déjà défini
-        if (!button.hasAttribute('onclick')) {
-            button.addEventListener('click', function() {
-                const resourceCard = this.closest('div.p-5');
-                const resourceTitle = resourceCard?.querySelector('h2')?.textContent || 'Ressource';
-                
-                showNotification(`Ouverture de "${resourceTitle}" pour consultation...`, 'info');
-            });
-        }
-    });
-}
-
-function initializeAddResourceButton() {
-    const addResourceButton = document.querySelector('.mt-8.flex.justify-end button');
-    
-    if (addResourceButton && !addResourceButton.hasAttribute('onclick')) {
-        addResourceButton.addEventListener('click', function() {
-            showAddResourceOptions();
-        });
-    }
-}
-
-// ========== NOUVELLES FONCTIONNALITÉS ==========
-
-// URLs des ressources externes
-const externalResources = {
-    'modeles-cv': 'https://www.modeles-de-cv.com/',
-    'templates-lettres': 'https://www.modele-lettre-gratuit.com/lettres-motivation-emploi/',
-    'france-travail': 'https://candidat.pole-emploi.fr/offres/recherche',
-    'guide-entretien': 'https://www.pole-emploi.fr/candidat/mes-aides/preparation-entr.html',
-    'linkedin-optimizer': 'https://www.linkedin.com/learning/',
-    'guide-reconversion': 'https://www.pole-emploi.fr/candidat/en-formation/mes-aides-financieres/aide-individuelle-a-la-format.html'
-};
-
-// Ouvrir une ressource externe
-function openExternalResource(resourceId) {
-    const url = externalResources[resourceId];
-    
-    if (url) {
-        // Comptabiliser l'accès
-        incrementAccessCount(resourceId);
-        
-        // Notification
-        showNotification(`Ouverture de la ressource dans un nouvel onglet...`, 'info');
-        
-        // Ouvrir dans un nouvel onglet
-        window.open(url, '_blank');
-    } else {
-        showNotification('Ressource non disponible', 'error');
-    }
-}
-
-// Afficher les options d'ajout de ressource (version améliorée du modal existant)
-function showAddResourceOptions() {
-    const modal = document.createElement('div');
-    modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-    modal.innerHTML = `
-        <div class="bg-white rounded-lg shadow-xl w-full max-w-md p-6">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold">Ajouter une ressource</h2>
-                <button onclick="closeModal()" class="text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
-            </div>
-            
-            <div class="mb-4">
-                <label class="block text-sm font-medium mb-2">Titre de la ressource</label>
-                <input type="text" id="resourceTitle" class="w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="Ex: Guide des soft skills">
-            </div>
-            
-            <div class="mb-4">
-                <label class="block text-sm font-medium mb-2">Description</label>
-                <textarea id="resourceDescription" class="w-full px-3 py-2 border border-gray-300 rounded-md" rows="3" placeholder="Brève description de la ressource"></textarea>
-            </div>
-            
-            <div class="mb-4">
-                <label class="block text-sm font-medium mb-2">Type de ressource</label>
-                <select id="resourceType" class="w-full px-3 py-2 border border-gray-300 rounded-md">
-                    <option value="link">Lien externe</option>
-                    <option value="file">Fichier à télécharger</option>
-                </select>
-            </div>
-            
-            <div class="mb-4">
-                <label class="block text-sm font-medium mb-2">URL ou chemin du fichier</label>
-                <input type="text" id="resourceUrl" class="w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="https://exemple.com ou documents/fichier.pdf">
-            </div>
-            
-            <div class="mb-4">
-                <label class="block text-sm font-medium mb-2">Catégorie</label>
-                <select id="resourceCategory" class="w-full px-3 py-2 border border-gray-300 rounded-md">
-                    <option value="cv">CV</option>
-                    <option value="lettres">Lettres</option>
-                    <option value="entretiens">Entretiens</option>
-                    <option value="linkedin">LinkedIn</option>
-                    <option value="marche">Marché</option>
-                    <option value="formation">Formation</option>
-                </select>
-            </div>
-            
-            <div class="mb-6">
-                <label class="block text-sm font-medium mb-2">Informations fichier</label>
-                <input type="text" id="resourceInfo" class="w-full px-3 py-2 border border-gray-300 rounded-md" placeholder="Ex: PDF • 20 pages">
-            </div>
-            
-            <div class="flex justify-end space-x-3">
-                <button onclick="closeModal()" class="px-4 py-2 bg-gray-300 hover:bg-gray-400 rounded-md">
-                    Annuler
-                </button>
-                <button onclick="saveNewResource()" class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-md">
-                    Ajouter
-                </button>
-            </div>
-        </div>
-    `;
-    
-    document.body.appendChild(modal);
-    
-    // Fermer le modal si on clique en dehors
-    modal.addEventListener('click', (event) => {
-        if (event.target === modal) {
-            closeModal();
-        }
-    });
-}
-
-// Sauvegarder une nouvelle ressource
-function saveNewResource() {
-    const title = document.getElementById('resourceTitle').value;
-    const description = document.getElementById('resourceDescription').value;
-    const type = document.getElementById('resourceType').value;
-    const url = document.getElementById('resourceUrl').value;
-    const category = document.getElementById('resourceCategory').value;
-    const info = document.getElementById('resourceInfo').value;
-    
-    if (!title || !description || !url) {
-        showNotification('Veuillez remplir tous les champs obligatoires', 'error');
-        return;
-    }
-    
-    // Trouver le premier emplacement libre
-    const emptySlot = findEmptySlot();
-    if (!emptySlot) {
-        showNotification('Aucun emplacement libre disponible', 'error');
-        return;
-    }
-    
-    // Créer la nouvelle ressource
-    const newResource = {
-        id: Date.now().toString(),
-        title: title,
-        description: description,
-        type: type,
-        url: url,
-        category: category,
-        info: info,
-        dateAdded: new Date().toLocaleDateString('fr-FR')
-    };
-    
-    // Sauvegarder dans localStorage
-    saveCustomResource(emptySlot, newResource);
-    
-    // Afficher la nouvelle ressource
-    displayCustomResource(emptySlot, newResource);
-    
-    // Fermer le modal
-    closeModal();
-    
-    showNotification('Ressource ajoutée avec succès !', 'success');
-}
-
-// Trouver un emplacement libre
-function findEmptySlot() {
-    for (let i = 1; i <= 3; i++) {
-        const slot = document.getElementById(`newResource${i}`);
-        if (slot && slot.classList.contains('hidden')) {
-            return `newResource${i}`;
-        }
-    }
-    return null;
-}
-
-// Sauvegarder une ressource personnalisée
-function saveCustomResource(slotId, resource) {
-    let customResources = JSON.parse(localStorage.getItem('custom_resources')) || {};
-    customResources[slotId] = resource;
-    localStorage.setItem('custom_resources', JSON.stringify(customResources));
-}
-
-// Charger les ressources personnalisées
-function loadCustomResources() {
-    const customResources = JSON.parse(localStorage.getItem('custom_resources')) || {};
-    
-    Object.keys(customResources).forEach(slotId => {
-        const resource = customResources[slotId];
-        displayCustomResource(slotId, resource);
-    });
-}
-
-// Afficher une ressource personnalisée
-function displayCustomResource(slotId, resource) {
-    const slot = document.getElementById(slotId);
-    if (!slot) return;
-    
-    const buttonIcon = resource.type === 'link' ? 'fas fa-external-link-alt' : 'fas fa-download';
-    const buttonText = resource.type === 'link' ? 'Accéder' : 'Télécharger';
-    const buttonAction = resource.type === 'link' ? 
-        `openCustomLink('${resource.url}')` : 
-        `downloadCustomFile('${resource.url}', '${resource.title}')`;
-    
-    slot.innerHTML = `
-        <div class="p-5">
-            <div class="flex justify-between items-start mb-2">
-                <h2 class="text-lg font-bold">${resource.title}</h2>
-                <button onclick="removeCustomResource('${slotId}')" class="text-red-500 hover:text-red-700">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <p class="text-gray-600 text-sm mb-4">${resource.description}</p>
-            <div class="flex justify-between items-center">
-                <span class="text-xs text-gray-500">${resource.info}</span>
-                <button onclick="${buttonAction}" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded flex items-center">
-                    <i class="${buttonIcon} mr-1"></i> ${buttonText}
-                </button>
-            </div>
-        </div>
-    `;
-    
-    slot.classList.remove('hidden');
-    slot.classList.remove('border-dashed');
-    slot.classList.add('border-gray-200');
-}
-
-// Ouvrir un lien personnalisé
-function openCustomLink(url) {
-    window.open(url, '_blank');
-    showNotification('Ouverture de la ressource...', 'info');
-}
-
-// Télécharger un fichier personnalisé
-function downloadCustomFile(url, filename) {
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = filename;
-    link.click();
-    showNotification(`Téléchargement de ${filename} démarré !`, 'success');
-}
-
-// Supprimer une ressource personnalisée
-function removeCustomResource(slotId) {
-    if (confirm('Êtes-vous sûr de vouloir supprimer cette ressource ?')) {
-        // Supprimer du localStorage
-        let customResources = JSON.parse(localStorage.getItem('custom_resources')) || {};
-        delete customResources[slotId];
-        localStorage.setItem('custom_resources', JSON.stringify(customResources));
-        
-        // Remettre l'emplacement vide
-        const slot = document.getElementById(slotId);
-        slot.innerHTML = `
-            <div class="p-5 text-center">
-                <i class="fas fa-plus text-gray-400 text-3xl mb-3"></i>
-                <p class="text-gray-500">Emplacement libre</p>
-                <button onclick="editResource('${slotId}')" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm">
-                    Ajouter ressource
-                </button>
-            </div>
-        `;
-        slot.classList.add('hidden', 'border-dashed');
-        slot.classList.remove('border-gray-200');
-        
-        showNotification('Ressource supprimée', 'info');
-        showEmptySlots();
-    }
-}
-
-// Éditer une ressource (ouvre le modal d'ajout)
-function editResource(slotId) {
-    showAddResourceOptions();
-}
-
-// Afficher les emplacements vides
-function showEmptySlots() {
-    const customResources = JSON.parse(localStorage.getItem('custom_resources')) || {};
-    
-    for (let i = 1; i <= 3; i++) {
-        const slotId = `newResource${i}`;
-        const slot = document.getElementById(slotId);
-        
-        if (slot && !customResources[slotId]) {
-            slot.classList.remove('hidden');
-        }
-    }
-}
-
-// Fermer le modal
-function closeModal() {
-    const modal = document.querySelector('.fixed.inset-0.bg-black.bg-opacity-50');
-    if (modal) {
-        modal.remove();
-    }
-}
-
-// Comptabiliser les accès
-function incrementAccessCount(resourceId) {
-    let stats = JSON.parse(localStorage.getItem('resource_access_stats')) || {};
-    stats[resourceId] = (stats[resourceId] || 0) + 1;
-    localStorage.setItem('resource_access_stats', JSON.stringify(stats));
-}
-
-// Notifications améliorées
-function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    const bgColor = type === 'success' ? 'bg-green-500' : 
-                   type === 'error' ? 'bg-red-500' : 'bg-blue-500';
-    
-    notification.className = `fixed top-4 right-4 ${bgColor} text-white px-6 py-3 rounded shadow-lg z-50 transform translate-x-full transition-all duration-300`;
-    notification.innerHTML = `
-        <div class="flex items-center">
-            <i class="fas fa-${type === 'success' ? 'check' : type === 'error' ? 'exclamation-triangle' : 'info'}-circle mr-2"></i>
-            <span>${message}</span>
-        </div>
-    `;
-    
-    document.body.appendChild(notification);
-    
-    // Animation d'apparition
-    setTimeout(() => {
-        notification.style.transform = 'translateX(0)';
-    }, 100);
-    
-    // Suppression automatique
-    setTimeout(() => {
-        notification.style.transform = 'translateX(100%)';
-        setTimeout(() => notification.remove(), 300);
-    }, 3000);
-}
