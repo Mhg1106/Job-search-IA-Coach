@@ -22,7 +22,8 @@
         }
     </style>
 </head>
-<body>
+<body class="bg-gray-100">
+
     <div class="app-container">
         <div class="sidebar">
             <div class="sidebar-header"><h2><i class="fas fa-briefcase mr-3"></i>Job Search IA Coach</h2></div>
@@ -38,27 +39,25 @@
 
         <div class="main-content">
             <div class="content-header">
-                <div class="d-flex justify-content-between align-items-center">
+                <div class="flex justify-between items-center">
                     <div>
-                        <h1><i class="fas fa-calendar-alt text-primary"></i> Calendrier des Rendez-vous</h1>
-                        <p class="text-muted">Gérez vos créneaux et planifiez vos sessions de coaching</p>
+                        <h1 class="text-3xl font-bold text-gray-800">Calendrier des Rendez-vous</h1>
+                        <p class="text-gray-500">Gérez vos créneaux et planifiez vos sessions de coaching.</p>
                     </div>
-                    <div>
-                        <button id="add-appointment-btn" class="btn btn-success"><i class="fas fa-plus"></i> Nouveau RDV</button>
-                    </div>
+                    <button id="add-appointment-btn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg flex items-center">
+                        <i class="fas fa-plus mr-2"></i> Nouveau RDV
+                    </button>
                 </div>
             </div>
 
-            <div class="card mb-4">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="d-flex align-items-center">
-                            <button id="prev-month-btn" class="btn btn-outline-secondary me-2"><i class="fas fa-chevron-left"></i></button>
-                            <h3 id="current-month-display" class="mb-0 mx-3">Décembre 2024</h3>
-                            <button id="next-month-btn" class="btn btn-outline-secondary ms-2"><i class="fas fa-chevron-right"></i></button>
-                        </div>
-                        <button id="today-btn" class="btn btn-sm btn-outline-primary">Aujourd'hui</button>
+            <div class="bg-white p-4 rounded-lg shadow-md mb-6">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center">
+                        <button id="prev-month-btn" class="p-2 rounded-full hover:bg-gray-200"><i class="fas fa-chevron-left"></i></button>
+                        <h3 id="current-month-display" class="font-bold text-xl mx-4"></h3>
+                        <button id="next-month-btn" class="p-2 rounded-full hover:bg-gray-200"><i class="fas fa-chevron-right"></i></button>
                     </div>
+                    <button id="today-btn" class="text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg">Aujourd'hui</button>
                 </div>
             </div>
 
@@ -70,45 +69,45 @@
                 <div class="calendar-header">Ven</div>
                 <div class="calendar-header">Sam</div>
                 <div class="calendar-header">Dim</div>
-                </div>
+            </div>
         </div>
     </div>
 
     <div id="appointment-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-        <div class="modal-content bg-white w-full max-w-md mx-auto rounded-lg shadow-xl">
+        <div class="bg-white w-full max-w-md mx-auto rounded-lg shadow-xl">
              <div class="flex justify-between items-center p-5 border-b border-gray-200">
                 <h2 id="modal-title" class="text-xl font-bold text-gray-800">Nouveau Rendez-vous</h2>
                 <button id="close-modal-btn" class="text-2xl cursor-pointer text-gray-400 hover:text-gray-600">&times;</button>
             </div>
-            <form id="appointment-form" class="p-5">
+            <form id="appointment-form" class="p-5 space-y-4">
                 <input type="hidden" id="appointment-id">
-                <div class="mb-3">
-                    <label class="form-label">Coaché</label>
-                    <select class="form-select" id="appointment-coachee" required></select>
+                <div>
+                    <label for="appointment-coachee" class="block text-sm font-medium text-gray-700">Coaché</label>
+                    <select id="appointment-coachee" required class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></select>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Type de session</label>
-                    <select class="form-select" id="appointment-type" required></select>
+                <div>
+                    <label for="appointment-type" class="block text-sm font-medium text-gray-700">Type de session</label>
+                    <select id="appointment-type" required class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></select>
                 </div>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Date</label>
-                        <input type="date" class="form-control" id="appointment-date" required>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="appointment-date" class="block text-sm font-medium text-gray-700">Date</label>
+                        <input type="date" id="appointment-date" required class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm">
                     </div>
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Heure</label>
-                        <input type="time" class="form-control" id="appointment-time" required>
+                    <div>
+                        <label for="appointment-time" class="block text-sm font-medium text-gray-700">Heure</label>
+                        <input type="time" id="appointment-time" required class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm">
                     </div>
                 </div>
-                <div class="mb-3">
-                    <label class="form-label">Notes (optionnel)</label>
-                    <textarea class="form-control" id="appointment-notes" rows="3"></textarea>
+                <div>
+                    <label for="appointment-notes" class="block text-sm font-medium text-gray-700">Notes (optionnel)</label>
+                    <textarea id="appointment-notes" rows="3" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm"></textarea>
                 </div>
                 <div class="flex justify-between items-center pt-4 border-t">
-                    <button type="button" id="delete-appointment-btn" class="btn btn-sm btn-outline-danger">Supprimer</button>
+                    <button type="button" id="delete-appointment-btn" class="text-sm text-red-600 hover:text-red-800">Supprimer</button>
                     <div>
-                        <button type="button" id="cancel-modal-btn" class="btn btn-secondary me-2">Annuler</button>
-                        <button type="submit" class="btn btn-success">Sauvegarder</button>
+                        <button type="button" id="cancel-modal-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded-lg">Annuler</button>
+                        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg ml-2">Sauvegarder</button>
                     </div>
                 </div>
             </form>
