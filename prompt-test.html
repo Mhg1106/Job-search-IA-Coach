@@ -7,12 +7,76 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
     <link rel="stylesheet" href="css/main.css">
-    <style>
-        .app-container { display: flex; min-height: 100vh; }
-        .sidebar { width: 250px; background-color: #1f2937; color: white; padding: 1rem; position: fixed; height: 100vh; overflow-y: auto; z-index: 1000; }
-        .main-content { margin-left: 250px; flex: 1; padding: 2rem; background-color: #f9fafb; }
-        /* ... (le reste de notre style standard) ... */
-    </style>
+<style>
+    /* CSS Standard de l'Application */
+    .app-container {
+        display: flex;
+        min-height: 100vh;
+    }
+    .sidebar {
+        width: 250px;
+        background-color: #1f2937;
+        color: white;
+        padding: 1rem;
+        position: fixed;
+        height: 100vh;
+        overflow-y: auto;
+        z-index: 1000;
+    }
+    .sidebar-header h2 {
+        color: white;
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        font-weight: 600;
+    }
+    .sidebar-nav {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .sidebar-nav .nav-item {
+        display: flex;
+        align-items: center;
+        color: #d1d5db;
+        text-decoration: none;
+        padding: 0.75rem 1rem;
+        margin-bottom: 0.5rem;
+        border-radius: 0.5rem;
+        transition: all 0.2s ease;
+    }
+    .sidebar-nav .nav-item:hover {
+        background-color: #374151;
+        color: white;
+        text-decoration: none;
+    }
+    .sidebar-nav .nav-item.active {
+        background-color: #3b82f6;
+        color: white;
+    }
+    .sidebar-nav .nav-item i {
+        margin-right: 0.75rem;
+        width: 20px;
+        text-align: center;
+    }
+    .main-content {
+        margin-left: 250px;
+        flex: 1;
+        padding: 2rem;
+        background-color: #f9fafb;
+    }
+    .content-header {
+        background: white;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    @media (max-width: 768px) {
+        .app-container { flex-direction: column; }
+        .sidebar { width: 100%; position: relative; height: auto; }
+        .main-content { margin-left: 0; }
+    }
+</style>
 </head>
 <body class="bg-gray-100">
 
