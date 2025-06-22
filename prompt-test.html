@@ -1,273 +1,77 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mode Test des Prompts - Job-search IA & Coach</title>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
-  <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
-  <link rel="stylesheet" href="css/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test des Prompts - Job Search IA Coach</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <style>
+        .app-container { display: flex; min-height: 100vh; }
+        .sidebar { width: 250px; background-color: #1f2937; color: white; padding: 1rem; position: fixed; height: 100vh; overflow-y: auto; z-index: 1000; }
+        .main-content { margin-left: 250px; flex: 1; padding: 2rem; background-color: #f9fafb; }
+        /* ... (le reste de notre style standard) ... */
+    </style>
 </head>
-<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+<body class="bg-gray-100">
 
-  <div class="flex flex-col md:flex-row">
-    <!-- Navigation -->
-    <nav aria-label="alternative nav">
-      <div class="bg-gray-800 shadow-xl h-20 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48 content-center">
-        <div class="md:mt-12 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between">
-          <ul class="list-reset flex flex-row md:flex-col pt-3 md:py-3 px-1 md:px-2 text-center md:text-left">
-            <li class="mr-3 flex-1">
-              <a href="index.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-blue-500">
-                <i class="fas fa-chart-area pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Tableau de bord</span>
-              </a>
-            </li>
-            <li class="mr-3 flex-1">
-              <a href="prompts-library.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-green-500">
-                <i class="fas fa-comment-alt pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Prompts IA</span>
-              </a>
-            </li>
-            <li class="mr-3 flex-1">
-              <a href="coachees.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-purple-500">
-                <i class="fas fa-users pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Mes coachés</span>
-              </a>
-            </li>
-            <li class="mr-3 flex-1">
-              <a href="resources.html" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-red-500">
-                <i class="fas fa-book pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Ressources</span>
-              </a>
-            </li>
-            <li class="mr-3 flex-1">
-              <a href="prompt-test.html" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-yellow-600">
-                <i class="fas fa-vial pr-0 md:pr-3 text-yellow-600"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-white md:text-white block md:inline-block">Test des Prompts</span>
-              </a>
-            </li>
-          </ul>
+    <div class="app-container">
+        <div class="sidebar">
+            <div class="sidebar-header"><h2><i class="fas fa-briefcase mr-3"></i>Job Search IA Coach</h2></div>
+            <nav class="sidebar-nav">
+                <a href="index.html" class="nav-item"><i class="fas fa-chart-line"></i><span>Tableau de bord</span></a>
+                <a href="prompts-library.html" class="nav-item"><i class="fas fa-robot"></i><span>Prompts IA</span></a>
+                <a href="coachees.html" class="nav-item"><i class="fas fa-users"></i><span>Mes coachés</span></a>
+                <a href="resources.html" class="nav-item"><i class="fas fa-folder"></i><span>Ressources</span></a>
+                <a href="calendrier.html" class="nav-item"><i class="fas fa-calendar-alt"></i><span>Calendrier</span></a>
+                <a href="prompt-test.html" class="nav-item active"><i class="fas fa-cog"></i><span>Test des Prompts</span></a>
+            </nav>
         </div>
-      </div>
-    </nav>
-    
-    <!-- Contenu principal -->
-    <div id="main" class="main-content flex-1 bg-gray-100 pb-24 md:pb-5">
-      <div class="bg-gray-800 pt-3">
-        <div class="rounded-tl-3xl bg-gradient-to-r from-blue-900 to-gray-800 p-4 shadow text-2xl text-white">
-          <h1 class="font-bold pl-2">Mode Test des Prompts</h1>
-        </div>
-      </div>
-      
-      <div class="p-6">
-        <div class="bg-white rounded-lg shadow-xl p-5">
-          <p class="description mb-6 text-gray-600">
-            Testez vos prompts IA avant de les utiliser avec vos coachés pour vous assurer qu'ils produisent les résultats escomptés.
-          </p>
-          
-          <div class="test-container">
-            <div class="test-panel">
-              <!-- Première étape : Sélection ou création de prompt -->
-              <div class="test-section bg-white p-6 rounded-lg shadow-md mb-6">
-                <h2 class="text-xl font-bold mb-4 pb-2 border-b border-gray-200">Sélection du prompt</h2>
-                
-                <div class="prompt-choice">
-                  <div class="choice-option bg-gray-50 p-4 rounded-lg">
-                    <h3 class="font-bold mb-2 text-lg">Choisir un prompt existant</h3>
-                    <select id="prompt-select" class="full-width bg-white border border-gray-300 rounded-md px-3 py-2 w-full">
-                      <option value="">-- Sélectionnez un prompt --</option>
-                      <option value="1">1 - Diagnostic de Départ</option>
-                      <option value="2">2 - Analyse du Marché de l'Emploi</option>
-                      <option value="3">3 - Plan d'Actions Concret</option>
-                      <option value="4">4 - Analyse CV</option>
-                      <option value="5">5 - Recherches sur l'Entreprise</option>
-                      <option value="6">6 - Matching CV / Offre</option>
-                      <option value="7">7 - Lettre de Motivation</option>
-                      <option value="8">8 - Ciblage Offres</option>
-                      <option value="9">9 - Préparation Entretien</option>
-                      <option value="10">10 - Bilan du Coaching</option>
-                    </select>
-                  </div>
-                  
-                  <div class="separator my-4 text-center relative">
-                    <span class="bg-white px-3 py-1 rounded-full border border-gray-300 text-gray-600 text-sm font-bold">OU</span>
-                    <hr class="absolute top-1/2 left-0 w-full border-t border-gray-300" style="z-index: -1;">
-                  </div>
-                  
-                  <div class="choice-option bg-gray-50 p-4 rounded-lg">
-                    <h3 class="font-bold mb-2 text-lg">Créer un nouveau prompt</h3>
-                    <input type="text" id="prompt-title" class="full-width bg-white border border-gray-300 rounded-md px-3 py-2 w-full" placeholder="Titre du prompt">
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Deuxième étape : Variables de test -->
-              <div class="test-section bg-white p-6 rounded-lg shadow-md mb-6">
-                <h2 class="text-xl font-bold mb-4 pb-2 border-b border-gray-200">Variables de test</h2>
-                <p class="hint text-gray-600 text-sm mb-4">Remplissez les informations nécessaires qui seront insérées dans votre prompt.</p>
-                
-                <div class="variables-grid">
-                  <div class="variable-input">
-                    <label for="var-name" class="block text-sm font-medium text-gray-700 mb-1">Nom du coaché</label>
-                    <input type="text" id="var-name" placeholder="Ex: Marie Dupont" value="Marie Dupont" class="bg-white border border-gray-300 rounded-md px-3 py-2 w-full">
-                  </div>
-                  
-                  <div class="variable-input">
-                    <label for="var-position" class="block text-sm font-medium text-gray-700 mb-1">Poste recherché</label>
-                    <input type="text" id="var-position" placeholder="Ex: Responsable Marketing Digital" value="Responsable Marketing Digital" class="bg-white border border-gray-300 rounded-md px-3 py-2 w-full">
-                  </div>
-                  
-                  <div class="variable-input">
-                    <label for="var-sector" class="block text-sm font-medium text-gray-700 mb-1">Secteur d'activité</label>
-                    <input type="text" id="var-sector" placeholder="Ex: E-commerce" value="E-commerce" class="bg-white border border-gray-300 rounded-md px-3 py-2 w-full">
-                  </div>
-                  
-                  <div class="variable-input">
-                    <label for="var-experience" class="block text-sm font-medium text-gray-700 mb-1">Années d'expérience</label>
-                    <input type="number" id="var-experience" placeholder="Ex: 5" value="5" class="bg-white border border-gray-300 rounded-md px-3 py-2 w-full">
-                  </div>
-                  
-                  <div class="variable-input">
-                    <label for="var-skills" class="block text-sm font-medium text-gray-700 mb-1">Compétences clés</label>
-                    <input type="text" id="var-skills" placeholder="Ex: SEO, Marketing Digital, Analytics" value="SEO, Marketing Digital, Analytics" class="bg-white border border-gray-300 rounded-md px-3 py-2 w-full">
-                  </div>
-                  
-                  <div class="variable-input full-width">
-                    <label for="var-custom" class="block text-sm font-medium text-gray-700 mb-1">Variables personnalisées (format: clé=valeur, une par ligne)</label>
-                    <textarea id="var-custom" placeholder="Ex: objectif=trouver un poste en 3 mois&#10;localisation=Paris et banlieue" class="bg-white border border-gray-300 rounded-md px-3 py-2 w-full h-24"></textarea>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Troisième étape : Éditeur de prompt -->
-              <div class="test-section bg-white p-6 rounded-lg shadow-md mb-6">
-                <h2 class="text-xl font-bold mb-4 pb-2 border-b border-gray-200">Éditeur de prompt</h2>
-                
-                <div class="editor-container">
-                  <textarea id="prompt-editor" placeholder="Entrez votre prompt ici ou sélectionnez un prompt existant..." class="border border-gray-300 rounded-md w-full p-4 h-48 font-mono text-sm">Je suis un coach spécialisé en emploi et carrière. Je réalise un diagnostic initial pour [Nom du coaché], qui recherche un poste de [type de poste] dans le secteur [secteur]. 
 
-Le/la candidat(e) possède [années d'expérience] ans d'expérience et des compétences en [compétences].
-
-Réalise une analyse complète de la situation professionnelle actuelle avec :
-1. Une synthèse de la situation
-2. Les forces identifiées
-3. Les freins potentiels  
-4. Les motivations principales
-5. Un plan d'action initial recommandé (court et moyen terme)
-6. Des actions spécifiques à mettre en place
-
-Adopte un ton constructif et encourageant. Structure ta réponse avec des titres et des listes pour faciliter la lecture.</textarea>
-                  
-                  <div class="editor-tools mt-4 flex flex-wrap gap-2">
-                    <button id="insert-variable" class="btn-tool px-3 py-1 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded flex items-center text-sm">
-                      <i class="fas fa-code mr-1"></i> Insérer variable
-                    </button>
-                    <button id="format-prompt" class="btn-tool px-3 py-1 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded flex items-center text-sm">
-                      <i class="fas fa-paragraph mr-1"></i> Formater
-                    </button>
-                    <button id="save-prompt" class="btn-tool px-3 py-1 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded flex items-center text-sm">
-                      <i class="fas fa-save mr-1"></i> Sauvegarder
-                    </button>
-                  </div>
-                </div>
-              </div>
-              
-              <div class="test-actions flex justify-between mb-8">
-                <button id="reset-test" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                  <i class="fas fa-redo mr-2"></i> Réinitialiser
-                </button>
-                <button id="run-test" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-flex items-center">
-                  <i class="fas fa-play mr-2"></i> Tester le prompt
-                </button>
-              </div>
+        <div class="main-content">
+            <div class="content-header">
+                <h1 class="text-3xl font-bold text-gray-800">Mode Test des Prompts</h1>
+                <p class="text-gray-500">Testez et affinez vos prompts avant de les utiliser en session.</p>
             </div>
-          </div>
-          
-          <!-- Résultats du test -->
-          <div class="test-results bg-white p-6 rounded-lg shadow-md mt-6">
-            <h2 class="text-xl font-bold mb-4 pb-2 border-b border-gray-200">Résultat du test</h2>
-            
-            <div class="results-container">
-              <div id="="test-loading" class="loading-indicator hidden py-16 flex flex-col items-center justify-center">
-                <i class="fas fa-spinner fa-spin text-3xl text-blue-500 mb-3"></i>
-                <span class="text-gray-600">Génération en cours...</span>
-              </div>
-              
-              <div id="test-output" class="output-container border border-gray-200 rounded-lg">
-                <div class="output-content p-6">
-                  <h1 class="text-xl font-bold mb-4 text-gray-800">Diagnostic Initial pour Marie Dupont</h1>
-                  
-                  <h2 class="text-lg font-bold mt-5 mb-2 text-blue-600">Situation actuelle</h2>
-                  <p class="mb-4 text-gray-700">Marie Dupont est à la recherche d'un poste de Responsable Marketing Digital dans le secteur du e-commerce. Elle possède une expérience de 5 ans dans le marketing digital, principalement dans des entreprises de taille moyenne.</p>
-                  
-                  <h2 class="text-lg font-bold mt-5 mb-2 text-blue-600">Forces identifiées</h2>
-                  <ul class="list-disc pl-5 space-y-1 mb-4 text-gray-700">
-                    <li>Expertise technique en SEO/SEA et réseaux sociaux</li>
-                    <li>Expérience dans la création et l'analyse de campagnes marketing</li>
-                    <li>Bonne connaissance des outils d'analyse et de reporting</li>
-                    <li>Capacité à gérer des équipes et des projets</li>
-                    <li>Orientation résultats et ROI</li>
-                  </ul>
-                  
-                  <h2 class="text-lg font-bold mt-5 mb-2 text-blue-600">Freins potentiels</h2>
-                  <ul class="list-disc pl-5 space-y-1 mb-4 text-gray-700">
-                    <li>Réseau professionnel limité dans le secteur e-commerce</li>
-                    <li>Méconnaissance de certains outils spécifiques au secteur</li>
-                    <li>Difficulté à valoriser ses réussites quantifiables</li>
-                    <li>Manque de confiance lors des entretiens avec les décideurs de haut niveau</li>
-                  </ul>
-                  
-                  <h2 class="text-lg font-bold mt-5 mb-2 text-blue-600">Motivations</h2>
-                  <ul class="list-disc pl-5 space-y-1 mb-4 text-gray-700">
-                    <li>Souhait d'évoluer vers des responsabilités plus stratégiques</li>
-                    <li>Intérêt pour l'innovation technologique et les nouvelles tendances</li>
-                    <li>Recherche d'un environnement dynamique et en croissance</li>
-                    <li>Volonté d'avoir un impact mesurable sur la croissance de l'entreprise</li>
-                  </ul>
-                  
-                  <h2 class="text-lg font-bold mt-5 mb-2 text-blue-600">Plan d'action initial recommandé</h2>
-                  
-                  <h3 class="text-md font-semibold mt-3 mb-1 text-gray-800">Court terme (1-2 semaines)</h3>
-                  <ol class="list-decimal pl-5 space-y-1 mb-4 text-gray-700">
-                    <li>Optimisation de son CV pour mettre en avant ses réalisations quantifiables</li>
-                    <li>Analyse approfondie du secteur e-commerce et des tendances marketing actuelles</li>
-                    <li>Identification des compétences techniques à renforcer (ex: Google Analytics 4, outils CRM spécifiques)</li>
-                  </ol>
-                  
-                  <h3 class="text-md font-semibold mt-3 mb-1 text-gray-800">Moyen terme (3-4 semaines)</h3>
-                  <ol class="list-decimal pl-5 space-y-1 mb-4 text-gray-700">
-                    <li>Développement d'un personal branding axé sur son expertise marketing digital</li>
-                    <li>Expansion de son réseau professionnel via LinkedIn et événements sectoriels</li>
-                    <li>Préparation d'un pitch personnel mettant en avant sa valeur ajoutée</li>
-                  </ol>
-                  
-                  <h2 class="text-lg font-bold mt-5 mb-2 text-blue-600">Actions spécifiques recommandées</h2>
-                  <ul class="list-disc pl-5 space-y-1 mb-4 text-gray-700">
-                    <li>S'inscrire à une formation sur les dernières tendances du marketing e-commerce</li>
-                    <li>Contacter 3 professionnels du secteur par semaine pour des entretiens informatifs</li>
-                    <li>Créer un portfolio de ses campagnes marketing les plus réussies avec résultats chiffrés</li>
-                  </ul>
-                  
-                  <p class="mt-6 text-gray-700">Ce diagnostic servira de base pour élaborer un plan d'action détaillé lors de notre prochaine séance.</p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h2 class="text-xl font-bold mb-4">1. Choisir un Prompt</h2>
+                        <select id="prompt-select" class="w-full bg-white border border-gray-300 rounded-md p-2"></select>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h2 class="text-xl font-bold mb-4">2. Personnaliser le Prompt</h2>
+                        <textarea id="prompt-editor" rows="15" class="w-full border border-gray-300 rounded-md p-2 font-mono text-sm"></textarea>
+                    </div>
                 </div>
-                
-                <div class="evaluation-container p-6 bg-gray-50 border-t border-gray-200">
-                  <h3 class="font-bold mb-3">Comment évaluez-vous ce résultat ?</h3>
-                  <div class="rating-container flex mb-4">
-                    <button class="rating-btn text-2xl px-1" data-rating="1"><i class="far fa-star text-yellow-400"></i></button>
-                    <button class="rating-btn text-2xl px-1" data-rating="2"><i class="far fa-star text-yellow-400"></i></button>
-                    <button class="rating-btn text-2xl px-1" data-rating="3"><i class="far fa-star text-yellow-400"></i></button>
-                    <button class="rating-btn text-2xl px-1" data-rating="4"><i class="far fa-star text-yellow-400"></i></button>
-                    <button class="rating-btn text-2xl px-1" data-rating="5"><i class="far fa-star text-yellow-400"></i></button>
-                  </div>
-                  <textarea id="feedback-text" placeholder="Commentaires sur le résultat (facultatif)..." class="w-full border border-gray-300 rounded-md px-3 py-2 mb-4 h-24"></textarea>
-                  <button id="save-feedback" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded inline-flex items-center">
-                    <i class="fas fa-save mr-2"></i> Enregistrer évaluation
-                  </button>
+
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                         <div class="flex justify-between items-center mb-4">
+                            <h2 class="text-xl font-bold">3. Lancer le test</h2>
+                            <button id="run-test-btn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg flex items-center">
+                                <i class="fas fa-play mr-2"></i>Copier & Ouvrir ChatGPT
+                            </button>
+                        </div>
+                        <p class="text-sm text-gray-500">Le prompt personnalisé sera copié. Collez-le dans ChatGPT qui s'ouvrira dans un nouvel onglet.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h2 class="text-xl font-bold mb-4">4. Enregistrer le résultat (Optionnel)</h2>
+                        <textarea id="result-input" rows="10" placeholder="Collez ici la réponse de l'IA pour l'archiver..." class="w-full border border-gray-300 rounded-md p-2"></textarea>
+                        <div class="mt-4 flex justify-end">
+                            <button id="save-result-btn" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg flex items-center">
+                                <i class="fas fa-save mr-2"></i>Archiver le résultat
+                            </button>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
-  
-  <script src="js/prompt-test.js"></script>
+    
+    <script src="js/data-storage.js"></script>
+    <script src="js/prompt-test.js"></script>
 </body>
 </html>
