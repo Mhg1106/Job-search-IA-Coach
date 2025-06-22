@@ -7,383 +7,63 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
     <link rel="stylesheet" href="css/main.css">
+    <style>
+        .app-container { display: flex; min-height: 100vh; }
+        .sidebar { width: 250px; background-color: #1f2937; color: white; padding: 1rem; position: fixed; height: 100vh; overflow-y: auto; z-index: 1000; }
+        .main-content { margin-left: 250px; flex: 1; padding: 2rem; background-color: #f9fafb; }
+        .content-header { background: white; padding: 2rem; border-radius: 0.5rem; margin-bottom: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        @media (max-width: 768px) { .app-container { flex-direction: column; } .sidebar { width: 100%; position: relative; height: auto; } .main-content { margin-left: 0; } }
+    </style>
 </head>
-<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+<body class="bg-gray-100">
 
-<div class="flex flex-col md:flex-row">
-    <!-- Navigation -->
-    <nav aria-label="alternative nav">
-        <div class="bg-gray-800 shadow-xl h-20 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48 content-center">
-            <div class="md:mt-12 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between">
-                <ul class="list-reset flex flex-row md:flex-col pt-3 md:py-3 px-1 md:px-2 text-center md:text-left">
-                    <li class="mr-3 flex-1">
-                        <a href="index.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-blue-500">
-                            <i class="fas fa-chart-area pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Tableau de bord</span>
-                        </a>
-                    </li>
-                    <li class="mr-3 flex-1">
-                        <a href="prompts-library.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-green-500">
-                            <i class="fas fa-comment-alt pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Prompts IA</span>
-                        </a>
-                    </li>
-                    <li class="mr-3 flex-1">
-                        <a href="coachees.html" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-purple-600">
-                            <i class="fas fa-users pr-0 md:pr-3 text-purple-600"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-white md:text-white block md:inline-block">Mes coachés</span>
-                        </a>
-                    </li>
-                    <li class="mr-3 flex-1">
-                        <a href="resources.html" class="block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-red-500">
-                            <i class="fas fa-book pr-0 md:pr-3"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-gray-400 md:text-gray-200 block md:inline-block">Ressources</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+    <div class="app-container">
+        <div class="sidebar">
+            <div class="sidebar-header"><h2><i class="fas fa-briefcase mr-3"></i>Job Search IA Coach</h2></div>
+            <nav class="sidebar-nav">
+                <a href="index.html" class="nav-item"><i class="fas fa-chart-line"></i><span>Tableau de bord</span></a>
+                <a href="prompts-library.html" class="nav-item"><i class="fas fa-robot"></i><span>Prompts IA</span></a>
+                <a href="coachees.html" class="nav-item active"><i class="fas fa-users"></i><span>Mes coachés</span></a>
+                <a href="resources.html" class="nav-item"><i class="fas fa-folder"></i><span>Ressources</span></a>
+                <a href="calendrier.html" class="nav-item"><i class="fas fa-calendar-alt"></i><span>Calendrier</span></a>
+                <a href="prompt-test.html" class="nav-item"><i class="fas fa-cog"></i><span>Test des Prompts</span></a>
+            </nav>
         </div>
-    </nav>
 
-    <!-- Contenu principal -->
-    <div id="main" class="main-content flex-1 bg-gray-100 pb-24 md:pb-5">
-        <div class="bg-gray-800 pt-3">
-            <div class="rounded-tl-3xl bg-gradient-to-r from-purple-900 to-gray-800 p-4 shadow text-2xl text-white">
-                <h1 class="font-bold pl-2">
+        <div class="main-content">
+            <div class="content-header">
+                <h1 class="text-3xl font-bold text-gray-800">
                     <i class="fas fa-video mr-3"></i>Session de Coaching
-                    <span id="coachedName" class="text-lg font-normal ml-2"></span>
+                    <span id="coachedName" class="text-xl font-normal ml-2 text-gray-600"></span>
                 </h1>
-            </div>
-        </div>
-        
-        <div class="p-6">
-            <!-- Retour aux coachés -->
-            <div class="mb-4">
-                <a href="coachees.html" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded inline-flex items-center">
-                    <i class="fas fa-arrow-left mr-2"></i> Retour aux coachés
-                </a>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- Panneau de contrôle session -->
-                <div class="lg:col-span-1">
-                    <div class="bg-white rounded-lg shadow-xl p-5 mb-6">
-                        <h3 class="text-lg font-bold mb-4">Contrôles de Session</h3>
-                        
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Étape actuelle</label>
-                            <select id="currentStep" class="w-full border border-gray-300 rounded-md p-2">
-                                <option value="1">1. Diagnostic de Départ</option>
-                                <option value="2">2. Analyse du Marché</option>
-                                <option value="3">3. Plan d'action détaillé</option>
-                                <option value="4">4. Analyse CV</option>
-                                <option value="5">5. Recherche Entreprise</option>
-                                <option value="6">6. Matching CV / Offre</option>
-                                <option value="7">7. Lettre de Motivation</option>
-                                <option value="8">8. Ciblage Offres</option>
-                                <option value="9">9. Préparation Entretien</option>
-                                <option value="10">10. Bilan du Coaching</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-4">
-                            <button id="openPromptBtn" class="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
-                                <i class="fas fa-external-link-alt mr-2"></i>Ouvrir le Prompt dans ChatGPT
-                            </button>
-                        </div>
-
-                        <div class="mb-4">
-                            <button id="saveNotesBtn" class="w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
-                                <i class="fas fa-save mr-2"></i>Sauvegarder les Notes
-                            </button>
-                        </div>
+                <div class="lg:col-span-1 space-y-4">
+                    <div class="bg-white rounded-lg shadow-md p-5">
+                        <label for="currentStep" class="block text-sm font-medium text-gray-700 mb-2">Étape de la session</label>
+                        <select id="currentStep" class="w-full border border-gray-300 rounded-md p-2"></select>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-md p-5">
+                         <button id="openPromptBtn" class="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-external-link-alt mr-2"></i>Ouvrir dans ChatGPT
+                        </button>
                     </div>
                 </div>
 
-                <!-- Zone de notes et résultats -->
-                <div class="lg:col-span-2">
-                    <div class="bg-white rounded-lg shadow-xl p-5">
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-lg font-bold">Session de Coaching</h3>
-                            <button onclick="toggleResultsSection()" class="bg-purple-500 hover:bg-purple-600 text-white px-3 py-1 rounded text-sm">
-                                <i class="fas fa-robot mr-1"></i><span id="resultsToggleText">Ajouter résultat IA</span>
-                            </button>
-                        </div>
-                        
-                        <!-- Notes du coach -->
-                        <div class="mb-4">
-                            <label for="sessionNotes" class="block text-sm font-medium text-gray-700 mb-2">
-                                <strong>Vos notes de coaching :</strong>
-                            </label>
-                            <textarea id="sessionNotes" rows="12" class="w-full border border-gray-300 rounded-md p-3" placeholder="Notez ici vos observations, les points abordés, les actions à prévoir..."></textarea>
-                        </div>
-
-                        <!-- Section Résultat IA (cachée par défaut) -->
-                        <div id="aiResultSection" style="display: none;" class="border-t pt-4">
-                            <div class="mb-4">
-                                <label class="block text-sm font-medium text-gray-700 mb-2">
-                                    <strong><i class="fas fa-robot text-purple-600"></i> Résultat du prompt ChatGPT :</strong>
-                                </label>
-                                <div class="mb-2">
-                                    <small class="text-gray-500">
-                                        <i class="fas fa-lightbulb"></i> 
-                                        Copiez-collez ici la réponse de ChatGPT pour la sauvegarder dans le dossier du coaché
-                                    </small>
-                                </div>
-                                <textarea id="aiResultText" rows="8" class="w-full border border-gray-300 rounded-md p-3" placeholder="Collez ici la réponse complète de ChatGPT..."></textarea>
-                            </div>
-                            
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Qualité du résultat :</label>
-                                    <select id="resultQuality" class="w-full border border-gray-300 rounded-md p-2">
-                                        <option value="excellent">⭐⭐⭐⭐⭐ Excellent</option>
-                                        <option value="bon" selected>⭐⭐⭐⭐ Bon</option>
-                                        <option value="moyen">⭐⭐⭐ Moyen</option>
-                                        <option value="faible">⭐⭐ Faible</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Actions à prévoir :</label>
-                                    <input type="text" id="nextActions" class="w-full border border-gray-300 rounded-md p-2" placeholder="Ex: Retravailler le CV, Préparer entretien...">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="flex justify-between">
-                            <div class="text-sm text-gray-500">
-                                Dernière sauvegarde : <span id="lastSaved">Jamais</span>
-                            </div>
-                            <div class="text-sm text-gray-500">
-                                Session démarrée à : <span id="sessionStart"></span>
-                            </div>
-                        </div>
+                <div class="lg:col-span-2 bg-white rounded-lg shadow-md p-5">
+                    <label for="sessionNotes" class="block text-lg font-bold text-gray-700 mb-2">Notes de la session</label>
+                    <textarea id="sessionNotes" rows="15" class="w-full border border-gray-300 rounded-md p-3" placeholder="Notez ici vos observations, les points abordés, les actions à prévoir..."></textarea>
+                    <div class="mt-4 flex justify-end">
+                         <button id="endSessionBtn" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg">
+                            <i class="fas fa-save mr-2"></i>Terminer et Sauvegarder la Session
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-// Gestion de la session de coaching
-document.addEventListener('DOMContentLoaded', function() {
-    // Récupérer les paramètres URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const coachedName = urlParams.get('name') || 'Coaché Inconnu';
-    const currentStep = urlParams.get('step') || '1';
-    
-    // Afficher le nom du coaché
-    document.getElementById('coachedName').textContent = `- ${coachedName}`;
-    document.getElementById('currentStep').value = currentStep.charAt(0);
-    
-    // Afficher l'heure de début
-    document.getElementById('sessionStart').textContent = new Date().toLocaleTimeString('fr-FR');
-    
-    // Charger les notes existantes
-    loadSessionNotes();
-    
-    // Charger les données de session si elles existent
-    loadExistingSessionData();
-    
-    // Gestionnaire pour ouvrir le prompt dans ChatGPT
-    document.getElementById('openPromptBtn').addEventListener('click', function() {
-    ouvrirDansChatGPT();
-    });
-    
-    // Gestionnaire pour sauvegarder les notes
-    document.getElementById('saveNotesBtn').addEventListener('click', function() {
-        saveSessionNotes();
-    });
-    
-    // Sauvegarde automatique toutes les 30 secondes
-    setInterval(saveSessionNotes, 30000);
-});
-
-function loadSessionNotes() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const coachedName = urlParams.get('name');
-    const storageKey = `session_notes_${coachedName}`;
-    
-    const savedNotes = localStorage.getItem(storageKey);
-    if (savedNotes) {
-        document.getElementById('sessionNotes').value = savedNotes;
-        document.getElementById('lastSaved').textContent = new Date().toLocaleTimeString('fr-FR');
-    }
-}
-
-function saveSessionNotes() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const coachedName = urlParams.get('name');
-    const currentStep = urlParams.get('step') || document.getElementById('currentStep').value;
-    
-    // Récupérer toutes les données de la session
-    const sessionData = {
-        coacheName: coachedName,
-        step: currentStep,
-        stepName: getStepName(currentStep),
-        date: new Date().toLocaleDateString('fr-FR'),
-        time: new Date().toLocaleTimeString('fr-FR'),
-        notes: document.getElementById('sessionNotes').value,
-        aiResult: document.getElementById('aiResultText') ? document.getElementById('aiResultText').value : '',
-        resultQuality: document.getElementById('resultQuality') ? document.getElementById('resultQuality').value : '',
-        nextActions: document.getElementById('nextActions') ? document.getElementById('nextActions').value : '',
-        sessionId: Date.now().toString(),
-        timestamp: new Date().toISOString()
-    };
-    
-    // Sauvegarder les notes courantes
-    const storageKey = `session_notes_${coachedName}`;
-    localStorage.setItem(storageKey, sessionData.notes);
-    
-    // Sauvegarder la session complète dans l'historique
-    if (sessionData.notes || sessionData.aiResult) {
-        saveSessionToHistory(sessionData);
-    }
-    
-    // Mettre à jour l'affichage
-    document.getElementById('lastSaved').textContent = new Date().toLocaleTimeString('fr-FR');
-    
-    // Notification visuelle
-    const saveBtn = document.getElementById('saveNotesBtn');
-    const originalText = saveBtn.innerHTML;
-    saveBtn.innerHTML = '<i class="fas fa-check mr-2"></i>Sauvegardé !';
-    saveBtn.className = 'w-full bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded';
-    
-    setTimeout(() => {
-        saveBtn.innerHTML = originalText;
-        saveBtn.className = 'w-full bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded';
-    }, 2000);
-    
-    // Feedback supplémentaire
-    showSessionNotification('Session sauvegardée avec succès !', 'success');
-}
-function ouvrirDansChatGPT() {
-    const step = document.getElementById('currentStep').value;
-    const urlParams = new URLSearchParams(window.location.search);
-    const coachedName = urlParams.get('name') || '[Nom du coaché]';
-    
-    // Dictionnaire des prompts basé sur vos prompts-library.html
-    const prompts = {
-        "1": "Je suis un coach spécialisé en emploi et carrière. Je réalise un diagnostic initial pour [Nom du coaché], qui recherche un poste de [type de poste]. Mon objectif est d'identifier ses motivations, ses compétences clés, ses freins potentiels et de définir ensemble une stratégie de recherche d'emploi personnalisée. Peux-tu m'aider à structurer ce diagnostic en me proposant une série de questions pertinentes à poser durant cette session ?",
-        
-        "2": "En tant que coach en recherche d'emploi, j'ai besoin d'une analyse complète du marché pour le secteur [secteur] dans lequel mon coaché recherche un poste. Je souhaite comprendre les tendances actuelles, les compétences recherchées, les types d'entreprises qui recrutent, et les évolutions à venir. Peux-tu m'aider à structurer cette analyse de marché pour mieux conseiller mon coaché ?",
-        
-        "3": "Sur la base du diagnostic réalisé pour [Nom du coaché] qui recherche un poste de [type de poste], élabore un plan d'action concret et détaillé. Ce plan doit inclure les étapes chronologiques, les objectifs SMART, les outils à utiliser, et les indicateurs de suivi. Aide-moi à structurer ce plan d'action pour maximiser les chances de succès de mon coaché.",
-        
-        "4": "Analyse le CV de [Nom du coaché] qui postule pour un poste de [type de poste]. Identifie les forces et faiblesses du CV, propose des améliorations concrètes pour optimiser son impact, et suggère des adaptations en fonction du secteur visé. Aide-moi à guider mon coaché dans l'amélioration de son CV.",
-        
-        "5": "Réalise une synthèse complète sur l'entreprise [Nom de l'entreprise] pour mon coaché qui souhaite y postuler. Include l'historique, la culture d'entreprise, les valeurs, les actualités récentes, les défis du secteur, et les opportunités de carrière. Cette analyse servira à personnaliser sa candidature et préparer ses entretiens.",
-        
-        "6": "Analyse le degré de matching entre le CV de [Nom du coaché] et l'offre d'emploi pour le poste de [intitulé du poste] chez [nom de l'entreprise]. Identifie les points de correspondance, les gaps à combler, et propose des stratégies pour renforcer la candidature. Aide-moi à conseiller mon coaché sur l'adaptation de son profil.",
-        
-        "7": "Rédige une lettre de motivation percutante pour [Nom du coaché] qui postule au poste de [intitulé du poste] chez [nom de l'entreprise]. La lettre doit être personnalisée, mettre en valeur les compétences clés, démontrer la motivation et s'adapter à la culture de l'entreprise. Aide-moi à structurer cette lettre de motivation.",
-        
-        "8": "Évalue le matching entre le profil de [Nom du coaché] et ces offres d'emploi. Classe-les par pertinence et suggère des adaptations du CV ou de la stratégie de candidature pour chaque offre. Aide-moi à prioriser les candidatures et optimiser les chances de succès.",
-        
-        "9": "Génère une série de questions d'entretien pour [Nom du coaché] qui postule au poste de [intitulé du poste] chez [nom de l'entreprise]. Include les questions techniques, comportementales, et spécifiques à l'entreprise. Propose aussi des conseils pour structurer les réponses et gérer le stress. Aide-moi à préparer efficacement mon coaché.",
-        
-        "10": "Réalise un bilan complet du coaching réalisé avec [Nom du coaché]. Analyse la progression, les points forts, les axes d'amélioration, les objectifs atteints et ceux à poursuivre. Propose des recommandations pour la suite de son parcours professionnel et des conseils pour maintenir sa motivation."
-    };
-    
-    // Récupérer le prompt correspondant
-    let prompt = prompts[step] || prompts["1"];
-    
-    // Remplacer le placeholder par le vrai nom du coaché
-    if (coachedName && coachedName !== 'Coaché Inconnu') {
-        prompt = prompt.replace(/\[Nom du coaché\]/g, coachedName);
-    }
-    
-    // Encoder le prompt pour l'URL
-    const encodedPrompt = encodeURIComponent(prompt);
-    
-    // Créer l'URL ChatGPT avec le prompt pré-rempli
-    const chatGPTUrl = `https://chat.openai.com/?q=${encodedPrompt}`;
-    
-    // Ouvrir ChatGPT dans un nouvel onglet
-    window.open(chatGPTUrl, '_blank');
-}
-
-// Nouvelles fonctions pour la gestion des résultats IA
-function toggleResultsSection() {
-    const section = document.getElementById('aiResultSection');
-    const toggleText = document.getElementById('resultsToggleText');
-    
-    if (section.style.display === 'none') {
-        section.style.display = 'block';
-        toggleText.textContent = 'Masquer résultat IA';
-    } else {
-        section.style.display = 'none';
-        toggleText.textContent = 'Ajouter résultat IA';
-    }
-}
-
-function getStepName(stepNumber) {
-    const stepNames = {
-        '1': 'Diagnostic de départ',
-        '2': 'Analyse du marché', 
-        '3': 'Plan d\'action détaillé',
-        '4': 'Analyse CV',
-        '5': 'Recherche entreprise',
-        '6': 'Matching CV / Offre',
-        '7': 'Lettres de motivation',
-        '8': 'Ciblage offres',
-        '9': 'Préparation entretien',
-        '10': 'Bilan du coaching'
-    };
-    return stepNames[stepNumber] || 'Session de coaching';
-}
-
-function saveSessionToHistory(sessionData) {
-    const historyKey = `sessions_history_${sessionData.coacheName}`;
-    let sessions = JSON.parse(localStorage.getItem(historyKey)) || [];
-    
-    // Ajouter la nouvelle session
-    sessions.unshift(sessionData); // Ajouter au début
-    
-    // Garder seulement les 50 dernières sessions
-    if (sessions.length > 50) {
-        sessions = sessions.slice(0, 50);
-    }
-    
-    localStorage.setItem(historyKey, JSON.stringify(sessions));
-}
-
-function showSessionNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    const bgColor = type === 'success' ? 'bg-green-500' : 
-                   type === 'error' ? 'bg-red-500' : 'bg-blue-500';
-    
-    notification.className = `fixed top-4 right-4 ${bgColor} text-white px-6 py-3 rounded shadow-lg z-50 transform translate-x-full transition-all duration-300`;
-    notification.innerHTML = `
-        <div class="flex items-center">
-            <i class="fas fa-${type === 'success' ? 'check' : type === 'error' ? 'exclamation-triangle' : 'info'}-circle mr-2"></i>
-            <span>${message}</span>
-        </div>
-    `;
-    
-    document.body.appendChild(notification);
-    
-    // Animation d'apparition
-    setTimeout(() => {
-        notification.style.transform = 'translateX(0)';
-    }, 100);
-    
-    // Suppression automatique
-    setTimeout(() => {
-        notification.style.transform = 'translateX(100%)';
-        setTimeout(() => notification.remove(), 300);
-    }, 3000);
-}
-
-function loadExistingSessionData() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const coachedName = urlParams.get('name');
-    
-    // Charger les notes courantes
-    const storageKey = `session_notes_${coachedName}`;
-    const savedNotes = localStorage.getItem(storageKey);
-    
-    if (savedNotes && document.getElementById('sessionNotes')) {
-        document.getElementById('sessionNotes').value = savedNotes;
-    }
-}
-</script>
-</body>
+    <script src="js/data-storage.js"></script>
+    <script src="js/session.js"></script> </body>
 </html>
