@@ -33,14 +33,16 @@ document.addEventListener('DOMContentLoaded', function() {
         prompts.forEach(prompt => {
             const contentPreview = prompt.content.split(' ').slice(0, 30).join(' ') + '...';
             const cardHTML = `
-                <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-blue-500 flex flex-col" data-id="${prompt.id}">
-                    <h3 class="text-lg font-bold text-gray-800 flex-grow">${prompt.title}</h3>
-                    <div class="text-xs text-gray-600 my-4 italic h-16 overflow-hidden">${contentPreview}</div>
-                    <div class="flex flex-wrap gap-2 mt-auto">
-                        <button data-action="use" class="text-sm bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-lg">Utiliser</button>
-                        <button data-action="edit" class="text-sm bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Modifier</button>
-                    </div>
-                </div>`;
+    <div class="bg-white p-5 rounded-lg shadow-md border-l-4 border-blue-500 flex flex-col" data-id="${prompt.id}">
+        <h3 class="text-lg font-bold text-gray-800 flex-grow">${prompt.title}</h3>
+        <div class="text-xs text-gray-600 my-4 italic h-16 overflow-hidden">${contentPreview}</div>
+        <div class="flex flex-wrap gap-2 mt-auto">
+            <button data-action="use" class="text-sm bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-lg">Utiliser</button>
+            <button data-action="edit" class="text-sm bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg">Modifier</button>
+            <button data-action="open-chatgpt" class="text-sm bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg"><i class="fas fa-external-link-alt"></i></button>
+            <button data-action="save-response" class="text-sm bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 px-4 rounded-lg"><i class="fas fa-save"></i></button>
+        </div>
+    </div>`;
             promptContainer.insertAdjacentHTML('beforeend', cardHTML);
         });
     }
