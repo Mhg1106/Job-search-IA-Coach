@@ -1,152 +1,25 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prompts IA - Job-search IA & Coach</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
-    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
-    <link rel="stylesheet" href="css/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompts IA - Job-search IA & Coach</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="css/main.css">
     <style>
-        /* Correction de l'affichage de la sidebar */
-        .app-container {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        .sidebar {
-            width: 250px;
-            background-color: #1f2937;
-            color: white;
-            padding: 1rem;
-            position: fixed;
-            height: 100vh;
-            overflow-y: auto;
-            z-index: 1000;
-        }
-
-        .sidebar-header h2 {
-            color: white;
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            font-weight: 600;
-        }
-
-        .sidebar-nav {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .sidebar-nav .nav-item {
-            display: flex;
-            align-items: center;
-            color: #d1d5db;
-            text-decoration: none;
-            padding: 0.75rem 1rem;
-            margin-bottom: 0.5rem;
-            border-radius: 0.5rem;
-            transition: all 0.2s ease;
-        }
-
-        .sidebar-nav .nav-item:hover {
-            background-color: #374151;
-            color: white;
-            text-decoration: none;
-        }
-
-        .sidebar-nav .nav-item.active {
-            background-color: #3b82f6;
-            color: white;
-        }
-
-        .sidebar-nav .nav-item i {
-            margin-right: 0.75rem;
-            width: 20px;
-            text-align: center;
-        }
-
-        .main-content {
-            margin-left: 250px;
-            flex: 1;
-            padding: 2rem;
-            background-color: #f9fafb;
-            min-height: 100vh;
-        }
-
-        .content-header {
-            background: white;
-            padding: 2rem;
-            border-radius: 0.5rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-
-        .card {
-            background: white;
-            border-radius: 0.5rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            border: none;
-            margin-bottom: 1.5rem;
-        }
-
-        .card-header {
-            background-color: #f8f9fa;
-            border-bottom: 1px solid #dee2e6;
-            padding: 1rem 1.5rem;
-            font-weight: 600;
-        }
-
-        .card-body {
-            padding: 1.5rem;
-        }
-
-        .info-item {
-            margin-bottom: 0.75rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .info-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-        }
-
-        .info-item strong {
-            color: #374151;
-            font-weight: 600;
-        }
-
-        .session-item, .document-item, .objective-item {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-        }
-
-        .progress-steps .step-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 0;
-        }
-
-        .progress-steps .step-item i {
-            width: 20px;
-            text-align: center;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 100%;
-                position: relative;
-                height: auto;
-            }
-            
-            .main-content {
-                margin-left: 0;
-            }
-        }
-    </style> 
+        .app-container { display: flex; min-height: 100vh; }
+        .sidebar { width: 250px; background-color: #1f2937; color: white; padding: 1rem; position: fixed; height: 100vh; overflow-y: auto; z-index: 1000; }
+        .sidebar-header h2 { color: white; font-size: 1.2rem; margin-bottom: 2rem; font-weight: 600; }
+        .sidebar-nav { list-style: none; padding: 0; margin: 0; }
+        .sidebar-nav .nav-item { display: flex; align-items: center; color: #d1d5db; text-decoration: none; padding: 0.75rem 1rem; margin-bottom: 0.5rem; border-radius: 0.5rem; transition: all 0.2s ease; }
+        .sidebar-nav .nav-item:hover { background-color: #374151; color: white; text-decoration: none; }
+        .sidebar-nav .nav-item.active { background-color: #3b82f6; color: white; }
+        .sidebar-nav .nav-item i { margin-right: 0.75rem; width: 20px; text-align: center; }
+        .main-content { margin-left: 250px; flex: 1; padding: 2rem; background-color: #f9fafb; }
+        .content-header { background: white; padding: 2rem; border-radius: 0.5rem; margin-bottom: 2rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        @media (max-width: 768px) { .app-container { flex-direction: column; } .sidebar { width: 100%; position: relative; height: auto; } .main-content { margin-left: 0; } }
+    </style>
 </head>
 <body class="bg-gray-100">
 
@@ -168,16 +41,15 @@
                 <h1 class="text-3xl font-bold text-gray-800">Bibliothèque de Prompts IA</h1>
                 <p class="text-gray-500">Gérez et optimisez les prompts utilisés pour votre coaching.</p>
             </div>
-            
             <div id="prompt-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                </div>
+            </div>
         </div>
     </div>
 
     <div id="promptModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
         <div class="bg-white w-full max-w-2xl mx-auto rounded-lg shadow-xl">
             <div class="flex justify-between items-center p-5 border-b">
-                <h2 id="promptModalTitle" class="text-xl font-bold text-gray-800">Éditer le Prompt</h2>
+                <h2 id="promptModalTitle" class="text-xl font-bold text-gray-800">Modifier le Prompt</h2>
                 <button class="close-prompt-modal text-2xl cursor-pointer text-gray-400 hover:text-gray-600">&times;</button>
             </div>
             <form id="prompt-form" class="p-5 space-y-4">
@@ -198,10 +70,8 @@
         </div>
     </div>
     
-    <div id="responseModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-    </div>
-
     <script src="js/data-storage.js"></script>
     <script src="js/prompts.js"></script>
+
 </body>
 </html>
